@@ -3,9 +3,9 @@
     <div
       class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl px-4 md:px-6 py-2.5"
     >
-      <a href="https://flowbite.com" class="flex items-center">
+      <NuxtLink href="/" class="flex items-center">
         <img :src="logoSrc" class="h-30 mr-3 sm:h-25" alt="Logo" />
-      </a>
+      </NuxtLink>
       <div class="flex items-center">
         <Icon
           name="clarity:shopping-cart-solid"
@@ -22,21 +22,27 @@
           class="flex flex-row mt-0 mr-6 space-x-8 text-sm md:text-md font-medium"
         >
           <li>
-            <a
+            <NuxtLink
               href="/"
               class="text-gray-900 hover:underline"
               aria-current="page"
-              >Strona Główna</a
+              >Strona Główna</NuxtLink
             >
           </li>
           <li>
-            <a href="#" class="text-gray-900 hover:underline">Kontakt</a>
+            <NuxtLink href="#" class="text-gray-900 hover:underline"
+              >Kontakt</NuxtLink
+            >
           </li>
           <li>
-            <a href="#" class="text-gray-900 hover:underline">Dokumenty</a>
+            <NuxtLink href="#" class="text-gray-900 hover:underline"
+              >Dokumenty</NuxtLink
+            >
           </li>
           <li>
-            <a href="/login" class="text-gray-900 hover:underline">Zaloguj</a>
+            <NuxtLink href="/login" class="text-gray-900 hover:underline"
+              >Zaloguj</NuxtLink
+            >
           </li>
         </ul>
       </div>
@@ -44,14 +50,6 @@
   </nav>
 </template>
 
-<script>
+<script setup>
 import logoSrc from "../assets/logo-no-bg.png";
-
-export default {
-  data() {
-    return {
-      logoSrc,
-    };
-  },
-};
 </script>
