@@ -1,5 +1,7 @@
 <template>
-  <div :innerHTML="content"></div>
+  <div class="ml-10 max-w-[90%]">
+    <div :innerHTML="content"></div>
+  </div>
 </template>
 
 <script lang="ts" setup>
