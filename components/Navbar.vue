@@ -51,5 +51,5 @@
 </template>
 
 <script setup>
-import logoSrc from "../assets/logo-no-bg.png";
+import logoSrc from "~~/assets/logo-no-bg.png";
 </script>
