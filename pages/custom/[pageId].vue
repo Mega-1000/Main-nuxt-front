@@ -1,9 +1,3 @@
-<template>
-  <div class="lg:ml-10 max-w-[90%]">
-    <div :innerHTML="content"></div>
-  </div>
-</template>
-
 <script lang="ts" setup>
 import { getContent, getPages } from "~~/helpers/customPages";
 
@@ -17,3 +11,9 @@ const { data: content } = await useAsyncData(
   { server: false }
 );
 </script>
+
+<template>
+  <div class="lg:ml-10 max-w-[90%]">
+    <div :innerHTML="content"></div>
+  </div>
+</template>
