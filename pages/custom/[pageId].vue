@@ -1,5 +1,5 @@
 <template>
-  <div class="ml-10 max-w-[90%]">
+  <div class="lg:ml-10 max-w-[90%]">
     <div :innerHTML="content"></div>
   </div>
 </template>
