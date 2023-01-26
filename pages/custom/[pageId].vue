@@ -1,5 +1,5 @@
 <template>
-  <div class="ml-5" :innerHTML="content"></div>
+  <div :innerHTML="content"></div>
 </template>
 
 <script lang="ts" setup>
