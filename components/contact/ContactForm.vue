@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import api from "~~/helpers/shopApi";
+import FileBase64 from "vue-file-base64";
 
 const router = useRouter();
 
@@ -16,13 +17,17 @@ let additionalNoticesInput = "";
 let abroadInput = false;
 let rulesInput = false;
 
-const filesRef = ref<any>(null);
+let files: any[] = [];
 
-const areFilesValid = (files: FileList) => {
+const handleFiles = (filesInput: any[]) => {
+  files = filesInput;
+};
+
+const areFilesValid = (files: any[]) => {
   const availableFileExtensions = ["png", "jpg", "jpeg", "pdf", "tif", "gif"];
 
-  for (let file in files) {
-    const ext = file.substring(file.lastIndexOf(".") + 1);
+  for (let i = 0; i < files.length; i++) {
+    const ext = files[i].name.substring(files[i].name.lastIndexOf(".") + 1);
     if (!availableFileExtensions.includes(ext)) return false;
   }
 
@@ -33,15 +38,15 @@ const handleSubmit = async (e: Event) => {
   e.preventDefault();
   loading.value = true;
 
-  if (filesRef.value.files.length > 0 && !areFilesValid(filesRef.value.files)) {
-    errorMessage.value = "Nieprawidłowy format plików";
+  if (files.length > 0 && !areFilesValid(files)) {
+    errorMessage.value = "Nieprawidłowe pliki";
     loading.value = false;
     return;
   }
 
   const params = {
     customer_login: emailInput,
-    phone,
+    phone: phone.value,
     customer_notices: additionalNoticesInput,
     delivery_address: {
       city: cityInput,
@@ -49,7 +54,7 @@ const handleSubmit = async (e: Event) => {
     },
     shipping_abroad: abroadInput,
     is_standard: true,
-    files: filesRef.value.files,
+    files,
     cart_token: cart,
     rewrite: 1,
   };
@@ -156,18 +161,7 @@ const handleSubmit = async (e: Event) => {
         >
       </div>
       <div>
-        <label
-          class="block mb-2 text-sm font-medium text-gray-900"
-          for="file_input"
-          >Załączniki (nieobowiązkowe)</label
-        >
-        <input
-          class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
-          id="file_input"
-          type="file"
-          ref="filesRef"
-          multiple
-        />
+        <FileBase64 multiple @onDone="handleFiles" />
         <p class="mt-1 text-sm text-gray-500" id="file_input_help">
           PNG, JPG, JPEG, GIF, TIF, lub PDF
         </p>
