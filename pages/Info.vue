@@ -1,7 +1,3 @@
-<template>
-  <div :innerHTML="content"></div>
-</template>
-
 <script setup>
 import placeholder from "~~/mocks/placeholder";
 
@@ -9,3 +5,9 @@ const { data: content } = await useAsyncData(() => placeholder, {
   server: false,
 });
 </script>
+
+<template>
+  <div class="lg:pl-20 max-w-[90%]">
+    <div :innerHTML="content"></div>
+  </div>
+</template>

@@ -1,5 +1,5 @@
 <template>
-  <div class="flex pt-20 md:pt-30 lg:pt-60">
+  <div class="flex pt-20 xl:pt-40">
     <div class="m-auto">
       <LoginForm />
     </div>

@@ -1,3 +1,7 @@
+<script setup>
+import logoSrc from "~~/assets/logo-no-bg.png";
+</script>
+
 <template>
   <nav class="bg-cyan-100 border-gray-500">
     <div
@@ -49,7 +53,3 @@
     </div>
   </nav>
 </template>
-
-<script setup>
-import logoSrc from "~~/assets/logo-no-bg.png";
-</script>

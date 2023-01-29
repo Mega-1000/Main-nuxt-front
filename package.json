@@ -12,6 +12,7 @@
     "@types/axios-token-interceptor": "^0.2.4",
     "@types/node": "^18.11.18",
     "@types/universal-cookie": "^3.0.0",
+    "jade": "^1.11.0",
     "nuxt": "^3.1.0"
   },
   "dependencies": {
@@ -19,6 +20,7 @@
     "axios-token-interceptor": "^0.2.0",
     "flowbite": "^1.6.3",
     "nuxt-icon": "^0.2.9",
-    "universal-cookie": "^4.0.4"
+    "universal-cookie": "^4.0.4",
+    "vue-file-base64": "^1.0.2"
   }
 }
