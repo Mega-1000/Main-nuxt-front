@@ -1,8 +1,11 @@
 <script setup lang="ts">
-import api from "~~/helpers/shopApi";
+import useApi from "~~/helpers/shopApi";
 import FileBase64 from "vue-file-base64";
 
 const router = useRouter();
+
+const appStorage = useRuntimeConfig().public.APP_STORAGE;
+const api = useApi(appStorage);
 
 const phone = usePhone();
 const cart = useCart();
