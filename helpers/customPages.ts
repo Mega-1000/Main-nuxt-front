@@ -1,6 +1,6 @@
-import api from "~~/helpers/shopApi";
+import { AxiosInstance } from "axios";
 
-export const getPages = async () => {
+export const getPages = async (api: AxiosInstance) => {
   const res = await api.get("/api/custom/pages");
   return {
     customPages: res.data.tree,

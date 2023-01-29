@@ -1,5 +1,8 @@
 <script setup lang="ts">
-import api from "~~/helpers/shopApi";
+import useApi from "~~/helpers/shopApi";
+
+const appStorage = useRuntimeConfig().public.APP_STORAGE;
+const api = useApi(appStorage);
 
 const defaultError = "Wystąpił błąd. Spróbuj ponownie później";
 let phoneInput = "";
