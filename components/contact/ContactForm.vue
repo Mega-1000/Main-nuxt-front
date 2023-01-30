@@ -58,7 +58,7 @@ const handleSubmit = async (e: Event) => {
     shipping_abroad: abroadInput,
     is_standard: true,
     files,
-    cart_token: cart,
+    cart_token: cart.value,
     rewrite: 1,
   };
 

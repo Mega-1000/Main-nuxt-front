@@ -1,13 +1,18 @@
-import { AxiosResponse } from "axios";
 import Cookies from "universal-cookie";
 
-function setCookie(response: AxiosResponse<any, any>) {
+interface Data {
+  access_token: string;
+  refresh_token: string;
+  expires_in: number;
+}
+
+function setCookie({ access_token, refresh_token, expires_in }: Data) {
   const cookies = new Cookies();
   var date = new Date();
-  date = new Date(date.getTime() + response.data.expires_in * 1000);
-  cookies.set("token", response.data.access_token, { expires: date });
-  if (response.data.refresh_token) {
-    cookies.set("refresh_token", response.data.refresh_token);
+  date = new Date(date.getTime() + expires_in * 1000);
+  cookies.set("token", access_token, { expires: date });
+  if (refresh_token) {
+    cookies.set("refresh_token", refresh_token);
   }
 }
 

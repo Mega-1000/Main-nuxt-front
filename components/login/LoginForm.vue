@@ -28,10 +28,10 @@ const handleSubmit = async (e: Event) => {
   };
   try {
     const res = await api.post("oauth/token", params);
-    setCookie(res);
+    setCookie(res.data);
     router.push("/account");
   } catch (err: any) {
-    errorMessage.value = err.message || "Coś poszło nie tak";
+    errorMessage.value = "Coś poszło nie tak";
   } finally {
     loading.value = false;
   }
