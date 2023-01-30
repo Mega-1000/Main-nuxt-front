@@ -10,12 +10,12 @@ import tokenProvider from "axios-token-interceptor";
 function useApi(appStorage: string) {
   const instance = axios.create({
     baseURL: appStorage,
-    timeout: 8000,
+    // timeout: 8000,
     headers: { Accept: "application/json" },
   });
   instance.interceptors.request.use(
     tokenProvider({
-      getToken: () => getToken(),
+      getToken,
     }) as any
   );
 
@@ -48,7 +48,7 @@ function useApi(appStorage: string) {
           })
           .then((res) => {
             if (res.status === 200) {
-              setCookie(res);
+              setCookie(res.data);
               instance.defaults.headers.common[
                 "Authorization"
               ] = `Bearer ${res.data.access_token}`;
