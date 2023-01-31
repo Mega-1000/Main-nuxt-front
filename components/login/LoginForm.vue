@@ -1,9 +1,5 @@
 <script setup lang="ts">
-import useApi from "~~/helpers/shopApi";
 import { setCookie } from "~~/helpers/authenticator";
-
-const appStorage = useRuntimeConfig().public.APP_STORAGE;
-const api = useApi(appStorage);
 
 let emailInput = "";
 let passwordInput = "";
@@ -13,6 +9,8 @@ const errorMessage = useState(() => "");
 
 const router = useRouter();
 const config = useRuntimeConfig().public;
+
+const { $api: api } = useNuxtApp();
 
 const handleSubmit = async (e: Event) => {
   e.preventDefault();

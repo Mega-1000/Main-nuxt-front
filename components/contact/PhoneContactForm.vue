@@ -1,8 +1,5 @@
 <script setup lang="ts">
-import useApi from "~~/helpers/shopApi";
-
-const appStorage = useRuntimeConfig().public.APP_STORAGE;
-const api = useApi(appStorage);
+const { $api: api } = useNuxtApp();
 
 const defaultError = "Wystąpił błąd. Spróbuj ponownie później";
 let phoneInput = "";

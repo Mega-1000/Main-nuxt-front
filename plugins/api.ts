@@ -7,15 +7,18 @@ import {
 } from "~~/helpers/authenticator";
 import tokenProvider from "axios-token-interceptor";
 
-function useApi(appStorage: string) {
+export default defineNuxtPlugin((_app) => {
+  const config = useRuntimeConfig();
+
   const instance = axios.create({
-    baseURL: appStorage,
-    // timeout: 8000,
+    baseURL: config.public.baseUrl,
+    //timeout: 8000,
     headers: { Accept: "application/json" },
   });
+
   instance.interceptors.request.use(
     tokenProvider({
-      getToken,
+      getToken: () => getToken(),
     }) as any
   );
 
@@ -26,7 +29,7 @@ function useApi(appStorage: string) {
       if (
         error.response &&
         error.response.status === 401 &&
-        originalRequest.url === "https://www.admin.mega1000.pl/oauth/token"
+        originalRequest.url === `${config.baseUrl}oauth/token`
       ) {
         removeCookie();
         return Promise.reject(error);
@@ -40,8 +43,8 @@ function useApi(appStorage: string) {
         originalRequest._retry = true;
         return instance
           .post("/oauth/token", {
-            client_id: process.env.AUTH_CLIENT_ID,
-            client_secret: process.env.AUTH_CLIENT_SECRET,
+            client_id: config.public.AUTH_CLIENT_ID,
+            client_secret: config.public.AUTH_CLIENT_SECRET,
             scope: "",
             refresh_token: getRefreshToken(),
             grant_type: "refresh_token",
@@ -59,7 +62,10 @@ function useApi(appStorage: string) {
       return Promise.reject(error);
     }
   );
-  return instance;
-}
 
-export default useApi;
+  return {
+    provide: {
+      api: instance,
+    },
+  };
+});
