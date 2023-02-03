@@ -3,7 +3,7 @@ import FileBase64 from "vue-file-base64";
 
 const router = useRouter();
 
-const { $api: api } = useNuxtApp();
+const { $shopApi: shopApi } = useNuxtApp();
 
 const phone = usePhone();
 const cart = useCart();
@@ -61,7 +61,7 @@ const handleSubmit = async (e: Event) => {
   };
 
   try {
-    await api.post("/api/new_order", params);
+    await shopApi.post("/api/new_order", params);
     router.push("/thanks?contact=true");
   } catch (err: any) {
     errorMessage.value = err.response.data.error_message || "Wystąpił błąd";

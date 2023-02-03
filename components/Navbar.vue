@@ -3,12 +3,12 @@ import logoSrc from "~~/assets/logo-no-bg.png";
 import { getToken, removeCookie } from "~~/helpers/authenticator";
 import { getPages } from "~~/helpers/customPages";
 
-const { $api: api } = useNuxtApp();
+const { $shopApi: shopApi } = useNuxtApp();
 
 const token = ref(getToken());
 const { data: newMessagesNumber } = useAsyncData(async () => {
   if (token.value) {
-    const res = await api.get("/api/chat/getHistory");
+    const res = await shopApi.get("/api/chat/getHistory");
     return res.data.reduce(
       (prev: number, current: any) => (current.new_message ? prev + 1 : prev),
       0
@@ -19,7 +19,7 @@ const { data: newMessagesNumber } = useAsyncData(async () => {
 });
 
 const { data: customPages } = useAsyncData(
-  async () => (await getPages(api)).customPages[0].content,
+  async () => (await getPages(shopApi)).customPages[0].content,
   { server: false }
 );
 
