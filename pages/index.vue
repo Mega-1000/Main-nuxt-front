@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import buildImgRoute, { defaultImgSrc } from "~~/helpers/buildImgRoute";
+
 const { $shopApi: shopApi } = useNuxtApp();
 
 const { data: categories, pending } = await useAsyncData(async () => {
@@ -9,11 +11,6 @@ const { data: categories, pending } = await useAsyncData(async () => {
 
 const buildLink = ({ rewrite, id }: { rewrite: string; id: number }) =>
   `/${rewrite}/${id}`;
-
-const buildImgRoute = (path: string) =>
-  path ? "https://www.admin.mega1000.pl" + path : defaultImgSrc;
-
-const defaultImgSrc = "https://via.placeholder.com/185x150";
 </script>
 
 <template>
@@ -23,18 +20,19 @@ const defaultImgSrc = "https://via.placeholder.com/185x150";
       <h1 class="font-bold text-5xl">Kategorie</h1>
     </div>
     <div
-      class="mx-auto grid max-w-7xl grid-cols-1 gap-6 p-6 sm:grid-cols-2 lg:grid-cols-4"
+      class="mx-auto grid max-w-7xl grid-cols-1 gap-6 p-6 sm:grid-cols-2 lg:grid-cols-4 mb-10"
     >
       <article
         v-for="category in categories"
         class="rounded-xl bg-white p-3 shadow-lg hover:shadow-xl hover:transform hover:scale-105 duration-300"
       >
         <NuxtLink :href="buildLink(category)">
-          <div class="relative flex items-end overflow-hidden rounded-xl">
+          <div class="overflow-hidden rounded-xl h-[85%]">
             <img
               :src="buildImgRoute(category.img)"
               alt="Photo"
-              @error="(e) => (e.target!.src = defaultImgSrc)"
+              @error="(e: any) => (e.target!.src = defaultImgSrc)"
+              class="h-full w-full"
             />
           </div>
 
