@@ -1,8 +1,11 @@
 <script setup lang="ts">
 import findActiveMenu from "~~/helpers/findActiveMenu";
 import buildImgRoute, { defaultImgSrc } from "~~/helpers/buildImgRoute";
+import { Modal, ModalOptions } from "flowbite";
 
 const { $shopApi: shopApi } = useNuxtApp();
+
+const currentItem = useCurrentItem();
 
 const { params, query } = useRoute();
 const { productId } = params;
@@ -35,6 +38,28 @@ const { data: items } = await useAsyncData(async () => {
 
 const buildLink = ({ rewrite, id }: { rewrite: string; id: number }) =>
   `/${rewrite}/${id}`;
+
+const modal = ref<Modal | null>(null);
+
+onMounted(() => {
+  // set the modal menu element
+  const $targetEl = document.getElementById("calculatorModal");
+
+  // options with default values
+  const options: ModalOptions = {
+    placement: "center",
+    backdrop: "dynamic",
+    backdropClasses: "bg-gray-900 bg-opacity-50 fixed inset-0 z-40",
+    closable: true,
+  };
+
+  modal.value = new Modal($targetEl, options);
+});
+
+const handleCloseModal = () => {
+  modal.value?.hide();
+  currentItem.value = null;
+};
 </script>
 
 <template>
@@ -80,7 +105,75 @@ const buildLink = ({ rewrite, id }: { rewrite: string; id: number }) =>
       !(categoryData.chimney_attributes.length > 0)
     "
   >
-    <div v-for="item in items">{{ item.id }}</div>
+    <section class="py-10">
+      <div
+        class="mx-auto grid max-w-7xl grid-cols-1 gap-6 p-6 sm:grid-cols-2 lg:grid-cols-4 mb-10"
+      >
+        <ProductItem v-for="item in items" :item="item" :modal="modal" />
+      </div>
+    </section>
+    <!-- Main modal -->
+    <div
+      id="calculatorModal"
+      tabindex="-1"
+      class="top-0 fixed z-50 w-full hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full"
+    >
+      <div class="relative w-full h-full max-w-2xl md:h-auto">
+        <!-- Modal content -->
+        <div class="relative bg-white rounded-lg shadow">
+          <!-- Modal header -->
+          <div class="flex items-start justify-between p-4 border-b rounded-t">
+            <h3 class="text-xl font-semibold text-gray-900">
+              Terms of Service
+            </h3>
+            <button
+              type="button"
+              class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
+              data-modal-hide="calculatorModal"
+              @click="handleCloseModal"
+            >
+              <svg
+                aria-hidden="true"
+                class="w-5 h-5"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                  clip-rule="evenodd"
+                ></path>
+              </svg>
+              <span class="sr-only">Close modal</span>
+            </button>
+          </div>
+          <!-- Modal body -->
+          <div class="p-6 space-y-6 w-full max-w-6xl">
+            <CalculatorModal />
+          </div>
+          <!-- Modal footer -->
+          <div
+            class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b"
+          >
+            <button
+              data-modal-hide="calculatorModal"
+              type="button"
+              class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+            >
+              I accept
+            </button>
+            <button
+              data-modal-hide="calculatorModal"
+              type="button"
+              class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10"
+            >
+              Decline
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
   <div v-else>Chimney</div>
 </template>
