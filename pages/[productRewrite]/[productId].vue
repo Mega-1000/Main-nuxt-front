@@ -2,6 +2,7 @@
 import findActiveMenu from "~~/helpers/findActiveMenu";
 import buildImgRoute, { defaultImgSrc } from "~~/helpers/buildImgRoute";
 import { Modal, ModalOptions } from "flowbite";
+import Cookies from "universal-cookie";
 
 const { $shopApi: shopApi } = useNuxtApp();
 
@@ -41,6 +42,8 @@ const buildLink = ({ rewrite, id }: { rewrite: string; id: number }) =>
 
 const modal = ref<Modal | null>(null);
 
+const contactModal = ref<Modal | null>(null);
+
 onMounted(() => {
   // set the modal menu element
   const $targetEl = document.getElementById("calculatorModal");
@@ -54,11 +57,72 @@ onMounted(() => {
   };
 
   modal.value = new Modal($targetEl, options);
+
+  const $contactTargetEl = document.getElementById("contactModal");
+
+  // options with default values
+  const contactOptions: ModalOptions = {
+    placement: "center",
+    backdrop: "dynamic",
+    backdropClasses: "bg-gray-900 bg-opacity-50 fixed inset-0 z-40",
+    closable: true,
+  };
+
+  contactModal.value = new Modal($contactTargetEl, contactOptions);
 });
 
 const handleCloseModal = () => {
   modal.value?.hide();
   currentItem.value = null;
+};
+
+const productsCart = useProductsCart();
+const productAmount = useProductAmount();
+
+const handleCart = () => {
+  productsCart.value.init();
+  const { cart: _cart, ...product } = currentItem.value;
+  productsCart.value.addToCart(product, productAmount.value);
+  modal.value?.hide();
+  productsCart.value?.printProducts();
+};
+
+let emailInput = "";
+let phoneInput = "";
+let postalCodeInput = "";
+
+const loading = ref(false);
+const errorMessage = ref<string | null>(null);
+
+const selectedMediaId = useSelectedMediaId();
+
+const handleSubmit = async (e: Event) => {
+  e.preventDefault();
+  loading.value = true;
+
+  try {
+    const res = await shopApi.post("/api/chat/getUrl", {
+      mediaId: selectedMediaId.value,
+      postCode: postalCodeInput,
+      email: emailInput,
+      phone: phoneInput,
+    });
+
+    let req = JSON.parse(res.config.data);
+    const cookies = new Cookies();
+    cookies.set("email", req.email);
+    cookies.set("post_code", req.postCode);
+    cookies.set("phone", req.phone);
+    errorMessage.value = null;
+    window.open(res.data.url, "_blank");
+    contactModal.value?.hide();
+  } catch (err: any) {
+    errorMessage.value =
+      err?.response?.data?.errorMessage ||
+      "Wystąpil błąd. Spróbuj ponownie później";
+  } finally {
+    loading.value = false;
+  }
 };
 </script>
 
@@ -106,25 +170,31 @@ const handleCloseModal = () => {
     "
   >
     <section class="py-10">
-      <div
-        class="mx-auto grid max-w-7xl grid-cols-1 gap-6 p-6 sm:grid-cols-2 lg:grid-cols-4 mb-10"
-      >
-        <ProductItem v-for="item in items" :item="item" :modal="modal" />
+      <div class="mx-auto grid w-full max-w-8xl grid-cols-1 gap-6 p-6 mb-10">
+        <ProductItem
+          v-for="item in items"
+          :item="item"
+          :modal="modal"
+          :contactModal="contactModal"
+          class="w-full"
+        />
       </div>
     </section>
     <!-- Main modal -->
     <div
       id="calculatorModal"
       tabindex="-1"
-      class="top-0 fixed z-50 w-full hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full"
+      class="top-0 fixed z-50 w-auto hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full"
     >
-      <div class="relative w-full h-full max-w-2xl md:h-auto">
+      <div
+        class="relative w-full h-full max-w-xl sm:max-w-3xl md:max-w-5xl lg:max-w-7xl md:h-auto"
+      >
         <!-- Modal content -->
         <div class="relative bg-white rounded-lg shadow">
           <!-- Modal header -->
           <div class="flex items-start justify-between p-4 border-b rounded-t">
             <h3 class="text-xl font-semibold text-gray-900">
-              Terms of Service
+              Kalkulator cenowy
             </h3>
             <button
               type="button"
@@ -149,7 +219,7 @@ const handleCloseModal = () => {
             </button>
           </div>
           <!-- Modal body -->
-          <div class="p-6 space-y-6 w-full max-w-6xl">
+          <div class="p-6 space-y-6 w-auto">
             <CalculatorModal />
           </div>
           <!-- Modal footer -->
@@ -157,18 +227,119 @@ const handleCloseModal = () => {
             class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b"
           >
             <button
-              data-modal-hide="calculatorModal"
+              @click="handleCart"
               type="button"
               class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
             >
-              I accept
+              Dodaj do koszyka
             </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      id="contactModal"
+      tabindex="-1"
+      class="top-0 fixed z-50 w-auto hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full"
+    >
+      <div
+        class="relative w-full h-full max-w-xl sm:max-w-3xl md:max-w-5xl lg:max-w-7xl md:h-auto"
+      >
+        <!-- Modal content -->
+        <div class="relative bg-white rounded-lg shadow">
+          <!-- Modal header -->
+          <div class="flex items-start justify-between p-4 border-b rounded-t">
+            <h5 class="text-xl xl:text-2xl font-medium text-gray-900">
+              Uzupełnij dane do kontaktu
+            </h5>
             <button
-              data-modal-hide="calculatorModal"
               type="button"
-              class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10"
+              class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
+              data-modal-hide="calculatorModal"
+              @click="contactModal?.hide"
             >
-              Decline
+              <svg
+                aria-hidden="true"
+                class="w-5 h-5"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                  clip-rule="evenodd"
+                ></path>
+              </svg>
+              <span class="sr-only">Close modal</span>
+            </button>
+          </div>
+          <!-- Modal body -->
+          <div class="p-6 space-y-6 w-auto">
+            <form class="space-y-6">
+              <div>
+                <label
+                  for="email"
+                  class="block mb-2 text-sm font-medium text-gray-900"
+                  >Email</label
+                >
+                <input
+                  type="email"
+                  name="email"
+                  id="email"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                  required
+                  :disabled="loading"
+                  v-model="emailInput"
+                />
+              </div>
+              <div>
+                <label
+                  for="phone"
+                  class="block mb-2 text-sm font-medium text-gray-900"
+                  >Phone</label
+                >
+                <input
+                  :disabled="loading"
+                  v-model="phoneInput"
+                  type="phone"
+                  name="phone"
+                  id="phone"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                  required
+                />
+              </div>
+              <div>
+                <label
+                  for="postal-code"
+                  class="block mb-2 text-sm font-medium text-gray-900"
+                  >Kod Pocztowy</label
+                >
+                <input
+                  name="postal-code"
+                  id="postal-code"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                  required
+                  :disabled="loading"
+                  v-model="postalCodeInput"
+                />
+              </div>
+              <p class="mt-2 text-sm text-red-600">
+                {{ errorMessage }}
+              </p>
+            </form>
+          </div>
+          <!-- Modal footer -->
+          <div
+            class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b"
+          >
+            <button
+              @click="handleSubmit"
+              type="button"
+              class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+            >
+              Wyślij
             </button>
           </div>
         </div>

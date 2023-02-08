@@ -7,10 +7,15 @@ const blurChange = ref<any>();
 
 const dynamicCalculator = new DynamicCalculator();
 
-const state = ref<any>();
+const state = ref<any>({
+  selectedCommercial: 1,
+});
 
 watch(currentItem, () => {
-  if (!currentItem.value) state.value = null;
+  if (!currentItem.value)
+    state.value = {
+      selectedCommercial: 1,
+    };
   else {
     let state_: any = {};
     const bf =
@@ -277,11 +282,12 @@ const handleChange = (event: any) => {
   blurChange.value = false;
 };
 
+const productAmount = useProductAmount();
+
 const handleBlur = (event: any) => {
   if (blurChange.value) {
     return;
   }
-  const { handleAmount } = currentItem.value;
   const target = event.target;
   let value = target.value;
   const name = target.name;
@@ -307,9 +313,8 @@ const handleBlur = (event: any) => {
   state.value.selectedConsumption = parseFloat(
     resp!.selectedConsumption
   ).toFixed(2);
-  if (typeof handleAmount !== "undefined") {
-    handleAmount(state.value.selectedCommercial);
-  }
+  productAmount.value = resp!.selectedCommercial;
+  console.log(resp);
 
   var commercialLesser =
     state.value.selectedCommercial - 1 >= 0
@@ -332,7 +337,7 @@ const handleBlur = (event: any) => {
 </script>
 
 <template>
-  <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+  <div class="overflow-x-auto shadow-md sm:rounded-lg">
     <table class="w-full text-sm text-left text-gray-500">
       <thead class="text-xs text-gray-700 uppercase bg-gray-50">
         <tr>
