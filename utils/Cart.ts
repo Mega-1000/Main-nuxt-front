@@ -19,6 +19,7 @@ class Cart {
   }
 
   addToCart(product: any, amount?: number | string) {
+    this.init();
     var idx = this.getIdxByProductId(product.id);
     if (idx >= 0) {
       this.incraseAmount(idx, amount as any);
@@ -118,7 +119,6 @@ class Cart {
     return parseFloat(totalWeight as any).toFixed(2);
   }
 
-  // TO DO - remove
   save() {
     try {
       localStorage.setItem("cart", JSON.stringify(this.products));

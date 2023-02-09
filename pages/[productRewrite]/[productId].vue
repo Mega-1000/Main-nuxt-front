@@ -26,11 +26,19 @@ const { data: categoryData } = await useAsyncData(async () => {
 
 const { data: items } = await useAsyncData(async () => {
   try {
-    const res = await shopApi.get(
-      `/api/products/categories/get?page=${page}&per_page=15&category_id=${productId}`
+    let currentPage = parseInt(page as any);
+    let res = await shopApi.get(
+      `/api/products/categories/get?page=${currentPage}&per_page=25&category_id=${productId}`
     );
-    console.log(res.data);
-    return res.data.data;
+    let data: any[] = res.data.data;
+    while (res.data.total > data.length) {
+      currentPage++;
+      res = await shopApi.get(
+        `/api/products/categories/get?page=${currentPage}&per_page=25&category_id=${productId}`
+      );
+      data.push(...res.data.data);
+    }
+    return data;
   } catch (e) {
     console.log(e);
     return [];
@@ -80,7 +88,6 @@ const productsCart = useProductsCart();
 const productAmount = useProductAmount();
 
 const handleCart = () => {
-  productsCart.value.init();
   const { cart: _cart, ...product } = currentItem.value;
   productsCart.value.addToCart(product, productAmount.value);
   modal.value?.hide();
@@ -346,5 +353,7 @@ const handleSubmit = async (e: Event) => {
       </div>
     </div>
   </div>
-  <div v-else>Chimney</div>
+  <div v-else>
+    <ProductChimney :attributes="categoryData.chimney_attributes" />
+  </div>
 </template>
