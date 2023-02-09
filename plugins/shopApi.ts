@@ -65,7 +65,7 @@ export default defineNuxtPlugin((_app) => {
 
   return {
     provide: {
-      api: instance,
+      shopApi: instance,
     },
   };
 });

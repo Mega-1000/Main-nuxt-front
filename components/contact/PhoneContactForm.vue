@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { $api: api } = useNuxtApp();
+const { $shopApi: shopApi } = useNuxtApp();
 
 const defaultError = "Wystąpił błąd. Spróbuj ponownie później";
 let phoneInput = "";
@@ -17,7 +17,7 @@ const handleSubmit = async (e: Event) => {
     want_contact: true,
   };
   try {
-    const res = await api.post("/api/new_order", params);
+    const res = await shopApi.post("/api/new_order", params);
     if (res.status !== 201) throw new Error();
     cart.value = res.data.token;
     phone.value = phoneInput;

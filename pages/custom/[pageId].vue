@@ -3,10 +3,10 @@ import { getContent, getPages } from "~~/helpers/customPages";
 
 const { params } = useRoute();
 
-const { $api: api } = useNuxtApp();
+const { $shopApi: shopApi } = useNuxtApp();
 
 const { data: content, pending } = await useAsyncData(async () => {
-  const { allPages } = await getPages(api);
+  const { allPages } = await getPages(shopApi);
   return getContent(allPages, params.pageId as string);
 });
 </script>

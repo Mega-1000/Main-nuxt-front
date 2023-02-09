@@ -10,7 +10,7 @@ const errorMessage = useState(() => "");
 const router = useRouter();
 const config = useRuntimeConfig().public;
 
-const { $api: api } = useNuxtApp();
+const { $shopApi: shopApi } = useNuxtApp();
 
 const handleSubmit = async (e: Event) => {
   e.preventDefault();
@@ -25,7 +25,7 @@ const handleSubmit = async (e: Event) => {
     scope: "",
   };
   try {
-    const res = await api.post("oauth/token", params);
+    const res = await shopApi.post("oauth/token", params);
     setCookie(res.data);
     router.push("/account");
   } catch (err: any) {
