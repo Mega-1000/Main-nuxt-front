@@ -228,7 +228,7 @@ const handleSubmit = async (e: Event) => {
             class="relative flex flex-col md:flex-row md:space-x-5 space-y-3 md:space-y-0 rounded-xl shadow-lg p-3 w-[60vw] max-w-7xl mx-auto border border-white bg-white"
           >
             <div
-              class="w-full md:w-1/3 bg-white grid place-items-end md:place-items-start"
+              class="w-full md:w-1/3 bg-white grid place-items-end md:place-items-start max-w-2xl"
             >
               <img
                 :src="buildImgRoute(product?.url_for_website)"
@@ -255,7 +255,7 @@ const handleSubmit = async (e: Event) => {
                 {{ product.name }}
               </h3>
               <CartPriceTable
-                class="max-w-3xl"
+                class="w-full"
                 :product="product"
                 :handle-product-amount="(val) => updateAmount(product.id, val)"
               />
@@ -277,8 +277,8 @@ const handleSubmit = async (e: Event) => {
         </h5>
         <hr />
 
-        <div class="relative overflow-x-auto shadow-md sm:rounded-lg w-full">
-          <table class="max-w-4xl text-sm text-left text-gray-500 w-full">
+        <div class="relative overflow-x-auto sm:rounded-lg w-full">
+          <table class="max-w-3xl text-sm text-left text-gray-500 w-full">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50">
               <tr>
                 <th scope="col" class="px-6 py-3">Produkt</th>

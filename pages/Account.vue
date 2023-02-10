@@ -51,6 +51,7 @@ onMounted(() => {
   };
 
   const tabs: TabsInterface = new Tabs(tabElements, tabsOptions);
+  tabs.show("active");
 });
 </script>
 
@@ -99,46 +100,42 @@ onMounted(() => {
       </li>
     </ul>
   </div>
-  <div id="tabContentExample">
+  <div id="tabContentExample" class="pb-20">
     <div
-      class="hidden p-4 rounded-lg bg-gray-50"
+      class="hidden"
       id="active-content"
       role="tabpanel"
       aria-labelledby="active-tab"
     >
-      <div class="flex justify-center" v-for="order in orders?.active">
-        <OrderItem v-bind="order"></OrderItem>
+      <div class="grid space-y-10">
+        <div class="flex justify-center" v-for="order in orders?.active">
+          <OrderItem :item="order" />
+        </div>
       </div>
     </div>
     <div
-      class="hidden p-4 rounded-lg bg-gray-50"
+      class="hidden"
       id="inactive-content"
       role="tabpanel"
       aria-labelledby="inactive-tab"
     >
-      <p class="text-sm text-gray-500">
-        This is some placeholder content the
-        <strong class="font-medium text-gray-800"
-          >Dashboard tab's associated content</strong
-        >. Clicking another tab will toggle the visibility of this one for the
-        next. The tab JavaScript swaps classes to control the content visibility
-        and styling.
-      </p>
+      <div class="grid space-y-10">
+        <div class="flex justify-center" v-for="order in orders?.inactive">
+          <OrderItem :item="order" />
+        </div>
+      </div>
     </div>
     <div
-      class="hidden p-4 rounded-lg bg-gray-50"
+      class="hidden"
       id="all-content"
       role="tabpanel"
       aria-labelledby="all-tab"
     >
-      <p class="text-sm text-gray-500">
-        This is some placeholder content the
-        <strong class="font-medium text-gray-800"
-          >Settings tab's associated content</strong
-        >. Clicking another tab will toggle the visibility of this one for the
-        next. The tab JavaScript swaps classes to control the content visibility
-        and styling.
-      </p>
+      <div class="grid space-y-10">
+        <div class="flex justify-center" v-for="order in orders?.all">
+          <OrderItem :item="order" />
+        </div>
+      </div>
     </div>
   </div>
 </template>
