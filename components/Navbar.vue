@@ -40,11 +40,12 @@ const logOut = () => {
         <img :src="logoSrc" class="h-30 mr-3 sm:h-25" alt="Logo" />
       </NuxtLink>
       <div class="flex items-center">
-        <Icon
-          name="clarity:shopping-cart-solid"
-          size="60"
-          class="ml-50 text-cyan-500"
-        />
+        <NuxtLink href="/cart">
+          <Icon
+            name="clarity:shopping-cart-solid"
+            size="60"
+            class="ml-50 text-cyan-500"
+        /></NuxtLink>
       </div>
     </div>
   </nav>
