@@ -4,6 +4,7 @@ import { setCookie } from "~~/helpers/authenticator";
 import transportPrice from "~~/helpers/transportPrice";
 import Cart from "~~/utils/Cart";
 import buildImgRoute from "~~/helpers/buildImgRoute";
+import FileBase64 from "vue-file-base64";
 
 const currentPage = ref(1);
 
@@ -101,14 +102,16 @@ const getPackagesNumber = async (cart: Cart) => {
 
 onMounted(async () => {
   productsCart?.value?.init();
-  const showAdressForm =
-    productsCart.value.products.length > 0 && !state.value.cart_token;
-  state.value = { ...state.value, showAdressForm: showAdressForm };
+  state.value = { ...state.value };
   if (query.cart_token)
     await prepareCartEdition(productsCart.value, query.cart_token);
   await getPackagesNumber(productsCart.value);
 });
 
+const handleDelete = async () => {
+  productsCart.value.init();
+  await getPackagesNumber(productsCart.value);
+};
 const updateAmount = (productId: number, value: string | number) => {
   const idx = productsCart.value.getIdxByProductId(productId);
   if (idx === -1) {
@@ -233,7 +236,12 @@ const handleSubmit = async (e: Event) => {
                 class="rounded-xl"
               />
               <button
-                @click="() => productsCart.removeFromCart(product.id)"
+                @click="
+                  async () => {
+                    productsCart.removeFromCart(product.id);
+                    await handleDelete();
+                  }
+                "
                 type="button"
                 class="md:absolute md:bottom-0 focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2"
               >
@@ -522,7 +530,10 @@ const handleSubmit = async (e: Event) => {
       </div>
     </div>
 
-    <div class="flex justify-center">
+    <div
+      class="flex justify-center"
+      v-if="productsCart?.products && productsCart?.products?.length > 0"
+    >
       <div
         class="w-screen max-w-sm md:max-w-md lg:max-w-2xl xl:max-w-4xl p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8"
       >
@@ -656,4 +667,10 @@ const handleSubmit = async (e: Event) => {
       </div>
     </div>
   </div>
+
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
 </template>
