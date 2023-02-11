@@ -22,10 +22,6 @@ function removeCookie() {
   cookies.remove("refresh_token");
 }
 
-function isUserLoggedIn() {
-  return getToken();
-}
-
 function getToken() {
   const cookies = new Cookies();
   return cookies.get("token");

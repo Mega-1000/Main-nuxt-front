@@ -4,9 +4,11 @@ import buildImgRoute, { defaultImgSrc } from "~~/helpers/buildImgRoute";
 const { $shopApi: shopApi } = useNuxtApp();
 
 const { data: categories, pending } = await useAsyncData(async () => {
-  const res = await shopApi.get("/api/products/categories");
-  console.log(res.data);
-  return res.data;
+  try {
+    const res = await shopApi.get("/api/products/categories");
+    console.log(res.data);
+    return res.data;
+  } catch (e: any) {}
 });
 
 const buildLink = ({ rewrite, id }: { rewrite: string; id: number }) =>

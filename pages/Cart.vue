@@ -6,34 +6,9 @@ import Cart from "~~/utils/Cart";
 import buildImgRoute from "~~/helpers/buildImgRoute";
 import FileBase64 from "vue-file-base64";
 
-const currentPage = ref(1);
-
 const { query } = useRoute();
 
-const inactiveClass =
-  "px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700";
-const activeClass =
-  "z-10 px-3 py-2 leading-tight text-blue-600 border border-blue-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700";
-
 const { $shopApi: shopApi } = useNuxtApp();
-
-const { data: products } = await useAsyncData(
-  async () => {
-    try {
-      const items = await shopApi.get(
-        `api/products?page=${currentPage.value}&per_page=15`
-      );
-
-      return {
-        data: items.data.data,
-        pages: Math.ceil(items.data.total / 15),
-      };
-    } catch (e) {
-      console.error(e);
-    }
-  },
-  { watch: [currentPage] }
-);
 
 const productsCart = useProductsCart();
 
@@ -101,11 +76,12 @@ const getPackagesNumber = async (cart: Cart) => {
 };
 
 onMounted(async () => {
-  productsCart?.value?.init();
-  state.value = { ...state.value };
-  if (query.cart_token)
-    await prepareCartEdition(productsCart.value, query.cart_token);
-  await getPackagesNumber(productsCart.value);
+  const cart = new Cart();
+  cart.init();
+  if (state.value?.cart_token) await prepareCartEdition(cart, query.cart_token);
+  await getPackagesNumber(cart);
+
+  productsCart.value = cart;
 });
 
 const handleDelete = async () => {
@@ -201,6 +177,70 @@ const handleSubmit = async (e: Event) => {
     loading.value = false;
   }
 };
+
+const config = useRuntimeConfig().public;
+
+const handleSubmitWithToken = async (e: Event) => {
+  e.preventDefault();
+  loading.value = true;
+
+  if (files.length > 0 && !areFilesValid(files)) {
+    errorText2.value = "Nieprawidłowe pliki";
+    loading.value = false;
+    return;
+  }
+
+  const cookies = new Cookies();
+
+  const params = {
+    customer_login: emailInput,
+    phone: phoneInput,
+    customer_notices: additionalNoticesInput,
+    delivery_address: {
+      city: cityInput,
+      postal_code: postalCodeInput,
+    },
+    shipping_abroad: abroadInput,
+    is_standard: true,
+    files,
+    order_items: productsCart.value.idsWithQuantity(),
+    rewrite: 0,
+    cart_token: cookies.get("cart_token"),
+  };
+
+  try {
+    const res = await shopApi.post("/api/new_order", params);
+    productsCart.value.removeAllFromCart();
+    if (res.status === 201) {
+      cookies.remove("cart_token");
+      window.location.replace(
+        `${config.baseUrl}/admin/orders/${res.data.order_id}/edit`
+      );
+    }
+  } catch (err: any) {
+    errorText2.value = err.response.data.error_message || "Wystąpił błąd";
+  } finally {
+    loading.value = false;
+  }
+};
+
+const isNewOrder = ref(false);
+
+const updateProduct = async (
+  cart: Cart,
+  productId: number,
+  amount: number,
+  prodId: number
+) => {
+  cart.removeFromCart(prodId);
+
+  try {
+    const response = await shopApi.get(`/api/products/${productId}`);
+    let product = response.data;
+    product.recalculate = 1;
+    cart.addToCart(product, amount);
+  } catch (err) {}
+};
 </script>
 <template>
   <div class="pb-15">
@@ -215,6 +255,43 @@ const handleSubmit = async (e: Event) => {
         <p class="mt-2 text-sm text-red-600" v-if="state?.errorText">
           {{ state?.errorText }}
         </p>
+        <template v-if="state?.cart_token">
+          <div
+            class="flex p-4 mb-4 text-sm text-red-800 border border-red-300 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 dark:border-red-800"
+            role="alert"
+          >
+            <svg
+              aria-hidden="true"
+              class="flex-shrink-0 inline w-5 h-5 mr-3"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                clip-rule="evenodd"
+              ></path>
+            </svg>
+            <span class="sr-only">Info</span>
+            <div>
+              <span class="font-medium">Uwaga! To jest edycja koszyka.</span>
+            </div>
+          </div>
+          <div class="flex items-center mb-4">
+            <input
+              id="default-checkbox"
+              type="checkbox"
+              v-model="isNewOrder"
+              class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
+            />
+            <label
+              for="default-checkbox"
+              class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+              >Czy to jest nowe zamówienie?</label
+            >
+          </div>
+        </template>
         <button
           type="button"
           @click="productsCart.removeAllFromCart"
@@ -235,18 +312,36 @@ const handleSubmit = async (e: Event) => {
                 alt="Photo"
                 class="rounded-xl"
               />
-              <button
-                @click="
-                  async () => {
-                    productsCart.removeFromCart(product.id);
-                    await handleDelete();
-                  }
-                "
-                type="button"
-                class="md:absolute md:bottom-0 focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2"
-              >
-                Usuń
-              </button>
+              <div class="md:absolute md:bottom-0">
+                <button
+                  v-if="state.cart_token"
+                  @click="
+                    () =>
+                      updateProduct(
+                        productsCart,
+                        product.product_id,
+                        product.amount,
+                        product.id
+                      )
+                  "
+                  type="button"
+                  class="focus:outline-none text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2"
+                >
+                  Przelicz po cenie z CSV
+                </button>
+                <button
+                  @click="
+                    async () => {
+                      productsCart.removeFromCart(product.id);
+                      await handleDelete();
+                    }
+                  "
+                  type="button"
+                  class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2"
+                >
+                  Usuń
+                </button>
+              </div>
             </div>
             <div
               class="w-full md:w-2/3 bg-white flex flex-col space-y-2 p-3 grid md:place-items-end"
@@ -532,7 +627,12 @@ const handleSubmit = async (e: Event) => {
 
     <div
       class="flex justify-center"
-      v-if="productsCart?.products && productsCart?.products?.length > 0"
+      v-if="
+        (productsCart?.products &&
+          productsCart?.products?.length > 0 &&
+          !state?.cart_token) ||
+        isNewOrder
+      "
     >
       <div
         class="w-screen max-w-sm md:max-w-md lg:max-w-2xl xl:max-w-4xl p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8"
@@ -666,6 +766,16 @@ const handleSubmit = async (e: Event) => {
         </form>
       </div>
     </div>
+  </div>
+
+  <div v-if="state?.cart_token && !isNewOrder" class="flex justify-center">
+    <button
+      class="w-60 text-white bg-cyan-400 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+      :disabled="loading"
+      @click="handleSubmitWithToken"
+    >
+      Zapisz edycję
+    </button>
   </div>
 
   <br />

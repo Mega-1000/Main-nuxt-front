@@ -1,5 +1,5 @@
 <template>
   <Navbar />
-  <slot />
+  <NuxtPage />
   <Footer />
 </template>
