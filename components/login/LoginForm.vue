@@ -27,7 +27,8 @@ const handleSubmit = async (e: Event) => {
   try {
     const res = await shopApi.post("oauth/token", params);
     setCookie(res.data);
-    router.push("/account");
+    await router.push("/account");
+    window.location.reload();
   } catch (err: any) {
     errorMessage.value = "Coś poszło nie tak";
   } finally {
