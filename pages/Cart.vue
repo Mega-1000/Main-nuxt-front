@@ -6,34 +6,9 @@ import Cart from "~~/utils/Cart";
 import buildImgRoute from "~~/helpers/buildImgRoute";
 import FileBase64 from "vue-file-base64";
 
-const currentPage = ref(1);
-
 const { query } = useRoute();
 
-const inactiveClass =
-  "px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700";
-const activeClass =
-  "z-10 px-3 py-2 leading-tight text-blue-600 border border-blue-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700";
-
 const { $shopApi: shopApi } = useNuxtApp();
-
-const { data: products } = await useAsyncData(
-  async () => {
-    try {
-      const items = await shopApi.get(
-        `api/products?page=${currentPage.value}&per_page=15`
-      );
-
-      return {
-        data: items.data.data,
-        pages: Math.ceil(items.data.total / 15),
-      };
-    } catch (e) {
-      console.error(e);
-    }
-  },
-  { watch: [currentPage] }
-);
 
 const productsCart = useProductsCart();
 

@@ -24,8 +24,10 @@ const { data: paymentData } = await useAsyncData(async () => {
 });
 
 const { data: banks } = await useAsyncData(async () => {
-  const res = await shopApi.post("api/banks");
-  return res.data;
+  try {
+    const res = await shopApi.post("api/banks");
+    return res.data;
+  } catch (err) {}
 });
 
 const accountNumber = "73 1140 2004 0000 3902 7979 8406";

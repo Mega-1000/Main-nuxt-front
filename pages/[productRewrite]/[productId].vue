@@ -13,15 +13,19 @@ const { productId } = params;
 const page = query.page || 1;
 
 const { data: currentProduct } = await useAsyncData(async () => {
-  const res = await shopApi.get("/api/products/categories");
-  return findActiveMenu(res.data, productId as string);
+  try {
+    const res = await shopApi.get("/api/products/categories");
+    return findActiveMenu(res.data, productId as string);
+  } catch (err) {}
 });
 
 const { data: categoryData } = await useAsyncData(async () => {
-  const res = await shopApi.get(
-    `/api/categories/details/search?category=${productId}`
-  );
-  return res.data;
+  try {
+    const res = await shopApi.get(
+      `/api/categories/details/search?category=${productId}`
+    );
+    return res.data;
+  } catch (err) {}
 });
 
 const { data: items } = await useAsyncData(async () => {
@@ -135,15 +139,15 @@ const handleSubmit = async (e: Event) => {
 
 <template>
   <ProductHeader
-    :name="currentProduct.name"
-    :description="currentProduct.description"
-    :imgSrc="currentProduct.img"
+    :name="currentProduct?.name"
+    :description="currentProduct?.description"
+    :imgSrc="currentProduct?.img"
     class="mt-10"
   />
 
   <div
     v-if="
-      currentProduct.children &&
+      currentProduct?.children &&
       currentProduct.children.length > 0 &&
       (!items || !(items.length > 0))
     "
@@ -172,8 +176,8 @@ const handleSubmit = async (e: Event) => {
 
   <div
     v-else-if="
-      !categoryData.chimney_attributes ||
-      !(categoryData.chimney_attributes.length > 0)
+      !categoryData?.chimney_attributes ||
+      !(categoryData?.chimney_attributes.length > 0)
     "
   >
     <section class="py-10">

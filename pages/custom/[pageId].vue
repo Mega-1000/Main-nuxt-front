@@ -6,8 +6,10 @@ const { params } = useRoute();
 const { $shopApi: shopApi } = useNuxtApp();
 
 const { data: content, pending } = await useAsyncData(async () => {
-  const { allPages } = await getPages(shopApi);
-  return getContent(allPages, params.pageId as string);
+  try {
+    const { allPages } = await getPages(shopApi);
+    return getContent(allPages, params.pageId as string);
+  } catch (e) {}
 });
 </script>
 

@@ -13,7 +13,9 @@ export default defineNuxtPlugin((_app) => {
   const instance = axios.create({
     baseURL: config.public.baseUrl,
     //timeout: 8000,
-    headers: { Accept: "application/json" },
+    headers: {
+      Accept: "application/json",
+    },
   });
 
   instance.interceptors.request.use(
@@ -50,7 +52,7 @@ export default defineNuxtPlugin((_app) => {
             grant_type: "refresh_token",
           })
           .then((res) => {
-            if (res.status === 200) {
+            if (res.status === 200 && res.data.access_token) {
               setCookie(res.data);
               instance.defaults.headers.common[
                 "Authorization"
