@@ -495,6 +495,7 @@ const handleBlur = (event: any) => {
           </th>
           <td class="px-6 py-4">
             <input
+              class="border border-gray-100"
               name="selectedConsumption"
               :value="state?.selectedConsumption"
               :onBlur="handleBlur"
