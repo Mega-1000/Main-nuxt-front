@@ -2,12 +2,16 @@
 import logoSrc from "~~/assets/logo-no-bg.png";
 import { getToken, removeCookie } from "~~/helpers/authenticator";
 import { getPages } from "~~/helpers/customPages";
+import Cart from "~~/utils/Cart";
 
 const { $shopApi: shopApi } = useNuxtApp();
 
-const token = ref(getToken());
+const productsCart = useProductsCart();
+
+const userToken = useUserToken();
+userToken.value = getToken();
 const { data: newMessagesNumber } = useAsyncData(async () => {
-  if (token.value) {
+  if (userToken.value) {
     const res = await shopApi.get("/api/chat/getHistory");
     return res.data.reduce(
       (prev: number, current: any) => (current.new_message ? prev + 1 : prev),
@@ -18,17 +22,24 @@ const { data: newMessagesNumber } = useAsyncData(async () => {
   return null;
 });
 
-const { data: customPages } = useAsyncData(
-  async () => (await getPages(shopApi)).customPages[0].content,
-  { server: false }
-);
+const { data: customPages } = useAsyncData(async () => {
+  try {
+    return (await getPages(shopApi)).customPages[0].content;
+  } catch {}
+});
 
 const buildCustomLink = (pageId: number) => `/custom/${pageId}`;
 
 const logOut = () => {
   removeCookie();
-  token.value = getToken();
+  userToken.value = getToken();
 };
+
+onMounted(() => {
+  const cart = new Cart();
+  cart.init();
+  productsCart.value = cart;
+});
 </script>
 
 <template>
@@ -41,11 +52,27 @@ const logOut = () => {
       </NuxtLink>
       <div class="flex items-center">
         <NuxtLink href="/cart">
-          <Icon
-            name="clarity:shopping-cart-solid"
-            size="60"
-            class="ml-50 text-cyan-500"
-        /></NuxtLink>
+          <div class="flex mr-5">
+            <Icon
+              id="icon"
+              name="clarity:shopping-cart-solid"
+              size="60"
+              class="ml-50 text-cyan-500"
+            />
+            <label
+              for="icon"
+              class="cursor-pointer font-bold text-teal-200 text-3xl ml-[-1.45em] mt-[.35em] align-center"
+            >
+              {{
+                productsCart.products.length > 0
+                  ? productsCart.products.length > 9
+                    ? "9+"
+                    : productsCart.products.length
+                  : ``
+              }}
+            </label>
+          </div>
+        </NuxtLink>
       </div>
     </div>
   </nav>
@@ -77,7 +104,7 @@ const logOut = () => {
               >{{ page.title }}</NuxtLink
             >
           </li>
-          <li v-if="token">
+          <li v-if="userToken">
             <NuxtLink href="/chat" class="text-gray-900 hover:underline"
               >Chat
               <span v-if="newMessagesNumber > 0"
@@ -85,12 +112,12 @@ const logOut = () => {
               ></NuxtLink
             >
           </li>
-          <li v-if="token">
+          <li v-if="userToken">
             <NuxtLink href="/account" class="text-gray-900 hover:underline"
               >Konto</NuxtLink
             >
           </li>
-          <li v-if="token" @click="logOut">
+          <li v-if="userToken" @click="logOut">
             <NuxtLink href="/" class="text-gray-900 hover:underline"
               >Wyloguj</NuxtLink
             >

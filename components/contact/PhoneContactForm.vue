@@ -6,7 +6,7 @@ let phoneInput = "";
 
 const loading = useState(() => false);
 const errorMessage = useState(() => "");
-const phone = usePhone();
+const user = useUser();
 const cart = useCart();
 
 const handleSubmit = async (e: Event) => {
@@ -20,7 +20,10 @@ const handleSubmit = async (e: Event) => {
     const res = await shopApi.post("/api/new_order", params);
     if (res.status !== 201) throw new Error();
     cart.value = res.data.token;
-    phone.value = phoneInput;
+    user.value = {
+      ...user.value,
+      phone: phoneInput,
+    };
   } catch (err: any) {
     errorMessage.value = err?.response?.data?.error_message || defaultError;
   } finally {

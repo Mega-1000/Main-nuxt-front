@@ -5,20 +5,20 @@ const router = useRouter();
 
 const { $shopApi: shopApi } = useNuxtApp();
 
-const phone = usePhone();
 const cart = useCart();
+const user = useUser();
 
 const loading = useState(() => false);
 const errorMessage = useState(() => "");
 
-let emailInput = "";
-let postalCodeInput = "";
-let cityInput = "";
+let files: any[] = [];
+
+let emailInput = user?.value?.email || "";
+let postalCodeInput = user?.value?.postal_code || "";
+let cityInput = user?.value?.city || "";
 let additionalNoticesInput = "";
 let abroadInput = false;
 let rulesInput = false;
-
-let files: any[] = [];
 
 const handleFiles = (filesInput: any[]) => {
   files = filesInput;
@@ -47,7 +47,7 @@ const handleSubmit = async (e: Event) => {
 
   const params = {
     customer_login: emailInput,
-    phone: phone.value,
+    phone: user.value.phone,
     customer_notices: additionalNoticesInput,
     delivery_address: {
       city: cityInput,
