@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import Cookies from "universal-cookie/cjs/Cookies";
-import { setCookie } from "~~/helpers/authenticator";
+import { getToken, setCookie } from "~~/helpers/authenticator";
 import transportPrice from "~~/helpers/transportPrice";
 import Cart from "~~/utils/Cart";
 import buildImgRoute from "~~/helpers/buildImgRoute";
@@ -14,6 +14,21 @@ const productsCart = useProductsCart();
 
 const state = ref<any>();
 
+const userToken = useUserToken();
+
+const { data: userData } = await useAsyncData(async () => {
+  try {
+    const res = await shopApi.get("api/user");
+    if (res.status === 200 && res.data) {
+      return (
+        res.data.addresses.filter(
+          (address: any) => address.type === "STANDARD_ADDRESS"
+        )[0] || {}
+      );
+    }
+  } catch {}
+});
+
 onBeforeMount(async () => {
   const cookies = new Cookies();
   let cart_token;
@@ -21,6 +36,7 @@ onBeforeMount(async () => {
     try {
       const res = await shopApi.post(`api/auth/code/${query.user_code}`);
       setCookie(res.data);
+      userToken.value = getToken();
     } catch (error) {
       console.log(error);
     }
@@ -78,7 +94,7 @@ const getPackagesNumber = async (cart: Cart) => {
 onMounted(async () => {
   const cart = new Cart();
   cart.init();
-  if (state.value?.cart_token) await prepareCartEdition(cart, query.cart_token);
+  if (query.cart_token) await prepareCartEdition(cart, query.cart_token);
   await getPackagesNumber(cart);
 
   productsCart.value = cart;
@@ -117,10 +133,10 @@ const prepareSpecialProducts = (item: any) => {
 const loading = ref(false);
 const errorText2 = ref<string | null>(null);
 
-let emailInput = "";
-let phoneInput = "";
-let postalCodeInput = "";
-let cityInput = "";
+let emailInput = userData?.value?.email || "";
+let phoneInput = userData?.value?.phone || "";
+let postalCodeInput = userData?.value?.postal_code || "";
+let cityInput = userData?.value?.city || "";
 let additionalNoticesInput = "";
 let abroadInput = false;
 let rulesInput = false;

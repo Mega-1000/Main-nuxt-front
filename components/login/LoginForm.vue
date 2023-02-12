@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { setCookie } from "~~/helpers/authenticator";
+import { getToken, setCookie } from "~~/helpers/authenticator";
 
 let emailInput = "";
 let passwordInput = "";
@@ -11,6 +11,8 @@ const router = useRouter();
 const config = useRuntimeConfig().public;
 
 const { $shopApi: shopApi } = useNuxtApp();
+
+const userToken = useUserToken();
 
 const handleSubmit = async (e: Event) => {
   e.preventDefault();
@@ -28,7 +30,7 @@ const handleSubmit = async (e: Event) => {
     const res = await shopApi.post("oauth/token", params);
     setCookie(res.data);
     await router.push("/account");
-    window.location.reload();
+    userToken.value = getToken();
   } catch (err: any) {
     errorMessage.value = "Coś poszło nie tak";
   } finally {
