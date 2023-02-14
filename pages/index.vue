@@ -6,7 +6,6 @@ const { $shopApi: shopApi } = useNuxtApp();
 const { data: categories, pending } = await useAsyncData(async () => {
   try {
     const res = await shopApi.get("/api/products/categories");
-    console.log(res.data);
     return res.data;
   } catch (e: any) {}
 });

@@ -95,7 +95,6 @@ const handleCart = () => {
   const { cart: _cart, ...product } = currentItem.value;
   productsCart.value.addToCart(product, productAmount.value);
   modal.value?.hide();
-  productsCart.value?.printProducts();
 };
 
 let emailInput = "";

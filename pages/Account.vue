@@ -24,8 +24,6 @@ const { data: orders } = useAsyncData(async () => {
 });
 
 onMounted(() => {
-  console.log(orders.value?.active);
-
   // create an array of objects with the id, trigger element (eg. button), and the content element
   const tabElements: TabItem[] = [
     {

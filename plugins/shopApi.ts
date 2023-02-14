@@ -12,7 +12,7 @@ export default defineNuxtPlugin((_app) => {
 
   const instance = axios.create({
     baseURL: config.public.baseUrl,
-    //timeout: 8000,
+    timeout: 20000,
     headers: {
       Accept: "application/json",
     },

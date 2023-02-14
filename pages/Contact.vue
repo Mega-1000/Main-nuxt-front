@@ -16,7 +16,7 @@ const { data: userData } = await useAsyncData(async () => {
   } catch {}
 });
 
-user.value = userData;
+user.value = userData.value;
 </script>
 
 <template>

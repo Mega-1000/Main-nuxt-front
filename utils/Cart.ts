@@ -127,8 +127,8 @@ class Cart {
     }
   }
 
-  printProducts() {
-    console.log(this.products);
+  toJSON() {
+    return { ...this };
   }
 }
 

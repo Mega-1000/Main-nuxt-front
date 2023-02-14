@@ -314,7 +314,6 @@ const handleBlur = (event: any) => {
     resp!.selectedConsumption
   ).toFixed(2);
   productAmount.value = resp!.selectedCommercial;
-  console.log(resp);
 
   var commercialLesser =
     state.value.selectedCommercial - 1 >= 0

@@ -8,4 +8,4 @@ export const useSelectedMediaId = () =>
 export const useProductsCart = () => useState("productsCart", () => new Cart());
 export const useProductAmount = () => useState("productAmount", () => 1);
 export const useUserToken = () => useState("userToken", () => "");
-export const useUser = () => useState("user", () => null);
+export const useUser = () => useState<any>("user", () => null);
