@@ -7,7 +7,7 @@ const { data: content } = useLazyAsyncData(() => placeholder, {
 </script>
 
 <template>
-  <div class="lg:pl-20 max-w-[90%]">
+  <div class="lg:pl-20 max-w-[90%] mb-40">
     <div :innerHTML="content"></div>
   </div>
 </template>

@@ -49,7 +49,7 @@ const handleClick = () => {
 </script>
 
 <template>
-  <div class="flex justify-center py-10">
+  <div class="flex justify-center pt-10 pb-20">
     <div>
       <p class="text-md md:text-xl">
         Jeśli potrzebujesz się skontaktować zaloguj się i wejdź w zakładkę "Moje
@@ -75,7 +75,7 @@ const handleClick = () => {
         Wybierz swój Bank i przekopiuj wartości do przelewu:
       </p>
       <div
-        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 space-x-5 space-y-5 max-w-3xl py-10"
+        class="grid grid-cols-3 md:grid-cols-4 space-x-5 space-y-5 max-w-3xl py-10"
       >
         <div
           v-for="bank in banks"

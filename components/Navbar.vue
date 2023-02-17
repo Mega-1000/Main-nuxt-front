@@ -40,6 +40,12 @@ onMounted(() => {
   cart.init();
   productsCart.value = cart;
 });
+
+const showMenu = ref(false);
+
+const toggleMenu = () => {
+  showMenu.value = !showMenu.value;
+};
 </script>
 
 <template>
@@ -76,17 +82,18 @@ onMounted(() => {
       </div>
     </div>
   </nav>
-  <nav class="bg-cyan-50">
-    <div class="max-w-screen-xl px-4 py-3 mx-auto md:px-6">
+  <nav class="bg-cyan-50 grid sm:flex items-center">
+    <!-- <Icon
+      name="clarity:menu-line"
+      size="20"
+      class="text-cyan-600 ml-1 mr-4 cursor-pointer"
+      @click="toggleMenu"
+    /> -->
+    <div class="max-w-full sm:max-w-screen-xl px-4 py-1 sm:py-3 md:px-6">
       <div class="flex items-center">
         <ul
-          class="flex flex-row mt-0 mr-6 space-x-8 text-sm md:text-md font-medium"
+          class="flex-row mt-0 mr-6 space-x-5 sm:space-x-8 text-sm md:text-md font-medium space-y-1 hidden sm:flex items-center"
         >
-          <li>
-            <NuxtLink href="/" class="text-gray-900 hover:underline"
-              >Strona Główna</NuxtLink
-            >
-          </li>
           <li>
             <NuxtLink href="/info" class="text-gray-900 hover:underline"
               >Informacje</NuxtLink
@@ -128,6 +135,52 @@ onMounted(() => {
             >
           </li>
         </ul>
+        <div class="mx-auto grid sm:hidden cursor-pointer" @click="toggleMenu">
+          <Icon v-if="!showMenu" name="ic:outline-arrow-drop-down" size="20" />
+          <Icon v-else name="ic:outline-arrow-drop-up" size="20" />
+          <ul class="text-sm md:text-md font-medium space-y-1" v-if="showMenu">
+            <li>
+              <NuxtLink href="/info" class="text-gray-900 hover:underline"
+                >Informacje</NuxtLink
+              >
+            </li>
+            <li>
+              <NuxtLink href="/contact" class="text-gray-900 hover:underline"
+                >Kontakt</NuxtLink
+              >
+            </li>
+            <li v-for="page in customPages">
+              <NuxtLink
+                :href="buildCustomLink(page.id)"
+                class="text-gray-900 hover:underline"
+                >{{ page.title }}</NuxtLink
+              >
+            </li>
+            <li v-if="userToken">
+              <NuxtLink href="/chat" class="text-gray-900 hover:underline flex"
+                >Chat
+                <span v-if="newMessagesNumber > 0"
+                  >({{ newMessagesNumber }})</span
+                ></NuxtLink
+              >
+            </li>
+            <li v-if="userToken">
+              <NuxtLink href="/account" class="text-gray-900 hover:underline"
+                >Konto</NuxtLink
+              >
+            </li>
+            <li v-if="userToken" @click="logOut">
+              <NuxtLink href="/" class="text-gray-900 hover:underline"
+                >Wyloguj</NuxtLink
+              >
+            </li>
+            <li v-else>
+              <NuxtLink href="/login" class="text-gray-900 hover:underline"
+                >Zaloguj</NuxtLink
+              >
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   </nav>

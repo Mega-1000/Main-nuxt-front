@@ -9,7 +9,7 @@ const content = route.query.contact ? contactContent : otherContent;
 </script>
 
 <template>
-  <div class="flex justify-center">
+  <div class="flex justify-center mb-20">
     <div class="mt-3 font-medium text-lg">
       <p>{{ content }}</p>
       <br />

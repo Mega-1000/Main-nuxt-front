@@ -20,7 +20,7 @@ user.value = userData.value;
 </script>
 
 <template>
-  <div class="flex pt-20 xl:pt-40">
+  <div class="flex py-20 xl:py-40">
     <div class="m-auto">
       <ContactForm v-if="user?.phone && user?.phone !== null" />
       <ContactPhoneContactForm v-else />

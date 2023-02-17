@@ -150,13 +150,16 @@ const handleSubmit = async (e: Event) => {
       currentProduct.children.length > 0 &&
       (!items || !(items.length > 0))
     "
-    class="mx-auto grid max-w-8xl grid-cols-1 gap-6 p-6 sm:grid-cols-2 lg:grid-cols-4 mb-10"
+    class="w-full mx-auto grid max-w-8xl md:w-[60vw] grid-cols-1 gap-6 p-6 sm:grid-cols-2 lg:grid-cols-4 mb-30"
   >
     <article
       v-for="product in currentProduct.children"
-      class="rounded-xl bg-white p-3 shadow-lg hover:shadow-xl hover:transform hover:scale-105 duration-300"
+      class="w-full h-full rounded-xl bg-white p-3 shadow-lg hover:shadow-xl hover:transform hover:scale-105 duration-300"
     >
-      <NuxtLink :href="buildLink(product)">
+      <NuxtLink
+        :href="buildLink(product)"
+        class="flex flex-col justify-between h-full"
+      >
         <div class="overflow-hidden rounded-xl">
           <img
             :src="buildImgRoute(product.img)"
@@ -167,7 +170,9 @@ const handleSubmit = async (e: Event) => {
         </div>
 
         <div class="mt-1 p-2">
-          <h2 class="text-gray-900 font-medium">{{ product.name }}</h2>
+          <h2 class="text-gray-900 font-medium">
+            {{ product.name }}
+          </h2>
         </div>
       </NuxtLink>
     </article>

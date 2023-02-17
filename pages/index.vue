@@ -16,7 +16,7 @@ const buildLink = ({ rewrite, id }: { rewrite: string; id: number }) =>
 
 <template>
   <p v-if="pending">Loading...</p>
-  <section v-else class="py-10">
+  <section v-else class="pt-10 pb-20">
     <div class="flex justify-center mb-5">
       <h1 class="font-bold text-5xl">Kategorie</h1>
     </div>

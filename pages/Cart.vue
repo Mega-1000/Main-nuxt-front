@@ -318,17 +318,17 @@ const updateProduct = async (
 
         <div v-for="product in productsCart.products">
           <div
-            class="relative flex flex-col md:flex-row md:space-x-5 space-y-3 md:space-y-0 rounded-xl shadow-lg p-3 w-[60vw] max-w-7xl mx-auto border border-white bg-white"
+            class="relative flex flex-col md:flex-row md:space-x-5 space-y-3 md:space-y-0 rounded-xl shadow-lg p-3 min-w-fit max-w-7xl mx-auto border border-white bg-white"
           >
             <div
-              class="w-full md:w-1/3 bg-white grid place-items-end md:place-items-start max-w-2xl"
+              class="w-full md:w-1/3 bg-white grid place-items-start md:max-w-2xl"
             >
               <img
                 :src="buildImgRoute(product?.url_for_website)"
                 alt="Photo"
                 class="rounded-xl"
               />
-              <div class="md:absolute md:bottom-0">
+              <div class="absolute bottom-0 right-0 md:right-auto">
                 <button
                   v-if="state.cart_token"
                   @click="
@@ -353,7 +353,7 @@ const updateProduct = async (
                     }
                   "
                   type="button"
-                  class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2"
+                  class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 my-2"
                 >
                   Usuń
                 </button>
@@ -366,7 +366,7 @@ const updateProduct = async (
                 {{ product.name }}
               </h3>
               <CartPriceTable
-                class="w-full"
+                class="w-full pb-10"
                 :product="product"
                 :handle-product-amount="(val) => updateAmount(product.id, val)"
               />
@@ -651,7 +651,7 @@ const updateProduct = async (
       "
     >
       <div
-        class="w-screen max-w-sm md:max-w-md lg:max-w-2xl xl:max-w-4xl p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8"
+        class="w-screen max-w-sm md:max-w-md md:max-w-2xl xl:max-w-4xl p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8"
       >
         <form class="space-y-6" @submit="handleSubmit">
           <div>
@@ -784,7 +784,10 @@ const updateProduct = async (
     </div>
   </div>
 
-  <div v-if="state?.cart_token && !isNewOrder" class="flex justify-center">
+  <div
+    v-if="state?.cart_token && !isNewOrder"
+    class="flex justify-center mb-50"
+  >
     <button
       class="w-60 text-white bg-cyan-400 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
       :disabled="loading"
@@ -793,10 +796,4 @@ const updateProduct = async (
       Zapisz edycję
     </button>
   </div>
-
-  <br />
-  <br />
-  <br />
-  <br />
-  <br />
 </template>
