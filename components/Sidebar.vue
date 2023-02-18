@@ -10,7 +10,7 @@ console.log();
 
 <template>
   <div
-    :class="`w-15 md:w-25 h-fit lg:w-fit bg-gray-50 px-1 lg:px-2 rounded-lg  ${
+    :class="`w-15 md:w-25 h-fit lg:w-120 bg-gray-50 px-1 lg:px-2 rounded-lg  ${
       !nested ? `shadow-md pt-6 lg:px-6 md:py-6 border border-gray-100` : `pl-2`
     }`"
     id="sidenavExample"
