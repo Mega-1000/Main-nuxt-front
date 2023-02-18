@@ -15,14 +15,14 @@ const realDescription = description?.replace(/\|/gim, "\n");
 <template>
   <div class="flex justify-center">
     <div
-      class="justify-center items-center bg-white shadow-lg rounded-lg flex flex-row w-[95vw] sm:w-[90vw] lg:w-[60vw]"
+      class="justify-center items-center bg-white shadow-lg rounded-lg sm:flex flex-row w-[95vw] sm:w-[90vw] lg:w-[60vw]"
     >
       <img
         :src="buildImgRoute(imgSrc!)"
         @error="(e: any) => (e.target!.src = defaultImgSrc)"
         alt="img"
         title="img"
-        class="object-cover rounded-t-lg w-[45%]"
+        class="object-cover rounded-t-lg sm:w-[45%]"
       />
       <div class="w-full p-4 justify-start flex flex-col">
         <h4 class="border-b-2 text-3xl">{{ name }}</h4>
