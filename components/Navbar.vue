@@ -89,8 +89,10 @@ const toggleMenu = () => {
       class="text-cyan-600 ml-1 mr-4 cursor-pointer"
       @click="toggleMenu"
     /> -->
-    <div class="max-w-full sm:max-w-screen-xl px-4 py-1 sm:py-3 md:px-6">
-      <div class="flex items-center">
+    <div
+      class="max-w-full sm:max-w-screen-xl px-4 py-1 sm:py-3 md:px-6 mx-auto"
+    >
+      <div class="flex items-center mx-auto">
         <ul
           class="flex-row mt-0 mr-6 space-x-5 sm:space-x-8 text-sm md:text-md font-medium space-y-1 hidden sm:flex items-center"
         >
