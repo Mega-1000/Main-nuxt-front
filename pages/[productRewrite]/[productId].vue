@@ -3,6 +3,7 @@ import findActiveMenu from "~~/helpers/findActiveMenu";
 import buildImgRoute, { defaultImgSrc } from "~~/helpers/buildImgRoute";
 import { Modal, ModalOptions } from "flowbite";
 import Cookies from "universal-cookie";
+import InfiniteLoading from "vue-infinite-loading";
 
 const { $shopApi: shopApi } = useNuxtApp();
 
@@ -10,7 +11,7 @@ const currentItem = useCurrentItem();
 
 const { params, query } = useRoute();
 const { productId } = params;
-const page = query.page || 1;
+const page = ref(parseInt((query.page as string) || "1"));
 
 const { data: currentProduct } = await useAsyncData(async () => {
   try {
@@ -28,26 +29,22 @@ const { data: categoryData } = await useAsyncData(async () => {
   } catch (err) {}
 });
 
-const { data: items } = await useAsyncData(async () => {
-  try {
-    let currentPage = parseInt(page as any);
-    let res = await shopApi.get(
-      `/api/products/categories/get?page=${currentPage}&per_page=25&category_id=${productId}`
-    );
-    let data: any[] = res.data.data;
-    while (res.data.total > data.length) {
-      currentPage++;
-      res = await shopApi.get(
-        `/api/products/categories/get?page=${currentPage}&per_page=25&category_id=${productId}`
+const { data: itemsData } = await useAsyncData(
+  "itemsData",
+  async () => {
+    try {
+      let currentPage = parseInt(page.value as any);
+      const res = await shopApi.get(
+        `/api/products/categories/get?page=${currentPage}&per_page=10&category_id=${productId}`
       );
-      data.push(...res.data.data);
+      return res.data;
+    } catch (e) {
+      console.log(e);
+      return [];
     }
-    return data;
-  } catch (e) {
-    console.log(e);
-    return [];
-  }
-});
+  },
+  { watch: [page] }
+);
 
 const buildLink = ({ rewrite, id }: { rewrite: string; id: number }) =>
   `/${rewrite}/${id}`;
@@ -134,6 +131,11 @@ const handleSubmit = async (e: Event) => {
     loading.value = false;
   }
 };
+
+const goToPage = (val: number) => {
+  page.value = val;
+  window.scrollTo(0, 0);
+};
 </script>
 
 <template>
@@ -148,9 +150,9 @@ const handleSubmit = async (e: Event) => {
     v-if="
       currentProduct?.children &&
       currentProduct.children.length > 0 &&
-      (!items || !(items.length > 0))
+      (!itemsData.data || !(itemsData.data.length > 0))
     "
-    class="w-full mx-auto grid max-w-8xl md:w-[60vw] grid-cols-1 gap-6 p-6 sm:grid-cols-2 lg:grid-cols-4 mb-30"
+    class="w-full mx-auto grid max-w-8xl md:w-[60vw] grid-cols-1 gap-6 px-6 pt-6 pb-40 sm:grid-cols-2 lg:grid-cols-4 mb-30"
   >
     <article
       v-for="product in currentProduct.children"
@@ -164,6 +166,7 @@ const handleSubmit = async (e: Event) => {
           <img
             :src="buildImgRoute(product.img)"
             alt="Photo"
+            loading="lazy"
             @error="(e: any) => (e.target!.src = defaultImgSrc)"
             class="h-full w-full"
           />
@@ -187,12 +190,75 @@ const handleSubmit = async (e: Event) => {
     <section class="py-10">
       <div class="mx-auto grid w-full max-w-8xl grid-cols-1 gap-6 p-6 mb-10">
         <ProductItem
-          v-for="item in items"
+          v-for="item in itemsData.data"
           :item="item"
           :modal="modal"
           :contactModal="contactModal"
           class="w-full"
         />
+        <nav
+          aria-label="Page navigation example"
+          v-if="itemsData.last_page > 1"
+          class="mx-auto"
+        >
+          <ul class="inline-flex items-center -space-x-px">
+            <li>
+              <button
+                :disabled="page < 2"
+                @click="() => goToPage(page - 1)"
+                class="block px-3 py-2 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700"
+              >
+                <span class="sr-only">Previous</span>
+                <svg
+                  aria-hidden="true"
+                  class="w-6 h-6"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+              </button>
+            </li>
+            <li v-for="i in itemsData.last_page">
+              <button
+                :disabled="page === i"
+                @click="() => goToPage(i)"
+                :class="`text-xl px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 ${
+                  page === i && `bg-gray-100`
+                } hover:bg-gray-100 hover:text-gray-700`"
+              >
+                {{ i }}
+              </button>
+            </li>
+            <li>
+              <button
+                :disabled="page === itemsData.last_page"
+                @click="() => goToPage(page + 1)"
+                class="block px-3 py-2 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700"
+              >
+                <span class="sr-only">Next</span>
+                <svg
+                  aria-hidden="true"
+                  class="w-6 h-6"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+              </button>
+            </li>
+          </ul>
+        </nav>
       </div>
     </section>
     <!-- Main modal -->

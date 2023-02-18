@@ -105,6 +105,7 @@ const handleMediaButton = (e: Event, media: any) => {
         <img
           :src="buildImgRoute(props.item.img)"
           alt="Photo"
+          loading="lazy"
           class="rounded-xl"
         />
       </div>
