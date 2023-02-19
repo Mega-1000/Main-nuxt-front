@@ -316,9 +316,9 @@ const updateProduct = async (
           Usuń wszystko
         </button>
 
-        <div v-for="product in productsCart.products">
+        <div v-for="product in productsCart.products" class="max-w-[100vw]">
           <div
-            class="relative flex flex-col md:flex-row md:space-x-5 space-y-3 md:space-y-0 rounded-xl shadow-lg p-3 min-w-fit max-w-7xl mx-auto border border-white bg-white"
+            class="relative flex flex-col md:flex-row md:space-x-5 space-y-3 md:space-y-0 rounded-xl shadow-lg p-3 max-w-7xl mx-auto border border-white bg-white"
           >
             <div
               class="w-full md:w-1/3 bg-white grid place-items-start md:max-w-2xl"
@@ -381,7 +381,7 @@ const updateProduct = async (
       v-if="productsCart?.products && productsCart?.products?.length > 0"
     >
       <div
-        class="grid space-y-7 min-w-fit max-w-2xl sm:max-w-3xl md:max-w-4xl lg:max-w-5xl w-full p-6 border border-gray-200 rounded-lg shadow bg-gray-100"
+        class="grid space-y-7 min-w-fit sm:max-w-3xl md:max-w-4xl lg:max-w-5xl w-full p-6 border border-gray-200 rounded-lg shadow bg-gray-100"
       >
         <h5 class="text-2xl font-bold tracking-tight text-gray-900">
           Podsumowanie
@@ -407,7 +407,7 @@ const updateProduct = async (
               >
                 <th
                   scope="row"
-                  class="px-6 py-4 font-medium text-gray-900 max-w-lg"
+                  class="px-6 py-4 font-medium text-gray-900 max-w-sm md:max-w-lg"
                 >
                   {{ product.name }}
                 </th>
@@ -446,13 +446,11 @@ const updateProduct = async (
               state.packages.transport_groups.length > 0 ||
               state.packages.not_calculated.length > 0)
           "
-          class="max-w-md sm:max-w-3xl md:max-w-4xl lg:max-w-5xl"
+          class="max-w-full sm:max-w-3xl md:max-w-4xl lg:max-w-5xl overflow-x-auto"
         >
           <h5 class="text-2xl mb-3">Planowany rozkład paczek</h5>
 
-          <table
-            class="max-w-sm sm:max-w-xl md:max-w-2xl lg:max-w-3xl text-sm text-left text-gray-500 w-full"
-          >
+          <table class="text-sm text-left text-gray-500 w-full">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50">
               <tr>
                 <th scope="col" class="lg:px-6 lg:py-3 py-1 px-2">
