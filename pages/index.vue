@@ -23,9 +23,9 @@ const buildLink = ({ rewrite, id }: { rewrite: string; id: number }) =>
         <div class="flex justify-center mb-5">
           <h1 class="font-bold text-5xl">Kategorie</h1>
         </div>
-        <div class="flex justify-center">
+        <div class="lg:flex justify-center">
           <Sidebar
-            class="h-fit flex flex-col justify-center mt-40 pt-30 mx-1"
+            class="h-fit flex flex-col justify-center lg:mt-40 pt-30 mx-1"
             :categories="categories"
           />
           <div
