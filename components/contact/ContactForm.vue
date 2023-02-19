@@ -73,7 +73,7 @@ const handleSubmit = async (e: Event) => {
 
 <template>
   <div
-    class="w-screen max-w-sm md:max-w-md lg:max-w-2xl xl:max-w-4xl p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8"
+    class="w-full max-w-sm md:max-w-md lg:max-w-2xl xl:max-w-4xl p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8"
   >
     <form class="space-y-6" @submit="handleSubmit">
       <h5 class="text-xl xl:text-2xl font-medium text-gray-900">

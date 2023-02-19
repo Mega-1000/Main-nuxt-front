@@ -22,8 +22,11 @@ user.value = userData.value;
 <template>
   <div class="flex py-20 xl:py-40">
     <div class="m-auto">
-      <ContactForm v-if="user?.phone && user?.phone !== null" />
-      <ContactPhoneContactForm v-else />
+      <ContactForm
+        v-if="user?.phone && user?.phone !== null"
+        class="max-w-screen"
+      />
+      <ContactPhoneContactForm v-else class="max-w-[100%]" />
     </div>
   </div>
 </template>
