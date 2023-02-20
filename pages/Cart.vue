@@ -316,9 +316,9 @@ const updateProduct = async (
           Usuń wszystko
         </button>
 
-        <div v-for="product in productsCart.products">
+        <div v-for="product in productsCart.products" class="max-w-[100vw]">
           <div
-            class="relative flex flex-col md:flex-row md:space-x-5 space-y-3 md:space-y-0 rounded-xl shadow-lg p-3 min-w-fit max-w-7xl mx-auto border border-white bg-white"
+            class="relative flex flex-col md:flex-row md:space-x-5 space-y-3 md:space-y-0 rounded-xl shadow-lg p-3 max-w-7xl mx-auto border border-white bg-white"
           >
             <div
               class="w-full md:w-1/3 bg-white grid place-items-start md:max-w-2xl"
@@ -377,11 +377,11 @@ const updateProduct = async (
     </div>
 
     <div
-      class="flex justify-center py-10 px-5"
+      class="flex justify-center py-10 px-5 w-full"
       v-if="productsCart?.products && productsCart?.products?.length > 0"
     >
       <div
-        class="grid space-y-7 max-w-5xl p-6 border border-gray-200 rounded-lg shadow bg-gray-100"
+        class="grid space-y-7 min-w-fit sm:max-w-3xl md:max-w-4xl lg:max-w-5xl w-full p-6 border border-gray-200 rounded-lg shadow bg-gray-100"
       >
         <h5 class="text-2xl font-bold tracking-tight text-gray-900">
           Podsumowanie
@@ -389,7 +389,9 @@ const updateProduct = async (
         <hr />
 
         <div class="relative overflow-x-auto sm:rounded-lg w-full">
-          <table class="max-w-3xl text-sm text-left text-gray-500 w-full">
+          <table
+            class="max-w-md sm:max-w-xl md:max-w-2xl lg:max-w-3xl text-sm text-left text-gray-500 w-full"
+          >
             <thead class="text-xs text-gray-700 uppercase bg-gray-50">
               <tr>
                 <th scope="col" class="px-6 py-3">Produkt</th>
@@ -405,7 +407,7 @@ const updateProduct = async (
               >
                 <th
                   scope="row"
-                  class="px-6 py-4 font-medium text-gray-900 max-w-lg"
+                  class="px-6 py-4 font-medium text-gray-900 max-w-sm md:max-w-lg"
                 >
                   {{ product.name }}
                 </th>
@@ -444,19 +446,28 @@ const updateProduct = async (
               state.packages.transport_groups.length > 0 ||
               state.packages.not_calculated.length > 0)
           "
+          class="max-w-full sm:max-w-3xl md:max-w-4xl lg:max-w-5xl overflow-x-auto"
         >
           <h5 class="text-2xl mb-3">Planowany rozkład paczek</h5>
 
-          <table class="max-w-4xl text-sm text-left text-gray-500 w-full">
+          <table class="text-sm text-left text-gray-500 w-full">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50">
               <tr>
-                <th scope="col" class="px-6 py-3">Rodzaj przesyłki</th>
-                <th scope="col" class="px-6 py-3">Towar</th>
-                <th scope="col" class="px-6 py-3">Ilość</th>
-                <th scope="col" class="px-6 py-3">Wartość netto</th>
-                <th scope="col" class="px-6 py-3">Wartość brutto</th>
-                <th scope="col" class="px-6 py-3">Waga</th>
-                <th scope="col" class="px-6 py-3">Cena przesyłki</th>
+                <th scope="col" class="lg:px-6 lg:py-3 py-1 px-2">
+                  Rodzaj przesyłki
+                </th>
+                <th scope="col" class="lg:px-6 lg:py-3 py-1 px-2">Towar</th>
+                <th scope="col" class="lg:px-6 lg:py-3 py-1 px-2">Ilość</th>
+                <th scope="col" class="lg:px-6 lg:py-3 py-1 px-2">
+                  Wartość netto
+                </th>
+                <th scope="col" class="lg:px-6 lg:py-3 py-1 px-2">
+                  Wartość brutto
+                </th>
+                <th scope="col" class="lg:px-6 lg:py-3 py-1 px-2">Waga</th>
+                <th scope="col" class="lg:px-6 lg:py-3 py-1 px-2">
+                  Cena przesyłki
+                </th>
               </tr>
             </thead>
 
@@ -469,13 +480,15 @@ const updateProduct = async (
                   <td
                     v-if="i === 0"
                     :rowspan="item.items.length"
-                    class="px-6 py-4"
+                    class="lg:px-6 lg:py-3 py-1 px-2"
                   >
                     {{ item.displayed_group_name }}
                   </td>
-                  <td class="px-6 py-4">{{ product.name }}</td>
-                  <td class="px-6 py-4">{{ product.quantity }}</td>
-                  <td class="px-6 py-4">
+                  <td class="lg:px-6 lg:py-3 py-1 px-2">{{ product.name }}</td>
+                  <td class="lg:px-6 lg:py-3 py-1 px-2">
+                    {{ product.quantity }}
+                  </td>
+                  <td class="lg:px-6 lg:py-3 py-1 px-2">
                     {{
                       (
                         product.price.net_purchase_price_commercial_unit *
@@ -483,14 +496,14 @@ const updateProduct = async (
                       ).toFixed(2)
                     }}
                   </td>
-                  <td class="px-6 py-4">
+                  <td class="lg:px-6 lg:py-3 py-1 px-2">
                     {{
                       (
                         product.price.gross_price_of_packing * product.quantity
                       ).toFixed(2)
                     }}
                   </td>
-                  <td class="px-6 py-4">
+                  <td class="lg:px-6 lg:py-3 py-1 px-2">
                     {{
                       (product.weight_trade_unit * product.quantity).toFixed(2)
                     }}
@@ -498,7 +511,7 @@ const updateProduct = async (
                   <td
                     v-if="i === 0"
                     :rowspan="item.items.length"
-                    class="px-6 py-4"
+                    class="lg:px-6 lg:py-3 py-1 px-2"
                   >
                     {{ item.transport_price }}
                   </td>
@@ -519,13 +532,15 @@ const updateProduct = async (
                         ? prepareSpecialProducts(item).length
                         : item.productList.length
                     "
-                    class="px-6 py-4"
+                    class="lg:px-6 lg:py-3 py-1 px-2"
                   >
                     {{ item.displayed_name }}
                   </td>
-                  <td class="px-6 py-4">{{ product.name }}</td>
-                  <td class="px-6 py-4">{{ product.quantity }}</td>
-                  <td class="px-6 py-4">
+                  <td class="lg:px-6 lg:py-3 py-1 px-2">{{ product.name }}</td>
+                  <td class="lg:px-6 lg:py-3 py-1 px-2">
+                    {{ product.quantity }}
+                  </td>
+                  <td class="lg:px-6 lg:py-3 py-1 px-2">
                     {{
                       (
                         product.price.net_purchase_price_commercial_unit *
@@ -533,14 +548,14 @@ const updateProduct = async (
                       ).toFixed(2)
                     }}
                   </td>
-                  <td class="px-6 py-4">
+                  <td class="lg:px-6 lg:py-3 py-1 px-2">
                     {{
                       (
                         product.price.gross_price_of_packing * product.quantity
                       ).toFixed(2)
                     }}
                   </td>
-                  <td class="px-6 py-4">
+                  <td class="lg:px-6 lg:py-3 py-1 px-2">
                     {{
                       (product.weight_trade_unit * product.quantity).toFixed(2)
                     }}
@@ -552,7 +567,7 @@ const updateProduct = async (
                         ? prepareSpecialProducts(item).length
                         : item.productList.length
                     "
-                    class="px-6 py-4"
+                    class="lg:px-6 lg:py-3 py-1 px-2"
                   >
                     {{ item.price }}
                   </td>
@@ -566,13 +581,15 @@ const updateProduct = async (
                 <td
                   v-if="i === 0"
                   :rowspan="state.packages.not_calculated.length"
-                  class="px-6 py-4"
+                  class="lg:px-6 lg:py-3 py-1 px-2"
                 >
                   Nie można wyznaczyć paczek
                 </td>
-                <td class="px-6 py-4">{{ product.name }}</td>
-                <td class="px-6 py-4">{{ product.quantity }}</td>
-                <td class="px-6 py-4">
+                <td class="lg:px-6 lg:py-3 py-1 px-2">{{ product.name }}</td>
+                <td class="lg:px-6 lg:py-3 py-1 px-2">
+                  {{ product.quantity }}
+                </td>
+                <td class="lg:px-6 lg:py-3 py-1 px-2">
                   {{
                     (
                       product.price.net_purchase_price_commercial_unit *
@@ -580,14 +597,14 @@ const updateProduct = async (
                     ).toFixed(2)
                   }}
                 </td>
-                <td class="px-6 py-4">
+                <td class="lg:px-6 lg:py-3 py-1 px-2">
                   {{
                     (
                       product.price.gross_price_of_packing * product.quantity
                     ).toFixed(2)
                   }}
                 </td>
-                <td class="px-6 py-4">
+                <td class="lg:px-6 lg:py-3 py-1 px-2">
                   {{
                     (product.weight_trade_unit * product.quantity).toFixed(2)
                   }}
@@ -595,7 +612,7 @@ const updateProduct = async (
                 <td
                   v-if="i === 0"
                   :rowspan="state.packages.not_calculated.length"
-                  class="px-6 py-4"
+                  class="lg:px-6 lg:py-3 py-1 px-2"
                 >
                   ---
                 </td>
@@ -642,7 +659,7 @@ const updateProduct = async (
     </div>
 
     <div
-      class="flex justify-center"
+      class="flex justify-center mb-60"
       v-if="
         (productsCart?.products &&
           productsCart?.products?.length > 0 &&
@@ -786,7 +803,7 @@ const updateProduct = async (
 
   <div
     v-if="state?.cart_token && !isNewOrder"
-    class="flex justify-center mb-50"
+    class="flex justify-center mb-60"
   >
     <button
       class="w-60 text-white bg-cyan-400 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
