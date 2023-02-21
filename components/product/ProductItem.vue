@@ -97,7 +97,7 @@ const handleMediaButton = (e: Event, media: any) => {
   <div class="flex flex-col justify-center">
     <div
       @click="() => handleShowModal(props.item)"
-      class="justify-between cursor-pointer relative flex flex-col md:flex-row md:space-x-5 space-y-3 md:space-y-0 rounded-xl shadow-lg p-3 w-[60vw] max-w-7xl mx-auto border border-white bg-white"
+      class="justify-between cursor-pointer relative flex flex-col md:flex-row md:space-x-5 space-y-3 md:space-y-0 rounded-xl shadow-lg p-3 w-full mx-auto border border-white bg-white max-w-7xl"
     >
       <div
         class="w-full md:w-1/3 bg-white grid place-items-center md:place-items-start"
