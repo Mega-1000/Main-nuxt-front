@@ -1,7 +1,7 @@
 <template>
-  <div class="flex py-20 xl:py-40">
+  <div class="flex pt-20 md:pt-30 lg:pt-60">
     <div class="m-auto">
-      <LoginForm class="max-w-[90vw]" />
+      <LoginForm />
     </div>
   </div>
 </template>
