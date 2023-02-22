@@ -15,7 +15,7 @@ const realDescription = description?.replace(/\|/gim, "\n");
 <template>
   <div class="flex justify-center">
     <div
-      class="justify-center items-center bg-white shadow-lg rounded-lg sm:flex flex-row w-[95vw] sm:w-[90vw] lg:w-[60vw]"
+      class="justify-center items-center bg-white shadow-lg rounded-lg sm:flex flex-row w-full max-w-screen-xl mx-3 lg:mx-6 xl:mx-8"
     >
       <img
         :src="buildImgRoute(imgSrc!)"

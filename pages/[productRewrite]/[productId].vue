@@ -12,35 +12,39 @@ const { params, query } = useRoute();
 const { productId } = params;
 const page = ref(parseInt((query.page as string) || "1"));
 
-const { data: currentProduct } = await useAsyncData(async () => {
-  try {
-    const res = await shopApi.get("/api/products/categories");
-    const currentProduct = findActiveMenu(res.data, productId as string);
-    let product = { ...currentProduct };
-    let categoryTree = [currentProduct];
-    while (product.parent_id && parseInt(product.parent_id) !== 0) {
-      product = findActiveMenu(res.data, product.parent_id);
-      categoryTree = [product, ...categoryTree];
-    }
+const { data: currentProduct, pending: pending1 } = await useAsyncData(
+  async () => {
+    try {
+      const res = await shopApi.get("/api/products/categories");
+      const currentProduct = findActiveMenu(res.data, productId as string);
+      let product = { ...currentProduct };
+      let categoryTree = [currentProduct];
+      while (product.parent_id && parseInt(product.parent_id) !== 0) {
+        product = findActiveMenu(res.data, product.parent_id);
+        categoryTree = [product, ...categoryTree];
+      }
 
-    return {
-      currentProduct,
-      categories: res.data,
-      categoryTree,
-    };
-  } catch (err) {}
-});
+      return {
+        currentProduct,
+        categories: res.data,
+        categoryTree,
+      };
+    } catch (err) {}
+  }
+);
 
-const { data: categoryData } = await useAsyncData(async () => {
-  try {
-    const res = await shopApi.get(
-      `/api/categories/details/search?category=${productId}`
-    );
-    return res.data;
-  } catch (err) {}
-});
+const { data: categoryData, pending: pending2 } = await useAsyncData(
+  async () => {
+    try {
+      const res = await shopApi.get(
+        `/api/categories/details/search?category=${productId}`
+      );
+      return res.data;
+    } catch (err) {}
+  }
+);
 
-const { data: itemsData } = await useAsyncData(
+const { data: itemsData, pending: pending3 } = await useAsyncData(
   async () => {
     try {
       let currentPage = parseInt(page.value as any);
@@ -149,306 +153,312 @@ const goToPage = (val: number) => {
 </script>
 
 <template>
-  <ProductHeader
-    :name="currentProduct?.currentProduct?.name"
-    :description="currentProduct?.currentProduct?.description"
-    :imgSrc="currentProduct?.currentProduct?.img"
-    class="mt-10"
-  />
-
-  <div class="md:flex justify-center mb-40 mx-15">
-    <Sidebar
-      :categories="currentProduct?.categories"
-      :category-tree="currentProduct?.categoryTree"
-      class="h-fit flex flex-col justify-center mt-5 md:mt-40 md:ml-15 pt-30 mx-1"
-    />
-    <div
-      v-if="
-        currentProduct?.currentProduct?.children &&
-        currentProduct?.currentProduct.children.length > 0 &&
-        (!itemsData.data || !(itemsData.data.length > 0))
-      "
-      class="w-full justify-center grid max-w-8xl md:w-[60vw] grid-cols-1 gap-6 px-6 pt-6 pb-40 sm:grid-cols-2 xl:grid-cols-3 mb-30"
-    >
-      <article
-        v-for="product in currentProduct.currentProduct.children"
-        class="w-full h-full rounded-xl bg-white p-3 shadow-lg hover:shadow-xl hover:transform hover:scale-105 duration-300"
-      >
-        <NuxtLink
-          :href="buildLink(product)"
-          class="flex flex-col justify-between h-full"
-        >
-          <div class="overflow-hidden rounded-xl">
-            <img
-              :src="buildImgRoute(product.img)"
-              alt="Photo"
-              loading="lazy"
-              @error="(e: any) => (e.target!.src = defaultImgSrc)"
-              class="h-full w-full"
-            />
-          </div>
-
-          <div class="mt-1 p-2">
-            <h2 class="text-gray-900 font-medium">
-              {{ product.name }}
-            </h2>
-          </div>
-        </NuxtLink>
-      </article>
+  <div
+    class="md:flex justify-items-center mb-40 mx-15"
+    v-if="![pending1, pending2, pending3].some((el) => el)"
+  >
+    <div class="md:w-1/3 xl:w-1/4 lg:ml-20 xl:ml-40 xl:ml-120 md:mr-5">
+      <Sidebar
+        :categories="currentProduct?.categories"
+        :category-tree="currentProduct?.categoryTree"
+        class="h-fit mt-5 md:mt-30 md:ml-5 lg:ml-15 pt-30 w-full"
+      />
     </div>
-
-    <div
-      v-else-if="
-        !categoryData?.chimney_attributes ||
-        !(categoryData?.chimney_attributes.length > 0)
-      "
-    >
-      <section class="py-10">
-        <div class="mx-auto grid w-full max-w-8xl grid-cols-1 gap-6 p-6 mb-10">
-          <ProductItem
-            v-for="item in itemsData.data"
-            :item="item"
-            :modal="modal"
-            :contactModal="contactModal"
-            class="w-full"
-          />
-          <nav
-            aria-label="Page navigation example"
-            v-if="itemsData.last_page > 1"
-            class="mx-auto"
+    <div class="md:w-2/3 xl:w-3/4">
+      <ProductHeader
+        :name="currentProduct?.currentProduct?.name"
+        :description="currentProduct?.currentProduct?.description"
+        :imgSrc="currentProduct?.currentProduct?.img"
+        class="mt-10"
+      />
+      <div
+        v-if="
+          currentProduct?.currentProduct?.children &&
+          currentProduct?.currentProduct.children.length > 0 &&
+          (!itemsData.data || !(itemsData.data.length > 0))
+        "
+        class="grid max-w-8xl grid-cols-1 gap-6 px-6 pt-6 pb-40 sm:grid-cols-2 xl:grid-cols-3 mb-30"
+      >
+        <article
+          v-for="product in currentProduct.currentProduct.children"
+          class="w-full h-full rounded-xl bg-white p-3 shadow-lg hover:shadow-xl hover:transform hover:scale-105 duration-300"
+        >
+          <NuxtLink
+            :href="buildLink(product)"
+            class="flex flex-col justify-between h-full"
           >
-            <ul class="inline-flex items-center -space-x-px">
-              <li>
-                <button
-                  :disabled="page < 2"
-                  @click="() => goToPage(page - 1)"
-                  class="block px-3 py-2 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700"
-                >
-                  <span class="sr-only">Previous</span>
-                  <svg
-                    aria-hidden="true"
-                    class="w-6 h-6"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                      clip-rule="evenodd"
-                    ></path>
-                  </svg>
-                </button>
-              </li>
-              <li v-for="i in itemsData.last_page">
-                <button
-                  :disabled="page === i"
-                  @click="() => goToPage(i)"
-                  :class="`text-xl px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 ${
-                    page === i && `bg-gray-100`
-                  } hover:bg-gray-100 hover:text-gray-700`"
-                >
-                  {{ i }}
-                </button>
-              </li>
-              <li>
-                <button
-                  :disabled="page === itemsData.last_page"
-                  @click="() => goToPage(page + 1)"
-                  class="block px-3 py-2 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700"
-                >
-                  <span class="sr-only">Next</span>
-                  <svg
-                    aria-hidden="true"
-                    class="w-6 h-6"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                      clip-rule="evenodd"
-                    ></path>
-                  </svg>
-                </button>
-              </li>
-            </ul>
-          </nav>
-        </div>
-      </section>
-      <!-- Main modal -->
-      <div
-        id="calculatorModal"
-        tabindex="-1"
-        class="top-0 fixed z-50 w-auto hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full"
-      >
-        <div
-          class="relative w-full h-full max-w-xl sm:max-w-3xl md:max-w-5xl lg:max-w-7xl md:h-auto"
-        >
-          <!-- Modal content -->
-          <div class="relative bg-white rounded-lg shadow">
-            <!-- Modal header -->
-            <div
-              class="flex items-start justify-between p-4 border-b rounded-t"
-            >
-              <h3 class="text-xl font-semibold text-gray-900">
-                Kalkulator cenowy
-              </h3>
-              <button
-                type="button"
-                class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
-                data-modal-hide="calculatorModal"
-                @click="handleCloseModal"
-              >
-                <svg
-                  aria-hidden="true"
-                  class="w-5 h-5"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                    clip-rule="evenodd"
-                  ></path>
-                </svg>
-                <span class="sr-only">Close modal</span>
-              </button>
+            <div class="overflow-hidden rounded-xl">
+              <img
+                :src="buildImgRoute(product.img)"
+                alt="Photo"
+                loading="lazy"
+                @error="(e: any) => (e.target!.src = defaultImgSrc)"
+                class="h-full w-full"
+              />
             </div>
-            <!-- Modal body -->
-            <div class="p-6 space-y-6 w-auto">
-              <CalculatorModal />
+
+            <div class="mt-1 p-2">
+              <h2 class="text-gray-900 font-medium">
+                {{ product.name }}
+              </h2>
             </div>
-            <!-- Modal footer -->
-            <div
-              class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b"
-            >
-              <button
-                @click="handleCart"
-                type="button"
-                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-              >
-                Dodaj do koszyka
-              </button>
-            </div>
-          </div>
-        </div>
+          </NuxtLink>
+        </article>
       </div>
 
       <div
-        id="contactModal"
-        tabindex="-1"
-        class="top-0 fixed z-50 w-auto hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full"
+        v-else-if="
+          !categoryData?.chimney_attributes ||
+          !(categoryData?.chimney_attributes.length > 0)
+        "
       >
+        <section class="py-10">
+          <div class="grid w-full grid-cols-1 gap-6 p-6 mb-10">
+            <ProductItem
+              v-for="item in itemsData.data"
+              :item="item"
+              :modal="modal"
+              :contactModal="contactModal"
+              class="w-full"
+            />
+            <nav
+              aria-label="Page navigation example"
+              v-if="itemsData.last_page > 1"
+              class="mx-auto"
+            >
+              <ul class="inline-flex items-center -space-x-px">
+                <li>
+                  <button
+                    :disabled="page < 2"
+                    @click="() => goToPage(page - 1)"
+                    class="block px-3 py-2 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700"
+                  >
+                    <span class="sr-only">Previous</span>
+                    <svg
+                      aria-hidden="true"
+                      class="w-6 h-6"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                        clip-rule="evenodd"
+                      ></path>
+                    </svg>
+                  </button>
+                </li>
+                <li v-for="i in itemsData.last_page">
+                  <button
+                    :disabled="page === i"
+                    @click="() => goToPage(i)"
+                    :class="`text-xl px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 ${
+                      page === i && `bg-gray-100`
+                    } hover:bg-gray-100 hover:text-gray-700`"
+                  >
+                    {{ i }}
+                  </button>
+                </li>
+                <li>
+                  <button
+                    :disabled="page === itemsData.last_page"
+                    @click="() => goToPage(page + 1)"
+                    class="block px-3 py-2 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700"
+                  >
+                    <span class="sr-only">Next</span>
+                    <svg
+                      aria-hidden="true"
+                      class="w-6 h-6"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                        clip-rule="evenodd"
+                      ></path>
+                    </svg>
+                  </button>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </section>
+        <!-- Main modal -->
         <div
-          class="relative w-full h-full max-w-xl sm:max-w-3xl md:max-w-5xl lg:max-w-7xl md:h-auto"
+          id="calculatorModal"
+          tabindex="-1"
+          class="top-0 fixed z-50 w-auto hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full"
         >
-          <!-- Modal content -->
-          <div class="relative bg-white rounded-lg shadow">
-            <!-- Modal header -->
-            <div
-              class="flex items-start justify-between p-4 border-b rounded-t"
-            >
-              <h5 class="text-xl xl:text-2xl font-medium text-gray-900">
-                Uzupełnij dane do kontaktu
-              </h5>
-              <button
-                type="button"
-                class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
-                data-modal-hide="calculatorModal"
-                @click="contactModal?.hide"
+          <div
+            class="relative w-full h-full max-w-xl sm:max-w-3xl md:max-w-5xl lg:max-w-7xl md:h-auto"
+          >
+            <!-- Modal content -->
+            <div class="relative bg-white rounded-lg shadow">
+              <!-- Modal header -->
+              <div
+                class="flex items-start justify-between p-4 border-b rounded-t"
               >
-                <svg
-                  aria-hidden="true"
-                  class="w-5 h-5"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
+                <h3 class="text-xl font-semibold text-gray-900">
+                  Kalkulator cenowy
+                </h3>
+                <button
+                  type="button"
+                  class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
+                  data-modal-hide="calculatorModal"
+                  @click="handleCloseModal"
                 >
-                  <path
-                    fill-rule="evenodd"
-                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                    clip-rule="evenodd"
-                  ></path>
-                </svg>
-                <span class="sr-only">Close modal</span>
-              </button>
-            </div>
-            <!-- Modal body -->
-            <div class="p-6 space-y-6 w-auto">
-              <form class="space-y-6">
-                <div>
-                  <label
-                    for="email"
-                    class="block mb-2 text-sm font-medium text-gray-900"
-                    >Email</label
+                  <svg
+                    aria-hidden="true"
+                    class="w-5 h-5"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
-                  <input
-                    type="email"
-                    name="email"
-                    id="email"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                    required
-                    :disabled="loading"
-                    v-model="emailInput"
-                  />
-                </div>
-                <div>
-                  <label
-                    for="phone"
-                    class="block mb-2 text-sm font-medium text-gray-900"
-                    >Phone</label
-                  >
-                  <input
-                    :disabled="loading"
-                    v-model="phoneInput"
-                    type="phone"
-                    name="phone"
-                    id="phone"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                    required
-                  />
-                </div>
-                <div>
-                  <label
-                    for="postal-code"
-                    class="block mb-2 text-sm font-medium text-gray-900"
-                    >Kod Pocztowy</label
-                  >
-                  <input
-                    name="postal-code"
-                    id="postal-code"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                    required
-                    :disabled="loading"
-                    v-model="postalCodeInput"
-                  />
-                </div>
-                <p class="mt-2 text-sm text-red-600">
-                  {{ errorMessage }}
-                </p>
-              </form>
-            </div>
-            <!-- Modal footer -->
-            <div
-              class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b"
-            >
-              <button
-                @click="handleSubmit"
-                type="button"
-                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                    <path
+                      fill-rule="evenodd"
+                      d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                      clip-rule="evenodd"
+                    ></path>
+                  </svg>
+                  <span class="sr-only">Close modal</span>
+                </button>
+              </div>
+              <!-- Modal body -->
+              <div class="p-6 space-y-6 w-auto">
+                <CalculatorModal />
+              </div>
+              <!-- Modal footer -->
+              <div
+                class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b"
               >
-                Wyślij
-              </button>
+                <button
+                  @click="handleCart"
+                  type="button"
+                  class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                >
+                  Dodaj do koszyka
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          id="contactModal"
+          tabindex="-1"
+          class="top-0 fixed z-50 w-auto hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full"
+        >
+          <div
+            class="relative w-full h-full max-w-xl sm:max-w-3xl md:max-w-5xl lg:max-w-7xl md:h-auto"
+          >
+            <!-- Modal content -->
+            <div class="relative bg-white rounded-lg shadow">
+              <!-- Modal header -->
+              <div
+                class="flex items-start justify-between p-4 border-b rounded-t"
+              >
+                <h5 class="text-xl xl:text-2xl font-medium text-gray-900">
+                  Uzupełnij dane do kontaktu
+                </h5>
+                <button
+                  type="button"
+                  class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
+                  data-modal-hide="calculatorModal"
+                  @click="contactModal?.hide"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="w-5 h-5"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                      clip-rule="evenodd"
+                    ></path>
+                  </svg>
+                  <span class="sr-only">Close modal</span>
+                </button>
+              </div>
+              <!-- Modal body -->
+              <div class="p-6 space-y-6 w-auto">
+                <form class="space-y-6">
+                  <div>
+                    <label
+                      for="email"
+                      class="block mb-2 text-sm font-medium text-gray-900"
+                      >Email</label
+                    >
+                    <input
+                      type="email"
+                      name="email"
+                      id="email"
+                      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                      required
+                      :disabled="loading"
+                      v-model="emailInput"
+                    />
+                  </div>
+                  <div>
+                    <label
+                      for="phone"
+                      class="block mb-2 text-sm font-medium text-gray-900"
+                      >Phone</label
+                    >
+                    <input
+                      :disabled="loading"
+                      v-model="phoneInput"
+                      type="phone"
+                      name="phone"
+                      id="phone"
+                      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label
+                      for="postal-code"
+                      class="block mb-2 text-sm font-medium text-gray-900"
+                      >Kod Pocztowy</label
+                    >
+                    <input
+                      name="postal-code"
+                      id="postal-code"
+                      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                      required
+                      :disabled="loading"
+                      v-model="postalCodeInput"
+                    />
+                  </div>
+                  <p class="mt-2 text-sm text-red-600">
+                    {{ errorMessage }}
+                  </p>
+                </form>
+              </div>
+              <!-- Modal footer -->
+              <div
+                class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b"
+              >
+                <button
+                  @click="handleSubmit"
+                  type="button"
+                  class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                >
+                  Wyślij
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <div v-else>
-      <ProductChimney :attributes="categoryData.chimney_attributes" />
+      <div v-else>
+        <ProductChimney :attributes="categoryData.chimney_attributes" />
+      </div>
     </div>
   </div>
 </template>
