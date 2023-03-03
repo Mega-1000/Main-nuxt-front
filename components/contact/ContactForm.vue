@@ -1,9 +1,5 @@
 <script setup lang="ts">
-import FileBase64 from "vue-file-base64";
-
 const router = useRouter();
-
-const { $shopApi: shopApi } = useNuxtApp();
 
 const cart = useCart();
 const user = useUser();
@@ -19,10 +15,6 @@ let cityInput = user?.value?.city || "";
 let additionalNoticesInput = "";
 let abroadInput = false;
 let rulesInput = false;
-
-const handleFiles = (filesInput: any[]) => {
-  files = filesInput;
-};
 
 const areFilesValid = (files: any[]) => {
   const availableFileExtensions = ["png", "jpg", "jpeg", "pdf", "tif", "gif"];
@@ -60,14 +52,14 @@ const handleSubmit = async (e: Event) => {
     rewrite: 1,
   };
 
-  try {
-    await shopApi.post("/api/new_order", params);
-    router.push("/thanks?contact=true");
-  } catch (err: any) {
-    errorMessage.value = err.response.data.error_message || "Wystąpił błąd";
-  } finally {
-    loading.value = false;
-  }
+
+  loading.value = false;
+  router.push({
+    path: "/contact/confirmation",
+    query: {
+      params: JSON.stringify(params),
+    },
+  });
 };
 </script>
 
@@ -96,60 +88,6 @@ const handleSubmit = async (e: Event) => {
       <div class="flex items-start">
         <div class="flex items-center h-5">
           <input
-            id="abroad"
-            type="checkbox"
-            v-model="abroadInput"
-            class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300"
-          />
-        </div>
-        <label for="abroad" class="ml-2 text-sm font-medium text-gray-900"
-          >Wysyłka poza granice Polski</label
-        >
-      </div>
-      <div>
-        <label
-          for="postal-code"
-          class="block mb-2 text-sm font-medium text-gray-900"
-          >Kod Pocztowy</label
-        >
-        <input
-          name="postal-code"
-          id="postal-code"
-          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-          required
-          :disabled="loading"
-          v-model="postalCodeInput"
-        />
-      </div>
-      <div>
-        <label for="city" class="block mb-2 text-sm font-medium text-gray-900"
-          >Miejscowość</label
-        >
-        <input
-          name="city"
-          id="city"
-          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-          required
-          :disabled="loading"
-          v-model="cityInput"
-        />
-      </div>
-      <div>
-        <label
-          for="additional-notices"
-          class="block mb-2 text-sm font-medium text-gray-900"
-          >Opis i uwagi do zamówienia</label
-        >
-        <textarea
-          id="additional-notices"
-          rows="4"
-          v-model="additionalNoticesInput"
-          class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
-        ></textarea>
-      </div>
-      <div class="flex items-start">
-        <div class="flex items-center h-5">
-          <input
             id="rules"
             type="checkbox"
             required
@@ -161,22 +99,7 @@ const handleSubmit = async (e: Event) => {
           >Zapoznałem się z regulaminami 1, 2 i 3</label
         >
       </div>
-      <div>
-        <FileBase64 multiple @onDone="handleFiles" />
-        <p class="mt-1 text-sm text-gray-500" id="file_input_help">
-          PNG, JPG, JPEG, GIF, TIF, lub PDF
-        </p>
-      </div>
-      <p class="mt-2 text-sm text-red-600">
-        {{ errorMessage }}
-      </p>
-      <button
-        class="w-full text-white bg-cyan-400 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-        :disabled="loading"
-        type="submit"
-      >
-        Wyślij
-      </button>
+      <primaryButton :disabled="loading">Wyślij</primaryButton>
     </form>
   </div>
 </template>
