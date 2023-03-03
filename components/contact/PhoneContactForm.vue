@@ -38,7 +38,7 @@ const handleSubmit = async (e: Event) => {
   >
     <form class="space-y-6" @submit="handleSubmit">
       <h5 class="text-xl xl:text-2xl font-medium text-gray-900">
-        Skontaktuj się telefonicznie z konsultantem
+        Szybki kontakt z konsultantem
       </h5>
       <div>
         <label
