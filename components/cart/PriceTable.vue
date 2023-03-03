@@ -315,9 +315,13 @@ const handleBlur = (event: any) => {
 
 <template>
   <div>
-    <div class="shadow-md sm:rounded-lg">
-      <table class="w-full text-xs text-left text-gray-500">
-        <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+    <div
+      class="shadow-md sm:rounded-lg max-w-[80vw] sm:max-w-fit overflow-x-auto"
+    >
+      <table
+        class="w-full text-xs text-left text-gray-500 break-words sm:break-normal"
+      >
+        <thead class="text-xs text-gray-700 sm:uppercase bg-gray-50">
           <tr>
             <th />
             <th scope="col" class="px-1 py-1" v-if="state?.commercial">
@@ -339,15 +343,12 @@ const handleBlur = (event: any) => {
         </thead>
         <tbody>
           <tr class="bg-white border-b">
-            <th
-              scope="row"
-              class="px-1 py-1 font-medium text-gray-900 whitespace-nowrap"
-            >
+            <th scope="row" class="px-1 py-1 font-medium text-gray-900">
               Ilość zamawianego towaru
             </th>
             <td class="px-1 py-1" v-if="state?.commercial">
               <input
-                class="border border-gray-100 w-20"
+                class="border border-gray-100 w-10 sm:w-20"
                 name="selectedCommercial"
                 :value="state?.selectedCommercial"
                 :onBlur="handleBlur"
@@ -356,7 +357,7 @@ const handleBlur = (event: any) => {
             </td>
             <td class="px-1 py-1" v-if="state?.calculation">
               <input
-                class="border border-gray-100 w-20"
+                class="border border-gray-100 w-10 sm:w-20"
                 name="selectedCalculation"
                 :value="state?.selectedCalculation"
                 :onBlur="handleBlur"
@@ -365,7 +366,7 @@ const handleBlur = (event: any) => {
             </td>
             <td class="px-1 py-1" v-if="state?.basicUnit">
               <input
-                class="border border-gray-100 w-20"
+                class="border border-gray-100 w-10 sm:w-20"
                 name="selectedBasicUnit"
                 :value="state?.selectedBasicUnit"
                 :onBlur="handleBlur"
@@ -374,7 +375,7 @@ const handleBlur = (event: any) => {
             </td>
             <td class="px-1 py-1" v-if="state?.collective">
               <input
-                class="border border-gray-100 w-20"
+                class="border border-gray-100 w-10 sm:w-20"
                 name="selectedCollective"
                 :value="state?.selectedCollective"
                 :onBlur="handleBlur"
@@ -383,7 +384,7 @@ const handleBlur = (event: any) => {
             </td>
             <td class="px-1 py-1" v-if="state?.unitBiggest">
               <input
-                class="border border-gray-100 w-20"
+                class="border border-gray-100 w-10 sm:w-20"
                 name="selectedUnitBiggest"
                 :value="state?.selectedUnitBiggest"
                 :onBlur="handleBlur"
@@ -392,10 +393,7 @@ const handleBlur = (event: any) => {
             </td>
           </tr>
           <tr class="bg-white border-b">
-            <th
-              scope="row"
-              class="px-1 py-1 font-medium text-gray-900 whitespace-nowrap"
-            >
+            <th scope="row" class="px-1 py-1 font-medium text-gray-900">
               Ceny netto<br />
               sprzedaży [PLN]
             </th>
@@ -436,10 +434,7 @@ const handleBlur = (event: any) => {
             </td>
           </tr>
           <tr class="bg-white border-b">
-            <th
-              scope="row"
-              class="px-1 py-1 font-medium text-gray-900 whitespace-nowrap"
-            >
+            <th scope="row" class="px-1 py-1 font-medium text-gray-900">
               Ceny brutto<br />
               sprzedaży [PLN]
             </th>
@@ -460,10 +455,7 @@ const handleBlur = (event: any) => {
             </td>
           </tr>
           <tr class="bg-white border-b">
-            <th
-              scope="row"
-              class="px-1 py-1 font-medium text-gray-900 whitespace-nowrap"
-            >
+            <th scope="row" class="px-1 py-1 font-medium text-gray-900">
               Wartość netto<br />
               sprzedaży [PLN]
             </th>
@@ -477,10 +469,7 @@ const handleBlur = (event: any) => {
             </td>
           </tr>
           <tr class="bg-white border-b">
-            <th
-              scope="row"
-              class="px-1 py-1 font-medium text-gray-900 whitespace-nowrap"
-            >
+            <th scope="row" class="px-1 py-1 font-medium text-gray-900">
               Wartość brutto <br />sprzedaży [PLN]
             </th>
             <td class="px-1 py-1" v-if="state?.commercial">
@@ -490,15 +479,12 @@ const handleBlur = (event: any) => {
             </td>
           </tr>
           <tr class="bg-white" v-if="state?.displayConsumption">
-            <th
-              scope="row"
-              class="px-1 py-1 font-medium text-gray-900 whitespace-nowrap"
-            >
+            <th scope="row" class="px-1 py-1 font-medium text-gray-900">
               Obliczenia dokonanu przy <br />założeniu zużycia
             </th>
             <td class="px-1 py-1">
               <input
-                class="border border-gray-100 w-20"
+                class="border border-gray-100 w-10 sm:w-20"
                 name="selectedConsumption"
                 :value="state?.selectedConsumption"
                 :onBlur="handleBlur"
