@@ -1,5 +1,5 @@
 <template>
   <Navbar />
-  <slot />
-  <Footer />
+  <NuxtPage class="mb-40" />
+  <Footer class="mt-20" />
 </template>
