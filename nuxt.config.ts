@@ -1,6 +1,13 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   modules: ["@nuxtjs/tailwindcss", "nuxt-icon"],
+  vite: {
+    server: {
+      hmr: {
+        protocol: 'none',
+      },
+    },
+  },
   runtimeConfig: {
     public: {
       AUTH_CLIENT_ID: process.env.AUTH_CLIENT_ID,
