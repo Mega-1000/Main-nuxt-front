@@ -8,6 +8,7 @@
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
+    "@nuxt/devtools": "^0.2.5",
     "@nuxtjs/tailwindcss": "^6.2.0",
     "@types/axios-token-interceptor": "^0.2.4",
     "@types/compression": "^1.7.2",
