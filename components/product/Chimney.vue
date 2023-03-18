@@ -72,7 +72,7 @@ const addToCart = () => {
       productsCart.value.addToCart(item, item.quantity);
     });
 
-  router.push("/cart");
+  router.push("/koszyk.html");
 };
 
 const replaceProducts = (item: any) => {
