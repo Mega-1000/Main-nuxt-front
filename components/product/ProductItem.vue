@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { Modal } from "flowbite";
 import Cookies from "universal-cookie";
-import buildImgRoute, { defaultImgSrc } from "~~/helpers/buildImgRoute";
 
 interface Props {
   item: any;
@@ -9,7 +8,7 @@ interface Props {
   contactModal: Modal | null;
 }
 
-const { $shopApi: shopApi } = useNuxtApp();
+const { $shopApi: shopApi, $buildImgRoute: buildImgRoute } = useNuxtApp();
 
 const props = defineProps<Props>();
 

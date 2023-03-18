@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import findActiveMenu from "~~/helpers/findActiveMenu";
-import buildImgRoute, { defaultImgSrc } from "~~/helpers/buildImgRoute";
+import { defaultImgSrc } from "~~/helpers/buildImgRoute";
 import { Modal, ModalOptions } from "flowbite";
 import Cookies from "universal-cookie";
 
-const { $shopApi: shopApi } = useNuxtApp();
+const { $shopApi: shopApi, $buildImgRoute: buildImgRoute } = useNuxtApp();
 
 const currentItem = useCurrentItem();
 
@@ -191,7 +191,7 @@ const config = useRuntimeConfig().public;
           >
             <div class="overflow-hidden rounded-xl">
               <img
-                :src="buildImgRoute(product.img, config.baseUrl)"
+                :src="buildImgRoute(product.img)"
                 alt="Photo"
                 loading="lazy"
                 @error="(e: any) => (e.target!.src = defaultImgSrc)"

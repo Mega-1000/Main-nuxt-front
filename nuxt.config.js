@@ -18,6 +18,6 @@ export default defineNuxtConfig({
     https: {
       key: fs.readFileSync(path.resolve(process.env.SSL_KEY_PATH)),
       cert: fs.readFileSync(path.resolve(process.env.SSL_CERT_PATH)),
-    }
-  }
+    },
+  },
 });

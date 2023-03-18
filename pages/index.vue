@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import buildImgRoute, { defaultImgSrc } from "~~/helpers/buildImgRoute";
+import { defaultImgSrc } from "~~/helpers/buildImgRoute";
 
-const { $shopApi: shopApi } = useNuxtApp();
+const { $shopApi: shopApi, $buildImgRoute: buildImgRoute } = useNuxtApp();
 
 const { data: categories, pending } = await useAsyncData(async () => {
   try {
@@ -40,7 +40,7 @@ const config = useRuntimeConfig().public;
                   <NuxtLink :href="buildLink(category)">
                     <div class="overflow-hidden rounded-xl h-4/5">
                       <img
-                        :src="buildImgRoute(category.img, config.baseUrl)"
+                        :src="buildImgRoute(category.img)"
                         alt="Photo"
                         @error="(e: any) => (e.target!.src = defaultImgSrc)"
                         class="w-full h-full"

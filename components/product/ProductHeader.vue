@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import buildImgRoute, { defaultImgSrc } from "~~/helpers/buildImgRoute";
+import { defaultImgSrc } from "~~/helpers/buildImgRoute";
 
 interface Props {
   description?: string;
@@ -10,6 +10,8 @@ interface Props {
 const { description, imgSrc, name } = defineProps<Props>();
 
 const realDescription = description?.replace(/\|/gim, "\n");
+
+const { $buildImgRoute: buildImgRoute } = useNuxtApp();
 </script>
 
 <template>

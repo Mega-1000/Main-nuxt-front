@@ -3,12 +3,11 @@ import Cookies from "universal-cookie/cjs/Cookies";
 import { getToken, setCookie } from "~~/helpers/authenticator";
 import transportPrice from "~~/helpers/transportPrice";
 import Cart from "~~/utils/Cart";
-import buildImgRoute from "~~/helpers/buildImgRoute";
 import FileBase64 from "vue-file-base64";
 
 const { query } = useRoute();
 
-const { $shopApi: shopApi } = useNuxtApp();
+const { $shopApi: shopApi, $buildImgRoute: buildImgRoute } = useNuxtApp();
 
 const productsCart = useProductsCart();
 
@@ -324,7 +323,7 @@ const updateProduct = async (
               class="w-full md:w-1/3 bg-white grid place-items-start md:max-w-2xl"
             >
               <img
-                :src="buildImgRoute(product?.url_for_website, config.baseUrl)"
+                :src="buildImgRoute(product?.url_for_website)"
                 alt="Photo"
                 class="rounded-xl"
               />

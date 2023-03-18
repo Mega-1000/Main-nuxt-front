@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import buildImgRoute, { defaultImgSrc } from "~~/helpers/buildImgRoute";
-
 interface Props {
   attributes: any[];
 }
@@ -9,7 +7,7 @@ const props = defineProps<Props>();
 
 const loading = ref(false);
 
-const { $shopApi: shopApi } = useNuxtApp();
+const { $shopApi: shopApi, $buildImgRoute: buildImgRoute } = useNuxtApp();
 
 const state = ref<any | null>(null);
 
@@ -145,7 +143,7 @@ const config = useRuntimeConfig().public;
         class="w-full md:w-1/3 bg-white grid place-items-center md:place-items-start"
       >
         <img
-          :src="buildImgRoute(item?.url_for_website, config.baseUrl)"
+          :src="buildImgRoute(item?.url_for_website)"
           alt="Photo"
           class="rounded-xl"
         />
@@ -213,7 +211,7 @@ const config = useRuntimeConfig().public;
           <p>Ilość: {{ item.quantity }} {{ item.unit_commercial }}</p>
         </div>
         <div>
-          <img :src="buildImgRoute(item.url_for_website, config.baseUrl)" />
+          <img :src="buildImgRoute(item.url_for_website)" />
         </div>
         <div>
           <p>
@@ -253,7 +251,7 @@ const config = useRuntimeConfig().public;
           </div>
         </div>
         <div class="w-[40%]">
-          <img :src="buildImgRoute(item.img, config.baseUrl)" />
+          <img :src="buildImgRoute(item.img)" />
         </div>
       </div>
     </div>
