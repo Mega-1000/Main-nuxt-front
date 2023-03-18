@@ -92,6 +92,8 @@ const replaceProducts = (item: any) => {
     conversions: state.value.conversions,
   };
 };
+
+const config = useRuntimeConfig().public;
 </script>
 
 <template>
@@ -143,7 +145,7 @@ const replaceProducts = (item: any) => {
         class="w-full md:w-1/3 bg-white grid place-items-center md:place-items-start"
       >
         <img
-          :src="buildImgRoute(item?.url_for_website)"
+          :src="buildImgRoute(item?.url_for_website, config.baseUrl)"
           alt="Photo"
           class="rounded-xl"
         />
@@ -211,7 +213,7 @@ const replaceProducts = (item: any) => {
           <p>Ilość: {{ item.quantity }} {{ item.unit_commercial }}</p>
         </div>
         <div>
-          <img :src="buildImgRoute(item.url_for_website)" />
+          <img :src="buildImgRoute(item.url_for_website, config.baseUrl)" />
         </div>
         <div>
           <p>
@@ -251,7 +253,7 @@ const replaceProducts = (item: any) => {
           </div>
         </div>
         <div class="w-[40%]">
-          <img :src="buildImgRoute(item.img)" />
+          <img :src="buildImgRoute(item.img, config.baseUrl)" />
         </div>
       </div>
     </div>

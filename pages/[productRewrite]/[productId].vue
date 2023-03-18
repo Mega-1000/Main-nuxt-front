@@ -150,6 +150,8 @@ const goToPage = (val: number) => {
   page.value = val;
   window.scrollTo(0, 0);
 };
+
+const config = useRuntimeConfig().public;
 </script>
 
 <template>
@@ -189,7 +191,7 @@ const goToPage = (val: number) => {
           >
             <div class="overflow-hidden rounded-xl">
               <img
-                :src="buildImgRoute(product.img)"
+                :src="buildImgRoute(product.img, config.baseUrl)"
                 alt="Photo"
                 loading="lazy"
                 @error="(e: any) => (e.target!.src = defaultImgSrc)"

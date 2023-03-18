@@ -324,7 +324,7 @@ const updateProduct = async (
               class="w-full md:w-1/3 bg-white grid place-items-start md:max-w-2xl"
             >
               <img
-                :src="buildImgRoute(product?.url_for_website)"
+                :src="buildImgRoute(product?.url_for_website, config.baseUrl)"
                 alt="Photo"
                 class="rounded-xl"
               />

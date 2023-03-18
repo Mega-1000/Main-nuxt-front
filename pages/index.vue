@@ -12,6 +12,8 @@ const { data: categories, pending } = await useAsyncData(async () => {
 
 const buildLink = ({ rewrite, id }: { rewrite: string; id: number }) =>
   `/${rewrite}/${id}`;
+
+const config = useRuntimeConfig().public;
 </script>
 
 <template>
@@ -38,7 +40,7 @@ const buildLink = ({ rewrite, id }: { rewrite: string; id: number }) =>
                   <NuxtLink :href="buildLink(category)">
                     <div class="overflow-hidden rounded-xl h-4/5">
                       <img
-                        :src="buildImgRoute(category.img)"
+                        :src="buildImgRoute(category.img, config.baseUrl)"
                         alt="Photo"
                         @error="(e: any) => (e.target!.src = defaultImgSrc)"
                         class="w-full h-full"
