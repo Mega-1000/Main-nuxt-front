@@ -15,7 +15,6 @@ const categoryQuestions = computed(() => {
   return questions.value[category.value];
 });
 
-
 onMounted(async () => {
   fetchQuestions();
 
@@ -88,6 +87,10 @@ const [parent] = useAutoAnimate()
             <button class="bg-red-500 rounded text-white px-4 py-2 mt-2" @click.prevent="deleteQuestion(question.id)">
               Usuń
             </button>
+
+            <nuxt-link class="bg-green-500 rounded text-white px-4 py-2 mt-2 ml-4" :href="`/faq/attach-question/${question.id}`">
+              Dodaj pytanie
+            </nuxt-link>
 
             <nuxt-link class="bg-blue-500 rounded text-white px-4 py-2 mt-2 ml-4" :href="`/faq/${question.id}`">
               Edytuj
