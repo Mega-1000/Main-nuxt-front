@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import logoSrc from "~~/assets/logo-no-bg.png";
 import { getToken, removeCookie } from "~~/helpers/authenticator";
 import { getPages } from "~~/helpers/customPages";
 import Cart from "~~/utils/Cart";
@@ -53,11 +52,11 @@ const toggleMenu = () => {
     <div
       class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl px-4 md:px-6 py-2.5"
     >
-      <NuxtLink href="/" class="flex items-center">
-        <img :src="logoSrc" class="h-30 mr-3 sm:h-25" alt="Logo" />
+      <NuxtLink href="/" class="flex items-center text-2xl font-semibold">
+        EPH POLSKA SP Z O.O.
       </NuxtLink>
       <div class="flex items-center">
-        <NuxtLink href="/cart">
+        <NuxtLink href="/koszyk.html">
           <div class="flex mr-5">
             <Icon
               id="icon"

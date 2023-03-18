@@ -7,7 +7,11 @@ const questions = ref([]);
 const category = ref('');
 const answer = ref('');
 const withFormButton = ref('');
-const fillAccountData = ref(false);
+const questionsTree = ref([]);
+
+const categoryQuestions = computed(() => {
+  return questions.value[category.value];
+});
 
 onMounted(async () => {
   const { data } = await shopApi.get("/api/faqs/get");
@@ -17,10 +21,6 @@ onMounted(async () => {
 const getWithForm = (decision) => {
   withFormButton.value = decision;
 }
-
-const categoryQuestions = computed(() => {
-  return questions.value[category.value];
-});
 
 const [parent] = useAutoAnimate()
 </script>
@@ -50,12 +50,26 @@ const [parent] = useAutoAnimate()
         </button>
       </div>
 
-      <div class="m-5" ref="parent">
-        <div v-if="answer" class="my-5">
+      <div ref="parent" class="m-5">
+        <div v-if="answer" class="rounded p-4 bg-slate-300 my-5">
           <p>{{ answer }}</p>
+
+          <div v-if="questionsTree.filter(q => q.answer !== answer).length !== 0">
+            <div v-for="q in questionsTree">
+              <button @click="answer = q.answer; questionsTree = q.questions" v-if="answer != q.answer"
+                class="pointer bg-gray-200 w-full hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded-l block mt-6">
+                <h2 class="text-lg">{{ q.question }}</h2>
+              </button>
+            </div>
+          </div>
+
+          <faqContactForm v-else />
+
         </div>
-        <div v-for="question in categoryQuestions" :key="question.id" @click="answer = question.answer">
-          <div class="pointer bg-gray-200 w-full hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded-l block mt-6">
+        <div v-for="question in categoryQuestions" :key="question.id"
+          @click="answer = question.answer; questionsTree = question.questions">
+          <div
+            class="pointer bg-gray-200 w-full hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded-l block mt-6">
             <h2 class="text-lg">{{ question.question }}</h2>
           </div>
         </div>
