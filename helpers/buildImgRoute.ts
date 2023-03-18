@@ -1,5 +1,5 @@
 const buildImgRoute = (path: string) =>
-  path ? "https://www.admin.mega1000.pl" + path : defaultImgSrc;
+  path ? process.env.APP_STORAGE + path : defaultImgSrc;
 
 export const defaultImgSrc = "https://via.placeholder.com/185x150";
 
