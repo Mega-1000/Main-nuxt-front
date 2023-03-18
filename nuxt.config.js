@@ -1,19 +1,10 @@
 import fs from "fs";
 import path from "path";
-
-// https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   modules: ["@nuxtjs/tailwindcss", "nuxt-icon", "@nuxt/devtools"],
   devtools: {
     enabled: true,
     vscode: {},
-  },
-  vite: {
-    server: {
-      hmr: {
-        protocol: 'none',
-      },
-    },
   },
   runtimeConfig: {
     public: {
