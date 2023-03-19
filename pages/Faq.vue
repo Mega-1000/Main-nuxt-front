@@ -7,20 +7,24 @@ const questions = ref([]);
 const category = ref('');
 const answer = ref('');
 const withFormButton = ref('');
-const fillAccountData = ref(false);
+const questionsTree = ref([]);
+
+const categoryQuestions = computed(() => {
+  return questions.value[category.value];
+});
 
 onMounted(async () => {
   const { data } = await shopApi.get("/api/faqs/get");
   questions.value = data;
 });
 
-const getWithForm = (decision) => {
-  withFormButton.value = decision;
-}
+const selectQuestion = async (question) => {
+  const { data } = await shopApi.get(`/api/faqs/${question.id}`);
 
-const categoryQuestions = computed(() => {
-  return questions.value[category.value];
-});
+  answer.value = data.questions[0].answer;
+  console.log(question.questions)
+  questionsTree.value = data.questions[0].questions;
+};
 
 const [parent] = useAutoAnimate()
 </script>
@@ -32,13 +36,7 @@ const [parent] = useAutoAnimate()
     </div>
 
     <div class="rounded bg-slate-500 p-4 mt-4">
-      Wybierz interesującą cię kwestię
-
-      <div class="mt-6 text-2xl font-semibold">
-        Dane kontaktowe:
-      </div>
-      Adres email: info@mega1000.pl
-      <button class="bg-slate-700 text-white rounded px-4 py-2 block mt-4">Zadaj pytanie</button>
+      Wybierz interesujący cię temat
     </div>
 
     <div class="flex">
@@ -50,12 +48,27 @@ const [parent] = useAutoAnimate()
         </button>
       </div>
 
-      <div class="m-5" ref="parent">
-        <div v-if="answer" class="my-5">
+      <div ref="parent" class="m-5">
+
+        <div v-if="answer" class="rounded p-4 bg-slate-300 my-5" ref="parent">
           <p>{{ answer }}</p>
+          
+
+          <div v-if="questionsTree[0]">
+            <div v-for="q in questionsTree">
+              <button @click="answer = q.answer;
+              questionsTree = q.questions;"
+                class="pointer bg-gray-200 w-full hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded-l block mt-6">
+                <h2 class="text-lg">{{ q.question }}</h2>
+              </button>
+            </div>
+          </div>
+
+          <faqContactForm v-else />
         </div>
-        <div v-for="question in categoryQuestions" :key="question.id" @click="answer = question.answer">
-          <div class="pointer bg-gray-200 w-full hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded-l block mt-6">
+        <div v-for="question in categoryQuestions" :key="question.id" @click="selectQuestion(question)">
+          <div
+            class="pointer bg-gray-200 w-full hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded-l block mt-6">
             <h2 class="text-lg">{{ question.question }}</h2>
           </div>
         </div>

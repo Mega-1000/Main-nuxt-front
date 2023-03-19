@@ -16,6 +16,8 @@ let additionalNoticesInput = "";
 let abroadInput = false;
 let rulesInput = false;
 
+const emit = defineEmits(["submit"]);
+
 const areFilesValid = (files: any[]) => {
   const availableFileExtensions = ["png", "jpg", "jpeg", "pdf", "tif", "gif"];
 
@@ -54,7 +56,8 @@ const handleSubmit = async (e: Event) => {
 
 
   loading.value = false;
-  router.push({
+  emit("submit");
+  await router.push({
     path: "/contact/confirmation",
     query: {
       params: JSON.stringify(params),
@@ -65,39 +68,30 @@ const handleSubmit = async (e: Event) => {
 
 <template>
   <div
-    class="w-full max-w-sm md:max-w-md lg:max-w-2xl xl:max-w-4xl p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8"
-  >
+    class="w-full max-w-sm md:max-w-md lg:max-w-2xl xl:max-w-4xl p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8">
     <form class="space-y-6" @submit="handleSubmit">
       <h5 class="text-xl xl:text-2xl font-medium text-gray-900">
         prosimy podać email kontaktowy
       </h5>
       <div>
-        <label for="email" class="block mb-2 text-sm font-medium text-gray-900"
-          >Email</label
-        >
-        <input
-          type="email"
-          name="email"
-          id="email"
+        <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Email</label>
+        <input type="email" name="email" id="email"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-          required
-          :disabled="loading"
-          v-model="emailInput"
-        />
+          required :disabled="loading" v-model="emailInput" />
       </div>
       <div class="flex items-start">
         <div class="flex items-center h-5">
-          <input
-            id="rules"
-            type="checkbox"
-            required
-            v-model="rulesInput"
-            class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300"
-          />
+          <input id="rules" type="checkbox" required v-model="rulesInput"
+            class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300" />
         </div>
-        <label for="rules" class="ml-2 text-sm font-medium text-gray-900"
-          >Zapoznałem się z regulaminami 1, 2 i 3</label
-        >
+        <label for="rules" class="ml-2 text-sm font-medium text-gray-900">Zapoznałem się z regulaminem 1</label>
+      </div>
+      <div class="flex items-start">
+        <div class="flex items-center h-5">
+          <input id="rules" type="checkbox" required v-model="rulesInput"
+            class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300" />
+        </div>
+        <label for="rules" class="ml-2 text-sm font-medium text-gray-900">Zapoznałem się z regulaminem 2</label>
       </div>
       <primaryButton :disabled="loading">Wyślij</primaryButton>
     </form>
