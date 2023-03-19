@@ -4,6 +4,8 @@ import { Modal } from "flowbite";
 
 const { $shopApi: shopApi } = useNuxtApp();
 
+const config = useRuntimeConfig().public;
+
 const questions = ref([]);
 const category = ref(0);
 const answer = ref('');
@@ -88,13 +90,9 @@ const [parent] = useAutoAnimate()
               Usuń
             </button>
 
-            <nuxt-link class="bg-green-500 rounded text-white px-4 py-2 mt-2 ml-4" :href="`/faq/attach-question/${question.id}`">
-              Dodaj pytanie
-            </nuxt-link>
-
-            <nuxt-link class="bg-blue-500 rounded text-white px-4 py-2 mt-2 ml-4" :href="`/faq/${question.id}`">
+            <a class="bg-blue-500 rounded text-white px-4 py-2 mt-2 ml-4" :href="`${config.nuxtNewFront}faq/create/${question.id}`" target="_blank">
               Edytuj
-            </nuxt-link>
+            </a>
           </div>
         </div>
 
