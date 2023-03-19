@@ -102,7 +102,7 @@ const handleMediaButton = (e: Event, media: any) => {
         class="w-full md:w-1/3 bg-white grid place-items-center md:place-items-start"
       >
         <img
-          :src="buildImgRoute(props.item.img)"
+          :src="buildImgRoute(props.item.url_for_website)"
           alt="Photo"
           loading="lazy"
           class="rounded-xl"
