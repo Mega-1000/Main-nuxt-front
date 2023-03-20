@@ -616,8 +616,21 @@ const updateProduct = async (
                 <input id="rules" type="checkbox" required v-model="rulesInput"
                   class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300" />
               </div>
-              <label for="rules" class="ml-2 text-sm font-medium text-gray-900">Zapoznałem się z regulaminami 1, 2 i
-                3</label>
+              <label for="rules" class="ml-2 text-sm font-medium text-gray-900">Zapoznałem się z regulaminem 1</label>
+            </div>
+            <div class="flex items-start">
+              <div class="flex items-center h-5">
+                <input id="rules-2" type="checkbox" required v-model="rulesInput"
+                  class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300" />
+              </div>
+              <label for="rules-1" class="ml-2 text-sm font-medium text-gray-900">Zapoznałem się z regulaminem 2</label>
+            </div>
+            <div class="flex items-start">
+              <div class="flex items-center h-5">
+                <input id="rules-3" type="checkbox" required v-model="rulesInput"
+                  class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300" />
+              </div>
+              <label for="rules-3" class="ml-2 text-sm font-medium text-gray-900">Zapoznałem się z regulaminem 3</label>
             </div>
             <div>
               <FileBase64 multiple @onDone="handleFiles" />
