@@ -230,6 +230,10 @@ const handleSubmitWithToken = async () => {
   }
 };
 
+const shipmentCostBrutto = computed(() => {
+  return Math.ceil(Number(parseFloat(productsCart.value.totalWeight()).toFixed(2)) / 31.5) * 18;
+});
+
 const isNewOrder = ref(false);
 
 const updateProduct = async (
@@ -538,23 +542,39 @@ const updateProduct = async (
           <hr />
           <div class="flex justify-between">
             <p class="text-2xl font-md">Koszt transportu</p>
-            <p class="text-lg">{{ state.transportPrice }} PLN</p>
+            <p class="text-lg">{{ shipmentCostBrutto }} PLN</p>
           </div>
           <hr />
           <div class="flex justify-between">
             <p class="text-2xl font-md">
               Łączna wartość zamówienia wraz z transportem
             </p>
+
             <p class="text-lg">
               Brutto:
               {{
                 (
-                  parseFloat(productsCart.grossPrice()) + state.transportPrice
+                  parseFloat(productsCart.grossPrice()) + shipmentCostBrutto
                 ).toFixed(2)
               }}
               PLN
             </p>
           </div>
+
+          <div class="text-right">
+            <button class="bg-blue-600 rounded px-4 py-2 text-white w-fit" :disabled="false">
+              <div>
+                Połącz mnie z konsultantem i potwierdz koszty transportu
+              </div>
+              <div>
+                Odpowiedź natychmistowa 7 - 23 poza następnego dnia 7 dni w tygodniu
+              </div>
+              <div>
+                Wymagane uzupełnienie danych kontaktowych poniżej
+              </div>
+            </button>
+          </div>
+
           <hr />
           <div class="flex justify-between">
             <p class="text-2xl font-md">Łączna waga</p>

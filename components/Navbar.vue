@@ -135,6 +135,11 @@ const toggleMenu = () => {
               >Zaloguj</NuxtLink
             >
           </li>
+          <li>
+            <NuxtLink href="/faq" class="text-gray-900 hover:underline"
+              >Faq</NuxtLink
+            >
+          </li>
         </ul>
         <div class="mx-auto grid sm:hidden cursor-pointer" @click="toggleMenu">
           <Icon v-if="!showMenu" name="ic:outline-arrow-drop-down" size="20" />
