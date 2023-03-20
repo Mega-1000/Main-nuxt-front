@@ -123,6 +123,7 @@ const handleMediaButton = (e: Event, media: any) => {
             v-for="val in props.item.meta_price.split(`.`)"
           >
             {{ getPriceString(val) }}
+            <button class="bg-blue-500 text-white rounded px-4 py-2" @click="() => handleShowModal(props.item)">Kalkulator cenowy</button>
           </p>
         </div>
 
