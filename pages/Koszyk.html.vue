@@ -199,25 +199,9 @@ const handleSubmitWithToken = async (e: Event) => {
   e.preventDefault();
   loading.value = true;
 
-  if (files.length > 0 && !areFilesValid(files)) {
-    errorText2.value = "Nieprawidłowe pliki";
-    loading.value = false;
-    return;
-  }
-
   const cookies = new Cookies();
 
   const params = {
-    customer_login: emailInput,
-    phone: phoneInput,
-    customer_notices: additionalNoticesInput,
-    delivery_address: {
-      city: cityInput,
-      postal_code: postalCodeInput,
-    },
-    shipping_abroad: abroadInput,
-    is_standard: true,
-    files,
     order_items: productsCart.value.idsWithQuantity(),
     rewrite: 0,
     cart_token: cookies.get("cart_token"),
@@ -225,8 +209,9 @@ const handleSubmitWithToken = async (e: Event) => {
 
   try {
     const res = await shopApi.post("/api/new_order", params);
-    productsCart.value.removeAllFromCart();
+
     if (res.status === 201) {
+      productsCart.value.removeAllFromCart();
       cookies.remove("cart_token");
       window.location.replace(
         `${config.baseUrl}/admin/orders/${res.data.order_id}/edit`
