@@ -8,6 +8,7 @@ const category = ref('');
 const answer = ref('');
 const withFormButton = ref('');
 const questionsTree = ref([]);
+const categories = ref([]);
 
 const categoryQuestions = computed(() => {
   return questions.value[category.value];
@@ -16,6 +17,9 @@ const categoryQuestions = computed(() => {
 onMounted(async () => {
   const { data } = await shopApi.get("/api/faqs/get");
   questions.value = data;
+  categories.value = Object.keys(data);
+
+  ({data: categories.value} = await shopApi.get("/api/faqs/categories"));
 });
 
 const selectQuestion = async (question) => {
@@ -42,7 +46,7 @@ const [parent] = useAutoAnimate()
     <div class="flex">
 
       <div class="w-[15%]">
-        <button v-for="(questions, name) in questions" @click="category = name; answer = ''"
+        <button v-for="name in categories" @click="category = name; answer = ''"
           class="bg-gray-200 w-full hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded-l block mt-6 ">
           {{ name }}
         </button>
@@ -52,7 +56,7 @@ const [parent] = useAutoAnimate()
 
         <div v-if="answer" class="rounded p-4 bg-slate-300 my-5" ref="parent">
           <p>{{ answer }}</p>
-          
+
 
           <div v-if="questionsTree[0]">
             <div v-for="q in questionsTree">

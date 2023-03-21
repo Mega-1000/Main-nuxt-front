@@ -1,6 +1,7 @@
 <script setup>
 import { useAutoAnimate } from '@formkit/auto-animate/vue'
 import { Modal } from "flowbite";
+import draggable from 'vuedraggable';
 
 const { $shopApi: shopApi } = useNuxtApp();
 
@@ -10,12 +11,11 @@ const questions = ref([]);
 const category = ref(0);
 const answer = ref('');
 const newCategoryName = ref('');
+const categories = ref([]);
+const categoryQuestions = ref([]);
 
 const modal = ref(null);
 
-const categoryQuestions = computed(() => {
-  return questions.value[category.value];
-});
 
 onMounted(async () => {
   fetchQuestions();
@@ -35,6 +35,26 @@ onMounted(async () => {
 const fetchQuestions = async () => {
   const { data } = await shopApi.get("/api/faqs/get");
   questions.value = data;
+  categories.value = Object.keys(data);
+
+  ({ data: categories.value } = await shopApi.get("/api/faqs/categories"));
+
+  // convert data object to arra
+  Object.values(data).forEach((k, v) => {
+    k.sort((a, b) => {
+      if (a.index === null && b.index !== null) {
+        return 1; // a should be after b
+      } else if (a.index !== null && b.index === null) {
+        return -1; // a should be before b
+      } else {
+        return a.index - b.index; // sort by index value
+      }
+    });
+  });
+
+  watch(categories, () => {
+    shopApi.post("/api/faqs/categories-positions", { categories: categories.value });
+  });
 };
 
 const createCategory = async () => {
@@ -46,6 +66,10 @@ const createCategory = async () => {
   fetchQuestions();
   modal.value.hide();
 };
+
+const syncQuestionsPositions = () => {
+  shopApi.post("/api/faqs/questions-positions", { questions: categoryQuestions.value });
+}
 
 const deleteQuestion = async (id) => {
   await shopApi.delete(`/api/faqs/${id}`);
@@ -67,34 +91,40 @@ const [parent] = useAutoAnimate()
 
     <div class="lg:flex mb-20">
       <div class="lg:w-[15%]">
-        <button v-for="(questions, name) in questions" @click="category = name; answer = ''"
-          class="bg-gray-200 w-full hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded-l block mt-6 ">
-          {{ name }}
-        </button>
+        <draggable v-model="categories" tag="ul">
+          <template #item="{ element: c }">
+            <button @click="category = c; answer = ''; categoryQuestions = questions[category]"
+              class="bg-gray-200 w-full hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded-l block mt-6 ">
+              {{ c }}
+            </button>
+          </template>
+        </draggable>
 
         <button class="bg-green-500 rounded text-white px-4 py-2 mt-4" @click="modal?.show">
           Ztwórz nową kategorię
         </button>
       </div>
-
       <div class="m-5" ref="parent">
         <div v-if="answer" class="my-5">
           <p>{{ answer }}</p>
         </div>
-        <div v-for="question in categoryQuestions" @click="answer = question.answer">
-          <div
-            class="pointer bg-gray-200 w-full hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded-l block mt-6">
-            <h2 class="text-lg">{{ question.question }}</h2>
+        <draggable v-model="categoryQuestions" tag="ul" @change="syncQuestionsPositions">
+          <template #item="{ element: question }" @click="answer = question.answer">
+            <div
+              class="pointer bg-gray-200 w-full hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded-l block mt-6">
+              <h2 class="text-lg">{{ question.question }}</h2>
 
-            <button class="bg-red-500 rounded text-white px-4 py-2 mt-2" @click.prevent="deleteQuestion(question.id)">
-              Usuń
-            </button>
+              <button class="bg-red-500 rounded text-white px-4 py-2 mt-2" @click.prevent="deleteQuestion(question.id)">
+                Usuń
+              </button>
 
-            <a class="bg-blue-500 rounded text-white px-4 py-2 mt-2 ml-4" :href="`${config.nuxtNewFront}faq/create/${question.id}`" target="_blank">
-              Edytuj
-            </a>
-          </div>
-        </div>
+              <a class="bg-blue-500 rounded text-white px-4 py-2 mt-2 ml-4"
+                :href="`${config.nuxtNewFront}faq/create/${question.id}`" target="_blank">
+                Edytuj
+              </a>
+            </div>
+          </template>
+        </draggable>
 
         <nuxt-link href="/faq/create-question" class="bg-green-500 rounded text-white px-4 py-2 mt-6">Nowe
           pytanie</nuxt-link>
