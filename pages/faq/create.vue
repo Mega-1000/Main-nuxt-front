@@ -68,7 +68,7 @@ const createCategory = async () => {
 };
 
 const syncQuestionsPositions = () => {
-  shopApi.post("/api/faqs/questions-positions", { questions: categoryQuestions.value });
+  shopApi.post("/api/faqs/questions-positions", { categories: categoryQuestions.value });
 }
 
 const deleteQuestion = async (id) => {
