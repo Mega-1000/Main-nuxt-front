@@ -39,7 +39,6 @@ const fetchQuestions = async () => {
 
   ({ data: categories.value } = await shopApi.get("/api/faqs/categories"));
 
-  // convert data object to arra
   Object.values(data).forEach((k, v) => {
     k.sort((a, b) => {
       if (a.index === null && b.index !== null) {
@@ -47,7 +46,7 @@ const fetchQuestions = async () => {
       } else if (a.index !== null && b.index === null) {
         return -1; // a should be before b
       } else {
-        return a.index - b.index; // sort by index value
+        return a.index - b.index;
       }
     });
   });

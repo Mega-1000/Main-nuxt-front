@@ -20,6 +20,18 @@ onMounted(async () => {
   categories.value = Object.keys(data);
 
   ({data: categories.value} = await shopApi.get("/api/faqs/categories"));
+
+  Object.values(data).forEach((k, v) => {
+    k.sort((a, b) => {
+      if (a.index === null && b.index !== null) {
+        return 1; // a should be after b
+      } else if (a.index !== null && b.index === null) {
+        return -1; // a should be before b
+      } else {
+        return a.index - b.index;
+      }
+    });
+  });
 });
 
 const selectQuestion = async (question) => {
