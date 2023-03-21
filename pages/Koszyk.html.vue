@@ -139,8 +139,8 @@ const prepareSpecialProducts = (item: any) => {
 const loading = ref(false);
 const errorText2 = ref<string | null>(null);
 
-let emailInput = userData?.value?.email || "";
-let phoneInput = userData?.value?.phone || "";
+let emailInput = ref(userData?.value?.email || "");
+let phoneInput = ref(userData?.value?.phone || "");
 let postalCodeInput = userData?.value?.postal_code || "";
 let cityInput = userData?.value?.city || "";
 let additionalNoticesInput = "";
@@ -163,8 +163,8 @@ const areFilesValid = (files: any[]) => {
   return true;
 };
 
-const handleSubmit = async (e: Event) => {
-  e.preventDefault();
+const handleSubmit = async (e: Event | null) => {
+  e ? e.preventDefault() : null;
   loading.value = true;
 
   if (files.length > 0 && !areFilesValid(files)) {
@@ -174,8 +174,8 @@ const handleSubmit = async (e: Event) => {
   }
 
   const params = {
-    customer_login: emailInput,
-    phone: phoneInput,
+    customer_login: emailInput.value,
+    phone: phoneInput.value,
     customer_notices: additionalNoticesInput,
     delivery_address: {
       city: cityInput,
@@ -191,8 +191,7 @@ const handleSubmit = async (e: Event) => {
   try {
     const res = await shopApi.post("/api/new_order", params);
     productsCart.value.removeAllFromCart();
-    if (res.data.canPay) router.push(`/payment?token=${res.data.token}`);
-    else router.push("/thanks");
+    return res.data;
   } catch (err: any) {
     errorText2.value = err.response.data.error_message || "Wystąpił błąd";
   } finally {
@@ -250,6 +249,27 @@ const updateProduct = async (
     product.recalculate = 1;
     cart.addToCart(product, amount);
   } catch (err) { }
+};
+
+const canBeSubmitted = computed(() => {
+  return (!emailInput.value.includes("@") || phoneInput.value.replace(/\D/g, "").length < 9) ? false : true;
+});
+
+const createChat = async () => {
+  const data = await handleSubmit(null);
+
+  if (data.canPay) router.push(`/payment?token=${data.token}`);
+  else router.push("/thanks");
+
+  setTimeout(async () => {
+    const res = await shopApi.get(`/api/orders/getAll`);
+    const order = res.data.find((item: any) => item.token === data.token);
+    
+    window.open(
+      `${config.baseUrl}/chat-show-or-new/${order.id}/${order.customer_id}`,
+      "_blank"
+    );
+  }, 1000);
 };
 </script>
 <template>
@@ -561,19 +581,7 @@ const updateProduct = async (
             </p>
           </div>
 
-          <div class="text-right">
-            <button class="bg-blue-600 rounded px-4 py-2 text-white w-fit" :disabled="false">
-              <div>
-                Połącz mnie z konsultantem i potwierdz koszty transportu
-              </div>
-              <div>
-                Odpowiedź natychmistowa 7 - 23 poza następnego dnia 7 dni w tygodniu
-              </div>
-              <div>
-                Wymagane uzupełnienie danych kontaktowych poniżej
-              </div>
-            </button>
-          </div>
+          <CartDeliveryCostContact :disabled="!canBeSubmitted" @click="createChat" />
 
           <hr />
           <div class="flex justify-between">
@@ -661,7 +669,7 @@ const updateProduct = async (
             <p class="mt-2 text-sm text-red-600">
               {{ errorText2 }}
             </p>
-            <button
+            <!-- <button
               class="w-full text-white bg-cyan-400 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
               :disabled="loading" type="submit">
               Prześlij do zapytania o darmowy transport (do niczego nie
@@ -669,7 +677,7 @@ const updateProduct = async (
                 state?.packages && state.packages.not_calculated.length === 0
               ">
                 lub zapłać</span>
-            </button>
+            </button> -->
           </form>
         </div>
       </div>
@@ -684,3 +692,4 @@ const updateProduct = async (
     </div>
   </div>
 </template>
+

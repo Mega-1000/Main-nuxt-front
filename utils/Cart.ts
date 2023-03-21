@@ -108,6 +108,7 @@ class Cart {
     this.products.map((product) => {
       totalPrice += product.amount * product.gross_price_of_packing;
     });
+
     return parseFloat(totalPrice as any).toFixed(2);
   }
 

@@ -42,7 +42,7 @@ const config = useRuntimeConfig().public;
 
 const handleClick = () => {
   window.open(
-    `${config.nuxtNewFront}/zamowienie/mozliwe-do-realizacji/brak-danych/${paymentData?.value?.id}`,
+    `${config.nuxtNewFront}zamowienie/mozliwe-do-realizacji/brak-danych/${paymentData?.value?.id}`,
     "_blank"
   );
 };
