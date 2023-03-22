@@ -17,23 +17,21 @@ const { data: categories, pending } = await useAsyncData(async () => {
   try {
     const res = await shopApi.get("/api/products/categories");
     return res.data;
-  } catch (e: any) { }
+  } catch (e: any) {}
 });
 
 const userToken = useUserToken();
 
-const { data: userData } = await useAsyncData(async () => {
-  try {
-    const res = await shopApi.get("api/user");
-    if (res.status === 200 && res.data) {
-      return (
-        res.data.addresses.filter(
-          (address: any) => address.type === "STANDARD_ADDRESS"
-        )[0] || {}
-      );
-    }
-  } catch { }
-});
+const userData = ref<any>();
+
+let emailInput = ref(userData?.value?.email || "");
+let phoneInput = ref(userData?.value?.phone || "");
+let postalCodeInput = userData?.value?.postal_code || "";
+let cityInput = userData?.value?.city || "";
+let additionalNoticesInput = "";
+let abroadInput = false;
+let rulesInput = false;
+let files: any[] = [];
 
 onBeforeMount(async () => {
   const cookies = new Cookies();
@@ -54,10 +52,25 @@ onBeforeMount(async () => {
     cart_token = cookies.get("cart_token");
   }
 
+  const res = await shopApi.get("api/user");
+  if (res.status === 200 && res.data) {
+    userData.value =
+      res.data.addresses.filter(
+        (address: any) => address.type === "STANDARD_ADDRESS"
+      )[0] || {};
+  }
+
   state.value = {
     ...state.value,
     cart_token: cart_token,
   };
+});
+
+watch([userData], () => {
+  emailInput.value = userData?.value?.email || "";
+  phoneInput.value = userData?.value?.phone || "";
+  postalCodeInput = userData?.value?.postal_code || "";
+  cityInput = userData?.value?.city || "";
 });
 
 const router = useRouter();
@@ -138,15 +151,6 @@ const prepareSpecialProducts = (item: any) => {
 
 const loading = ref(false);
 const errorText2 = ref<string | null>(null);
-
-let emailInput = ref(userData?.value?.email || "");
-let phoneInput = ref(userData?.value?.phone || "");
-let postalCodeInput = userData?.value?.postal_code || "";
-let cityInput = userData?.value?.city || "";
-let additionalNoticesInput = "";
-let abroadInput = false;
-let rulesInput = false;
-let files: any[] = [];
 
 const handleFiles = (filesInput: any[]) => {
   files = filesInput;
@@ -230,7 +234,11 @@ const handleSubmitWithToken = async () => {
 };
 
 const shipmentCostBrutto = computed(() => {
-  return Math.ceil(Number(parseFloat(productsCart.value.totalWeight()).toFixed(2)) / 31.5) * 18;
+  return (
+    Math.ceil(
+      Number(parseFloat(productsCart.value.totalWeight()).toFixed(2)) / 31.5
+    ) * 18
+  );
 });
 
 const isNewOrder = ref(false);
@@ -248,11 +256,14 @@ const updateProduct = async (
     let product = response.data;
     product.recalculate = 1;
     cart.addToCart(product, amount);
-  } catch (err) { }
+  } catch (err) {}
 };
 
 const canBeSubmitted = computed(() => {
-  return (!emailInput.value.includes("@") || phoneInput.value.replace(/\D/g, "").length < 9) ? false : true;
+  return !emailInput.value.includes("@") ||
+    phoneInput.value.replace(/\D/g, "").length < 9
+    ? false
+    : true;
 });
 
 const createChat = async () => {
@@ -264,7 +275,7 @@ const createChat = async () => {
   setTimeout(async () => {
     const res = await shopApi.get(`/api/orders/getAll`);
     const order = res.data.find((item: any) => item.token === data.token);
-    
+
     window.open(
       `${config.baseUrl}/chat-show-or-new/${order.id}/${order.customer_id}`,
       "_blank"
@@ -275,11 +286,17 @@ const createChat = async () => {
 <template>
   <div class="flex">
     <div>
-      <Sidebar class="ml-20 h-fit flex flex-col justify-center mt-30 w-fit" :categories="categories" />
+      <Sidebar
+        class="ml-20 h-fit flex flex-col justify-center mt-30 w-fit"
+        :categories="categories"
+      />
     </div>
     <div class="pb-15">
       <div class="flex justify-center mt-7">
-        <h2 v-if="!productsCart?.products || productsCart?.products?.length === 0" class="text-xl md:text-3xl">
+        <h2
+          v-if="!productsCart?.products || productsCart?.products?.length === 0"
+          class="text-xl md:text-3xl"
+        >
           Brak produktów w koszyku
         </h2>
         <div v-else class="grid grid-cols-1 space-y-8">
@@ -289,12 +306,20 @@ const createChat = async () => {
           <template v-if="state?.cart_token">
             <div
               class="flex p-4 mb-4 text-sm text-red-800 border border-red-300 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 dark:border-red-800"
-              role="alert">
-              <svg aria-hidden="true" class="flex-shrink-0 inline w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd"
+              role="alert"
+            >
+              <svg
+                aria-hidden="true"
+                class="flex-shrink-0 inline w-5 h-5 mr-3"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill-rule="evenodd"
                   d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-                  clip-rule="evenodd"></path>
+                  clip-rule="evenodd"
+                ></path>
               </svg>
               <span class="sr-only">Info</span>
               <div>
@@ -302,69 +327,105 @@ const createChat = async () => {
               </div>
             </div>
             <div class="flex items-center mb-4">
-              <input id="default-checkbox" type="checkbox" v-model="isNewOrder"
-                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2" />
-              <label for="default-checkbox" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Czy to jest
-                nowe zamówienie?</label>
+              <input
+                id="default-checkbox"
+                type="checkbox"
+                v-model="isNewOrder"
+                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
+              />
+              <label
+                for="default-checkbox"
+                class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                >Czy to jest nowe zamówienie?</label
+              >
             </div>
           </template>
-          <button type="button" @click="productsCart.removeAllFromCart"
-            class="w-40 text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2">
+          <button
+            type="button"
+            @click="productsCart.removeAllFromCart"
+            class="w-40 text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2"
+          >
             Usuń wszystko
           </button>
 
           <div v-for="product in productsCart.products" class="max-w-[100vw]">
             <div
-              class="relative flex flex-col md:flex-row md:space-x-5 space-y-3 md:space-y-0 rounded-xl shadow-lg p-3 max-w-7xl mx-auto border border-white bg-white">
-              <div class="w-full md:w-1/3 bg-white grid place-items-start md:max-w-2xl">
-                <img :src="buildImgRoute(product?.url_for_website)" alt="Photo" class="rounded-xl" />
+              class="relative flex flex-col md:flex-row md:space-x-5 space-y-3 md:space-y-0 rounded-xl shadow-lg p-3 max-w-7xl mx-auto border border-white bg-white"
+            >
+              <div
+                class="w-full md:w-1/3 bg-white grid place-items-start md:max-w-2xl"
+              >
+                <img
+                  :src="buildImgRoute(product?.url_for_website)"
+                  alt="Photo"
+                  class="rounded-xl"
+                />
                 <div class="absolute bottom-0 right-0 md:right-auto">
-                  <button v-if="state.cart_token" @click="
-                    () =>
-                      updateProduct(
-                        productsCart,
-                        product.product_id,
-                        product.amount,
-                        product.id
-                      )
-                  " type="button"
-                    class="focus:outline-none text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2">
+                  <button
+                    v-if="state.cart_token"
+                    @click="
+                      () =>
+                        updateProduct(
+                          productsCart,
+                          product.product_id,
+                          product.amount,
+                          product.id
+                        )
+                    "
+                    type="button"
+                    class="focus:outline-none text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2"
+                  >
                     Przelicz po cenie z CSV
                   </button>
-                  <button @click="
-                    async () => {
-                      productsCart.removeFromCart(product.id);
-                      await handleDelete();
-                    }
-                  " type="button"
-                    class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 my-2">
+                  <button
+                    @click="
+                      async () => {
+                        productsCart.removeFromCart(product.id);
+                        await handleDelete();
+                      }
+                    "
+                    type="button"
+                    class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 my-2"
+                  >
                     Usuń
                   </button>
                 </div>
               </div>
-              <div class="w-full md:w-2/3 bg-white flex flex-col space-y-2 p-3 grid md:place-items-end">
+              <div
+                class="w-full md:w-2/3 bg-white flex flex-col space-y-2 p-3 grid md:place-items-end"
+              >
                 <h3 class="font-black text-gray-800 md:text-2xl text-xl">
                   {{ product.name }}
                 </h3>
-                <CartPriceTable class="w-full pb-10" :product="product"
-                  :handle-product-amount="(val) => updateAmount(product.id, val)" />
+                <CartPriceTable
+                  class="w-full pb-10"
+                  :product="product"
+                  :handle-product-amount="
+                    (val) => updateAmount(product.id, val)
+                  "
+                />
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="flex justify-center py-10 px-5 w-full"
-        v-if="productsCart?.products && productsCart?.products?.length > 0">
+      <div
+        class="flex justify-center py-10 px-5 w-full"
+        v-if="productsCart?.products && productsCart?.products?.length > 0"
+      >
         <div
-          class="grid space-y-7 min-w-fit sm:max-w-3xl md:max-w-4xl lg:max-w-5xl w-full p-6 border border-gray-200 rounded-lg shadow bg-gray-100">
+          class="grid space-y-7 min-w-fit sm:max-w-3xl md:max-w-4xl lg:max-w-5xl w-full p-6 border border-gray-200 rounded-lg shadow bg-gray-100"
+        >
           <h5 class="text-2xl font-bold tracking-tight text-gray-900">
             Podsumowanie
           </h5>
           <hr />
 
           <div class="relative overflow-x-auto sm:rounded-lg w-full">
-            <table class="max-w-md sm:max-w-xl md:max-w-2xl lg:max-w-3xl text-sm text-left text-gray-500 w-full">
+            <table
+              class="max-w-md sm:max-w-xl md:max-w-2xl lg:max-w-3xl text-sm text-left text-gray-500 w-full"
+            >
               <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                 <tr>
                   <th scope="col" class="px-6 py-3">Produkt</th>
@@ -374,8 +435,14 @@ const createChat = async () => {
                 </tr>
               </thead>
               <tbody>
-                <tr class="bg-white border-b" v-for="product in productsCart.products">
-                  <th scope="row" class="px-6 py-4 font-medium text-gray-900 max-w-sm md:max-w-lg">
+                <tr
+                  class="bg-white border-b"
+                  v-for="product in productsCart.products"
+                >
+                  <th
+                    scope="row"
+                    class="px-6 py-4 font-medium text-gray-900 max-w-sm md:max-w-lg"
+                  >
                     {{ product.name }}
                   </th>
                   <td class="px-6 py-4">
@@ -406,12 +473,15 @@ const createChat = async () => {
 
           <hr />
 
-          <div v-if="
-            state.packages &&
-            (state.packages.packages.length > 0 ||
-              state.packages.transport_groups.length > 0 ||
-              state.packages.not_calculated.length > 0)
-          " class="max-w-full sm:max-w-3xl md:max-w-4xl lg:max-w-5xl overflow-x-auto">
+          <div
+            v-if="
+              state.packages &&
+              (state.packages.packages.length > 0 ||
+                state.packages.transport_groups.length > 0 ||
+                state.packages.not_calculated.length > 0)
+            "
+            class="max-w-full sm:max-w-3xl md:max-w-4xl lg:max-w-5xl overflow-x-auto"
+          >
             <h5 class="text-2xl mb-3">Planowany rozkład paczek</h5>
 
             <table class="text-sm text-left text-gray-500 w-full">
@@ -437,11 +507,20 @@ const createChat = async () => {
 
               <tbody>
                 <template v-for="item in state?.packages.transport_groups">
-                  <tr v-for="(product, i) in item.items" class="bg-white border-b">
-                    <td v-if="i === 0" :rowspan="item.items.length" class="lg:px-6 lg:py-3 py-1 px-2">
+                  <tr
+                    v-for="(product, i) in item.items"
+                    class="bg-white border-b"
+                  >
+                    <td
+                      v-if="i === 0"
+                      :rowspan="item.items.length"
+                      class="lg:px-6 lg:py-3 py-1 px-2"
+                    >
                       {{ item.displayed_group_name }}
                     </td>
-                    <td class="lg:px-6 lg:py-3 py-1 px-2">{{ product.name }}</td>
+                    <td class="lg:px-6 lg:py-3 py-1 px-2">
+                      {{ product.name }}
+                    </td>
                     <td class="lg:px-6 lg:py-3 py-1 px-2">
                       {{ product.quantity }}
                     </td>
@@ -456,33 +535,49 @@ const createChat = async () => {
                     <td class="lg:px-6 lg:py-3 py-1 px-2">
                       {{
                         (
-                          product.price.gross_price_of_packing * product.quantity
+                          product.price.gross_price_of_packing *
+                          product.quantity
                         ).toFixed(2)
                       }}
                     </td>
                     <td class="lg:px-6 lg:py-3 py-1 px-2">
                       {{
-                        (product.weight_trade_unit * product.quantity).toFixed(2)
+                        (product.weight_trade_unit * product.quantity).toFixed(
+                          2
+                        )
                       }}
                     </td>
-                    <td v-if="i === 0" :rowspan="item.items.length" class="lg:px-6 lg:py-3 py-1 px-2">
+                    <td
+                      v-if="i === 0"
+                      :rowspan="item.items.length"
+                      class="lg:px-6 lg:py-3 py-1 px-2"
+                    >
                       {{ item.transport_price }}
                     </td>
                   </tr>
                 </template>
 
                 <template v-for="item in state?.packages.packages">
-                  <tr v-for="(product, i) in item.type
-                    ? prepareSpecialProducts(item)
-                    : item.productList" class="bg-white border-b">
-                    <td v-if="i === 0" :rowspan="
-                      item.type
-                        ? prepareSpecialProducts(item).length
-                        : item.productList.length
-                    " class="lg:px-6 lg:py-3 py-1 px-2">
+                  <tr
+                    v-for="(product, i) in item.type
+                      ? prepareSpecialProducts(item)
+                      : item.productList"
+                    class="bg-white border-b"
+                  >
+                    <td
+                      v-if="i === 0"
+                      :rowspan="
+                        item.type
+                          ? prepareSpecialProducts(item).length
+                          : item.productList.length
+                      "
+                      class="lg:px-6 lg:py-3 py-1 px-2"
+                    >
                       {{ item.displayed_name }}
                     </td>
-                    <td class="lg:px-6 lg:py-3 py-1 px-2">{{ product.name }}</td>
+                    <td class="lg:px-6 lg:py-3 py-1 px-2">
+                      {{ product.name }}
+                    </td>
                     <td class="lg:px-6 lg:py-3 py-1 px-2">
                       {{ product.quantity }}
                     </td>
@@ -497,27 +592,41 @@ const createChat = async () => {
                     <td class="lg:px-6 lg:py-3 py-1 px-2">
                       {{
                         (
-                          product.price.gross_price_of_packing * product.quantity
+                          product.price.gross_price_of_packing *
+                          product.quantity
                         ).toFixed(2)
                       }}
                     </td>
                     <td class="lg:px-6 lg:py-3 py-1 px-2">
                       {{
-                        (product.weight_trade_unit * product.quantity).toFixed(2)
+                        (product.weight_trade_unit * product.quantity).toFixed(
+                          2
+                        )
                       }}
                     </td>
-                    <td v-if="i === 0" :rowspan="
-                      item.type
-                        ? prepareSpecialProducts(item).length
-                        : item.productList.length
-                    " class="lg:px-6 lg:py-3 py-1 px-2">
+                    <td
+                      v-if="i === 0"
+                      :rowspan="
+                        item.type
+                          ? prepareSpecialProducts(item).length
+                          : item.productList.length
+                      "
+                      class="lg:px-6 lg:py-3 py-1 px-2"
+                    >
                       {{ item.price }}
                     </td>
                   </tr>
                 </template>
 
-                <tr v-for="(product, i) in state?.packages.not_calculated" class="bg-white border-b">
-                  <td v-if="i === 0" :rowspan="state.packages.not_calculated.length" class="lg:px-6 lg:py-3 py-1 px-2">
+                <tr
+                  v-for="(product, i) in state?.packages.not_calculated"
+                  class="bg-white border-b"
+                >
+                  <td
+                    v-if="i === 0"
+                    :rowspan="state.packages.not_calculated.length"
+                    class="lg:px-6 lg:py-3 py-1 px-2"
+                  >
                     Nie można wyznaczyć paczek
                   </td>
                   <td class="lg:px-6 lg:py-3 py-1 px-2">{{ product.name }}</td>
@@ -544,7 +653,11 @@ const createChat = async () => {
                       (product.weight_trade_unit * product.quantity).toFixed(2)
                     }}
                   </td>
-                  <td v-if="i === 0" :rowspan="state.packages.not_calculated.length" class="lg:px-6 lg:py-3 py-1 px-2">
+                  <td
+                    v-if="i === 0"
+                    :rowspan="state.packages.not_calculated.length"
+                    class="lg:px-6 lg:py-3 py-1 px-2"
+                  >
                     ---
                   </td>
                 </tr>
@@ -581,7 +694,10 @@ const createChat = async () => {
             </p>
           </div>
 
-          <CartDeliveryCostContact :disabled="!canBeSubmitted" @click="createChat" />
+          <CartDeliveryCostContact
+            :disabled="!canBeSubmitted"
+            @click="createChat"
+          />
 
           <hr />
           <div class="flex justify-between">
@@ -593,72 +709,152 @@ const createChat = async () => {
         </div>
       </div>
 
-      <div class="flex justify-center mb-60" v-if="
-        (productsCart?.products &&
-          productsCart?.products?.length > 0 &&
-          !state?.cart_token) ||
-        isNewOrder
-      ">
+      <div
+        class="flex justify-center mb-60"
+        v-if="
+          (productsCart?.products &&
+            productsCart?.products?.length > 0 &&
+            !state?.cart_token) ||
+          isNewOrder
+        "
+      >
         <div
-          class="w-screen max-w-sm md:max-w-md md:max-w-2xl xl:max-w-4xl p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8">
+          class="w-screen max-w-sm md:max-w-md md:max-w-2xl xl:max-w-4xl p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8"
+        >
           <form class="space-y-6" @submit="handleSubmit">
             <div>
-              <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Email</label>
-              <input type="email" name="email" id="email"
+              <label
+                for="email"
+                class="block mb-2 text-sm font-medium text-gray-900"
+                >Email</label
+              >
+              <input
+                type="email"
+                name="email"
+                id="email"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                required :disabled="loading" v-model="emailInput" />
+                required
+                :disabled="loading"
+                v-model="emailInput"
+              />
             </div>
             <div>
-              <label for="phone" class="block mb-2 text-sm font-medium text-gray-900">Numer telefonu</label>
-              <input type="phone" name="phone" id="phone"
+              <label
+                for="phone"
+                class="block mb-2 text-sm font-medium text-gray-900"
+                >Numer telefonu</label
+              >
+              <input
+                type="phone"
+                name="phone"
+                id="phone"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                required :disabled="loading" v-model="phoneInput" />
+                required
+                :disabled="loading"
+                v-model="phoneInput"
+              />
             </div>
             <div class="flex items-start">
               <div class="flex items-center h-5">
-                <input id="abroad" type="checkbox" v-model="abroadInput"
-                  class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300" />
+                <input
+                  id="abroad"
+                  type="checkbox"
+                  v-model="abroadInput"
+                  class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300"
+                />
               </div>
-              <label for="abroad" class="ml-2 text-sm font-medium text-gray-900">Wysyłka poza granice Polski</label>
+              <label for="abroad" class="ml-2 text-sm font-medium text-gray-900"
+                >Wysyłka poza granice Polski</label
+              >
             </div>
             <div>
-              <label for="postal-code" class="block mb-2 text-sm font-medium text-gray-900">Kod Pocztowy</label>
-              <input name="postal-code" id="postal-code"
+              <label
+                for="postal-code"
+                class="block mb-2 text-sm font-medium text-gray-900"
+                >Kod Pocztowy</label
+              >
+              <input
+                name="postal-code"
+                id="postal-code"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                required :disabled="loading" v-model="postalCodeInput" />
+                required
+                :disabled="loading"
+                v-model="postalCodeInput"
+              />
             </div>
             <div>
-              <label for="city" class="block mb-2 text-sm font-medium text-gray-900">Miejscowość</label>
-              <input name="city" id="city"
+              <label
+                for="city"
+                class="block mb-2 text-sm font-medium text-gray-900"
+                >Miejscowość</label
+              >
+              <input
+                name="city"
+                id="city"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                required :disabled="loading" v-model="cityInput" />
+                required
+                :disabled="loading"
+                v-model="cityInput"
+              />
             </div>
             <div>
-              <label for="additional-notices" class="block mb-2 text-sm font-medium text-gray-900">Opis i uwagi do
-                zamówienia</label>
-              <textarea id="additional-notices" rows="4" v-model="additionalNoticesInput"
-                class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"></textarea>
+              <label
+                for="additional-notices"
+                class="block mb-2 text-sm font-medium text-gray-900"
+                >Opis i uwagi do zamówienia</label
+              >
+              <textarea
+                id="additional-notices"
+                rows="4"
+                v-model="additionalNoticesInput"
+                class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+              ></textarea>
             </div>
             <div class="flex items-start">
               <div class="flex items-center h-5">
-                <input id="rules" type="checkbox" required v-model="rulesInput"
-                  class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300" />
+                <input
+                  id="rules"
+                  type="checkbox"
+                  required
+                  v-model="rulesInput"
+                  class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300"
+                />
               </div>
-              <label for="rules" class="ml-2 text-sm font-medium text-gray-900">Zapoznałem się z regulaminem 1</label>
+              <label for="rules" class="ml-2 text-sm font-medium text-gray-900"
+                >Zapoznałem się z regulaminem 1</label
+              >
             </div>
             <div class="flex items-start">
               <div class="flex items-center h-5">
-                <input id="rules-2" type="checkbox" required v-model="rulesInput"
-                  class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300" />
+                <input
+                  id="rules-2"
+                  type="checkbox"
+                  required
+                  v-model="rulesInput"
+                  class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300"
+                />
               </div>
-              <label for="rules-1" class="ml-2 text-sm font-medium text-gray-900">Zapoznałem się z regulaminem 2</label>
+              <label
+                for="rules-1"
+                class="ml-2 text-sm font-medium text-gray-900"
+                >Zapoznałem się z regulaminem 2</label
+              >
             </div>
             <div class="flex items-start">
               <div class="flex items-center h-5">
-                <input id="rules-3" type="checkbox" required v-model="rulesInput"
-                  class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300" />
+                <input
+                  id="rules-3"
+                  type="checkbox"
+                  required
+                  v-model="rulesInput"
+                  class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300"
+                />
               </div>
-              <label for="rules-3" class="ml-2 text-sm font-medium text-gray-900">Zapoznałem się z regulaminem 3</label>
+              <label
+                for="rules-3"
+                class="ml-2 text-sm font-medium text-gray-900"
+                >Zapoznałem się z regulaminem 3</label
+              >
             </div>
             <div>
               <FileBase64 multiple @onDone="handleFiles" />
@@ -683,13 +879,17 @@ const createChat = async () => {
       </div>
     </div>
 
-    <div v-if="state?.cart_token && !isNewOrder" class="flex justify-center mb-60">
+    <div
+      v-if="state?.cart_token && !isNewOrder"
+      class="flex justify-center mb-60"
+    >
       <button
         class="w-60 text-white bg-cyan-400 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-        :disabled="loading" @click="handleSubmitWithToken">
+        :disabled="loading"
+        @click="handleSubmitWithToken"
+      >
         Zapisz edycję
       </button>
     </div>
   </div>
 </template>
-
