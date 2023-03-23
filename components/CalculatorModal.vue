@@ -368,7 +368,7 @@ const handleBlur = (event: any) => {
           </th>
           <td class="px-6 py-4" v-if="state?.commercial">
             <input
-              class="border border-gray-100"
+              class="border border-gray-400"
               name="selectedCommercial"
               :value="state?.selectedCommercial"
               :onBlur="handleBlur"
@@ -377,7 +377,7 @@ const handleBlur = (event: any) => {
           </td>
           <td class="px-6 py-4" v-if="state?.calculation">
             <input
-              class="border border-gray-100"
+              class="border border-gray-400"
               name="selectedCalculation"
               :value="state?.selectedCalculation"
               :onBlur="handleBlur"
@@ -386,7 +386,7 @@ const handleBlur = (event: any) => {
           </td>
           <td class="px-6 py-4" v-if="state?.basicUnit">
             <input
-              class="border border-gray-100"
+              class="border border-gray-400"
               name="selectedBasicUnit"
               :value="state?.selectedBasicUnit"
               :onBlur="handleBlur"
@@ -395,7 +395,7 @@ const handleBlur = (event: any) => {
           </td>
           <td class="px-6 py-4" v-if="state?.collective">
             <input
-              class="border border-gray-100"
+              class="border border-gray-400"
               name="selectedCollective"
               :value="state?.selectedCollective"
               :onBlur="handleBlur"
@@ -404,7 +404,7 @@ const handleBlur = (event: any) => {
           </td>
           <td class="px-6 py-4" v-if="state?.unitBiggest">
             <input
-              class="border border-gray-100"
+              class="border border-gray-400"
               name="selectedUnitBiggest"
               :value="state?.selectedUnitBiggest"
               :onBlur="handleBlur"
@@ -494,7 +494,7 @@ const handleBlur = (event: any) => {
           </th>
           <td class="px-6 py-4">
             <input
-              class="border border-gray-100"
+              class="border border-gray-400"
               name="selectedConsumption"
               :value="state?.selectedConsumption"
               :onBlur="handleBlur"
