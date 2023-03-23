@@ -15,7 +15,7 @@ const categories = ref([]);
 const categoryQuestions = ref([]);
 
 const modal = ref(null);
-
+const router = useRouter();
 
 onMounted(async () => {
   fetchQuestions();
@@ -72,7 +72,7 @@ const syncQuestionsPositions = () => {
 
 const deleteQuestion = async (id) => {
   await shopApi.delete(`/api/faqs/${id}`);
-  fetchQuestions();
+  router.push("/faq/");
 };
 
 const [parent] = useAutoAnimate()
