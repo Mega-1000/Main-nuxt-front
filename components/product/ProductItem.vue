@@ -117,18 +117,21 @@ const handleMediaButton = (e: Event, media: any) => {
       >
         <h3 class="font-black text-gray-800 md:text-3xl text-xl">
           {{ props.item.name }}
+          <div class="text-left w-full font-normal">
+            {{ props.item.symbol }}
+          </div>
         </h3>
         <p class="md:text-lg text-gray-500 text-base">
           {{ props.item.description }}
         </p>
         <div v-if="props.item.meta_price">
           <p
-            class="text-lg font-bold"
+            class="text-3xl font-bold"
             v-for="val in props.item.meta_price.split(`.`)"
           >
             {{ getPriceString(val) }}
             <button
-              class="bg-blue-500 text-white rounded px-4 py-2"
+              class="bg-blue-500 text-lg text-white rounded px-4 py-2"
               data-modal-target="calculatorModal"
               @click="() => handleShowModal(props.item)"
             >
