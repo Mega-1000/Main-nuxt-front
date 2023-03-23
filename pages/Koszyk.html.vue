@@ -273,14 +273,7 @@ const createChat = async () => {
   else router.push("/thanks");
 
   setTimeout(async () => {
-    const res = await shopApi.get(`/api/orders/getAll`);
-    const order = res.data.find((item: any) => item.token === data.token);
-
-    window.open(
-      `${config.baseUrl}/chat-show-or-new/${order.id}/${order.customer_id}`,
-      "_blank"
-    );
-  }, 1000);
+  }, 500);
 };
 </script>
 <template>
@@ -376,63 +369,65 @@ const createChat = async () => {
             </h5>
             <hr />
 
-          <div class="relative overflow-x-auto sm:rounded-lg w-full">
-            <table
-              class="max-w-md sm:max-w-xl md:max-w-2xl lg:max-w-3xl text-sm text-left text-gray-500 w-full"
-            >
-              <thead class="text-xs text-gray-700 uppercase bg-gray-50">
-                <tr>
-                  <th scope="col" class="px-6 py-3">Produkt</th>
-                  <th scope="col" class="px-6 py-3">Ilość</th>
-                  <th scope="col" class="px-6 py-3">Wartość netto</th>
-                  <th scope="col" class="px-6 py-3">Wartość brutto</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr
-                  class="bg-white border-b"
-                  v-for="product in productsCart.products"
-                >
-                  <th
-                    scope="row"
-                    class="px-6 py-4 font-medium text-gray-900 max-w-sm md:max-w-lg"
-                  >
-                    {{ product.name }}
-                  </th>
-                  <td class="px-6 py-4">
-                    {{ product.amount }} {{ product.unit_commercial }}
-                  </td>
-                  <td class="px-6 py-4">
-                    {{
-                      (
-                        parseFloat(product.net_selling_price_commercial_unit) *
-                        product.amount
-                      ).toFixed(2) || 0
-                    }}
-                    {{ product.currency || "PLN" }}
-                  </td>
-                  <td class="px-6 py-4">
-                    {{
-                      (
-                        parseFloat(product.gross_price_of_packing) *
-                        product.amount
-                      ).toFixed(2) || 0
-                    }}
-                    {{ product.currency || "PLN" }}
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+            <div class="relative overflow-x-auto sm:rounded-lg w-full">
+              <table class="max-w-md sm:max-w-xl md:max-w-2xl lg:max-w-3xl text-sm text-left text-gray-500 w-full">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                  <tr>
+                    <th scope="col" class="px-6 py-3">Produkt</th>
+                    <th scope="col" class="px-6 py-3">Ilość</th>
+                    <th scope="col" class="px-6 py-3">Cena netto</th>
+                    <th scope="col" class="px-6 py-3">Cena brutto</th>                    
+                    <th scope="col" class="px-6 py-3">Wartość netto</th>
+                    <th scope="col" class="px-6 py-3">Wartość brutto</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="bg-white border-b" v-for="product in productsCart.products">
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 max-w-sm md:max-w-lg">
+                      {{ product.name }}
+                    </th>
+                    <td class="px-6 py-4">
+                      {{ product.amount }} {{ product.unit_commercial }}
+                    </td>
+                    <td class="px-6 py-4">
+                      {{ product.net_selling_price_commercial_unit || 0 }}
+                      {{ product.currency || "PLN" }}
+                    </td>
+                    <td class="px-6 py-4">
+                      {{ product.gross_price_of_packing || 0 }}
+                      {{ product.currency || "PLN" }}
+                    </td>
+                    <td class="px-6 py-4">
+                      {{
+                        (
+                          parseFloat(product.net_selling_price_commercial_unit) *
+                          product.amount
+                        ).toFixed(2) || 0
+                      }}
+                      {{ product.currency || "PLN" }}
+                    </td>
+                    <td class="px-6 py-4">
+                      {{
+                        (
+                          parseFloat(product.gross_price_of_packing) *
+                          product.amount
+                        ).toFixed(2) || 0
+                      }}
+                      {{ product.currency || "PLN" }}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
           </div>
 
-            <hr />
+          <hr />
 
-            <div v-if="
-              state.packages &&
-              (state.packages.packages.length > 0 ||
-                state.packages.transport_groups.length > 0 ||
-                state.packages.not_calculated.length > 0)
-            " class="max-w-full sm:max-w-3xl md:max-w-4xl lg:max-w-5xl overflow-x-auto">
+          <div v-if="
+            state.packages &&
+            (state.packages.packages.length > 0 ||
+              state.packages.transport_groups.length > 0 ||
+              state.packages.not_calculated.length > 0)
+          " class="max-w-full sm:max-w-3xl md:max-w-4xl lg:max-w-5xl overflow-x-auto">
               <h5 class="text-2xl mb-3">Planowany rozkład paczek</h5>
 
               <table class="text-sm text-left text-gray-500 w-full">
@@ -443,6 +438,13 @@ const createChat = async () => {
                     </th>
                     <th scope="col" class="lg:px-6 lg:py-3 py-1 px-2">Towar</th>
                     <th scope="col" class="lg:px-6 lg:py-3 py-1 px-2">Ilość</th>
+                    <!--price for one unit-->
+                    <th scope="col" class="lg:px-6 lg:py-3 py-1 px-2">
+                      Cena netto
+                    </th>
+                    <th scope="col" class="lg:px-6 lg:py-3 py-1 px-2">
+                      Cena brutto
+                    </th>
                     <th scope="col" class="lg:px-6 lg:py-3 py-1 px-2">
                       Wartość netto
                     </th>
@@ -467,6 +469,12 @@ const createChat = async () => {
                       </td>
                       <td class="lg:px-6 lg:py-3 py-1 px-2">
                         {{ product.quantity }}
+                      </td>
+                      <td class="lg:px-6 lg:py-3 py-1 px-2">
+                        {{ product.price.net_purchase_price_commercial_unit }}
+                      </td>
+                      <td class="lg:px-6 lg:py-3 py-1 px-2">
+                        {{ product.price.gross_price_of_packing }}
                       </td>
                       <td class="lg:px-6 lg:py-3 py-1 px-2">
                         {{
@@ -701,14 +709,14 @@ const createChat = async () => {
                 {{ errorText2 }}
               </p>
               <!-- <button
-                  class="w-full text-white bg-cyan-400 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-                  :disabled="loading" type="submit">
-                  Prześlij do zapytania o darmowy transport (do niczego nie
-                  zobowiązuje)<span v-if="
-                    state?.packages && state.packages.not_calculated.length === 0
-                  ">
-                    lub zapłać</span>
-                </button> -->
+                    class="w-full text-white bg-cyan-400 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                    :disabled="loading" type="submit">
+                    Prześlij do zapytania o darmowy transport (do niczego nie
+                    zobowiązuje)<span v-if="
+                      state?.packages && state.packages.not_calculated.length === 0
+                    ">
+                      lub zapłać</span>
+                  </button> -->
             </form>
           </div>
         </div>
