@@ -67,7 +67,7 @@ const modal = ref<Modal | null>(null);
 
 const contactModal = ref<Modal | null>(null);
 
-onMounted(() => {
+const setupModals = () => {
   // set the modal menu element
   const $targetEl = document.getElementById("calculatorModal");
 
@@ -92,7 +92,10 @@ onMounted(() => {
   };
 
   contactModal.value = new Modal($contactTargetEl, contactOptions);
-});
+};
+
+onMounted(setupModals);
+watch([page], setupModals);
 
 const handleCloseModal = () => {
   modal.value?.hide();

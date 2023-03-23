@@ -376,40 +376,48 @@ const createChat = async () => {
             </h5>
             <hr />
 
-            <div class="relative overflow-x-auto sm:rounded-lg w-full">
-              <table class="max-w-md sm:max-w-xl md:max-w-2xl lg:max-w-3xl text-sm text-left text-gray-500 w-full">
-                <thead class="text-xs text-gray-700 uppercase bg-gray-50">
-                  <tr>
-                    <th scope="col" class="px-6 py-3">Produkt</th>
-                    <th scope="col" class="px-6 py-3">Ilość</th>
-                    <th scope="col" class="px-6 py-3">Cena netto</th>
-                    <th scope="col" class="px-6 py-3">Cena brutto</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr class="bg-white border-b" v-for="product in productsCart.products">
-                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 max-w-sm md:max-w-lg">
-                      {{ product.name }}
-                    </th>
-                    <td class="px-6 py-4">
-                      {{ product.amount }} {{ product.unit_commercial }}
-                    </td>
-                    <td class="px-6 py-4">
-                      {{
-                        (
-                          parseFloat(product.net_selling_price_commercial_unit) *
-                          product.amount
-                        ).toFixed(2) || 0
-                      }}
-                      {{ product.currency || "PLN" }}
-                    </td>
-                    <td class="px-6 py-4">
-                      {{
-                        (
-                          parseFloat(product.gross_price_of_packing) *
-                          product.amount
-                        ).toFixed(2) || 0
-                      }}
+          <div class="relative overflow-x-auto sm:rounded-lg w-full">
+            <table
+              class="max-w-md sm:max-w-xl md:max-w-2xl lg:max-w-3xl text-sm text-left text-gray-500 w-full"
+            >
+              <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                <tr>
+                  <th scope="col" class="px-6 py-3">Produkt</th>
+                  <th scope="col" class="px-6 py-3">Ilość</th>
+                  <th scope="col" class="px-6 py-3">Wartość netto</th>
+                  <th scope="col" class="px-6 py-3">Wartość brutto</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  class="bg-white border-b"
+                  v-for="product in productsCart.products"
+                >
+                  <th
+                    scope="row"
+                    class="px-6 py-4 font-medium text-gray-900 max-w-sm md:max-w-lg"
+                  >
+                    {{ product.name }}
+                  </th>
+                  <td class="px-6 py-4">
+                    {{ product.amount }} {{ product.unit_commercial }}
+                  </td>
+                  <td class="px-6 py-4">
+                    {{
+                      (
+                        parseFloat(product.net_selling_price_commercial_unit) *
+                        product.amount
+                      ).toFixed(2) || 0
+                    }}
+                    {{ product.currency || "PLN" }}
+                  </td>
+                  <td class="px-6 py-4">
+                    {{
+                      (
+                        parseFloat(product.gross_price_of_packing) *
+                        product.amount
+                      ).toFixed(2) || 0
+                    }}
                     {{ product.currency || "PLN" }}
                   </td>
                 </tr>

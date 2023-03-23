@@ -96,6 +96,7 @@ const handleMediaButton = (e: Event, media: any) => {
   <div class="flex flex-col justify-center">
     <div
       @click="() => handleShowModal(props.item)"
+      data-modal-target="calculatorModal"
       class="justify-between cursor-pointer relative flex flex-col md:flex-row md:space-x-5 space-y-3 md:space-y-0 rounded-xl shadow-lg p-3 w-full mx-auto border border-white bg-white max-w-7xl"
     >
       <div
@@ -123,7 +124,13 @@ const handleMediaButton = (e: Event, media: any) => {
             v-for="val in props.item.meta_price.split(`.`)"
           >
             {{ getPriceString(val) }}
-            <button class="bg-blue-500 text-white rounded px-4 py-2" @click="() => handleShowModal(props.item)">Kalkulator cenowy</button>
+            <button
+              class="bg-blue-500 text-white rounded px-4 py-2"
+              data-modal-target="calculatorModal"
+              @click="() => handleShowModal(props.item)"
+            >
+              Kalkulator cenowy
+            </button>
           </p>
         </div>
 
@@ -132,6 +139,7 @@ const handleMediaButton = (e: Event, media: any) => {
             v-for="media in props.item.media"
             type="button"
             @click="(e) => handleMediaButton(e, media)"
+            data-modal-target="contactModal"
             class="bg-slate-100 text-xs text-gray-900 bg-white border border-gray-200 rounded-l-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700"
           >
             {{ media.description }}
@@ -147,6 +155,7 @@ const handleMediaButton = (e: Event, media: any) => {
         <div
           class="flex flex-row justify-between"
           @click="() => handleShowModal(subProduct, true)"
+          data-modal-target="calculatorModal"
         >
           <p class="text-sm pr-2">{{ subProduct.name }}</p>
           <p class="text-sm pr-2">
