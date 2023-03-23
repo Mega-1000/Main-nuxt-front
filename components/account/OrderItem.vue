@@ -212,15 +212,14 @@ const handleUploadProofOfPayment = async () => {
         Czat
       </accountActionButton>
 
-      <accountActionButton type="button" :target="undefined" href="" @click="modal?.show"
-        v-if="!proofUploaded && (!item?.files || item.files.length === 0)">
+      <button @click="modal?.show" v-if="!proofUploaded && (!item?.files || item.files.length === 0)"
+        class="p-1 bg-slate-100 text-xs text-gray-700 border rounded hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 border-black">
         Podłącz potwierdzenie przelewu - przyśpiesza realizacje
-      </accountActionButton>
+      </button>
 
-      <accountActionButton type="button" :target="undefined" href="" v-else disabled
-        class="p-1 bg-green-400 text-xs text-black border border-gray-200">
+      <button v-else disabled class="p-1 bg-green-400 text-xs text-black border border-gray-700">
         Potwierdzenie przelewu podłączone - zapłacono
-      </accountActionButton>
+      </button>
     </div>
     <div class="grid md:flex pt-2" v-for="buttonGroup in Object.keys(item.buttons)">
       <p class="text-sm text-center pr-2 pt-1">{{ buttonGroup }}</p>
