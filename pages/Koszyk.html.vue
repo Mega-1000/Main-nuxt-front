@@ -430,8 +430,8 @@ const createChat = async () => {
                 <tr>
                   <th scope="col" class="px-6 py-3">Produkt</th>
                   <th scope="col" class="px-6 py-3">Ilość</th>
-                  <th scope="col" class="px-6 py-3">Cena netto</th>
-                  <th scope="col" class="px-6 py-3">Cena brutto</th>
+                  <th scope="col" class="px-6 py-3">Wartość netto</th>
+                  <th scope="col" class="px-6 py-3">Wartość brutto</th>
                 </tr>
               </thead>
               <tbody>
