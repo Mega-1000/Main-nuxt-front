@@ -95,7 +95,7 @@ const setupModals = () => {
 };
 
 onMounted(setupModals);
-watch([page], setupModals);
+watch([itemsData], setupModals);
 
 const handleCloseModal = () => {
   modal.value?.hide();
@@ -153,8 +153,6 @@ const goToPage = (val: number) => {
   page.value = val;
   window.scrollTo(0, 0);
 };
-
-const config = useRuntimeConfig().public;
 </script>
 
 <template>
@@ -224,6 +222,7 @@ const config = useRuntimeConfig().public;
               :item="item"
               :modal="modal"
               :contactModal="contactModal"
+              :setupModals="setupModals"
               class="w-full"
             />
             <nav

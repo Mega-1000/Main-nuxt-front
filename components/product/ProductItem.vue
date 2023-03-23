@@ -6,6 +6,7 @@ interface Props {
   item: any;
   modal: Modal | null;
   contactModal: Modal | null;
+  setupModals: () => void;
 }
 
 const { $shopApi: shopApi, $buildImgRoute: buildImgRoute } = useNuxtApp();
@@ -15,6 +16,8 @@ const props = defineProps<Props>();
 const config = useRuntimeConfig().public;
 
 const currentItem = useCurrentItem();
+
+onMounted(props.setupModals);
 
 const handleShowModal = async (item: any, isSubProduct = false) => {
   if (!isSubProduct) {
