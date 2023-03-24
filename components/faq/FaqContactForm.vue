@@ -44,7 +44,7 @@ user.value = userData.value;
 <template>
   <div>
     <div class="mt-6 text-2xl font-semibold">
-      Czy chcesz zadać nam pytanie?
+      Czy chcesz połączyć się z konsultantem i zadać kolejne pytanie?
     </div>
     <button class="bg-slate-700 text-white rounded px-4 py-2 block mt-4" @click="modal?.show">Zadaj pytanie</button>
   </div>

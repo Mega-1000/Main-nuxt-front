@@ -103,7 +103,7 @@ const [parent] = useAutoAnimate()
         </draggable>
 
         <button class="bg-green-500 rounded text-white px-4 py-2 mt-4" @click="modal?.show">
-          Ztwórz nową kategorię
+          Stwórz nową kategorię
         </button>
       </div>
       <div class="m-5" ref="parent">
