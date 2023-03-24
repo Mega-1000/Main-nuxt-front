@@ -50,10 +50,6 @@ const fetchQuestions = async () => {
       }
     });
   });
-
-  watch(categories, () => {
-    shopApi.post("/api/faqs/categories-positions", { categories: categories.value });
-  });
 };
 
 const createCategory = async () => {
@@ -62,7 +58,8 @@ const createCategory = async () => {
     questions: [{ question: "0", answer: "0", questions: [], withForm: false }],
   });
   modal.value.hide();
-  router.push("/faq/");
+
+  fetchQuestions();
 };
 
 const syncQuestionsPositions = () => {
@@ -73,6 +70,10 @@ const deleteQuestion = async (id) => {
   await shopApi.delete(`/api/faqs/${id}`);
   router.push("/faq/");
 };
+
+const syncCategoriesPositions = () => {
+  shopApi.post("/api/faqs/categories-positions", { categories: categories.value });
+}
 
 const [parent] = useAutoAnimate()
 </script>
@@ -89,7 +90,7 @@ const [parent] = useAutoAnimate()
 
     <div class="lg:flex mb-20">
       <div class="lg:w-[15%]">
-        <draggable v-model="categories" tag="ul">
+        <draggable @change="syncCategoriesPositions" v-model="categories" tag="ul">
           <template #item="{ element: c }">
             <button @click="category = c; answer = ''; categoryQuestions = questions[category]"
               class="bg-gray-200 w-full hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded-l block mt-6 ">
