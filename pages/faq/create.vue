@@ -68,7 +68,10 @@ const syncQuestionsPositions = () => {
 
 const deleteQuestion = async (id) => {
   await shopApi.delete(`/api/faqs/${id}`);
-  router.push("/faq/");
+  
+  categoryQuestions.value = '';
+
+  fetchQuestions();
 };
 
 const syncCategoriesPositions = () => {

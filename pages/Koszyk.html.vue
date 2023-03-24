@@ -190,6 +190,7 @@ const handleSubmit = async (e: Event | null) => {
     files,
     order_items: productsCart.value.idsWithQuantity(),
     rewrite: 0,
+    need_support: true,
   };
 
   try {
@@ -273,6 +274,7 @@ const createChat = async () => {
   else router.push("/thanks");
 
   setTimeout(async () => {
+    
   }, 500);
 };
 </script>
