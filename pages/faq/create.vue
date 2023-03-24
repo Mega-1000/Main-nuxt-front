@@ -61,9 +61,8 @@ const createCategory = async () => {
     category: newCategoryName.value,
     questions: [{ question: "0", answer: "0", questions: [], withForm: false }],
   });
-
-  fetchQuestions();
   modal.value.hide();
+  router.push("/faq/");
 };
 
 const syncQuestionsPositions = () => {
