@@ -26,6 +26,35 @@ const fetchCategories = async () => {
     label: "-- Wybierz kategorię --",
     value: "",
   });
+
+  categories.value = categories.value.concat(
+    data.flatMap((category) => {
+      return category.children.map((child) => {
+        return {
+          label: child.name,
+          value: child.id,
+        };
+      });
+    })
+  );
+
+  const deepLoop = (arr) => {
+    arr.forEach((item) => {
+      if (item.children) {
+        categories.value = categories.value.concat(
+          item.children.map((child) => {
+            return {
+              label: child.name,
+              value: child.id,
+            };
+          })
+        );
+        deepLoop(item.children);
+      }
+    });
+  };
+
+  deepLoop(data);
 };
 
 const submitFrom = async () => {

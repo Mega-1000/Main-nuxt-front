@@ -117,7 +117,7 @@ const handleMediaButton = (e: Event, media: any) => {
       >
         <h3 class="font-black text-gray-800 md:text-3xl text-xl">
           {{ props.item.name }}
-          <div class="text-left w-full font-normal">
+          <div class="text-left w-full font-light text-sm">
             {{ props.item.symbol }}
           </div>
         </h3>
@@ -148,7 +148,7 @@ const handleMediaButton = (e: Event, media: any) => {
             data-modal-target="contactModal"
             class="bg-slate-100 text-xs text-gray-900 bg-white border border-gray-200 rounded-l-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700"
           >
-            {{ media.description }}
+            {{ media.description }} <button @click="(e) => handleMediaButton(e, media)" class="bg-blue-500 text-white rounded px-4 py-2">Kalkulator cenowy</button>
           </button>
         </div>
       </div>
