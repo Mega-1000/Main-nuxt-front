@@ -59,9 +59,7 @@ const saveNameAndDescription = () => {
       <div class="w-full p-4 justify-start flex flex-col">
         <h4 class="border-b-2 text-3xl" :contenteditable="editable" role="input" @input="saveNameAndDescription">{{ name
         }}</h4>
-        <p class="my-4" :contenteditable="editable" @input="saveNameAndDescription">
-          {{ realDescription }}
-        </p>
+        <p class="my-4" :contenteditable="editable" @input="saveNameAndDescription" v-html="realDescription"></p>
         <button class="bg-blue-500 rounded text-white px-4 py-2" @click="editImage = !editImage" v-if="editable"> Edytuj
           zdjęcie </button>
         <div ref="parent" v-if="editable">
