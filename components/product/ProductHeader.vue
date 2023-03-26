@@ -92,3 +92,19 @@ const saveNameAndDescription = () => {
     </div>
   </div>
 </template>
+
+
+<style>
+@media screen and (max-width: 640px) {
+  img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+}
+
+img {
+  max-width: 300px;
+  max-height: 300px;
+}
+</style>
