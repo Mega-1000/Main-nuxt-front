@@ -11,6 +11,7 @@ const currentItem = useCurrentItem();
 const { params, query } = useRoute();
 const { productId } = params;
 const page = ref(parseInt((query.page as string) || "1"));
+const isStaff = ref(false);
 
 const { data: currentProduct, pending: pending1 } = await useAsyncData(
   async () => {
@@ -94,7 +95,14 @@ const setupModals = () => {
   contactModal.value = new Modal($contactTargetEl, contactOptions);
 };
 
-onMounted(setupModals);
+onMounted(async () => {
+  setupModals();
+  
+  const data:any = await shopApi.get('/api/staff/isStaff');
+  if(data.data){
+    isStaff.value = true;
+  }
+});
 watch([itemsData], setupModals);
 
 const handleCloseModal = () => {
@@ -166,6 +174,7 @@ const goToPage = (val: number) => {
         :category-tree="currentProduct?.categoryTree"
         class="h-fit mt-5 md:mt-30 md:ml-5 lg:ml-15 pt-30 w-full"
       />
+      <nuxt-link class="bg-green-500 rounded px-4 py-2 text-white" href="/categories/create">Dodaj kategorię</nuxt-link>
     </div>
     <div class="md:w-2/3 xl:w-3/4">
       <ProductHeader
@@ -173,6 +182,8 @@ const goToPage = (val: number) => {
         :description="currentProduct?.currentProduct?.description"
         :imgSrc="currentProduct?.currentProduct?.img"
         class="mt-10"
+        :editable="isStaff"
+        :category="currentProduct"
       />
       <div
         v-if="

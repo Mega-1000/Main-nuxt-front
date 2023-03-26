@@ -22,11 +22,13 @@ const config = useRuntimeConfig().public;
     <section class="pt-10 pb-20 w-full flex justify-center">
       <div>
         <div class="lg:flex justify-center">
-          <div class="px-10 w-full lg:w-fit flex justify-center lg:w-1/3">
+          <div class="px-10 w-full lg:w-fit justify-center lg:w-1/3">
             <Sidebar
               class="h-fit flex flex-col justify-center mt-30 w-full"
               :categories="categories"
             />
+
+            <nuxt-link class="bg-green-500 rounded px-4 py-2 text-white" href="/categories/create">Dodaj kategorię</nuxt-link>
           </div>
           <div class="w-full flex justify-center">
             <div>
