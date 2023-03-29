@@ -274,7 +274,10 @@ const createChat = async () => {
   else router.push("/thanks");
 
   setTimeout(async () => {
-    
+    window.open(
+      `${config.baseUrl}/chat/${data.chatUserToken}`,
+      "_blank"
+      );
   }, 500);
 };
 </script>

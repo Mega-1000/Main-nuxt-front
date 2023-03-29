@@ -31,9 +31,6 @@ const onConfirm = async () => {
     } finally {
       loading.value = false;
     }
-
-
-    router.push("/thanks?contact=true");
   } catch (err: any) {
     errorMessage.value = err.response.data.error_message || "Wystąpił błąd";
   } finally {

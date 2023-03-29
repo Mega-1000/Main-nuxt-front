@@ -15,10 +15,11 @@ const handleSubmit = async (e: Event) => {
   const params = {
     phone: phoneInput,
     want_contact: true,
+    need_support: true,
   };
   try {
     const res = await shopApi.post("/api/new_order", params);
-    if (res.status !== 201) throw new Error();
+    if (res.status !== 200) throw new Error();
     cart.value = res.data.token;
     user.value = {
       ...user.value,
