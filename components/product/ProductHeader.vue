@@ -19,9 +19,10 @@ const formData = ref();
 const checkboxes = reactive({
   name: category?.currentProduct.save_name === 1 ? true : false,
   description: category?.currentProduct.save_description === 1 ? true : false,
-  image : category?.currentProduct.save_image === 1 ? true : false,
+  image: category?.currentProduct.save_image === 1 ? true : false,
 });
 const [parent] = useAutoAnimate();
+const router = useRouter();
 
 const saveImage = async (e: any) => {
   const file = e.target[0].files[0];
@@ -48,6 +49,12 @@ const saveNameAndDescription = () => {
     });
   }, 5)
 }
+
+const deleteCategory = async () => {
+  await shopApi.delete(`api/categories/delete/${category?.currentProduct.id}`);
+  
+  router.push("/");
+}
 </script>
 
 <template>
@@ -59,19 +66,26 @@ const saveNameAndDescription = () => {
       <div class="w-full p-4 justify-start flex flex-col">
         <h4 class="border-b-2 text-3xl" :contenteditable="editable" role="input" @input="saveNameAndDescription">{{ name
         }}</h4>
+        
         <p class="my-4" :contenteditable="editable" @input="saveNameAndDescription" v-html="realDescription"></p>
-        <button class="bg-blue-500 rounded text-white px-4 py-2" @click="editImage = !editImage" v-if="editable"> Edytuj
-          zdjęcie </button>
+        <div v-if="editable">
+          <button class="bg-blue-500 rounded text-white px-4 py-2" @click="editImage = !editImage"> Edytuj
+            zdjęcie
+          </button>
+          
+          <button class="bg-red-500 rounded text-white px-4 py-2" @click="deleteCategory">Usuń kategorię</button>
+        </div>
+          
         <div ref="parent" v-if="editable">
           <div class="m-4">
             <div>
-              <input @input="saveNameAndDescription" type="checkbox" v-model="checkboxes.name"> Zapisuj nazwę z cvs
+              <input @input="saveNameAndDescription" type="checkbox" v-model="checkboxes.name"> Zapisuj nazwę z csv
             </div>
             <div>
-              <input @input="saveNameAndDescription" type="checkbox" v-model="checkboxes.description"> Zapisuj opis z cvs
+              <input @input="saveNameAndDescription" type="checkbox" v-model="checkboxes.description"> Zapisuj opis z csv
             </div>
             <div>
-              <input @input="saveNameAndDescription" type="checkbox" v-model="checkboxes.image"> Zapisuj zdjęcie z cvs
+              <input @input="saveNameAndDescription" type="checkbox" v-model="checkboxes.image"> Zapisuj zdjęcie z csv
             </div>
           </div>
           <div v-if="editImage">

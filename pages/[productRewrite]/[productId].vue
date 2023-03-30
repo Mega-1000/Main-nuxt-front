@@ -174,7 +174,7 @@ const goToPage = (val: number) => {
         :category-tree="currentProduct?.categoryTree"
         class="h-fit mt-5 md:mt-30 md:ml-5 lg:ml-15 pt-30 w-full"
       />
-      <nuxt-link class="bg-green-500 rounded px-4 py-2 text-white" href="/categories/create">Dodaj kategorię</nuxt-link>
+      <nuxt-link class="bg-green-500 rounded px-4 py-2 text-white" href="/categories/create" v-if="isStaff">Dodaj kategorię</nuxt-link>
     </div>
     <div class="md:w-2/3 xl:w-3/4">
       <ProductHeader

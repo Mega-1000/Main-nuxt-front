@@ -10,8 +10,18 @@ const { data: categories, pending } = await useAsyncData(async () => {
   } catch (e: any) {}
 });
 
+const isStaff = ref(false);
+
 const buildLink = ({ rewrite, id }: { rewrite: string; id: number }) =>
   `/${rewrite}/${id}`;
+
+  onMounted(async () => {   
+    const data:any = await shopApi.get('/api/staff/isStaff');
+
+    if(data.data){
+      isStaff.value = true;
+    }
+  })
 
 const config = useRuntimeConfig().public;
 </script>
@@ -28,7 +38,7 @@ const config = useRuntimeConfig().public;
               :categories="categories"
             />
 
-            <nuxt-link class="bg-green-500 rounded px-4 py-2 text-white" href="/categories/create">Dodaj kategorię</nuxt-link>
+            <nuxt-link class="bg-green-500 rounded px-4 py-2 text-white" href="/categories/create" v-if="isStaff">Dodaj kategorię</nuxt-link>
           </div>
           <div class="w-full flex justify-center">
             <div>

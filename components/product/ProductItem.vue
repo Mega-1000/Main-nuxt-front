@@ -113,9 +113,9 @@ const handleMediaButton = (e: Event, media: any) => {
         />
       </div>
       <div
-        class="w-full md:w-2/3 bg-white flex flex-col space-y-2 p-3 grid md:place-items-end"
+        class="w-full md:w-[170%] bg-white flex flex-col space-y-2 p-3 grid md:place-items-end"
       >
-        <h3 class="font-black text-gray-800 md:text-3xl text-xl">
+        <h3 class="font-black text-gray-800 md:text-3xl text-xl" style="margin-right: auto;">
           {{ props.item.name }}
           <div class="text-left w-full font-light text-sm">
             {{ props.item.symbol }}
