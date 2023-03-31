@@ -185,6 +185,7 @@ const goToPage = (val: number) => {
         :editable="isStaff"
         :category="currentProduct"
       />
+      {{ currentProduct?.currentProduct.save_name }}
       <div
         v-if="
           currentProduct?.currentProduct?.children &&

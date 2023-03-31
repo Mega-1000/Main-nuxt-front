@@ -10,17 +10,19 @@ interface Props {
   category: any;
 }
 
-const editImage = ref(false);
 const { description, imgSrc, name, category } = defineProps<Props>();
 const realDescription = description?.replace(/\|/gim, "\n");
 const { $buildImgRoute: buildImgRoute } = useNuxtApp();
 const { $shopApi: shopApi } = useNuxtApp();
+
+const editImage = ref(false);
 const formData = ref();
 const checkboxes = reactive({
-  name: category?.currentProduct.save_name === 1 ? true : false,
-  description: category?.currentProduct.save_description === 1 ? true : false,
-  image: category?.currentProduct.save_image === 1 ? true : false,
+  name: category?.currentProduct.save_name,
+  description: category?.currentProduct.save_description,
+  image: category?.currentProduct.save_image,
 });
+
 const [parent] = useAutoAnimate();
 const router = useRouter();
 
