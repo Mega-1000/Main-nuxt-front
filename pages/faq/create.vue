@@ -78,7 +78,7 @@ const syncCategoriesPositions = () => {
   shopApi.post("/api/faqs/categories-positions", { categories: categories.value });
 }
 
-const [parent] = useAutoAnimate()
+const [parent] = useAutoAnimate();
 </script>
 
 <template>

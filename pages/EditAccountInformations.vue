@@ -5,6 +5,20 @@
 
   type editMode = "password" | "standard_address" | "primary_data";
 
+  interface Address {
+    id: number;
+    name: string;
+    surname: string;
+    street: string;
+    house_number: string;
+    flat_number: string;
+    city: string;
+    postal_code: string;
+    phone: string;
+    email: string;
+    type: string;
+  }
+
   const user = ref<any>({});
   const password = ref("");
   const processing = ref(false);
@@ -24,7 +38,17 @@
 
     standardAddress.value = user.value.addresses.filter(
       (address: { type: string; }) => address.type === "STANDARD_ADDRESS"
-    )[0];
+    )[0] as Address ?? {
+      name: "",
+      surname: "",
+      street: "",
+      house_number: "",
+      flat_number: "",
+      city: "",
+      postal_code: "",
+      phone: "",
+      email: "",
+    } as Address;
 
     initEditMode();
   });

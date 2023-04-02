@@ -149,6 +149,7 @@ const handleMediaButton = (e: Event, media: any) => {
             class="bg-slate-100 text-xs text-gray-900 bg-white border border-gray-200 rounded-l-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700"
           >
             {{ media.description }}
+          </button>
         </div>
       </div>
     </div>
