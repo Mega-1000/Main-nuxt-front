@@ -13,11 +13,5 @@ export default defineNuxtConfig({
       baseUrl: process.env.APP_STORAGE,
       nuxtNewFront: process.env.NEW_NUXT_SERVER,
     },
-  },
-  server: {
-    https: {
-      key: fs.readFileSync(path.resolve(process.env.SSL_KEY_PATH)),
-      cert: fs.readFileSync(path.resolve(process.env.SSL_CERT_PATH)),
-    },
-  },
+  }
 });

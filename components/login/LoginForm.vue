@@ -11,8 +11,8 @@ const router = useRouter();
 const config = useRuntimeConfig().public;
 
 const { $shopApi: shopApi } = useNuxtApp();
-
 const userToken = useUserToken();
+const emit = defineEmits(["loginFailed"]);
 
 const handleSubmit = async (e: Event) => {
   e.preventDefault();
@@ -29,10 +29,15 @@ const handleSubmit = async (e: Event) => {
   try {
     const res = await shopApi.post("oauth/token", params);
     setCookie(res.data);
-    await router.push("/account");
+
+    const redirect = router.currentRoute.value.query.redirect;
+    await router.push(`${redirect ?? "/account"}`);
     userToken.value = getToken();
   } catch (err: any) {
-    errorMessage.value = "Coś poszło nie tak";
+    emit("loginFailed", {
+      email: emailInput,
+      password: passwordInput
+    });
   } finally {
     loading.value = false;
   }

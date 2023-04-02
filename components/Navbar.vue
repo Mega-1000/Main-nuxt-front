@@ -6,6 +6,7 @@ import Cart from "~~/utils/Cart";
 const { $shopApi: shopApi } = useNuxtApp();
 
 const productsCart = useProductsCart();
+const router = useRouter();
 
 const userToken = useUserToken();
 userToken.value = getToken();
@@ -32,6 +33,8 @@ const buildCustomLink = (pageId: number) => `/custom/${pageId}`;
 const logOut = () => {
   removeCookie();
   userToken.value = getToken();
+  
+  router.go(0);
 };
 
 onMounted(() => {
@@ -137,7 +140,7 @@ const toggleMenu = () => {
           </li>
           <li>
             <NuxtLink href="/faq" class="text-gray-900 hover:underline"
-              >Faq</NuxtLink
+              >Chat / Pytania i odpowiedzi</NuxtLink
             >
           </li>
         </ul>

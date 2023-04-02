@@ -1,9 +1,15 @@
 <script setup lang="ts">
+import { checkIfUserIsLoggedIn } from "~/helpers/authenticationCheck";
+
 const defaultErrorText = "Coś poszło nie tak";
 
 const { $shopApi: shopApi } = useNuxtApp();
 
 const errorMessage = ref<string | null>(null);
+
+onMounted(async () => {
+  await checkIfUserIsLoggedIn('');
+});
 
 const { data: chatHistory } = await useAsyncData(async () => {
   try {

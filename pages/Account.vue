@@ -2,6 +2,7 @@
 import { Tabs } from "flowbite";
 import type { TabsOptions, TabsInterface, TabItem } from "flowbite";
 import OrderItem from "~~/components/account/OrderItem.vue";
+import { checkIfUserIsLoggedIn } from "~/helpers/authenticationCheck";
 
 const { $shopApi: shopApi } = useNuxtApp();
 
@@ -24,6 +25,7 @@ const { data: orders } = useAsyncData(async () => {
 });
 
 onMounted(() => {
+  checkIfUserIsLoggedIn('Aby pzrejść to twojego konta zaloguj się lub zarejestruj');
   // create an array of objects with the id, trigger element (eg. button), and the content element
   const tabElements: TabItem[] = [
     {
@@ -97,6 +99,19 @@ onMounted(() => {
         >
           Wszystkie
         </button>
+      </li>
+      <li class="mr-2" role="presentation">
+        <nuxt-link
+            class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300"
+            id="active-tab"
+            type="button"
+            role="tab"
+            aria-controls="active-content"
+            aria-selected="false"
+            href="/EditAccountInformations"
+        >
+          Edycja/korekta danych konta
+        </nuxt-link>
       </li>
     </ul>
   </div>

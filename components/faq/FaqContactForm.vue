@@ -2,6 +2,13 @@
 import { useAutoAnimate } from '@formkit/auto-animate/vue'
 import { Modal } from "flowbite";
 
+const props = defineProps({
+  questionsTree: {
+    type: Array,
+    required: true,
+  }
+});
+
 const { $shopApi: shopApi } = useNuxtApp();
 const [parent] = useAutoAnimate()
 const user = useUser();
@@ -38,15 +45,29 @@ const hideModal = () => {
   modal?.value.hide();
 };
 
+const initChat = async () => {
+  try {
+    const res = await shopApi.post("api/create_contact_chat", {
+      questionsTree: props.questionsTree,
+      customer_login: user.value.email,
+      phone: user.value.phone,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+
+  modal?.value.show();
+}
+
 user.value = userData.value;
 </script>
 
 <template>
   <div>
     <div class="mt-6 text-2xl font-semibold">
-      Czy chcesz połączyć się z konsultantem i zadać kolejne pytanie?
+      Nie uzyskałem odpowiedzi na swoje pytanie.
     </div>
-    <button class="bg-slate-700 text-white rounded px-4 py-2 block mt-4" @click="modal?.show">Zadaj pytanie</button>
+    <button class="bg-slate-700 text-white rounded px-4 py-2 block mt-4" @click="initChat">Połącz mnie z konsultantem</button>
   </div>
 
 
@@ -58,7 +79,7 @@ user.value = userData.value;
         <!-- Modal header -->
         <div class="flex items-start justify-between p-4 border-b rounded-t">
           <h3 class="text-xl font-semibold text-gray-900">
-            Wpisz numer telefonu
+            Chat został wyświetlony
           </h3>
           <button type="button"
             class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
@@ -74,8 +95,7 @@ user.value = userData.value;
         </div>
         <!-- Modal body -->
         <div class="p-6 space-y-6m w-fit mx-auto">
-          <ContactForm @submit="hideModal()" v-if="user?.phone && user?.phone !== null" class="max-w-screen" />
-          <ContactPhoneContactForm v-else class="max-w-[100%]" />
+          Chat został wyświetlony w nowej karcie. Jeśli nie widzisz go, sprawdź czy nie został zablokowany przez przeglądarkę.
         </div>
         <!-- Modal footer -->
       </div>
