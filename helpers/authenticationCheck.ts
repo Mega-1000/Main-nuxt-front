@@ -8,11 +8,12 @@ const checkIfUserIsLoggedIn = async (message: String) => {
 
         return user;
     } catch (e) {
-        await loginFromGetParams(true);
+        // @ts-ignore
+        await loginFromGetParams(true, message);
     }
 }
 
-const loginFromGetParams = async (redirect: boolean) => {
+const loginFromGetParams = async (redirect: boolean, message: string = 'Ta strona jest dostępna tylko dla zalogowanych użytkowników') => {
     const router = useRouter();
     const { $shopApi: shopApi } = useNuxtApp();
 
@@ -28,13 +29,13 @@ const loginFromGetParams = async (redirect: boolean) => {
                 return await loginUser(email.toString(), phone.toString());
             } catch (e) {
                 clearGetParams();
-                return router.push(`/login?redirect=${router.currentRoute.value.fullPath}&message=Ta strona jest dostępna tylko dla zalogowanych użytkowników`);
+                return router.push(`/login?redirect=${router.currentRoute.value.fullPath}&message=${message}`);
             }
         }
     }
 
     clearGetParams();
-    return redirect ? router.push(`/login?redirect=${router.currentRoute.value.fullPath}&message=Ta strona jest dostępna tylko dla zalogowanych użytkowników`) : null;
+    return redirect ? router.push(`/login?redirect=${router.currentRoute.value.fullPath}&message=${message}`) : null;
 }
 
 const loginUser = async (email: string, password: string) => {
