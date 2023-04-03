@@ -65,6 +65,19 @@ onMounted(() => {
       role="tablist"
     >
       <li class="mr-2" role="presentation">
+        <nuxt-link
+            class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300"
+            id="active-tab"
+            type="button"
+            role="tab"
+            aria-controls="active-content"
+            aria-selected="false"
+            href="/EditAccountInformations"
+        >
+          Edycja/korekta danych konta
+        </nuxt-link>
+      </li>
+      <li class="mr-2" role="presentation">
         <button
           class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300"
           id="active-tab"
@@ -99,19 +112,6 @@ onMounted(() => {
         >
           Wszystkie
         </button>
-      </li>
-      <li class="mr-2" role="presentation">
-        <nuxt-link
-            class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300"
-            id="active-tab"
-            type="button"
-            role="tab"
-            aria-controls="active-content"
-            aria-selected="false"
-            href="/EditAccountInformations"
-        >
-          Edycja/korekta danych konta
-        </nuxt-link>
       </li>
     </ul>
   </div>

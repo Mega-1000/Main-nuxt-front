@@ -1,9 +1,10 @@
 <script setup lang="ts">
   import { checkIfUserIsLoggedIn } from "~/helpers/authenticationCheck";
+  import AccountEditData from "~/components/account/AccountEditData.vue";
 
   const { $shopApi: shopApi } = useNuxtApp();
 
-  type editMode = "password" | "standard_address" | "primary_data";
+  type editMode = "password" | "standard_address" | "primary_data" | "invoice_data" | "shipment_data";
 
   interface Address {
     id: number;
@@ -28,16 +29,12 @@
   const standardAddress = ref({});
   const success = ref(false);
   const passwordConfirmation = ref("");
+  const invoiceAddress = ref({});
+  const shipmentAddress = ref({});
 
-  onMounted(async () => {
-    await checkIfUserIsLoggedIn(
-      "Proszę się zalogować, aby móc zmienić hasło i dane do przesyłki"
-    );
-
-    ({ data: user.value } = await shopApi.get("/api/user"));
-
-    standardAddress.value = user.value.addresses.filter(
-      (address: { type: string; }) => address.type === "STANDARD_ADDRESS"
+  const getAddress = (name: string) => {
+    return user.value.addresses.filter(
+        (address: { type: string; }) => address.type === name
     )[0] as Address ?? {
       name: "",
       surname: "",
@@ -49,6 +46,18 @@
       phone: "",
       email: "",
     } as Address;
+  };
+
+  onMounted(async () => {
+    await checkIfUserIsLoggedIn(
+      "Proszę się zalogować, aby móc zmienić hasło i dane do przesyłki"
+    );
+
+    ({ data: user.value } = await shopApi.get("/api/user"));
+
+    standardAddress.value = getAddress("STANDARD_ADDRESS");
+    invoiceAddress.value = getAddress("INVOICE_ADDRESS");
+    shipmentAddress.value = getAddress("DELIVERY_ADDRESS");
 
     initEditMode();
   });
@@ -97,8 +106,11 @@
       case "standard_address":
         editMode.value = "standard_address";
         break;
-      case "primary_data":
-        editMode.value = "primary_data";
+      case "invoice_data":
+        editMode.value = "invoice_data";
+        break;
+      case "shipment_data":
+        editMode.value = "shipment_data";
         break;
     }
   }
@@ -111,10 +123,12 @@
     }, 3000);
   }
 
-  const saveStandardAddress = async () => {
+  const SubmitAddresses = async () => {
     processing.value = true;
     await shopApi.post("/api/user/update-informations", {
       standardAddress: standardAddress.value,
+      invoiceAddress: invoiceAddress.value,
+      deliveryAddress: shipmentAddress.value,
     });
     setSuccess(true);
     processing.value = false;
@@ -136,6 +150,14 @@
       <SubmitButton class="ml-4" @click="setEditMode('standard_address')" :disabled="editMode === 'standard_address'">
         Adres podstawowy
       </SubmitButton>
+
+      <SubmitButton class="ml-4" @click="setEditMode('invoice_data')" :disabled="editMode === 'invoice_data'">
+        Dane do faktury
+      </SubmitButton>
+
+      <SubmitButton class="ml-4" @click="setEditMode('shipment_data')" :disabled="editMode === 'shipment_data'">
+        Dane do wysyłki
+      </SubmitButton>
     </div>
 
     <form @submit.prevent="savePassword" v-if="editMode === 'password'">
@@ -146,62 +168,29 @@
       <TextInput id="password_confirmation_input" placeholder="Potwierdź hasło" :value="passwordConfirmation" @input="passwordConfirmation = $event" ></TextInput>
 
       <SubmitButton class="mt-4" type="submit" :disabled="processing">Zapisz</SubmitButton>
-
-      <div v-if="success" class="mt-4 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
-        <strong class="font-bold">Sukces!</strong>
-        <span class="block sm:inline">Twoje dane zostały zaaktualizowane</span>
-      </div>
     </form>
 
-    <form @submit.prevent="saveStandardAddress" v-if="editMode === 'standard_address'">
-      <!-- name -->
-      <label for="name_input">Imię</label>
-      <TextInput id="name_input" placeholder="Imię" :value="standardAddress.firstname" @input="standardAddress.firstname = $event" ></TextInput>
+    <form @submit.prevent="SubmitAddresses" v-if="editMode === 'standard_address'">
+      <AccountEditData address-type="STANDARD_ADDRESS" :success="success" :address="standardAddress" :editMode="editMode" @input="standardAddress = $event" />
 
-      <!-- surname -->
-      <label for="surname_input">Nazwisko</label>
-      <TextInput id="surname_input" placeholder="Nazwisko" :value="standardAddress.lastname" @input="standardAddress.lastname = $event" ></TextInput>
-
-      <!-- firmname -->
-      <label for="firmname_input">Nazwa firmy</label>
-      <TextInput id="firmname_input" placeholder="Nazwa firmy" :value="standardAddress.firmname" @input="standardAddress.firmname = $event" ></TextInput>
-
-      <!-- nip -->
-      <label for="nip_input">NIP</label>
-      <TextInput id="nip_input" placeholder="NIP" :value="standardAddress.nip" @input="standardAddress.nip = $event" ></TextInput>
-
-      <!-- phone_number -->
-      <label for="phone_number_input">Numer telefonu</label>
-      <TextInput id="phone_number_input" placeholder="Numer telefonu" :value="standardAddress.phone" @input="standardAddress.phone = $event" ></TextInput>
-
-      <!-- adres -->
-      <label for="address_input">Adres</label>
-      <TextInput id="address_input" placeholder="Adres" :value="standardAddress.address" @input="standardAddress.address = $event" ></TextInput>
-
-      <!-- building number -->
-      <label for="building_number_input">Numer budynku</label>
-      <TextInput id="building_number_input" placeholder="Numer budynku" :value="standardAddress.flat_number" @input="standardAddress.flat_number = $event" ></TextInput>
-
-      <!-- city -->
-      <label for="city_input">Miasto</label>
-      <TextInput id="city_input" placeholder="Miasto" :value="standardAddress.city" @input="standardAddress.city = $event" ></TextInput>
-
-      <!-- zip code -->
-      <label for="zip_code_input">Kod pocztowy</label>
-      <TextInput id="zip_code_input" placeholder="Kod pocztowy" :value="standardAddress.postal_code" @input="standardAddress.postal_code = $event" ></TextInput>
-
-      <!-- email -->
-      <label for="email_input">Email</label>
-      <TextInput id="email_input" placeholder="Email" :value="standardAddress.email" @input="standardAddress.email = $event" ></TextInput>
-
-      <submitButton :disabled="processing" class="mt-8" :class="{ 'bg-geen-500': success }">
+      <submitButton :success="success" :disabled="processing" class="mt-8" :class="{ 'bg-geen-500': success }">
         Zapisz
       </submitButton>
+    </form>
 
-      <div v-if="success" class="mt-4 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
-        <strong class="font-bold">Sukces!</strong>
-        <span class="block sm:inline">Twoje dane zostały zaaktualizowane</span>
-      </div>
+    <form @submit.prevent="SubmitAddresses" v-if="editMode === 'invoice_data'">
+      <AccountEditData address-type="INVOICE_ADDRESS" :success="success" :address="invoiceAddress" :editMode="editMode" @input="invoiceAddress = $event" />
+
+      <SubmitButton :disabled="processing" class="mt-8" :class="{ 'bg-geen-500': success }">
+        Zapisz
+      </submitButton>
+    </form>
+
+    <form @submit.prevent="SubmitAddresses" v-if="editMode === 'shipment_data'">
+      <AccountEditData address-type="DELIVERY_ADDRESS" :success="success" :address="shipmentAddress" :editMode="editMode" @input="shipmentAddress = $event" />
+      <SubmitButton :disabled="processing" class="mt-8" :class="{ 'bg-geen-500': success }">
+        Zapisz
+      </submitButton>
     </form>
   </div>
 </template>
