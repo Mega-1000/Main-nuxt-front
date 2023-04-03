@@ -1,4 +1,5 @@
 import {setCookie} from "~/helpers/authenticator";
+import { encode, decode } from 'js-base64';
 
 const checkIfUserIsLoggedIn = async (message: String) => {
     const { $shopApi: shopApi } = useNuxtApp();
@@ -17,7 +18,12 @@ const loginFromGetParams = async (redirect: boolean, message: string = 'Ta stron
     const router = useRouter();
     const { $shopApi: shopApi } = useNuxtApp();
 
-    const { email, phone } = router.currentRoute.value.query;
+    let { email, phone } = router.currentRoute.value.query;
+
+    // @ts-ignore
+    email = email ? decode(email) : null;
+    // @ts-ignore
+    phone = phone ? decode(phone) : null;
 
     try {
         const { data: user } = await shopApi.get('/api/user');
