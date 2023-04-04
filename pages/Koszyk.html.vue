@@ -31,6 +31,7 @@ let additionalNoticesInput = "";
 let abroadInput = false;
 let rulesInput = false;
 let files: any[] = [];
+const message = ref("");
 
 onBeforeMount(async () => {
   const cookies = new Cookies();
@@ -219,12 +220,10 @@ const handleSubmitWithToken = async () => {
   try {
     const res = await shopApi.post("/api/new_order", params);
 
-    if (res.status === 201) {
+    if (res.status === 200) {
       productsCart.value.removeAllFromCart();
       cookies.remove("cart_token");
-      window.location.replace(
-        `${config.baseUrl}/admin/orders/${res.data.order_id}/edit`
-      );
+      message.value = "Oferta została nadpisana na starą ofertę ale prosimy pamiętać że jest to niebezpieczne ponieważ klient po dostawie może się kłócić ze dostał nie to co  miał w ofercie i na dowód pokazać starą a upierać się że o nowej nic nie wie. Można sporadycznie tak robić bo ułatwia to temat gdy już jakieś zostały np dokonane wpłaty lub towar wyjechał na listach i jest dużo roboty aby dokonać zmiany do nowej oferty ale musimy być pewnie że klient nie będzie się upierał ze on chciał starą oferte."
     }
   } catch (err: any) {
     errorText2.value = err.response.data.error_message || "Wystąpił błąd";
@@ -726,12 +725,18 @@ const createChat = async () => {
         </div>
       </div>
 
-      <div v-if="state?.cart_token && !isNewOrder" class="flex justify-center mb-60">
+      <div v-if="state?.cart_token && !isNewOrder" class="flex justify-center mb-10">
         <button
           class="w-60 text-white bg-cyan-400 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
           :disabled="loading" @click="handleSubmitWithToken">
           Zapisz edycję
         </button>
+      </div>
+
+      <div v-if="message" class="flex justify-center">
+        <div class="bg-green-500 rounded p-2 text-white">
+          {{ message }}
+        </div>
       </div>
     </div>
   </div>
