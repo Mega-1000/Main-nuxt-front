@@ -1,4 +1,5 @@
-import {setCookie} from "~/helpers/authenticator";
+// @ts-ignore
+import { setCookie } from "~/helpers/authenticator";
 import { encode, decode } from 'js-base64';
 
 const checkIfUserIsLoggedIn = async (message: String) => {
