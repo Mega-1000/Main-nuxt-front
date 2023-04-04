@@ -3,7 +3,6 @@ import Cookies from "universal-cookie/cjs/Cookies";
 import { getToken, setCookie } from "~~/helpers/authenticator";
 import transportPrice from "~~/helpers/transportPrice";
 import Cart from "~~/utils/Cart";
-import FileBase64 from "vue-file-base64";
 
 const { query } = useRoute();
 
