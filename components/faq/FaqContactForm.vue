@@ -12,6 +12,7 @@ const props = defineProps({
 const { $shopApi: shopApi } = useNuxtApp();
 const [parent] = useAutoAnimate()
 const user = useUser();
+const config = useRuntimeConfig().public;
 
 const modal = ref(null);
 
@@ -52,6 +53,8 @@ const initChat = async () => {
       customer_login: user.value.email,
       phone: user.value.phone,
     });
+
+    window.open(`${config.baseUrl}/chat/${res.data.chatUserToken}`, "_blank");
   } catch (error) {
     console.log(error);
   }
