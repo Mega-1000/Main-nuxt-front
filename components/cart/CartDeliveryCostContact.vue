@@ -1,6 +1,7 @@
 <script setup lang="ts">
 const props = defineProps<{
-  disabled: boolean
+  disabled: boolean,
+  loading: boolean,
 }>()
 
 const emit = defineEmits<{
@@ -9,7 +10,7 @@ const emit = defineEmits<{
 </script>
 
 <template>
-  <div class="text-right">
+  <div class="text-right" v-if="!loading">
     <div>
       Przed uzyciem buttona koniecznie uzupełnij dane adresowe ponizej.
     </div>
@@ -25,5 +26,10 @@ const emit = defineEmits<{
     <button class="bg-blue-600 rounded px-4 py-2 text-white w-fit disabled:bg-slate-400" :disabled="disabled" @click="">
       Wyślij do sprawdzenia kosztów transportu bez łączenia z konsultantem
     </button>
+  </div>
+  <div v-else>
+    <div class="flex items-center justify-center">
+      <div class="w-12 h-12 border-t-2 border-b-2 border-gray-900 rounded-full animate-spin"></div>
+    </div>
   </div>
 </template>

@@ -266,7 +266,10 @@ const canBeSubmitted = computed(() => {
 });
 
 const createChat = async () => {
+
+  loading.value = true;
   const data = await handleSubmit(null);
+  loading.value = false;
 
   if (data.canPay) router.push(`/payment?token=${data.token}`);
   else router.push("/thanks");
@@ -623,7 +626,7 @@ const createChat = async () => {
               </p>
             </div>
 
-            <CartDeliveryCostContact :disabled="!canBeSubmitted" @click="createChat" />
+            <CartDeliveryCostContact :disabled="!canBeSubmitted" @click="createChat" :loading="loading" />
 
             <hr />
             <div class="flex justify-between">
