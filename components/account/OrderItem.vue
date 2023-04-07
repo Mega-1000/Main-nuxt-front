@@ -195,7 +195,7 @@ const handleUploadProofOfPayment = async () => {
         Edytuj koszyk
       </accountActionButton>
 
-      <accountActionButton :target="undefined" type="link" is="button"
+      <accountActionButton target="_blank" type="link" is="button"
         :href="`${config.nuxtNewFront}zamowienie/mozliwe-do-realizacji/brak-danych/${item.id}`">
         Dane do dostawy i faktury oraz ich edycja
       </accountActionButton>
