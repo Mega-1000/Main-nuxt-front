@@ -218,7 +218,7 @@ const handleUploadProofOfPayment = async () => {
 
       <accountActionButton type="link" target="_blank" is="button"
         :href="`${config.baseUrl}/chat-show-or-new/${item.id}/${item.customer_id}`">
-        Czat
+        Dyskusja
       </accountActionButton>
     </div>
     <div class="grid md:flex pt-2" v-for="buttonGroup in Object.keys(item.buttons)">

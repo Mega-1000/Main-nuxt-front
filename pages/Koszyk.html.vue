@@ -45,7 +45,7 @@ onBeforeMount(async () => {
       console.log(error);
     }
   }
-  if (query && query.cart_token) {
+  if (query && query?.cart_token) {
     cart_token = query.cart_token;
     cookies.set("cart_token", cart_token);
   } else {
@@ -113,7 +113,7 @@ const getPackagesNumber = async (cart: Cart) => {
 onMounted(async () => {
   const cart = new Cart();
   cart.init();
-  if (query.cart_token) await prepareCartEdition(cart, query.cart_token);
+  if (query?.cart_token) await prepareCartEdition(cart, query?.cart_token);
   await getPackagesNumber(cart);
 
   productsCart.value = cart;
@@ -330,7 +330,7 @@ const createChat = async () => {
                 <div class="w-full md:w-1/3 bg-white grid place-items-start md:max-w-2xl">
                   <img :src="buildImgRoute(product?.url_for_website)" alt="Photo" class="rounded-xl" />
                   <div class="absolute bottom-0 right-0 md:right-auto">
-                    <button v-if="state.cart_token" @click="
+                    <button v-if="state?.cart_token" @click="
                       () =>
                         updateProduct(
                           productsCart,
@@ -429,10 +429,10 @@ const createChat = async () => {
           <hr />
 
           <div v-if="
-            state.packages &&
-            (state.packages.packages.length > 0 ||
-              state.packages.transport_groups.length > 0 ||
-              state.packages.not_calculated.length > 0)
+            state?.packages &&
+            (state?.packages.packages.length > 0 ||
+              state?.packages.transport_groups.length > 0 ||
+              state?.packages.not_calculated.length > 0)
           " class="max-w-full sm:max-w-3xl md:max-w-4xl lg:max-w-5xl overflow-x-auto">
               <h5 class="text-2xl mb-3">Planowany rozkład paczek</h5>
 
@@ -589,7 +589,7 @@ const createChat = async () => {
                         (product.weight_trade_unit * product.quantity).toFixed(2)
                       }}
                     </td>
-                    <td v-if="i === 0" :rowspan="state.packages.not_calculated.length" class="lg:px-6 lg:py-3 py-1 px-2">
+                    <td v-if="i === 0" :rowspan="state?.packages.not_calculated.length" class="lg:px-6 lg:py-3 py-1 px-2">
                       ---
                     </td>
                   </tr>
