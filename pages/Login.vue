@@ -41,6 +41,8 @@
     await router.push(`${redirect ?? "/account"}`);
 
     registering.value = false;
+
+    window.location.reload();
   };
 
   const cancelRegistration = () => {
