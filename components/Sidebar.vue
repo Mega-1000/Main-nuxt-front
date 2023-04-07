@@ -4,7 +4,6 @@ const props = defineProps<{
   categoryTree?: any[];
   nested?: boolean;
 }>();
-
 console.log();
 </script>
 
@@ -37,7 +36,12 @@ console.log();
           aria-controls="collapseSidenavEx2"
           :href="`/${category.rewrite}/${category.id}`"
         >
-          <p>{{ category.name }}</p>
+          <p>
+            <span v-if="nested">
+              -
+            </span>
+            {{ category.name }}
+          </p>
         </NuxtLink>
         <div
           v-if="categoryTree?.map((category: any) => category.id).includes(category.id) && category.children"
