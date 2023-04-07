@@ -434,7 +434,7 @@ const createChat = async () => {
               state?.packages.transport_groups.length > 0 ||
               state?.packages.not_calculated.length > 0)
           " class="max-w-full sm:max-w-3xl md:max-w-4xl lg:max-w-5xl overflow-x-auto">
-              <table class="text-sm text-left text-gray-500 w-full">
+              <table class="text-sm text-left text-black w-full">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                   <tr>
                     <th scope="col" class="lg:px-6 lg:py-3 py-1 px-2">

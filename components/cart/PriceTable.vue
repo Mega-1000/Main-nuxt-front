@@ -319,7 +319,7 @@ const handleBlur = (event: any) => {
       class="shadow-md sm:rounded-lg max-w-[80vw] sm:max-w-fit overflow-x-auto"
     >
       <table
-        class="w-full text-xs text-left text-gray-500 break-words sm:break-normal"
+        class="w-full text-xs text-left text-black break-words sm:break-normal"
       >
         <thead class="text-xs text-gray-700 sm:uppercase bg-gray-50">
           <tr>
@@ -343,7 +343,7 @@ const handleBlur = (event: any) => {
         </thead>
         <tbody>
           <tr class="bg-white border-b">
-            <th scope="row" class="px-1 py-1 font-medium text-gray-900">
+            <th scope="row" class="px-1 py-1 font-medium text-black">
               Ilość zamawianego towaru
             </th>
             <td class="px-1 py-1" v-if="state?.commercial">
@@ -393,7 +393,7 @@ const handleBlur = (event: any) => {
             </td>
           </tr>
           <tr class="bg-white border-b">
-            <th scope="row" class="px-1 py-1 font-medium text-gray-900">
+            <th scope="row" class="px-1 py-1 font-medium text-black">
               Ceny netto<br />
               sprzedaży [PLN]
             </th>
@@ -434,7 +434,7 @@ const handleBlur = (event: any) => {
             </td>
           </tr>
           <tr class="bg-white border-b">
-            <th scope="row" class="px-1 py-1 font-medium text-gray-900">
+            <th scope="row" class="px-1 py-1 font-medium text-black">
               Ceny brutto<br />
               sprzedaży [PLN]
             </th>
@@ -455,7 +455,7 @@ const handleBlur = (event: any) => {
             </td>
           </tr>
           <tr class="bg-white border-b">
-            <th scope="row" class="px-1 py-1 font-medium text-gray-900">
+            <th scope="row" class="px-1 py-1 font-medium text-black">
               Wartość netto<br />
               sprzedaży [PLN]
             </th>
@@ -469,7 +469,7 @@ const handleBlur = (event: any) => {
             </td>
           </tr>
           <tr class="bg-white border-b">
-            <th scope="row" class="px-1 py-1 font-medium text-gray-900">
+            <th scope="row" class="px-1 py-1 font-medium text-black">
               Wartość brutto <br />sprzedaży [PLN]
             </th>
             <td class="px-1 py-1" v-if="state?.commercial">
@@ -479,7 +479,7 @@ const handleBlur = (event: any) => {
             </td>
           </tr>
           <tr class="bg-white" v-if="state?.displayConsumption">
-            <th scope="row" class="px-1 py-1 font-medium text-gray-900">
+            <th scope="row" class="px-1 py-1 font-medium text-black">
               Obliczenia dokonanu przy <br />założeniu zużycia
             </th>
             <td class="px-1 py-1">
