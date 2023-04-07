@@ -434,8 +434,6 @@ const createChat = async () => {
               state?.packages.transport_groups.length > 0 ||
               state?.packages.not_calculated.length > 0)
           " class="max-w-full sm:max-w-3xl md:max-w-4xl lg:max-w-5xl overflow-x-auto">
-              <h5 class="text-2xl mb-3">Planowany rozkład paczek</h5>
-
               <table class="text-sm text-left text-gray-500 w-full">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                   <tr>
