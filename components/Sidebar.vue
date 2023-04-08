@@ -4,7 +4,6 @@ const props = defineProps<{
   categoryTree?: any[];
   nested?: boolean;
 }>();
-console.log();
 </script>
 
 <template>
@@ -38,7 +37,6 @@ console.log();
         >
           <p>
             <span v-if="nested">
-              -
             </span>
             {{ category.name }}
           </p>
