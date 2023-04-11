@@ -185,7 +185,6 @@ const goToPage = (val: number) => {
         :editable="isStaff"
         :category="currentProduct"
       />
-      {{ currentProduct?.currentProduct.save_name }}
       <div
         v-if="
           currentProduct?.currentProduct?.children &&
@@ -318,7 +317,7 @@ const goToPage = (val: number) => {
                 class="flex items-start justify-between p-4 border-b rounded-t"
               >
                 <h3 class="text-xl font-semibold text-gray-900">
-                  Kalkulator cenowy
+                  Kalkulator cenowy okej
                 </h3>
                 <button
                   type="button"

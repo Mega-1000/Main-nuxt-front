@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Modal, ModalOptions } from "flowbite";
+import RemindMeAboutOfferCalendarModal from "~/components/account/RemindMeAboutOfferCalendarModal.vue";
 
 interface Props {
   item: any;
@@ -10,6 +11,8 @@ const productsCart = useProductsCart();
 const router = useRouter();
 
 const props = defineProps<Props>();
+
+const emit = defineEmits(["refresh"]);
 
 const editCart = (items: any[]) => {
   productsCart.value.removeAllFromCart();
@@ -104,6 +107,12 @@ const handleUploadProofOfPayment = async () => {
     }
   }
 };
+
+const markOfferAsInactive = async () => {
+  await shopApi.post(`api/orders/move-to-unactive/${props.item.id}`)
+
+  router.go(0);
+};
 </script>
 
 <template>
@@ -134,6 +143,27 @@ const handleUploadProofOfPayment = async () => {
     <p class="text-md">
       <span class="font-bold">Wpłacono:</span> {{ item.bookedPaymentsSum }} PLN
     </p>
+
+    <div v-if="item.reminder_date">
+      <p class="text-md">
+        <span class="font-bold">Data przypomnienia:</span> {{ item.reminder_date }}
+      </p>
+    </div>
+
+    <div v-if="item.labels.filter(label => label.id === 224)[0] && !item.reminder_date">
+
+      <hr />
+
+      <div>
+        Wskaż datę przypomnienia lub przenieś do ofert nieaktywnych bo w innym przypadku system będzie codziennie wysyłał powiadomienia na twojego emaila
+      </div>
+
+      <RemindMeAboutOfferCalendarModal :offer-id="item.id" />
+
+      <button class="bg-red-500 text-white rounded px-4 py-2 ml-4" @click="markOfferAsInactive">
+        Przenieś tą ofertę do nieaktywnych
+      </button>
+    </div>
 
     <hr />
 
