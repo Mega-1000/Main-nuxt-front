@@ -19,7 +19,14 @@ const loginFromGetParams = async (redirect: boolean, message: string = 'Ta stron
     const router = useRouter();
     const { $shopApi: shopApi } = useNuxtApp();
 
-    let { email, phone } = router.currentRoute.value.query;
+    let { credentials } = router.currentRoute.value.query;
+    if (!credentials) {
+        return redirect ? router.push(`/login?redirect=${router.currentRoute.value.fullPath}&message=${message}`) : null;
+    }
+    // @ts-ignore
+    let email = credentials?.split(':')[0];
+    // @ts-ignore
+    let phone = credentials?.split(':')[1];
 
     // @ts-ignore
     email = email ? decode(email) : null;
