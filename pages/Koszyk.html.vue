@@ -191,6 +191,7 @@ const handleSubmit = async (e: Event | null) => {
     order_items: productsCart.value.idsWithQuantity(),
     rewrite: 0,
     need_support: true,
+    update_email: true,
   };
 
   try {
@@ -215,6 +216,7 @@ const handleSubmitWithToken = async () => {
     order_items: productsCart.value.idsWithQuantity(),
     rewrite: 0,
     cart_token: cookies.get("cart_token"),
+    customer_login: '',
   };
 
   try {

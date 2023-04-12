@@ -24,11 +24,12 @@
     modal.value = new Modal($targetEl, options);
   })
 
-  const sendReminderData = () => {
-    shopApi.post(`/api/orders/remind-about-offer/${props.offerId}`, {
+  const sendReminderData = async () => {
+    await shopApi.post(`/api/orders/remind-about-offer/${props.offerId}`, {
       dateTime: selectedDateTime.value.replace("T", " "),
     })
 
+    window.location.reload();
   }
 </script>
 
