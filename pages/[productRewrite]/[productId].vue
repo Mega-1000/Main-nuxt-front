@@ -179,7 +179,7 @@ const goToPage = (val: number) => {
     <div class="md:w-2/3 xl:w-3/4">
       <ProductHeader
         :name="currentProduct?.currentProduct?.name"
-        :description="currentProduct?.currentProduct?.description.replace('|', '<br>')"
+        :description="currentProduct?.currentProduct?.description?.replace('|', '<br>')"
         :imgSrc="currentProduct?.currentProduct?.img"
         class="mt-10"
         :editable="isStaff"
