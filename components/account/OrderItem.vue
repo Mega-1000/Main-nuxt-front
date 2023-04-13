@@ -150,7 +150,7 @@ const markOfferAsInactive = async () => {
       </p>
     </div>
 
-    <div v-if="item.labels.filter(label => label.id === 224)[0] && !item.reminder_date">
+    <div v-if="!item.reminder_date">
 
       <hr />
 
