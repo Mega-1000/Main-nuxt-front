@@ -125,12 +125,14 @@
 
   const SubmitAddresses = async () => {
     processing.value = true;
-    await shopApi.post("/api/user/update-informations", {
+    await shopApi.put("/api/user/update", {
       standardAddress: standardAddress.value,
       invoiceAddress: invoiceAddress.value,
       deliveryAddress: shipmentAddress.value,
     });
+
     setSuccess(true);
+
     processing.value = false;
   }
 </script>

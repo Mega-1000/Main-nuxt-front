@@ -8,18 +8,19 @@ const props = defineProps({
   }
 })
 
-const { $shopApi: shopApi } = useNuxtApp();
+const { $shopApi } = useNuxtApp();
 
 const modal = ref(null);
 
-let addresses = reactive([])
+const addresses = ref([]);
 
 const emit = defineEmits(["selectAddress"]);
 
 onMounted(async () => {
-  addresses = await shopApi.get('/api/user/get-orders');
+  const response = await $shopApi.get('/api/user/orders');
+  addresses.value = response.data.filter((address) => address.adress.type === props.addressType);
 
-  const $targetEl = document.getElementById(`modal`);
+  const $targetEl = document.getElementById('modal');
 
   const options = {
     backdrop: "dynamic",
@@ -31,17 +32,16 @@ onMounted(async () => {
 });
 
 const submitOption = (id) => {
-  let address = addresses.filter((address) => address.id === id)[0].adress;
+  const address = addresses.value.find((address) => address.id === id);
 
-  address.type = props.addressType;
-
-  emit("selectAddress", {
-    addresses: address,
-  });
-
-  modal.value.hide();
+  if (address) {
+    address.type = props.addressType;
+    emit("selectAddress", { addresses: address });
+    modal.value.hide();
+  }
 };
 </script>
+
 
 <template>
   <SubmitButton @click="modal?.show()">
@@ -109,28 +109,31 @@ const submitOption = (id) => {
               <tbody>
                 <tr v-for="address in addresses" class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
                   <td class="px-6 py-4">
-                    {{ address.id }}
+                    {{ address.adress?.order_id }}
                   </td>
                   <td class="px-6 py-4">
 
                   </td>
                   <td class="px-6 py-4">
-                    {{ addresses.firstname }}
+                    {{ address.adress?.firstname }}
                   </td>
                   <td class="px-6 py-4">
-                    {{ addresses.surname }}
+                    {{ address.adress?.lastname }}
                   </td>
                   <td class="px-6 py-4">
-                    Warszawa
+                    {{ address.adress?.address }}
                   </td>
                   <td class="px-6 py-4">
-                    00-000
+                    {{ address.adress?.city }}
                   </td>
                   <td class="px-6 py-4">
-                    antoniwoj@o2.pl
+                    {{ address?.adress?.postal_code }}
                   </td>
                   <td class="px-6 py-4">
-                    123456789
+                    {{ address.adress?.email }}
+                  </td>
+                  <td class="px-6 py-4">
+                    {{ address.adress?.phone }}
                   </td>
                   <td class="px-6 py-4">
                     <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" @click="submitOption(address.id)">

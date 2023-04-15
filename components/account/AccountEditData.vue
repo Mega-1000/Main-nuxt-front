@@ -19,7 +19,7 @@
 
 <template>
   <div class="mb-4">
-    <LastAddressesModal :addressType="addressType" @selectAddress="address = $event.addresses" />
+    <LastAddressesModal :addressType="addressType" @selectAddress="address = $event.addresses.adress" />
   </div>
 
   <label for="name_input">Imię</label>

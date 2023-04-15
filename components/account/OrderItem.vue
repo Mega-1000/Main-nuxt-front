@@ -250,6 +250,10 @@ const markOfferAsInactive = async () => {
         :href="`${config.baseUrl}/chat-show-or-new/${item.id}/${item.customer_id}`">
         Dyskusja
       </accountActionButton>
+
+      <NuxtLink :to="`/Complaint?offerId=${item.id}`" class="border-gray-700 rounded p-1 bg-slate-100 text-xs text-gray-900 border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700">
+        Zgłoś reklamację
+      </NuxtLink>
     </div>
     <div class="grid md:flex pt-2" v-for="buttonGroup in Object.keys(item.buttons)">
       <p class="text-sm text-center pr-2 pt-1">{{ buttonGroup }}</p>
