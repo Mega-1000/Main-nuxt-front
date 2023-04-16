@@ -1,6 +1,8 @@
 <script setup lang="ts">
   import { checkIfUserIsLoggedIn } from "~/helpers/authenticationCheck";
   import AccountEditData from "~/components/account/AccountEditData.vue";
+  import {getToken, removeCookie} from "~/helpers/authenticator";
+  import Swal from 'sweetalert2';
 
   const { $shopApi: shopApi } = useNuxtApp();
 
@@ -135,10 +137,41 @@
 
     processing.value = false;
   }
+
+  const unregister = async () => {
+    // sure?
+    Swal.fire({
+      title: 'Czy jesteś pewien?',
+      text: "Ta akcja nie będzie odwracalna w przyszłości!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Tak, wyrejestruj mnie!',
+      cancelButtonText: 'Nie, anuluj!'
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        await shopApi.post("/api/user/unregister");
+
+        await Swal.fire(
+            'Wyrejestrowano!',
+            'Nie będziesz już mógł się zalogować na swoje konto. Jeśli to pomyłka skontaktuj się z nami.',
+            'success'
+        )
+
+        await removeCookie();
+        await router.go(0);
+      }
+    })
+  }
 </script>
 
 <template>
   <div class="mt-10 w-[70%] mx-auto rounded bg-white shadow p-8">
+    <button class="px-4 h-fit py-2 bg-red-500 rounded text-white mb-4" @click="unregister">
+      Wyrejestruj się
+    </button>
+
     <div v-if="error" class="mb-8 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
       <strong class="font-bold">Błąd!</strong>
       <span class="block sm:inline">{{ error }}</span>

@@ -87,7 +87,7 @@ const [parent] = useAutoAnimate()
   </div>
   <div class="w-[70%] mx-auto mt-8" v-else>
     <div>
-      <h1 class="text-4xl">Pytania i odpowiedzi</h1>
+      <h1 class="text-4xl">Połącz mnie z konsultantem</h1>
     </div>
 
     <span v-for="(v, k) in questionsState">
