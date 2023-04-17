@@ -1,6 +1,5 @@
 // @ts-ignore
 import { setCookie } from "~/helpers/authenticator";
-import { encode, decode } from 'js-base64';
 
 const checkIfUserIsLoggedIn = async (message: String) => {
     const { $shopApi: shopApi } = useNuxtApp();
@@ -27,11 +26,6 @@ const loginFromGetParams = async (redirect: boolean, message: string = 'Ta stron
     let email = credentials?.split(':')[0];
     // @ts-ignore
     let phone = credentials?.split(':')[1];
-
-    // @ts-ignore
-    email = email ? decode(email) : null;
-    // @ts-ignore
-    phone = phone ? decode(phone) : null;
 
     try {
         const { data: user } = await shopApi.get('/api/user');
