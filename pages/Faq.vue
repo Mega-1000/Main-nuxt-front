@@ -21,7 +21,8 @@ const categoryQuestions = computed(() => {
 onMounted(async () => {
   await loginFromGetParams(false);
 
-  if (route.query.showFaq === "true") {
+  // sometimes url is generated with unnecessary ; symbol
+  if (route.query.showFaq === "true" || route.query['showFaq;'] === "true") {
     await showFaqPage();
   }
 

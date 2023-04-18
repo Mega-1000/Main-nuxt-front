@@ -33,6 +33,12 @@ const loginFromGetParams = async (redirect: boolean, message: string = 'Ta stron
     } catch (e) {
         if (email && phone) {
             try {
+                // fix missing + symbol
+                email = email.replace(/\s/gi, '+');
+                // only get last 9 chars
+                if(phone.length > 9) {
+                    phone = phone.substr(-9);
+                }
                 clearGetParams();
                 return await loginUser(email.toString(), phone.toString());
             } catch (e) {
