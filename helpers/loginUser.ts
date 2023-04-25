@@ -27,9 +27,8 @@ const loginFromEmail = async (email: string) => {
 
     try {
         const res = await shopApi.post(`api/oauth/token/from-email/${email}`);
-        setCookie(res.data);
 
-        // clearGetParams();
+        setCookie(res.data);
         router.go(0);
     } catch (e) {
         return false;
