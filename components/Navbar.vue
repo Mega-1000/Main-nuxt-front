@@ -140,7 +140,7 @@ const toggleMenu = () => {
           </li>
           <li>
             <NuxtLink href="/faq" class="text-gray-900 hover:underline"
-              >Chat / Pytania i odpowiedzi</NuxtLink
+              >Kontakt z konsultantem</NuxtLink
             >
           </li>
         </ul>

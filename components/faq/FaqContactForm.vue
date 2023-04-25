@@ -70,7 +70,19 @@ user.value = userData.value;
     <div class="mt-6 text-2xl font-semibold">
       Nie uzyskałem odpowiedzi na swoje pytanie.
     </div>
-    <button class="bg-slate-700 text-white rounded px-4 py-2 block mt-4" @click="initChat">Połącz mnie z konsultantem</button>
+    <div class="mt-4">
+      <div class="mb-8">
+        Jeśli chcesz rozmawiać w temacie już istniejącej oferty wciśnij przycisk "rozpocznij dyskusję" i przeniesiemy cię do twojego konta gdzie wybierzesz numer odpowiedniej oferty.
+        <nuxt-link to="/account" class="bg-slate-700 text-white rounded px-4 py-2 block mt-4 w-fit">
+          Przenieś mnie do mojego konta
+        </nuxt-link>
+      </div>
+
+      Jeśli chcesz skontaktować się w nowym temacie, który nie dotyczy żadnej oferty rozpocznij rozmowę tutaj.
+      <button class="bg-slate-700 text-white rounded px-4 py-2 block mt-4" @click="initChat">
+        Połącz mnie z konsultantem
+      </button>
+    </div>
   </div>
 
 

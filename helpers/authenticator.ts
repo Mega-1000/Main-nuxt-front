@@ -8,7 +8,7 @@ interface Data {
 
 function setCookie({ access_token, refresh_token, expires_in }: Data) {
   const cookies = new Cookies();
-  var date = new Date();
+  let date = new Date();
   date = new Date(date.getTime() + expires_in * 1000);
   cookies.set("token", access_token, { expires: date });
   if (refresh_token) {

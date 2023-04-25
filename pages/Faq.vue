@@ -9,7 +9,7 @@ const category = ref('');
 const answer = ref('');
 const questionsTree = ref([]);
 const categories = ref([]);
-const showFaq = ref(false);
+const showFaq = ref(true);
 const route = useRoute();
 const router = useRouter();
 const questionsState = ref([]);
@@ -21,10 +21,10 @@ const categoryQuestions = computed(() => {
 onMounted(async () => {
   await loginFromGetParams(false);
 
-  // sometimes url is generated with unnecessary ; symbol
-  if (route.query.showFaq === "true" || route.query['showFaq;'] === "true") {
-    await showFaqPage();
-  }
+  await router.push({ query: { showFaq: true } });
+  await checkIfUserIsLoggedIn('Aby połączyć się z konsultanmem konieczne jest posiadanie konta, jeśli go nie posiadasz wypełnij pola poniżej to ci je założymy');
+
+  showFaq.value = true;
 
   const { data } = await shopApi.get("/api/faqs/get");
   questions.value = data;
@@ -54,13 +54,6 @@ const selectQuestion = async (question) => {
   questionsState.value = data.questions;
 };
 
-const showFaqPage = async () => {
-  await router.push({ query: { showFaq: true } });
-  await checkIfUserIsLoggedIn('Aby połączyć się z konsultanmem konieczne jest posiadanie konta, jeśli go nie posiadasz wypełnij pola poniżej to ci je założymy');
-
-  showFaq.value = true;
-};
-
 const selectQuestionFromTree = (q) => {
   questionsTree.value = q.questions;
   answer.value = q.answer;
@@ -78,17 +71,10 @@ const [parent] = useAutoAnimate()
     <nuxt-link class="px-4 py-2 rounded bg-blue-500 text-white block" href="/account">
       Przenieś mnie na konto i rozpocznij dyskusję
     </nuxt-link>
-
-    <div class="mt-10">
-      Jeśli chcesz skontaktować się w nowym temacie, który nie dotyczy żadnej oferty rozpocznij rozmowę tutaj.
-      <submitButton class="block w-full text-left" @click="showFaqPage">
-        Połącz mnie z konsultantem
-      </submitButton>
-    </div>
   </div>
   <div class="w-[70%] mx-auto mt-8" v-else>
     <div>
-      <h1 class="text-4xl">Połącz mnie z konsultante</h1>
+      <h1 class="text-4xl">Połącz mnie z konsultantem</h1>
     </div>
 
     <span v-for="(v, k) in questionsState">
