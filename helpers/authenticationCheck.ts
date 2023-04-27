@@ -26,8 +26,6 @@ const loginFromGetParams = (redirect: boolean, message: string = 'Ta strona jest
     let email = credentials?.split(':')[0];
     let phone = credentials?.split(':')[1];
 
-    if (email && !phone) handleOnlyEmail(email);
-
     try {
         const { data: user } = shopApi.get('/api/user') as any;
         return user;
