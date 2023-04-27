@@ -15,36 +15,17 @@ const checkIfUserIsLoggedIn = async (message: string) => {
 
 const loginFromGetParams = (redirect: boolean, message: string = 'Ta strona jest dostępna tylko dla zalogowanych użytkowników') => {
     const router = useRouter();
-    const { $shopApi: shopApi } = useNuxtApp();
 
     let credentials: string = router.currentRoute.value.query.credentials as string;
-
-    setTimeout(() => {
-        if (!credentials) return redirect ? router.push(`/login?redirect=${router.currentRoute.value.fullPath}&message=${message}`) : null;
-    }, 500);
 
     let email = credentials?.split(':')[0];
     let phone = credentials?.split(':')[1];
 
-    try {
-        const { data: user } = shopApi.get('/api/user') as any;
-        return user;
-    } catch (e) {
-        if (email && phone) {
-            try {
-                email = email.replace(/\s/gi, '+');
-                if (phone.length > 9) {
-                    phone = phone.substr(-9);
-                }
-                clearGetParams();
-                return loginUser(email.toString(), phone.toString());
-            } catch (e) {
-                redirectToLogin(message);
-            }
-        }
-    }
+    if (email && !phone) handleOnlyEmail(email);
 
-    redirectToLogin(message);
+    else if (email && phone) {
+        tryLoginUser(email, phone, redirect, message);
+    }
 }
 
 const redirectToLogin = (message: string = 'Ta strona jest dostępna tylko dla zalogowanych użytkowników') => {
@@ -52,6 +33,15 @@ const redirectToLogin = (message: string = 'Ta strona jest dostępna tylko dla z
     clearGetParams();
 
     return router.push(`/login?redirect=${router.currentRoute.value.fullPath}&message=${message}`);
+}
+
+const tryLoginUser = async (email: string, phone: string, redirect: boolean, message: string) => {
+    try {
+        await loginUser(email.toString(), phone.toString());
+        await clearGetParams();
+    } catch (e) {
+        redirectToLogin(message);
+    }
 }
 
 const handleOnlyEmail = (email: string) => {
