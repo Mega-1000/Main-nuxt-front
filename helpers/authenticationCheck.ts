@@ -13,17 +13,27 @@ const checkIfUserIsLoggedIn = async (message: string) => {
     }
 }
 
-const loginFromGetParams = (redirect: boolean, message: string = 'Ta strona jest dostępna tylko dla zalogowanych użytkowników') => {
+const loginFromGetParams = async (redirect: boolean, message: string = 'Ta strona jest dostępna tylko dla zalogowanych użytkowników') => {
     const router = useRouter();
+    const { $shopApi: shopApi } = useNuxtApp();
 
     let credentials: string = router.currentRoute.value.query.credentials as string;
 
     let email = credentials?.split(':')[0];
     let phone = credentials?.split(':')[1];
 
-    if (email && !phone) handleOnlyEmail(email);
-
+    if (!credentials) {
+        try {
+            await shopApi.get('/api/user');
+        } catch (e) {
+            setTimeout(() => {
+                return redirectToLogin(message);
+            }, 500);
+        }
+    }
+    else if (email && !phone) handleOnlyEmail(email);
     else if (email && phone) {
+        if (phone.startsWith('48')) phone = phone.slice(2);
         tryLoginUser(email, phone, redirect, message);
     }
 }
@@ -37,8 +47,8 @@ const redirectToLogin = (message: string = 'Ta strona jest dostępna tylko dla z
 
 const tryLoginUser = async (email: string, phone: string, redirect: boolean, message: string) => {
     try {
-        await loginUser(email.toString(), phone.toString());
         await clearGetParams();
+        await loginUser(email.toString(), phone.toString());
     } catch (e) {
         redirectToLogin(message);
     }
