@@ -261,20 +261,19 @@ const updateProduct = async (
 };
 
 const canBeSubmitted = computed(() => {
-  return !emailInput.value.includes("@") ||
-    phoneInput.value.replace(/\D/g, "").length < 9
-    ? false
-    : true;
+  return !(!emailInput.value.includes("@") ||
+      phoneInput.value.replace(/\D/g, "").length < 9);
 });
 
-const createChat = async () => {
-
+const createChat = async (redirect: boolean) => {
   loading.value = true;
   const data = await handleSubmit(null);
   loading.value = false;
 
   if (data.canPay) router.push(`/payment?token=${data.token}`);
   else router.push("/thanks");
+
+  if (!redirect) return;
 
   setTimeout(async () => {
     window.open(
@@ -626,7 +625,7 @@ const createChat = async () => {
               </p>
             </div>
 
-            <CartDeliveryCostContact :disabled="!canBeSubmitted" @click="createChat" :loading="loading" />
+            <CartDeliveryCostContact :disabled="!canBeSubmitted" @create-chat="createChat($event)" :loading="loading" />
 
             <hr />
             <div class="flex justify-between">
