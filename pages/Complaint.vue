@@ -95,7 +95,7 @@
 
   const dataToFormObject = () => {
     const formData = new FormData();
-    formData.append('firstName', form.name);
+    formData.append('firstname', form.name);
     formData.append('surname', form.surname);
     formData.append('email', form.email);
     formData.append('phone', form.phone.toString());
@@ -125,7 +125,7 @@
 
     <TextInput label="Numer przesyłki" type="number" :value="form.waybillNumber" @input="form.waybillNumber = $event" class="mt-4" />
 
-    <TextInput label="Numer telefonu kierowcy" type="number" :value="form.driverPhone" @input="form.driverPhone = $event" class="mt-4" />
+    <TextInput label="Numer telefonu kierowcy (w przypadku gdy jest znany)" :value="form.driverPhone" @input="form.driverPhone = $event" class="mt-4" />
 
     <TextInput label="Imię" type="text" :value="form.name" @input="form.name = $event" class="mt-4" />
 
