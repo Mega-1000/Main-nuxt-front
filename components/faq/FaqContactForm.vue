@@ -13,8 +13,8 @@ const { $shopApi: shopApi } = useNuxtApp();
 const [parent] = useAutoAnimate()
 const user = useUser();
 const config = useRuntimeConfig().public;
-
 const modal = ref(null);
+const didClientGotAnswer = ref(null);
 
 onMounted(() => {
   const $targetEl = document.getElementById(`modal`);
@@ -42,10 +42,6 @@ const { data: userData } = await useAsyncData(async () => {
   } catch {}
 });
 
-const hideModal = () => {
-  modal?.value.hide();
-};
-
 const initChat = async () => {
   try {
     const res = await shopApi.post("api/create_contact_chat", {
@@ -67,21 +63,41 @@ user.value = userData.value;
 
 <template>
   <div>
-    <div class="mt-6 text-2xl font-semibold">
-      Nie uzyskałem odpowiedzi na swoje pytanie.
+    <div v-if="didClientGotAnswer === true" class="mt-6 text-2xl font-semibold">
+      Cieszymy się, że udało nam się pomóc!
     </div>
-    <div class="mt-4">
-      <div class="mb-8">
-        Jeśli chcesz rozmawiać w temacie już istniejącej oferty wciśnij przycisk "rozpocznij dyskusję" i przeniesiemy cię do twojego konta gdzie wybierzesz numer odpowiedniej oferty.
-        <nuxt-link to="/account" class="bg-slate-700 text-white rounded px-4 py-2 block mt-4 w-fit">
-          Przenieś mnie do mojego konta
-        </nuxt-link>
-      </div>
 
-      Jeśli chcesz skontaktować się w nowym temacie, który nie dotyczy żadnej oferty rozpocznij rozmowę tutaj.
-      <button class="bg-slate-700 text-white rounded px-4 py-2 block mt-4" @click="initChat">
-        Połącz mnie z konsultantem
-      </button>
+    <div class="mt-6 text-2xl font-semibold" @click="" v-if="didClientGotAnswer === null">
+      Czy uzyskałeś odpowiedź na swoje pytanie?
+
+      <div class="mt-8">
+        <button class="px-4 py-2 rounded text-white bg-green-500" @click="didClientGotAnswer = true">
+          Tak
+        </button>
+
+        <button class="px-4 py-2 rounded text-white bg-red-500 ml-4" @click="didClientGotAnswer = false">
+          Nie
+        </button>
+      </div>
+    </div>
+
+    <div v-if="didClientGotAnswer === false">
+      <div class="mt-6 text-2xl font-semibold">
+        Nie uzyskałem odpowiedzi na swoje pytanie.
+      </div>
+      <div class="mt-4">
+        <div class="mb-8">
+          Jeśli chcesz rozmawiać w temacie już istniejącej oferty wciśnij przycisk "rozpocznij dyskusję" i przeniesiemy cię do twojego konta gdzie wybierzesz numer odpowiedniej oferty.
+          <nuxt-link to="/account" class="bg-slate-700 text-white rounded px-4 py-2 block mt-4 w-fit">
+            Przenieś mnie do mojego konta
+          </nuxt-link>
+        </div>
+
+        Jeśli chcesz skontaktować się w nowym temacie, który nie dotyczy żadnej oferty rozpocznij rozmowę tutaj.
+        <button class="bg-slate-700 text-white rounded px-4 py-2 block mt-4" @click="initChat">
+          Połącz mnie z konsultantem
+        </button>
+      </div>
     </div>
   </div>
 
