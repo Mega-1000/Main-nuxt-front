@@ -61,27 +61,6 @@ user.value = userData.value;
 </script>
 
 <template>
-    <div v-else>
-      <div class="mt-6 text-2xl font-semibold">
-        Nie uzyskałem odpowiedzi na swoje pytanie.
-      </div>
-      <div class="mt-4">
-        <div class="mb-8">
-          Jeśli chcesz rozmawiać w temacie już istniejącej oferty wciśnij przycisk "rozpocznij dyskusję" i przeniesiemy cię do twojego konta gdzie wybierzesz numer odpowiedniej oferty.
-          <nuxt-link to="/account" class="bg-slate-700 text-white rounded px-4 py-2 block mt-4 w-fit">
-            Przenieś mnie do mojego konta
-          </nuxt-link>
-        </div>
-
-        Jeśli chcesz skontaktować się w nowym temacie, który nie dotyczy żadnej oferty rozpocznij rozmowę tutaj.
-        <button class="bg-slate-700 text-white rounded px-4 py-2 block mt-4" @click="initChat">
-          Połącz mnie z konsultantem
-        </button>
-      </div>
-    </div>
-  </div>
-
-
   <div id="modal" tabindex="-1" ref="parent"
     class="top-0 fixed z-50 w-auto hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full">
     <div class="relative w-full h-full max-w-xl sm:max-w-3xl md:max-w-5xl lg:max-w-7xl md:h-auto">
