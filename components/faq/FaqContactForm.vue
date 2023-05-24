@@ -14,7 +14,6 @@ const [parent] = useAutoAnimate()
 const user = useUser();
 const config = useRuntimeConfig().public;
 const modal = ref(null);
-const didClientGotAnswer = ref(null);
 
 onMounted(() => {
   const $targetEl = document.getElementById(`modal`);
@@ -62,26 +61,7 @@ user.value = userData.value;
 </script>
 
 <template>
-  <div>
-    <div v-if="didClientGotAnswer === true" class="mt-6 text-2xl font-semibold">
-      Cieszymy się, że udało nam się pomóc!
-    </div>
-
-    <div class="mt-6 text-2xl font-semibold" @click="" v-if="didClientGotAnswer === null">
-      Czy uzyskałeś odpowiedź na swoje pytanie?
-
-      <div class="mt-8">
-        <button class="px-4 py-2 rounded text-white bg-green-500" @click="didClientGotAnswer = true">
-          Tak
-        </button>
-
-        <button class="px-4 py-2 rounded text-white bg-red-500 ml-4" @click="didClientGotAnswer = false">
-          Nie
-        </button>
-      </div>
-    </div>
-
-    <div v-if="didClientGotAnswer === false">
+    <div v-else>
       <div class="mt-6 text-2xl font-semibold">
         Nie uzyskałem odpowiedzi na swoje pytanie.
       </div>
