@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 export default defineNuxtConfig({
+  ssr: false,
   modules: ["@nuxtjs/tailwindcss", "nuxt-icon", "@nuxt/devtools"],
   devtools: {
     enabled: true,
