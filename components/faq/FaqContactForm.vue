@@ -14,6 +14,7 @@ const [parent] = useAutoAnimate()
 const user = useUser();
 const config = useRuntimeConfig().public;
 const modal = ref(null);
+const didClientGotAnswer = ref(null);
 
 onMounted(() => {
   const $targetEl = document.getElementById(`modal`);
@@ -33,9 +34,9 @@ const { data: userData } = await useAsyncData(async () => {
     const res = await shopApi.get("api/user");
     if (res.status === 200 && res.data) {
       return (
-        res.data.addresses.filter(
-          (address) => address.type === "STANDARD_ADDRESS"
-        )[0] || {}
+          res.data.addresses.filter(
+              (address) => address.type === "STANDARD_ADDRESS"
+          )[0] || {}
       );
     }
   } catch {}
@@ -61,8 +62,48 @@ user.value = userData.value;
 </script>
 
 <template>
+  <div>
+    <div v-if="didClientGotAnswer === true" class="mt-6 text-2xl font-semibold">
+      Cieszymy się, że udało nam się pomóc!
+    </div>
+
+    <div class="mt-6 text-2xl font-semibold" @click="" v-if="didClientGotAnswer === null">
+      Czy uzyskałeś odpowiedź na swoje pytanie?
+
+      <div class="mt-8">
+        <button class="px-4 py-2 rounded text-white bg-green-500" @click="didClientGotAnswer = true">
+          Tak
+        </button>
+
+        <button class="px-4 py-2 rounded text-white bg-red-500 ml-4" @click="didClientGotAnswer = false">
+          Nie
+        </button>
+      </div>
+    </div>
+
+    <div v-if="didClientGotAnswer === false">
+      <div class="mt-6 text-2xl font-semibold">
+        Nie uzyskałem odpowiedzi na swoje pytanie.
+      </div>
+      <div class="mt-4">
+        <div class="mb-8">
+          Jeśli chcesz rozmawiać w temacie już istniejącej oferty wciśnij przycisk "rozpocznij dyskusję" i przeniesiemy cię do twojego konta gdzie wybierzesz numer odpowiedniej oferty.
+          <nuxt-link to="/account" class="bg-slate-700 text-white rounded px-4 py-2 block mt-4 w-fit">
+            Przenieś mnie do mojego konta
+          </nuxt-link>
+        </div>
+
+        Jeśli chcesz skontaktować się w nowym temacie, który nie dotyczy żadnej oferty rozpocznij rozmowę tutaj.
+        <button class="bg-slate-700 text-white rounded px-4 py-2 block mt-4" @click="initChat">
+          Połącz mnie z konsultantem
+        </button>
+      </div>
+    </div>
+  </div>
+
+
   <div id="modal" tabindex="-1" ref="parent"
-    class="top-0 fixed z-50 w-auto hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full">
+       class="top-0 fixed z-50 w-auto hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full">
     <div class="relative w-full h-full max-w-xl sm:max-w-3xl md:max-w-5xl lg:max-w-7xl md:h-auto">
       <!-- Modal content -->
       <div class="relative bg-white rounded-lg shadow">
@@ -72,13 +113,13 @@ user.value = userData.value;
             Chat został wyświetlony
           </h3>
           <button type="button"
-            class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
-            data-modal-hide="modal" @click="modal?.hide">
+                  class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
+                  data-modal-hide="modal" @click="modal?.hide">
             <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg">
+                 xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd"
-                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                clip-rule="evenodd"></path>
+                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                    clip-rule="evenodd"></path>
             </svg>
             <span class="sr-only">Zamknij modal</span>
           </button>
