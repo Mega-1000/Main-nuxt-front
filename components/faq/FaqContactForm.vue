@@ -62,24 +62,21 @@ user.value = userData.value;
 </script>
 
 <template>
-  <div>
-    <div v-if="didClientGotAnswer === true" class="mt-6 text-2xl font-semibold">
+  <span>
+    <span v-if="didClientGotAnswer === true" class="mt-6 text-2xl font-semibold">
       Cieszymy się, że udało nam się pomóc!
-    </div>
+    </span>
 
-    <div class="mt-6 text-2xl font-semibold" @click="" v-if="didClientGotAnswer === null">
-      Czy uzyskałeś odpowiedź na swoje pytanie?
+    <span v-if="didClientGotAnswer === null">
+       Czy uzyskałeś odpowiedź na swoje pytanie? Naciśnij po prawej stronie wyraz tak lub nie.
 
-      <div class="mt-8">
-        <button class="px-4 py-2 rounded text-white bg-green-500" @click="didClientGotAnswer = true">
-          Tak
-        </button>
-
-        <button class="px-4 py-2 rounded text-white bg-red-500 ml-4" @click="didClientGotAnswer = false">
-          Nie
-        </button>
-      </div>
-    </div>
+      <span @click="didClientGotAnswer = true">
+         Tak
+      </span>
+      <span @click="didClientGotAnswer = false">
+        Nie
+      </span>
+    </span>
 
     <div v-if="didClientGotAnswer === false">
       <div class="mt-6 text-2xl font-semibold">
@@ -99,7 +96,7 @@ user.value = userData.value;
         </button>
       </div>
     </div>
-  </div>
+  </span>
 
 
   <div id="modal" tabindex="-1" ref="parent"

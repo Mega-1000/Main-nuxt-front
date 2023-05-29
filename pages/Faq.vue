@@ -97,7 +97,7 @@ const [parent] = useAutoAnimate()
       <div ref="parent" class="m-5">
 
         <div v-if="answer" class="rounded p-4 bg-slate-300 my-5" ref="parent">
-          <p>{{ answer }}</p>
+          <span>{{ answer }}</span>
 
 
           <div v-if="questionsTree.length !== 0">
