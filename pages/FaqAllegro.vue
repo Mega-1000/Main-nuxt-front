@@ -1,6 +1,7 @@
 <script setup>
 import { useAutoAnimate } from '@formkit/auto-animate/vue'
 import { checkIfUserIsLoggedIn, loginFromGetParams } from "~/helpers/authenticationCheck";
+import allegroVisibilityLimit from "~/helpers/allegroVisibilityLimit";
 
 const { $shopApi: shopApi } = useNuxtApp();
 
@@ -23,6 +24,8 @@ definePageMeta({
 })
 
 onMounted(async () => {
+  allegroVisibilityLimit();
+  
   await loginFromGetParams(false);
 
   if (route.query.showFaq === "true") {

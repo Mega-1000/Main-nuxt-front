@@ -4,12 +4,17 @@ import { getPages } from "~~/helpers/customPages";
 import Cart from "~~/utils/Cart";
 
 const { $shopApi: shopApi } = useNuxtApp();
-
 const productsCart = useProductsCart();
 const router = useRouter();
-
+const isVisibilityLimited = ref(false);
 const userToken = useUserToken();
+
 userToken.value = getToken();
+
+onMounted(() => {
+  isVisibilityLimited.value = localStorage.getItem('allegroVisibilityLimit') === 'true';
+})
+
 const { data: newMessagesNumber } = useAsyncData(async () => {
   if (userToken.value) {
     const res = await shopApi.get("/api/chat/getHistory");
@@ -55,12 +60,12 @@ const toggleMenu = () => {
     <div
       class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl px-4 md:px-6 py-2.5"
     >
-      <NuxtLink href="/" class="flex items-center text-2xl font-semibold">
+      <NuxtLink :href="isVisibilityLimited ? '#' : '/'" class="flex items-center text-2xl font-semibold">
         EPH POLSKA SP Z O.O.
       </NuxtLink>
       <div class="flex items-center">
         <NuxtLink href="/koszyk.html">
-          <div class="flex mr-5">
+          <div class="flex mr-5" v-if="!isVisibilityLimited">
             <Icon
               id="icon"
               name="clarity:shopping-cart-solid"
@@ -85,12 +90,6 @@ const toggleMenu = () => {
     </div>
   </nav>
   <nav class="bg-cyan-50 grid sm:flex items-center">
-    <!-- <Icon
-      name="clarity:menu-line"
-      size="20"
-      class="text-cyan-600 ml-1 mr-4 cursor-pointer"
-      @click="toggleMenu"
-    /> -->
     <div
       class="max-w-full sm:max-w-screen-xl px-4 py-1 sm:py-3 md:px-6 mx-auto"
     >
@@ -99,16 +98,16 @@ const toggleMenu = () => {
           class="flex-row mt-0 mr-6 space-x-5 sm:space-x-8 text-sm md:text-md font-medium space-y-1 hidden sm:flex items-center"
         >
           <li>
-            <NuxtLink href="/info" class="text-gray-900 hover:underline"
+            <NuxtLink v-if="!isVisibilityLimited" href="/info" class="text-gray-900 hover:underline"
               >Informacje</NuxtLink
             >
           </li>
           <li>
-            <NuxtLink href="/contact" class="text-gray-900 hover:underline"
+            <NuxtLink href="/contact" class="text-gray-900 hover:underline" v-if="!isVisibilityLimited"
               >Kontakt</NuxtLink
             >
           </li>
-          <li v-for="page in customPages">
+          <li v-for="page in customPages" v-if="!isVisibilityLimited">
             <NuxtLink
               :href="buildCustomLink(page.id)"
               class="text-gray-900 hover:underline"

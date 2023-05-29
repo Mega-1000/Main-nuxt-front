@@ -8,12 +8,10 @@ interface Props {
 }
 
 const productsCart = useProductsCart();
-
 const router = useRouter();
-
 const props = defineProps<Props>();
-
 const emit = defineEmits(["refresh"]);
+const isVisiblitityLimited = ref(false);
 
 const editCart = (items: any[]) => {
   productsCart.value.removeAllFromCart();
@@ -60,7 +58,7 @@ const proofUploaded = ref(false);
 const modal = ref<Modal | null>(null);
 
 onMounted(() => {
-  // set the modal menu element
+  isVisiblitityLimited.value = localStorage.getItem("allegroVisibilityLimit") === "true";
   const $targetEl = document.getElementById(`modal-${props.item.id}`);
 
   // options with default values
@@ -202,12 +200,12 @@ const markOfferAsInactive = async () => {
     <hr />
 
     <div class="grid md:flex">
-      <button @click="modal?.show" v-if="!proofUploaded && (!item?.files || item.files.length === 0)"
+      <button @click="modal?.show" v-if="!proofUploaded && (!item?.files || item.files.length === 0) && !isVisiblitityLimited"
               class="p-1 bg-slate-100 text-xs text-gray-700 border rounded hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 border-black">
         Podłącz potwierdzenie przelewu - przyśpiesza realizacje
       </button>
 
-      <button v-else disabled class="p-1 bg-green-400 text-xs text-black border border-gray-700">
+      <button v-else v-if="!isVisiblitityLimited" disabled class="p-1 bg-green-400 text-xs text-black border border-gray-700">
         Potwierdzenie przelewu podłączone - zapłacono
       </button>
 
@@ -217,7 +215,7 @@ const markOfferAsInactive = async () => {
           Faktura proforma
         </a>
         <a is="button" target="_blank" :href="`${config.baseUrl}/order-offer-pdf/${item.order_offers[0]?.id}`"
-          class="p-1 bg-slate-100 text-xs text-gray-900 border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700">
+          class="p-1 bg-slate-100 text-xs text-gray-900 border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700" v-if="!isVisiblitityLimited">
           Opis oferty
         </a>
       </template>
