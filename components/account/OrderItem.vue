@@ -211,11 +211,11 @@ const markOfferAsInactive = async () => {
 
       <template v-if="item?.order_offers && item.order_offers.length > 0">
         <a is="button" :href="`${config.baseUrl}/order-proform-pdf/${item.order_offers[0]?.id}`"
-          class="p-1 bg-slate-100 text-xs text-gray-900 border border-gray-200 rounded-l-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700">
+          class="p-1 text-xs text-gray-900 border border-gray-200 rounded-l-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700">
           Faktura proforma
         </a>
         <a is="button" target="_blank" :href="`${config.baseUrl}/order-offer-pdf/${item.order_offers[0]?.id}`"
-          class="p-1 bg-slate-100 text-xs text-gray-900 border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700" v-if="!isVisiblitityLimited">
+          class="p-1 text-xs text-gray-900 border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700" v-if="!isVisiblitityLimited">
           Opis oferty
         </a>
       </template>
@@ -235,7 +235,7 @@ const markOfferAsInactive = async () => {
       </accountActionButton>
 
       <button v-for="invoice in item?.user_invoices" @click="() => downloadInvoice(invoice)"
-        class="p-1 bg-slate-100 text-xs text-gray-900 border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700">
+        class="p-1 text-xs text-gray-900 border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700">
         Faktura: {{ invoice.gt_invoice_number }}
       </button>
 
@@ -244,7 +244,7 @@ const markOfferAsInactive = async () => {
         Dyskusja
       </accountActionButton>
 
-      <NuxtLink :to="`/Complaint?offerId=${item.id}`" class="border-gray-700 rounded p-1 bg-slate-100 text-xs text-gray-900 border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 bg-blue-500 hover:bg-blue-500">
+      <NuxtLink :to="`/Complaint?offerId=${item.id}`" class="border-gray-700 rounded p-1 text-xs text-gray-900 border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 bg-blue-500 hover:bg-blue-500">
         Zgłoś reklamację
       </NuxtLink>
 
@@ -256,7 +256,7 @@ const markOfferAsInactive = async () => {
       <p class="text-sm text-center pr-2 pt-1">{{ buttonGroup }}</p>
       <a v-for="button in (Object.values(item.buttons[buttonGroup]) as any)" target="_blank" is="button"
         :href="button.url"
-        class="p-1 text-center bg-slate-100 text-xs text-gray-900 border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700">
+        class="p-1 text-center text-xs text-gray-900 border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700">
         {{ button.description }}
       </a>
     </div>
@@ -295,7 +295,7 @@ const markOfferAsInactive = async () => {
                 Uwaga brak danych do dostawy bądź faktury
               </h5>
               <a is="button" :href="`${config.nuxtNewFront}zamowienie/mozliwe-do-realizacji/brak-danych/${item.id}`"
-                class="text-center p-1 bg-slate-100 text-md rounded-lg text-gray-900 border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700">
+                class="text-center p-1 text-md rounded-lg text-gray-900 border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700">
                 Uzupełnij dane
               </a>
             </div>
