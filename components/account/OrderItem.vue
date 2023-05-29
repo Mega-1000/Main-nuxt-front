@@ -201,7 +201,7 @@ const markOfferAsInactive = async () => {
 
     <div class="grid md:flex w-[80%] justify-between">
       <button @click="modal?.show" v-if="!proofUploaded && (!item?.files || item.files.length === 0) && !isVisiblitityLimited"
-              class="p-1 bg-slate-100 text-xs text-gray-700 border rounded hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 border-black bg-blue-500">
+              class="p-1 text-xs text-gray-700 border rounded hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 border-black bg-blue-500">
         Podłącz potwierdzenie przelewu - przyśpiesza realizacje
       </button>
 
