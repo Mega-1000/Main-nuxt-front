@@ -199,9 +199,9 @@ const markOfferAsInactive = async () => {
 
     <hr />
 
-    <div class="grid md:flex">
+    <div class="grid md:flex w-[80%] justify-between">
       <button @click="modal?.show" v-if="!proofUploaded && (!item?.files || item.files.length === 0) && !isVisiblitityLimited"
-              class="p-1 bg-slate-100 text-xs text-gray-700 border rounded hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 border-black">
+              class="p-1 bg-slate-100 text-xs text-gray-700 border rounded hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 border-black bg-blue-400">
         Podłącz potwierdzenie przelewu - przyśpiesza realizacje
       </button>
 
@@ -244,7 +244,7 @@ const markOfferAsInactive = async () => {
         Dyskusja
       </accountActionButton>
 
-      <NuxtLink :to="`/Complaint?offerId=${item.id}`" class="border-gray-700 rounded p-1 bg-slate-100 text-xs text-gray-900 border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700">
+      <NuxtLink :to="`/Complaint?offerId=${item.id}`" class="border-gray-700 rounded p-1 bg-slate-100 text-xs text-gray-900 border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 bg-blue-400 hover:bg-blue-500">
         Zgłoś reklamację
       </NuxtLink>
 
