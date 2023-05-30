@@ -34,14 +34,11 @@
     accountNumber: 0,
   });
 
+  const config = useRuntimeConfig().public;
   const processing = ref<boolean>(false);
-
   const { $shopApi: shopApi } = useNuxtApp();
-
   const route = useRoute();
-
   const image = ref();
-
   const avaibleReasons = [
     {
       label: 'zaginięcie przesyłki',
@@ -85,7 +82,12 @@
   const submitFrom = async () => {
     processing.value = true;
     try {
-      await shopApi.post(`api/createCustomerComplaintChat/${form.offerId}`, dataToFormObject());
+      const { data: response } = await shopApi.post(`api/createCustomerComplaintChat/${form.offerId}`, dataToFormObject());
+
+      window.open(
+          `${config.baseUrl}/chat/${response.chatUserToken}`,
+          "_blank"
+      );
     } catch (error) {
       console.log(error);
     } finally {
