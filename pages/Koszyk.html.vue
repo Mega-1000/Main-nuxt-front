@@ -3,6 +3,7 @@ import Cookies from "universal-cookie/cjs/Cookies";
 import { getToken, setCookie } from "~~/helpers/authenticator";
 import transportPrice from "~~/helpers/transportPrice";
 import Cart from "~~/utils/Cart";
+import Swal from "sweetalert2";
 
 const { query } = useRoute();
 
@@ -275,11 +276,26 @@ const createChat = async (redirect: boolean) => {
 
   if (!redirect) return;
 
+  // ius user is not logged in
+  if (!localStorage.getItem('token')) {
+    await Swal.fire('', 'Informujemy że założyliśmy Państwu konto na naszej stronie na którym po zalogowaniu można :<br>' +
+        '<br>' +
+        '<br>- zapoznać się z ofertą i pobrać fakturę proformę\n' +
+        '<br>- skorygować wysłane zapytanie ofertowe\n' +
+        '<br>- uzupełnić dane do dostawy i faktury i wskazać datę nadania przesyłki\n' +
+        '<br>- podpiąć potwierdzenie przelewu które przyspiesza realizacje\n' +
+        '<br>- rozpocząć dyskusje/chata z konsultantem\n' +
+        '<br>- oraz sprawdzać statusy ofert i listów przewozowych.\n' +
+        '<br>' +
+        '<br>Z pozdrowieniami<br>' +
+        '<br>', 'info');
+  }
+
   setTimeout(async () => {
     window.open(
-      `${config.baseUrl}/chat/${data.chatUserToken}`,
-      "_blank"
-      );
+        `${config.baseUrl}/chat/${data.chatUserToken}`,
+        "_blank"
+    );
   }, 500);
 };
 </script>
