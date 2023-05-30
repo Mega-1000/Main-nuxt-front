@@ -276,8 +276,7 @@ const createChat = async (redirect: boolean) => {
 
   if (!redirect) return;
 
-  // ius user is not logged in
-  if (!localStorage.getItem('token')) {
+  if (!getToken()) {
     await Swal.fire('', 'Informujemy że założyliśmy Państwu konto na naszej stronie na którym po zalogowaniu można :<br>' +
         '<br>' +
         '<br>- zapoznać się z ofertą i pobrać fakturę proformę\n' +
