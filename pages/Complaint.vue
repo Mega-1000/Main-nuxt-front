@@ -125,7 +125,7 @@
 
     <TextInput label="Numer oferty" type="number" :value="form.offerId" @input="form.offerId = $event" class="mt-4" />
 
-    <TextInput label="Numer przesyłki" type="number" :value="form.waybillNumber" @input="form.waybillNumber = $event" class="mt-4" />
+    <TextInput label="Numer przesyłki" type="text" :value="form.waybillNumber" @input="form.waybillNumber = $event" class="mt-4" />
 
     <TextInput label="Numer telefonu kierowcy (w przypadku gdy jest znany)" :value="form.driverPhone" @input="form.driverPhone = $event" class="mt-4" />
 
