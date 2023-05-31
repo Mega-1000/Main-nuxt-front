@@ -15,13 +15,15 @@ const isStaff = ref(false);
 const buildLink = ({ rewrite, id }: { rewrite: string; id: number }) =>
   `/${rewrite}/${id}`;
 
-  onMounted(async () => {   
-    const data:any = await shopApi.get('/api/staff/isStaff');
+onMounted(async () => {
+  const data:any = await shopApi.get('/api/staff/isStaff');
 
-    if(data.data){
-      isStaff.value = true;
-    }
-  })
+  localStorage.removeItem('allegroVisibilityLimit');
+
+  if (data.data) {
+    isStaff.value = true;
+  }
+})
 
 const config = useRuntimeConfig().public;
 </script>
