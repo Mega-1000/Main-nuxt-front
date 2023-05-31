@@ -16,9 +16,8 @@ const buildLink = ({ rewrite, id }: { rewrite: string; id: number }) =>
   `/${rewrite}/${id}`;
 
 onMounted(async () => {
-  const data:any = await shopApi.get('/api/staff/isStaff');
-
   localStorage.removeItem('allegroVisibilityLimit');
+  const data:any = await shopApi.get('/api/staff/isStaff');
 
   if (data.data) {
     isStaff.value = true;
