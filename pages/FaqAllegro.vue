@@ -10,7 +10,7 @@ const category = ref('');
 const answer = ref('');
 const questionsTree = ref([]);
 const categories = ref([]);
-const showFaq = ref(false);
+const showFaq = ref(true);
 const route = useRoute();
 const router = useRouter();
 const questionsState = ref([]);
@@ -28,9 +28,10 @@ onMounted(async () => {
   
   await loginFromGetParams(false);
 
-  if (route.query.showFaq === "true") {
-    await showFaqPage();
-  }
+  await router.push({ query: { showFaq: true } });
+  await checkIfUserIsLoggedIn('Aby połączyć się z konsultanmem konieczne jest posiadanie konta, jeśli go nie posiadasz wypełnij pola poniżej to ci je założymy');
+
+  showFaq.value = true;
 
   const { data } = await shopApi.get("/api/faqs/get");
   questions.value = data;
@@ -58,13 +59,6 @@ const selectQuestion = async (question) => {
   questionsTree.value = data.questions[0].questions;
 
   questionsState.value = data.questions;
-};
-
-const showFaqPage = async () => {
-  await router.push({ query: { showFaq: true } });
-  await checkIfUserIsLoggedIn('Aby połączyć się z konsultanmem konieczne jest posiadanie konta, jeśli go nie posiadasz wypełnij pola poniżej to ci je założymy');
-
-  showFaq.value = true;
 };
 
 const selectQuestionFromTree = (q) => {
