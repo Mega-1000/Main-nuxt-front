@@ -93,6 +93,33 @@ const handleMediaButton = (e: Event, media: any) => {
   selectedMediaId.value = media.id;
   props.contactModal?.show();
 };
+
+const daysOfStock = computed(() => {
+  return props.item.stock.quantity / props.item.selledInLastWeek * 7;
+});
+
+const daysOfStockText = computed(() => {
+  const days = daysOfStock.value;
+
+  if(localStorage.getItem('admin') == 'true') {
+    return props.item.stock.quantity;
+  }
+
+  switch (days) {
+    case 2:
+      return "Bardzo mały stan magazynowy";
+    case 7:
+      return "Mały stan magazynowy";
+    case 14:
+      return "Duży stan magazynowy";
+    default:
+      return "Bardzo duży stan magazynowy";
+  }
+});
+
+const daysOfStockColor = computed(() => {
+  return daysOfStock.value < 7 ? "text-red-500" : "text-green-500";
+})
 </script>
 
 <template>
@@ -116,24 +143,30 @@ const handleMediaButton = (e: Event, media: any) => {
         class="w-full md:w-[170%] bg-white flex flex-col space-y-2 p-3 grid md:place-items-end"
       >
         <h3 class="font-black text-gray-800 md:text-3xl text-xl" style="margin-right: auto;">
-          {{ props.item.name }}
+          {{ item.name }}
           <div class="text-left w-full font-light text-sm">
-            {{ props.item.symbol }}
+            {{ item.symbol }}
+          </div>
+
+          <div class="mt-4 text-sm">
+            <div :class="daysOfStockColor">
+              {{ daysOfStockText }}
+            </div>
           </div>
         </h3>
         <p class="md:text-lg text-gray-500 text-base">
-          {{ props.item.description }}
+          {{ item.description }}
         </p>
-        <div v-if="props.item.meta_price">
+        <div v-if="item.meta_price">
           <p
             class="text-3xl font-bold"
-            v-for="val in props.item.meta_price.split(`.`)"
+            v-for="val in item.meta_price.split(`.`)"
           >
             {{ getPriceString(val) }}
             <button
               class="bg-blue-500 text-lg text-white rounded px-4 py-2"
               data-modal-target="calculatorModal"
-              @click="() => handleShowModal(props.item)"
+              @click="() => handleShowModal(item)"
             >
               Kalkulator cenowy
             </button>
@@ -160,6 +193,10 @@ const handleMediaButton = (e: Event, media: any) => {
             {{ subProduct.currency || "PLN" }}/{{ subProduct.unit_commercial }}
           </p>
           <p class="text-sm">Symbol produktu: {{ subProduct.symbol }}</p>
+
+          <submitButton>
+            Kalkulator cenowy
+          </submitButton>
         </div>
       </div>
     </div>

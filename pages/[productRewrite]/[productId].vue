@@ -61,8 +61,8 @@ const { data: itemsData, pending: pending3 } = await useAsyncData(
   { watch: [page] }
 );
 
-const buildLink = ({ rewrite, id }: { rewrite: string; id: number }) =>
-  `/${rewrite}/${id}`;
+const buildLink = ({ rewrite, id, name }: { rewrite: string; id: number, name: string }) =>
+  name !== 'porady na temat zakupu styropianu' ? `/${rewrite}/${id}` : '/Styrofoarm-generate-table';
 
 const modal = ref<Modal | null>(null);
 
@@ -317,7 +317,7 @@ const goToPage = (val: number) => {
                 class="flex items-start justify-between p-4 border-b rounded-t"
               >
                 <h3 class="text-xl font-semibold text-gray-900">
-                  Kalkulator cenowy okej
+                  Kalkulator cenowy
                 </h3>
                 <button
                   type="button"
