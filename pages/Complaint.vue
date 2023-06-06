@@ -103,7 +103,7 @@
     formData.append('phone', form.phone.toString());
     formData.append('reason', form.reason);
     formData.append('date', form.dateTimeOfIssue);
-    formData.append('image', image.value);
+    formData.append('image', image.value ?? null);
     formData.append('driverPhone', form.driverPhone.toString());
     formData.append('trackingNumber', form.waybillNumber.toString());
     formData.append('accountNumber', form.accountNumber.toString());
