@@ -20,10 +20,9 @@ class Cart {
 
   addToCart(product: any, amount?: number | string) {
     this.init();
-    const idx = this.getIdxByProductId(product.id);
-    alert(idx);
+    var idx = this.getIdxByProductId(product.id);
     if (idx >= 0) {
-      this.increaseAmount(idx, amount as any);
+      this.incraseAmount(idx, amount as any);
     } else {
       this.products.push({
         amount: parseInt(amount as any),
@@ -38,7 +37,7 @@ class Cart {
   }
 
   getIdxByProductId(id: number) {
-    return -1;
+    return this.products.findIndex((product: any) => product.id === id);
   }
 
   removeFromCart(id: number) {
@@ -64,8 +63,14 @@ class Cart {
     }
   }
 
-  increaseAmount(idx: number, increment: number) {
+  incraseAmount(idx: number, increment: number) {
     this.products[idx].amount = this.products[idx].amount + increment;
+    this.save();
+  }
+
+  decraseAmount(idx: number) {
+    this.products[idx].amount = this.products[idx].amount - 1;
+
     this.save();
   }
 
@@ -75,12 +80,12 @@ class Cart {
   }
 
   idsWithQuantity() {
-    const selectedProducts: any[] = [];
+    var selectedProducts: any[] = [];
     this.products.forEach((product) => {
       if (product == null) {
         return;
       }
-      const item = {
+      var item = {
         id: product.id,
         amount: product.amount,
         recalculate: product.recalculate,
