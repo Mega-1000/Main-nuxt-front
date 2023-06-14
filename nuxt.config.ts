@@ -16,4 +16,7 @@ export default defineNuxtConfig({
       nuxtNewFront: process.env.NEW_NUXT_SERVER,
     },
   },
+  app: {
+    pageTransition: { name: 'page', mode: 'out-in' }
+  },
 });
