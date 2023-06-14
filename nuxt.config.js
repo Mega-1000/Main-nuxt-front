@@ -14,5 +14,8 @@ export default defineNuxtConfig({
       baseUrl: process.env.APP_STORAGE,
       nuxtNewFront: process.env.NEW_NUXT_SERVER,
     },
-  }
+  },
+  app: {
+    pageTransition: { name: 'page', mode: 'out-in' }
+  },
 });
