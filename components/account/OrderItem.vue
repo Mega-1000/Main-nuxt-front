@@ -75,10 +75,10 @@ onMounted(() => {
 const defaultError = "Wystąpil błąd. Spróbuj ponownie później";
 
 const handleUploadProofOfPayment = async () => {
+  console.log(document.querySelector("#proof_of_payment"));
   const proofOfPaymentInput = document.getElementById("proof_of_payment");
   const formData = new FormData();
   const file = (proofOfPaymentInput! as any).files[0];
-
 
   console.log(file);
 
@@ -91,8 +91,10 @@ const handleUploadProofOfPayment = async () => {
     await shopApi.post("api/orders/uploadProofOfPayment", formData, {
       headers: { "Content-Type": "multipart/form-data" },
     });
+
     modal.value?.hide();
     proofUploaded.value = true;
+
     if (
       !props.item.dates?.customer_shipment_date_from ||
       !props.item.dates?.customer_shipment_date_to
@@ -324,7 +326,7 @@ const markOfferAsInactive = async () => {
         </div>
         <!-- Modal footer -->
         <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b">
-          <button type="button" @click="async () => await handleUploadProofOfPayment()"
+          <button type="button" @click="handleUploadProofOfPayment"
             class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
             Jestem pewny poprawności oferty, podłączam potwierdzenie przelewu
           </button>
