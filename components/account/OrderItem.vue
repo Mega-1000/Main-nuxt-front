@@ -78,14 +78,18 @@ const handleUploadProofOfPayment = async () => {
   const proofOfPaymentInput = document.getElementById("proof_of_payment");
   const formData = new FormData();
   const file = (proofOfPaymentInput! as any).files[0];
+
+
+  console.log(file);
+
   if (!file) return false;
+
   formData.append("id", props.item.id);
   formData.append("file", file);
+
   try {
     await shopApi.post("api/orders/uploadProofOfPayment", formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
+      headers: { "Content-Type": "multipart/form-data" },
     });
     modal.value?.hide();
     proofUploaded.value = true;
