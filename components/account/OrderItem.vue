@@ -12,6 +12,8 @@ const router = useRouter();
 const props = defineProps<Props>();
 const emit = defineEmits(["refresh"]);
 const isVisiblitityLimited = ref(false);
+const proofOfPaymentInput = ref(null);
+const defaultError = "Wystąpil błąd. Spróbuj ponownie później";
 
 const editCart = (items: any[]) => {
   productsCart.value.removeAllFromCart();
@@ -72,15 +74,17 @@ onMounted(() => {
   modal.value = new Modal($targetEl, options);
 });
 
-const defaultError = "Wystąpil błąd. Spróbuj ponownie później";
+const onFileChange = (e: any) => {
+  const files = e.target.files || e.dataTransfer.files;
+
+  if (!files.length) return;
+
+  proofUploaded.value = files;
+}
 
 const handleUploadProofOfPayment = async () => {
-  console.log(document.querySelector("#proof_of_payment"));
-  const proofOfPaymentInput = document.getElementById("proof_of_payment");
+  const file = proofUploaded.value[0];
   const formData = new FormData();
-  const file = (proofOfPaymentInput! as any).files[0];
-
-  console.log(file);
 
   if (!file) return false;
 
@@ -322,14 +326,14 @@ const markOfferAsInactive = async () => {
             ilościowym oraz sprawdzić dane do dostawy, faktury i daty
             logistyczne.
           </p>
-          <input type="file" id="proof_of_payment" accept=".pdf,image/*" />
+
+          <input type="file" @change="onFileChange" accept=".pdf,image/*" />
         </div>
         <!-- Modal footer -->
         <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b">
-          <button type="button" @click="handleUploadProofOfPayment"
-            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+          <SubmitButton type="button" @click="handleUploadProofOfPayment">
             Jestem pewny poprawności oferty, podłączam potwierdzenie przelewu
-          </button>
+          </SubmitButton>
         </div>
       </div>
     </div>
