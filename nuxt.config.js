@@ -1,6 +1,8 @@
+import {isProduction} from "std-env";
+
 export default defineNuxtConfig({
   ssr: false,
-  modules: ["@nuxtjs/tailwindcss", "nuxt-icon", "@nuxt/devtools", ['@nuxtjs/google-tag-manager', { id: 'GTM-M9P527R' }]],
+  modules: ["@nuxtjs/tailwindcss", "nuxt-icon", "@nuxt/devtools"],
   devtools: {
     enabled: true,
     vscode: {},
@@ -11,6 +13,8 @@ export default defineNuxtConfig({
       AUTH_CLIENT_SECRET: process.env.AUTH_CLIENT_SECRET,
       baseUrl: process.env.APP_STORAGE,
       nuxtNewFront: process.env.NEW_NUXT_SERVER,
+      google_analytics_id: process.env.google_analytics_id,
+      production_mode: isProduction,
     },
   }
 });
