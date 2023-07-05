@@ -125,7 +125,7 @@
       Formularz reklamacyjny
     </h1>
 
-    <SelectInput @input="form.reason = $event" :options="avaibleReasons" label="Powód reklamacji" />
+    <SelectInput v-model="form.reason" :options="avaibleReasons" label="Powód reklamacji" />
 
     <TextInput label="Numer oferty" type="number" :value="form.offerId" @input="form.offerId = $event" class="mt-4" />
 
