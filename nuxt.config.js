@@ -1,8 +1,6 @@
-import fs from "fs";
-import path from "path";
 export default defineNuxtConfig({
   ssr: false,
-  modules: ["@nuxtjs/tailwindcss", "nuxt-icon", "@nuxt/devtools"],
+  modules: ["@nuxtjs/tailwindcss", "nuxt-icon", "@nuxt/devtools", ['@nuxtjs/google-tag-manager', { id: 'GTM-M9P527R' }]],
   devtools: {
     enabled: true,
     vscode: {},
@@ -14,5 +12,5 @@ export default defineNuxtConfig({
       baseUrl: process.env.APP_STORAGE,
       nuxtNewFront: process.env.NEW_NUXT_SERVER,
     },
-  },
+  }
 });
