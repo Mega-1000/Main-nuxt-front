@@ -38,7 +38,7 @@ const buildCustomLink = (pageId: number) => `/custom/${pageId}`;
 const logOut = () => {
   removeCookie();
   userToken.value = getToken();
-  
+
   router.go(0);
 };
 
@@ -144,8 +144,13 @@ const toggleMenu = () => {
           </li>
         </ul>
         <div class="mx-auto grid sm:hidden cursor-pointer" @click="toggleMenu">
-          <Icon v-if="!showMenu" name="ic:outline-arrow-drop-down" size="20" />
+          <div v-if="!showMenu">
+            <Icon name="ic:outline-arrow-drop-down" size="20" />
+            Rozwiń menu
+          </div>
+
           <Icon v-else name="ic:outline-arrow-drop-up" size="20" />
+
           <ul class="text-sm md:text-md font-medium space-y-1" v-if="showMenu">
             <li>
               <NuxtLink href="/info" class="text-gray-900 hover:underline"
