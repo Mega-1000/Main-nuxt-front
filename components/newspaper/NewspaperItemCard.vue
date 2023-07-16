@@ -13,9 +13,7 @@
           <br>
           Nowa cena <span class="font-bold">{{ newPrice }} zł</span>
         </p>
-        <p class="mb-3 font-small text-gray-700">
-          {{ description }}
-        </p>
+        <p class="mb-3 font-small text-gray-700" v-html="description.replaceAll('|', '<br>')" />
         <nuxt-link :href="link">
           <submit-button>
             Pokaż więcej

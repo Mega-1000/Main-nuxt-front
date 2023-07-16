@@ -60,7 +60,7 @@ onMounted(() => {
 <template>
   <div class="mb-5 border-b border-gray-200 mt-5 flex justify-center">
     <ul
-      class="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500"
+      class="flex flex-wrap -mb-px text-sm font-medium text-center text-black"
       id="tabExample"
       role="tablist"
     >
