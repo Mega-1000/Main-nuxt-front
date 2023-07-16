@@ -276,7 +276,7 @@ const createChat = async (redirect: boolean) => {
 
   if (!redirect) return;
 
-  if (!getToken()) {
+  if (!getToken() && data.newAccount) {
     await Swal.fire('', `<span style="text-align: left; ">Informujemy że założyliśmy Państwu konto na naszej stronie na którym po zalogowaniu można :<br>
         <br>
         <br>- zapoznać się z ofertą i pobrać fakturę proformę\n
@@ -285,8 +285,8 @@ const createChat = async (redirect: boolean) => {
         <br>- podpiąć potwierdzenie przelewu które przyspiesza realizacje\n
         <br>- rozpocząć dyskusje/chata z konsultantem\n
         <br>- oraz sprawdzać statusy ofert i listów przewozowych.\n
-        <br> +
-        <br>Z pozdrowieniami<br>' +
+        <br>
+        <br>Z pozdrowieniami<br>
         <br>
     </span>`, 'info');
   }
