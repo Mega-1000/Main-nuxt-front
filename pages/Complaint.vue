@@ -16,23 +16,14 @@
     damagedProductsValue: number;
     dateTimeOfIssue: string;
     accountNumber: number;
+    nameOfPersonHandlingTheComplaint: string;
+    surnameOfPersonHandlingTheComplaint: string;
+    phoneOfPersonHandlingTheComplaint: number;
+    emailOfPersonHandlingTheComplaint: string;
+    proposalOfTheClientsClaimOrSolutionToTheTopic: string;
   }
 
-  const form = reactive<Complaint>({
-    reason: '',
-    offerId: 0,
-    waybillNumber: 0,
-    driverPhone: 0,
-    name: '',
-    surname: '',
-    email: '',
-    phone: 0,
-    message: '',
-    productValue: 0,
-    damagedProductsValue: 0,
-    dateTimeOfIssue: '',
-    accountNumber: 0,
-  });
+  const form = reactive<Complaint>({} as Complaint);
 
   const config = useRuntimeConfig().public;
   const processing = ref<boolean>(false);
@@ -69,15 +60,31 @@
       value: 'uzupełnienie zgłoszenia',
     }
   ];
+  const packages = ref<any>([]);
 
   onMounted(() => {
     checkIfUserIsLoggedIn('Proszę się zalogować');
     getdataFromUrl();
   });
 
+  watch(() => form.offerId, () => {
+    fetchPackages();
+  });
+
   const getdataFromUrl = () => {
     form.offerId = route.query.offerId as unknown as number;
-  }
+  };
+
+  const fetchPackages = async () => {
+    const { data: response } = await shopApi.get(`/api/get-packages-for-order/${form.offerId}`) as any;
+
+    packages.value = response.data.map((item: any) => {
+      return {
+        label: item.number,
+        value: item.id,
+      }
+    });
+  };
 
   const submitFrom = async () => {
     processing.value = true;
@@ -115,6 +122,11 @@
     formData.append('offerId', form.offerId.toString());
     formData.append('productValue', form.productValue.toString());
     formData.append('damagedProductsValue', form.damagedProductsValue.toString());
+    formData.append('nameOfPersonHandlingTheComplaint', form.nameOfPersonHandlingTheComplaint);
+    formData.append('surnameOfPersonHandlingTheComplaint', form.surnameOfPersonHandlingTheComplaint);
+    formData.append('phoneOfPersonHandlingTheComplaint', form.phoneOfPersonHandlingTheComplaint.toString());
+    formData.append('emailOfPersonHandlingTheComplaint', form.emailOfPersonHandlingTheComplaint);
+    formData.append('proposalOfTheClientsClaimOrSolutionToTheTopic', form.proposalOfTheClientsClaimOrSolutionToTheTopic);
     return formData;
   }
 </script>
@@ -125,31 +137,144 @@
       Formularz reklamacyjny
     </h1>
 
-    <SelectInput v-model="form.reason" :options="avaibleReasons" label="Powód reklamacji" />
+    <SelectInput
+        v-model="form.reason"
+        :options="avaibleReasons"
+        label="Powód reklamacji"
+    />
 
-    <TextInput label="Numer oferty" type="number" :value="form.offerId" @input="form.offerId = $event" class="mt-4" />
+    <TextInput
+        label="Numer oferty"
+        type="number"
+        :value="form.offerId"
+        @input="form.offerId = $event"
+        class="mt-4"
+    />
 
-    <TextInput label="Numer przesyłki" type="text" :value="form.waybillNumber" @input="form.waybillNumber = $event" class="mt-4" />
+    <SelectInput
+        v-model="form.waybillNumber"
+        :options="packages"
+        label="Numer przesyłki"
+    />
 
-    <TextInput label="Numer telefonu kierowcy (w przypadku gdy jest znany)" :value="form.driverPhone" @input="form.driverPhone = $event" class="mt-4" />
+    <TextInput
+        label="Numer telefonu kierowcy (w przypadku gdy jest znany)"
+        :value="form.driverPhone"
+        @input="form.driverPhone = $event"
+        class="mt-4"
+    />
 
-    <TextInput label="Imię" type="text" :value="form.name" @input="form.name = $event" class="mt-4" />
+    <TextInput
+        label="Imię"
+        type="text"
+        :value="form.name"
+        @input="form.name = $event"
+        class="mt-4"
+    />
 
-    <TextInput label="Nazwisko" type="text" :value="form.surname" @input="form.surname = $event" class="mt-4" />
+    <TextInput
+        label="Nazwisko"
+        type="text"
+        :value="form.surname"
+        @input="form.surname = $event"
+        class="mt-4"
+    />
 
-    <TextInput label="Email" type="email" :value="form.email" @input="form.email = $event" class="mt-4" />
+    <TextInput
+        label="Email"
+        type="email"
+        :value="form.email"
+        @input="form.email = $event"
+        class="mt-4"
+    />
 
-    <TextInput label="Numer telefonu" type="number" :value="form.phone" @input="form.phone = $event" class="mt-4" />
+    <TextInput
+        label="Numer telefonu"
+        type="number"
+        :value="form.phone"
+        @input="form.phone = $event"
+        class="mt-4"
+    />
 
-    <TextInput label="Wiadomość" type="text" :value="form.message" @input="form.message = $event" class="mt-4" />
+    <TextInput
+        label="Wiadomość / opis usterki"
+        type="text"
+        :value="form.message"
+        @input="form.message = $event"
+        class="mt-4"
+    />
 
-    <TextInput label="Wartość produktu" type="number" :value="form.productValue" @input="form.productValue = $event" class="mt-4" />
+    <TextInput
+        label="Wartość produktu"
+        type="number"
+        :value="form.productValue"
+        @input="form.productValue = $event"
+        class="mt-4"
+    />
 
-    <TextInput label="Wartość uszkodzonych produktów" type="number" :value="form.damagedProductsValue" @input="form.damagedProductsValue = $event" class="mt-4" />
+    <TextInput
+        label="Wartość uszkodzonych produktów"
+        type="number"
+        :value="form.damagedProductsValue"
+        @input="form.damagedProductsValue = $event"
+        class="mt-4"
+    />
 
-    <TextInput label="Data i czas stwierdzenia uszkodzenia towaru" type="datetime-local" :value="form.dateTimeOfIssue" @input="form.dateTimeOfIssue = $event" class="mt-4" />
+    <TextInput
+        label="Data i czas stwierdzenia uszkodzenia towaru"
+        type="datetime-local"
+        :value="form.dateTimeOfIssue"
+        @input="form.dateTimeOfIssue = $event"
+        class="mt-4"
+    />
 
-    <TextInput label="Numer konta bankowego" type="number" :value="form.accountNumber" @input="form.accountNumber = $event" class="mt-4" />
+    <TextInput
+      label="Imię osoby obsługującej reklamacje"
+      type="text"
+      :value="form.nameOfPersonHandlingTheComplaint"
+      @input="form.nameOfPersonHandlingTheComplaint = $event"
+      class="mt-4"
+    />
+
+    <TextInput
+      label="Nazwisko osoby obsługującej reklamacje"
+      type="text"
+      :value="form.surnameOfPersonHandlingTheComplaint"
+      @input="form.surnameOfPersonHandlingTheComplaint = $event"
+      class="mt-4"
+    />
+
+    <TextInput
+      label="Telefon osoby obsługującej reklamacje"
+      type="number"
+      :value="form.phoneOfPersonHandlingTheComplaint"
+      @input="form.phoneOfPersonHandlingTheComplaint = $event"
+      class="mt-4"
+    />
+
+    <TextInput
+      label="E-mail osoby obsługującej reklamacje"
+      type="email"
+      :value="form.emailOfPersonHandlingTheComplaint"
+      @input="form.emailOfPersonHandlingTheComplaint = $event"
+      class="mt-4"
+    />
+
+    <TextInput
+        label="Numer konta bankowego"
+        type="number"
+        :value="form.accountNumber"
+        @input="form.accountNumber = $event"
+        class="mt-4"
+    />
+
+    <TextInput
+      label="Propozycja roszczenia klienta lub rozwiązania tematu"
+      type="text"
+      :value="form.proposalOfTheClientsClaimOrSolutionToTheTopic"
+      @input="form.proposalOfTheClientsClaimOrSolutionToTheTopic = $event"
+      class="mt-4"
+    />
 
     <div>
       <label class="block text-gray-700 text-sm font-bold mb-2" for="image">
