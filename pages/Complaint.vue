@@ -80,7 +80,7 @@
 
     packages.value = response.data.map((item: any) => {
       return {
-        label: item.number,
+        label: item.letter_number,
         value: item.id,
       }
     });
@@ -154,7 +154,7 @@
     <SelectInput
         v-model="form.waybillNumber"
         :options="packages"
-        label="Numer przesyłki"
+        label="Numer listu przewozowego"
     />
 
     <TextInput
@@ -165,15 +165,15 @@
     />
 
     <TextInput
-        label="Imię"
         type="text"
+        label="Imię osoby obsługującej reklamację po stronie kupującego"
         :value="form.name"
         @input="form.name = $event"
         class="mt-4"
     />
 
     <TextInput
-        label="Nazwisko"
+        label="Nazwisko osoby obsługującej reklamację po stronie kupującego"
         type="text"
         :value="form.surname"
         @input="form.surname = $event"
@@ -181,7 +181,7 @@
     />
 
     <TextInput
-        label="Email"
+        label="Email osoby obsługującej reklamację po stronie kupującego"
         type="email"
         :value="form.email"
         @input="form.email = $event"
@@ -189,7 +189,7 @@
     />
 
     <TextInput
-        label="Numer telefonu"
+        label="Numer telefonu osoby obsługującej reklamację po stronie kupującego"
         type="number"
         :value="form.phone"
         @input="form.phone = $event"
@@ -229,39 +229,7 @@
     />
 
     <TextInput
-      label="Imię osoby obsługującej reklamacje"
-      type="text"
-      :value="form.nameOfPersonHandlingTheComplaint"
-      @input="form.nameOfPersonHandlingTheComplaint = $event"
-      class="mt-4"
-    />
-
-    <TextInput
-      label="Nazwisko osoby obsługującej reklamacje"
-      type="text"
-      :value="form.surnameOfPersonHandlingTheComplaint"
-      @input="form.surnameOfPersonHandlingTheComplaint = $event"
-      class="mt-4"
-    />
-
-    <TextInput
-      label="Telefon osoby obsługującej reklamacje"
-      type="number"
-      :value="form.phoneOfPersonHandlingTheComplaint"
-      @input="form.phoneOfPersonHandlingTheComplaint = $event"
-      class="mt-4"
-    />
-
-    <TextInput
-      label="E-mail osoby obsługującej reklamacje"
-      type="email"
-      :value="form.emailOfPersonHandlingTheComplaint"
-      @input="form.emailOfPersonHandlingTheComplaint = $event"
-      class="mt-4"
-    />
-
-    <TextInput
-        label="Numer konta bankowego"
+        label="Numer konta bankowego do zwrotu należności"
         type="number"
         :value="form.accountNumber"
         @input="form.accountNumber = $event"
