@@ -8,15 +8,15 @@
 </script>
 
 <template>
-  <div>
-    <button v-if="type === 'button'" type="button"
-      class="p-1 text-xs text-gray-700 border rounded hover:bg-blue-500 bg-blue-500 hover:text-white focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 border-black">
+  <div class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mx-3 font-semibold">
+    <div v-if="type === 'button'" type="button">
       <slot />
-    </button>
+    </div>
 
-    <a v-if="type === 'link'" :href="href"
-      class="p-1 text-xs text-gray-900 border rounded hover:bg-blue-500 bg-blue-500 hover:text-white focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 border-gray-700" :target="target">
-      <slot />
-    </a>
+    <div>
+      <a v-if="type === 'link'" :href="href" :target="target">
+        <slot />
+      </a>
+    </div>
   </div>
 </template>

@@ -159,6 +159,68 @@ const markOfferAsInactive = async () => {
       </p>
     </div>
 
+    <div class="grid md:flex w-[80%] justify-between">
+      <button @click="modal?.show" v-if="!proofUploaded && (!item?.files || item.files.length === 0) && !isVisiblitityLimited"
+              class="p-1 text-xs text-gray-700 border rounded hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 border-black bg-blue-500">
+        Podłącz potwierdzenie przelewu - przyśpiesza realizacje
+      </button>
+
+      <button v-else v-if="!isVisiblitityLimited" disabled class="p-1 bg-green-400 text-xs text-black border border-gray-700">
+        Potwierdzenie przelewu podłączone - zapłacono
+      </button>
+
+      <template v-if="item?.order_offers && item.order_offers.length > 0">
+        <a is="button" :href="`${config.baseUrl}/order-proform-pdf/${item.order_offers[0]?.id}`"
+           class="p-1 text-xs text-gray-900 border border-gray-200 rounded-l-lg hover:bg-gray-100 bg-blue-500 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700">
+          Faktura proforma
+        </a>
+        <a is="button" target="_blank" :href="`${config.baseUrl}/order-offer-pdf/${item.order_offers[0]?.id}`"
+           class="p-1 text-xs text-gray-900 border border-gray-200 hover:bg-gray-100 bg-blue-500 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700" v-if="!isVisiblitityLimited">
+          Opis oferty
+        </a>
+      </template>
+
+      <accountActionButton :target="undefined" href="" type="button" @click="editCart(item.items)">
+        Edytuj koszyk
+      </accountActionButton>
+
+      <accountActionButton target="_blank" type="link" is="button"
+                           :href="`${config.nuxtNewFront}zamowienie/mozliwe-do-realizacji/brak-danych/${item.id}`">
+        Dane do dostawy i faktury oraz ich edycja
+      </accountActionButton>
+
+      <accountActionButton v-for="invoice in item?.invoices?.filter((invoice: any) => invoice.is_visible_for_client)"
+                           target="_blank" is="button" :href="`${config.baseUrl}/storage/invoices/${invoice.invoice_name}`" type="link">
+        Pobierz fakturę {{ invoice.invoice_name }}
+      </accountActionButton>
+
+      <button v-for="invoice in item?.user_invoices" @click="() => downloadInvoice(invoice)"
+              class="p-1 text-xs text-gray-900 border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700">
+        Faktura: {{ invoice.gt_invoice_number }}
+      </button>
+
+      <accountActionButton type="link" target="_blank" is="button"
+                           :href="`${config.baseUrl}/chat-show-or-new/${item.id}/${item.customer_id}`">
+        Dyskusja
+      </accountActionButton>
+
+      <NuxtLink :to="`/Complaint?offerId=${item.id}`" class="border-gray-700 rounded p-1 text-xs text-gray-900 border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 bg-blue-500 hover:bg-blue-500">
+        Zgłoś reklamację
+      </NuxtLink>
+
+      <accountActionButton type="button" target="_blank" is="button" @click="dowloadInvoices(item.id)">
+        Faktury
+      </accountActionButton>
+    </div>
+    <div class="grid md:flex pt-2" v-for="buttonGroup in Object.keys(item.buttons)">
+      <p class="text-sm text-center pr-2 pt-1">{{ buttonGroup }}</p>
+      <a v-for="button in (Object.values(item.buttons[buttonGroup]) as any)" target="_blank" is="button"
+         :href="button.url"
+         class="p-1 text-center text-xs text-gray-900 border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700">
+        {{ button.description }}
+      </a>
+    </div>
+
     <div v-if="!item.reminder_date">
 
       <hr />
@@ -208,68 +270,6 @@ const markOfferAsInactive = async () => {
     </div>
 
     <hr />
-
-    <div class="grid md:flex w-[80%] justify-between">
-      <button @click="modal?.show" v-if="!proofUploaded && (!item?.files || item.files.length === 0) && !isVisiblitityLimited"
-              class="p-1 text-xs text-gray-700 border rounded hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 border-black bg-blue-500">
-        Podłącz potwierdzenie przelewu - przyśpiesza realizacje
-      </button>
-
-      <button v-else v-if="!isVisiblitityLimited" disabled class="p-1 bg-green-400 text-xs text-black border border-gray-700">
-        Potwierdzenie przelewu podłączone - zapłacono
-      </button>
-
-      <template v-if="item?.order_offers && item.order_offers.length > 0">
-        <a is="button" :href="`${config.baseUrl}/order-proform-pdf/${item.order_offers[0]?.id}`"
-          class="p-1 text-xs text-gray-900 border border-gray-200 rounded-l-lg hover:bg-gray-100 bg-blue-500 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700">
-          Faktura proforma
-        </a>
-        <a is="button" target="_blank" :href="`${config.baseUrl}/order-offer-pdf/${item.order_offers[0]?.id}`"
-          class="p-1 text-xs text-gray-900 border border-gray-200 hover:bg-gray-100 bg-blue-500 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700" v-if="!isVisiblitityLimited">
-          Opis oferty
-        </a>
-      </template>
-
-      <accountActionButton :target="undefined" href="" type="button" @click="editCart(item.items)">
-        Edytuj koszyk
-      </accountActionButton>
-
-      <accountActionButton target="_blank" type="link" is="button"
-        :href="`${config.nuxtNewFront}zamowienie/mozliwe-do-realizacji/brak-danych/${item.id}`">
-        Dane do dostawy i faktury oraz ich edycja
-      </accountActionButton>
-
-      <accountActionButton v-for="invoice in item?.invoices?.filter((invoice: any) => invoice.is_visible_for_client)"
-        target="_blank" is="button" :href="`${config.baseUrl}/storage/invoices/${invoice.invoice_name}`" type="link">
-        Pobierz fakturę {{ invoice.invoice_name }}
-      </accountActionButton>
-
-      <button v-for="invoice in item?.user_invoices" @click="() => downloadInvoice(invoice)"
-        class="p-1 text-xs text-gray-900 border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700">
-        Faktura: {{ invoice.gt_invoice_number }}
-      </button>
-
-      <accountActionButton type="link" target="_blank" is="button"
-        :href="`${config.baseUrl}/chat-show-or-new/${item.id}/${item.customer_id}`">
-        Dyskusja
-      </accountActionButton>
-
-      <NuxtLink :to="`/Complaint?offerId=${item.id}`" class="border-gray-700 rounded p-1 text-xs text-gray-900 border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 bg-blue-500 hover:bg-blue-500">
-        Zgłoś reklamację
-      </NuxtLink>
-
-      <accountActionButton type="button" target="_blank" is="button" @click="dowloadInvoices(item.id)">
-        Faktury
-      </accountActionButton>
-    </div>
-    <div class="grid md:flex pt-2" v-for="buttonGroup in Object.keys(item.buttons)">
-      <p class="text-sm text-center pr-2 pt-1">{{ buttonGroup }}</p>
-      <a v-for="button in (Object.values(item.buttons[buttonGroup]) as any)" target="_blank" is="button"
-        :href="button.url"
-        class="p-1 text-center text-xs text-gray-900 border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700">
-        {{ button.description }}
-      </a>
-    </div>
   </div>
 
   <div :id="`modal-${item.id}`" tabindex="-1"
