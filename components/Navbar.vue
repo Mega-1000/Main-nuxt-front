@@ -170,7 +170,7 @@ const toggleMenu = () => {
               >
             </li>
             <li v-if="userToken">
-              <NuxtLink href="/chat" class="text-gray-900 hover:underline flex"
+              <NuxtLink href="/chat" class="text-gray-900 hoer:underline flex"
                 >Chat
                 <span v-if="newMessagesNumber > 0"
                   >({{ newMessagesNumber }})</span
@@ -197,4 +197,6 @@ const toggleMenu = () => {
       </div>
     </div>
   </nav>
+
+  !!! Gdybyście państwo mieli problemy z wypełnieniem lub złym działaniem strony prosimy dzwonić pod numer 691801594 w godzinach 7-23 !!!
 </template>
