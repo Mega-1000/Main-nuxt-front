@@ -63,6 +63,10 @@ const toggleMenu = () => {
       <NuxtLink :href="isVisibilityLimited ? '#' : '/'" class="flex items-center text-2xl font-semibold">
         EPH POLSKA SP Z O.O.
       </NuxtLink>
+  
+      <div class="w-[60%] text-red-600 font-bold">
+        !!! Gdybyście państwo mieli problemy z wypełnieniem lub złym działaniem strony prosimy dzwonić pod numer 691801594 w godzinach 7-23 !!!      
+      </div>
       <div class="flex items-center">
         <NuxtLink href="/koszyk.html">
           <div class="flex mr-5" v-if="!isVisibilityLimited">
@@ -197,6 +201,4 @@ const toggleMenu = () => {
       </div>
     </div>
   </nav>
-
-  !!! Gdybyście państwo mieli problemy z wypełnieniem lub złym działaniem strony prosimy dzwonić pod numer 691801594 w godzinach 7-23 !!!
 </template>

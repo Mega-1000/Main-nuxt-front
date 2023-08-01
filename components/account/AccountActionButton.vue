@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-  // type is default to button but can be also link
   const props = defineProps<{
     type: 'button' | 'link'
     href: string | undefined
