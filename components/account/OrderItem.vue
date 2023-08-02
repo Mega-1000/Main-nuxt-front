@@ -199,10 +199,10 @@ const markOfferAsInactive = async () => {
         Faktura: {{ invoice.gt_invoice_number }}
       </button>
 
-      <w type="link" target="_blank" is="button"
-                           :href="`${config.baseUrl}/chat-show-or-new/${item.id}/${item.customer_id}`">
+      <accountActionButton type="link" target="_blank" is="button"
+                        :href="`${config.baseUrl}/chat-show-or-new/${item.id}/${item.customer_id}`">
         Dyskusja
-      </w>
+      </accountActionButton>
 
       <NuxtLink :to="`/Complaint?offerId=${item.id}`" class="border-gray-700 rounded p-1 text-xs text-gray-900 border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 bg-blue-500 hover:bg-blue-500">
         Zgłoś reklamację
