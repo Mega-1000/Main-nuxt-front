@@ -107,7 +107,7 @@
     formData.append('firstname', form.name);
     formData.append('surname', form.surname);
     formData.append('email', form.email);
-    formData.append('phone', form.phone.toString());
+    formData.append('phone', form.phone?.toString());
     formData.append('reason', form.reason);
     formData.append('date', form.dateTimeOfIssue);
 
@@ -115,16 +115,16 @@
       formData.append('image', image.value);
     }
 
-    formData.append('driverPhone', form.driverPhone.toString());
-    formData.append('trackingNumber', form.waybillNumber.toString());
-    formData.append('accountNumber', form.accountNumber.toString());
+    formData.append('driverPhone', form.driverPhone?.toString());
+    formData.append('trackingNumber', form.waybillNumber?.toString());
+    formData.append('accountNumber', form.accountNumber?.toString());
     formData.append('description', form.message);
-    formData.append('offerId', form.offerId.toString());
-    formData.append('productValue', form.productValue.toString());
-    formData.append('damagedProductsValue', form.damagedProductsValue.toString());
+    formData.append('offerId', form.offerId?.toString());
+    formData.append('productValue', form.productValue?.toString());
+    formData.append('damagedProductsValue', form.damagedProductsValue?.toString());
     formData.append('nameOfPersonHandlingTheComplaint', form.nameOfPersonHandlingTheComplaint);
     formData.append('surnameOfPersonHandlingTheComplaint', form.surnameOfPersonHandlingTheComplaint);
-    formData.append('phoneOfPersonHandlingTheComplaint', form.phoneOfPersonHandlingTheComplaint.toString());
+    formData.append('phoneOfPersonHandlingTheComplaint', form.phoneOfPersonHandlingTheComplaint?.toString());
     formData.append('emailOfPersonHandlingTheComplaint', form.emailOfPersonHandlingTheComplaint);
     formData.append('proposalOfTheClientsClaimOrSolutionToTheTopic', form.proposalOfTheClientsClaimOrSolutionToTheTopic);
     return formData;
