@@ -5,7 +5,7 @@
     <div class="mt-4" @click="handleInput" >
       Zapisuj nazwę
       <input v-model="saveName" :checked="saveName" type="checkbox">
-      {{saveName}}
+      {{ saveName }}
     </div>
   </div>
 </template>

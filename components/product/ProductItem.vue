@@ -164,6 +164,15 @@ const daysOfStockColor = computed(() => {
         <p class="md:text-lg text-gray-500 text-base">
           {{ item.description }}
         </p>
+
+        <button
+            class="bg-blue-500 text-lg text-white rounded px-4 py-2"
+            data-modal-target="calculatorModal"
+            @click="() => handleShowModal(item)"
+        >
+          Kalkulator cenowy
+        </button>
+
         <div v-if="item.meta_price">
           <p
             class="text-3xl font-bold"
