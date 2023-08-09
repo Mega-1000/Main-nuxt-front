@@ -97,7 +97,7 @@ const setupModals = () => {
 
 onMounted(async () => {
   setupModals();
-  
+
   const data:any = await shopApi.get('/api/staff/isStaff');
   if(data.data){
     isStaff.value = true;
@@ -235,6 +235,7 @@ const goToPage = (val: number) => {
               :contactModal="contactModal"
               :setupModals="setupModals"
               class="w-full"
+              :isStaff="isStaff"
             />
             <nav
               aria-label="Page navigation example"
