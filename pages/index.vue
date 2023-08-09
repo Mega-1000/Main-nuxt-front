@@ -22,6 +22,8 @@ onMounted(async () => {
   if (data.data) {
     isStaff.value = true;
   }
+
+  useState('isStaff', () => isStaff.value);
 })
 
 const config = useRuntimeConfig().public;

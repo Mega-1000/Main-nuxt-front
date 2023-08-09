@@ -1,12 +1,15 @@
 <script setup lang="ts">
 import { Modal } from "flowbite";
 import Cookies from "universal-cookie";
+import EditAccountInformations from "~/pages/EditAccountInformations.vue";
+import EditProductSection from "~/components/product/EditProductSection.vue";
 
 interface Props {
   item: any;
   modal: Modal | null;
   contactModal: Modal | null;
   setupModals: () => void;
+  isStaff: boolean;
 }
 
 const { $shopApi: shopApi, $buildImgRoute: buildImgRoute } = useNuxtApp();
@@ -125,7 +128,6 @@ const daysOfStockColor = computed(() => {
 <template>
   <div class="flex flex-col justify-center">
     <div
-      @click="() => handleShowModal(props.item)"
       data-modal-target="calculatorModal"
       class="justify-between cursor-pointer relative flex flex-col md:flex-row md:space-x-5 space-y-3 md:space-y-0 rounded-xl shadow-lg p-3 w-full mx-auto border border-white bg-white max-w-7xl"
     >
@@ -143,10 +145,14 @@ const daysOfStockColor = computed(() => {
         class="w-full md:w-[170%] bg-white flex flex-col space-y-2 p-3 grid md:place-items-end"
       >
         <h3 class="font-black text-gray-800 md:text-3xl text-xl" style="margin-right: auto;">
-          {{ item.name }}
-          <div class="text-left w-full font-light text-sm">
-            {{ item.symbol }}
+          <div v-if="!isStaff">
+            {{ item.name }}
+            <div class="text-left w-full font-light text-sm">
+              {{ item.symbol }}
+            </div>
           </div>
+
+          <EditProductSection :item="item" v-else />
 
           <div class="mt-4 text-sm">
             <div :class="daysOfStockColor">
@@ -154,6 +160,7 @@ const daysOfStockColor = computed(() => {
             </div>
           </div>
         </h3>
+
         <p class="md:text-lg text-gray-500 text-base">
           {{ item.description }}
         </p>
