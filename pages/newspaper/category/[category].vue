@@ -38,7 +38,7 @@ onMounted(async () => {
     discounts.value = response;
   } catch (e: any) {
     if (e.response.status === 404) {
-      router.push('/');
+      router.push(""'/');
     }
   } finally {
     loading.value = false;

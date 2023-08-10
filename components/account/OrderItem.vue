@@ -171,11 +171,11 @@ const markOfferAsInactive = async () => {
 
       <template v-if="item?.order_offers && item.order_offers.length > 0">
         <a is="button" :href="`${config.baseUrl}/order-proform-pdf/${item.order_offers[0]?.id}`"
-           class="p-1 text-xs text-gray-900 border border-gray-200 rounded-l-lg hover:bg-gray-100 bg-blue-500 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700">
+           class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mx-3 font-semibold">
           Faktura proforma
         </a>
         <a is="button" target="_blank" :href="`${config.baseUrl}/order-offer-pdf/${item.order_offers[0]?.id}`"
-           class="p-1 text-xs text-gray-900 border border-gray-200 hover:bg-gray-100 bg-blue-500 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700" v-if="!isVisiblitityLimited">
+           class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mx-3 font-semibold" v-if="!isVisiblitityLimited">
           Opis oferty
         </a>
       </template>
