@@ -12,7 +12,7 @@ const userToken = useUserToken();
 userToken.value = getToken();
 
 onMounted(() => {
-  isVisibilityLimited.value = localStorage.getItem('allegroVisibilityLimit') === 'true';
+  isVisibilityLimited.value = localStorage.getItem('noAllegroVisibilityLimit') != 'true';
 })
 
 const { data: newMessagesNumber } = useAsyncData(async () => {
@@ -60,12 +60,14 @@ const toggleMenu = () => {
     <div
       class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl px-4 md:px-6 py-2.5"
     >
-      <NuxtLink :href="isVisibilityLimited ? '#' : '/'" class="flex items-center text-2xl font-semibold">
+      <NuxtLink :href="isVisibilityLimited ? '/' : '/sklep'" class="flex items-center text-2xl font-semibold">
         EPH POLSKA SP Z O.O.
       </NuxtLink>
-  
+
       <div class="w-[60%] text-red-600 font-bold">
-        !!! Gdybyście państwo mieli problemy z wypełnieniem lub złym działaniem strony prosimy dzwonić pod numer 691801594 w godzinach 7-23 !!!      
+        !! Gdybyście państwo mieli problemy z wypełnieniem lub złym działaniem strony prosimy dzwonić do działu obsługi informatycznej  pod numer 691801594 w godzinach 7-23
+        <br>
+        !!!  Dział ten nie obsługuje ofert !!!
       </div>
       <div class="flex items-center">
         <NuxtLink href="/koszyk.html">
@@ -116,14 +118,6 @@ const toggleMenu = () => {
               :href="buildCustomLink(page.id)"
               class="text-gray-900 hover:underline"
               >{{ page.title }}</NuxtLink
-            >
-          </li>
-          <li v-if="userToken">
-            <NuxtLink href="/chat" class="text-gray-900 hover:underline"
-              >Chat
-              <span v-if="newMessagesNumber > 0"
-                >({{ newMessagesNumber }})</span
-              ></NuxtLink
             >
           </li>
           <li v-if="userToken">
