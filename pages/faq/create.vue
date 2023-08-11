@@ -68,7 +68,7 @@ const syncQuestionsPositions = () => {
 
 const deleteQuestion = async (id) => {
   await shopApi.delete(`/api/faqs/${id}`);
-  
+
   categoryQuestions.value = '';
 
   fetchQuestions();
@@ -84,7 +84,7 @@ const [parent] = useAutoAnimate();
 <template>
   <div class="w-[70%] mx-auto mt-8">
     <div>
-      <h1 class="text-4xl">Pytania i odpowiedzi</h1>
+      <h1 class="text-4xl">Prosimy wybrać interesujący państwa temat rozmowy</h1>
     </div>
 
     <div class="rounded bg-slate-500 p-4 mt-4">
