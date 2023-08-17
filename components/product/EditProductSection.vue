@@ -43,7 +43,7 @@ const handleInput = (e: any) => {
     if (e.target.files && e.target.files[0]) {
       setTimeout(() => {
         window.location.reload();
-      }, 100);
+      }, 1000);
     }
     shopApi.post(`/api/products/${props.item.id}`, form);
   }, 100);
