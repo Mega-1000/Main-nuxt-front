@@ -12,7 +12,6 @@ const router = useRouter();
 const props = defineProps<Props>();
 const emit = defineEmits(["refresh"]);
 const isVisiblitityLimited = ref(false);
-const proofOfPaymentInput = ref(null);
 const defaultError = "Wystąpil błąd. Spróbuj ponownie później";
 
 const editCart = (items: any[]) => {
@@ -181,7 +180,7 @@ const markOfferAsInactive = async () => {
       </template>
 
       <accountActionButton :target="undefined" href="" type="button" @click="editCart(item.items)">
-        Edytuj koszyk
+        Edytuj zamówienie
       </accountActionButton>
 
       <accountActionButton target="_blank" type="link" is="button"

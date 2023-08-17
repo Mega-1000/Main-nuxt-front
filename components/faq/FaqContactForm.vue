@@ -1,6 +1,7 @@
 <script setup>
 import { useAutoAnimate } from '@formkit/auto-animate/vue'
 import { Modal } from "flowbite";
+import swal from "sweetalert2"
 
 const props = defineProps({
   questionsTree: {
@@ -15,6 +16,7 @@ const user = useUser();
 const config = useRuntimeConfig().public;
 const modal = ref(null);
 const didClientGotAnswer = ref(null);
+const message = ref("");
 
 onMounted(() => {
   const $targetEl = document.getElementById(`modal`);
@@ -58,6 +60,15 @@ const initChat = async () => {
   modal?.value.show();
 }
 
+const sendMessage = async () => {
+  await shopApi.post('/api/create-message', {
+    message: message.value,
+    user: user.value.id,
+  });
+
+  await swal.fire('Dziękujemy za wiadomość!', 'Odpowiemy na nią najszybciej jak to możliwe.', 'success');
+}
+
 user.value = userData.value;
 </script>
 
@@ -70,31 +81,23 @@ user.value = userData.value;
     <span v-if="didClientGotAnswer === null">
        Czy uzyskałeś odpowiedź na swoje pytanie? Naciśnij po prawej stronie wyraz tak lub nie.
 
-      <span @click="didClientGotAnswer = true">
+      <br>
+      <SubmitButton @click.prevent="didClientGotAnswer = true">
          Tak
-      </span>
-      <span @click="didClientGotAnswer = false">
+      </SubmitButton>
+      <SubmitButton class="ml-4" @click.prevent="didClientGotAnswer = false">
         Nie
-      </span>
+      </SubmitButton>
     </span>
 
     <div v-if="didClientGotAnswer === false">
       <div class="mt-6 text-2xl font-semibold">
         Nie uzyskałem odpowiedzi na swoje pytanie.
       </div>
-      <div class="mt-4">
-        <div class="mb-8">
-          Jeśli chcesz rozmawiać w temacie już istniejącej oferty wciśnij przycisk "rozpocznij dyskusję" i przeniesiemy cię do twojego konta gdzie wybierzesz numer odpowiedniej oferty.
-          <nuxt-link to="/account" class="bg-slate-700 text-white rounded px-4 py-2 block mt-4 w-fit">
-            Przenieś mnie do mojego konta
-          </nuxt-link>
-        </div>
-
-        Jeśli chcesz skontaktować się w nowym temacie, który nie dotyczy żadnej oferty rozpocznij rozmowę tutaj.
-        <button class="bg-slate-700 text-white rounded px-4 py-2 block mt-4" @click="initChat">
-          Połącz mnie z konsultantem
-        </button>
-      </div>
+      <textarea v-model="message" />
+      <SubmitButton @click.prevent="sendMessage">
+        Wyślij wiadomość
+      </SubmitButton>
     </div>
   </span>
 

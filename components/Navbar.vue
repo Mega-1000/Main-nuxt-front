@@ -65,9 +65,11 @@ const toggleMenu = () => {
       </NuxtLink>
 
       <div class="w-[60%] text-red-600 font-bold">
-        !! Gdybyście państwo mieli problemy z wypełnieniem lub złym działaniem strony prosimy dzwonić do działu obsługi informatycznej  pod numer 691801594 w godzinach 7-23
-        <br>
-        !!!  Dział ten nie obsługuje ofert !!!
+        <div v-if="!isVisibilityLimited">
+          !! Gdybyście państwo mieli problemy z wypełnieniem lub złym działaniem strony prosimy dzwonić do działu obsługi informatycznej  pod numer 691801594 w godzinach 7-23
+          <br>
+          !!!  Dział ten nie obsługuje ofert !!!
+        </div>
       </div>
       <div class="flex items-center">
         <NuxtLink href="/koszyk.html">
@@ -121,9 +123,13 @@ const toggleMenu = () => {
             >
           </li>
           <li v-if="userToken">
-            <NuxtLink href="/account" class="text-gray-900 hover:underline"
+            <NuxtLink href="/account" v-if="!isVisibilityLimited" class="text-gray-900 hover:underline"
               >Konto</NuxtLink
             >
+          </li>
+          <li>
+            <NuxtLink href="/Complaint" class="text-gray-900 hover:underline"
+              >FAQ</NuxtLink>
           </li>
           <li v-if="userToken" @click="logOut">
             <NuxtLink href="/" class="text-gray-900 hover:underline"

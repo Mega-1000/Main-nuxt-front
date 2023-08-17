@@ -6,6 +6,16 @@
       Zapisuj nazwę
       <input v-model="saveName" :checked="saveName" type="checkbox">
       {{ saveName }}
+
+      <div class="mt-4" @click="handleInput" >
+        Zapisuj zdjęcie
+        <input v-model="saveImage" :checked="saveImage" type="checkbox">
+        {{ saveImage }}
+
+        <div class="mt-4">
+          <input type="file" @change="handleInput" />
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -20,13 +30,19 @@ const props = defineProps<Props>();
 const { $shopApi: shopApi } = useNuxtApp();
 const name = ref(props.item.name);
 const saveName = ref(props.item.save_name === 1);
+const saveImage = ref(props.item.save_image === "1");
 
 const handleInput = (e: any) => {
   setTimeout(() => {
-    shopApi.post(`/api/products/${props.item.id}`, {
-      name: name.value,
-      save_name: saveName.value,
-    });
+    const form = new FormData();
+    form.append('name', name.value);
+    form.append('save_name', String(saveName.value));
+    form.append('save_image', String(saveImage.value));
+    form.append('image', e.target.files ? e.target?.files[0] : null);
+
+    if (e.target.files && e.target.files[0]) {
+    }
+    shopApi.post(`/api/products/${props.item.id}`, form);
   }, 100);
 };
 </script>
