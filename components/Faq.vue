@@ -81,10 +81,6 @@ const [parent] = useAutoAnimate()
       {{ v.question }} <span v-if="k <= questionsTree.length"> -> </span>
     </span>
 
-    <div class="rounded bg-slate-500 p-4 mt-4">
-      Wybierz interesujący cię temat
-    </div>
-
     <div class="flex">
 
       <div class="w-[15%]">

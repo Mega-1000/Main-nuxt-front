@@ -94,7 +94,7 @@ user.value = userData.value;
       <div class="mt-6 text-2xl font-semibold">
         Nie uzyskałem odpowiedzi na swoje pytanie.
       </div>
-      <textarea v-model="message" />
+      <textarea v-model="message" class="w-[100%]" />
       <SubmitButton @click.prevent="sendMessage">
         Wyślij wiadomość
       </SubmitButton>

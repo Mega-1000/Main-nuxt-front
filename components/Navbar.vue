@@ -2,6 +2,7 @@
 import { getToken, removeCookie } from "~~/helpers/authenticator";
 import { getPages } from "~~/helpers/customPages";
 import Cart from "~~/utils/Cart";
+import allegroVisibilityLimit from "~/helpers/allegroVisibilityLimit";
 
 const { $shopApi: shopApi } = useNuxtApp();
 const productsCart = useProductsCart();
@@ -129,10 +130,10 @@ const toggleMenu = () => {
           </li>
           <li>
             <NuxtLink href="/Complaint" class="text-gray-900 hover:underline"
-              >FAQ</NuxtLink>
+              >Zgłoś reklamację</NuxtLink>
           </li>
           <li v-if="userToken" @click="logOut">
-            <NuxtLink href="/" class="text-gray-900 hover:underline"
+            <NuxtLink v-if="!isVisibilityLimited" href="/" class="text-gray-900 hover:underline"
               >Wyloguj</NuxtLink
             >
           </li>
@@ -142,9 +143,7 @@ const toggleMenu = () => {
             >
           </li>
           <li>
-            <NuxtLink href="/faq" class="text-gray-900 hover:underline"
-              >Kontakt z konsultantem</NuxtLink
-            >
+            <NuxtLink href="/faq" class="text-gray-900 hover:underline">FAQ</NuxtLink>
           </li>
         </ul>
         <div class="mx-auto grid sm:hidden cursor-pointer" @click="toggleMenu">
