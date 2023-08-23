@@ -129,6 +129,7 @@ const saveDescription = () => {
     description: props.item.description,
     name: props.item.name,
     save_name: props.item.save_name,
+    save_image: props.item.save_image,
   });
 };
 </script>
