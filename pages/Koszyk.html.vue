@@ -118,6 +118,10 @@ onMounted(async () => {
   await getPackagesNumber(cart);
 
   productsCart.value = cart;
+
+  productsCart.value.products.forEach((product) => {
+      updateAmount(product.id, product.amount);
+  });
 });
 
 const handleDelete = async () => {
