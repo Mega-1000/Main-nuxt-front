@@ -122,10 +122,10 @@
     formData.append('offerId', form.offerId?.toString());
     formData.append('productValue', form.productValue?.toString());
     formData.append('damagedProductsValue', form.damagedProductsValue?.toString());
-    formData.append('nameOfPersonHandlingTheComplaint', form.nameOfPersonHandlingTheComplaint);
-    formData.append('surnameOfPersonHandlingTheComplaint', form.surnameOfPersonHandlingTheComplaint);
-    formData.append('phoneOfPersonHandlingTheComplaint', form.phoneOfPersonHandlingTheComplaint?.toString());
-    formData.append('emailOfPersonHandlingTheComplaint', form.emailOfPersonHandlingTheComplaint);
+    formData.append('nameOfPersonHandlingTheComplaint', form.name);
+    formData.append('surnameOfPersonHandlingTheComplaint', form.surname);
+    formData.append('phoneOfPersonHandlingTheComplaint', form.phone?.toString());
+    formData.append('emailOfPersonHandlingTheComplaint', form.email);
     formData.append('proposalOfTheClientsClaimOrSolutionToTheTopic', form.proposalOfTheClientsClaimOrSolutionToTheTopic);
     return formData;
   }
