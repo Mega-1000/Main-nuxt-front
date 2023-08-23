@@ -172,8 +172,8 @@ const saveDescription = () => {
 
         <p class="md:text-lg text-gray-500 text-base">
           <span v-if="isStaff">opis: </span>
-          {{ item.description }}
-          <textarea v-if="isStaff" @input="saveDescription" v-model="item.description">{{ item.description }}</textarea>
+          <div v-if="!isStaff" v-html="item.description.replaceAll('\n', '<br />')"></div>
+          <textarea class="w-[800px] h-[200px]" v-else @input="saveDescription" v-model="item.description">{{ item.description }}</textarea>
         </p>
 
         <div v-if="item.meta_price">
