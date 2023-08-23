@@ -127,6 +127,8 @@ const daysOfStockColor = computed(() => {
 const saveDescription = () => {
   shopApi.post(`api/products/${props.item.id}`, {
     description: props.item.description,
+    name: props.item.name,
+    save_name: props.item.save_name,
   });
 };
 </script>
