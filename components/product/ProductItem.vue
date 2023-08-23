@@ -122,7 +122,13 @@ const daysOfStockText = computed(() => {
 
 const daysOfStockColor = computed(() => {
   return daysOfStock.value < 7 ? "text-red-500" : "text-green-500";
-})
+});
+
+const saveDescription = () => {
+  shopApi.post(`api/products/${props.item.id}`, {
+    description: props.item.description,
+  });
+};
 </script>
 
 <template>
@@ -162,7 +168,8 @@ const daysOfStockColor = computed(() => {
         </h3>
 
         <p class="md:text-lg text-gray-500 text-base">
-          {{ item.description }}
+          <span v-if="isStaff">opis: </span>
+          <textarea @input="saveDescription" v-model="item.description"></textarea>
         </p>
 
         <div v-if="item.meta_price">
