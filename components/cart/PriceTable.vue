@@ -344,7 +344,7 @@ const handleBlur = (event: any) => {
         <tbody>
           <tr class="bg-white border-b">
             <th scope="row" class="px-1 py-1 font-medium text-black">
-              Ilość zamawianego towaru
+              Ilość zamawianego towaru ok
             </th>
             <td class="px-1 py-1" v-if="state?.commercial">
               <input
