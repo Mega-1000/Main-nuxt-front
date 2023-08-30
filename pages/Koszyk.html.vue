@@ -66,7 +66,12 @@ onBeforeMount(async () => {
     cart_token: cart_token,
   };
 
-  await setTimeout(() => window.location.reload(), 1000);
+  
+  if (query && !query?.notReload) {
+    await setTimeout(() => window.location.reload(), 1000); 
+    //add timeout to prevent double reload
+    router.push(`/koszyk?cart_token=${cart_token}&notReload=true`);
+  }
 });
 
 watch([userData], () => {
