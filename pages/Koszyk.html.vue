@@ -65,6 +65,8 @@ onBeforeMount(async () => {
     ...state.value,
     cart_token: cart_token,
   };
+
+  await setTimeout(() => window.location.reload(), 1000);
 });
 
 watch([userData], () => {
