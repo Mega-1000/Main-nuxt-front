@@ -163,18 +163,14 @@ const saveDescription = () => {
 
           <EditProductSection :item="item" v-else />
 
-          <div class="mt-4 text-sm">
-            <div :class="daysOfStockColor">
-              {{ daysOfStockText }}
-            </div>
-          </div>
-        </h3>
+          <p class="md:text-lg text-gray-500 text-base">
+            <span v-if="isStaff">opis: </span>
+            <div v-if="!isStaff" v-html="item.description.replaceAll('\n', '<br />')"></div>
+            <textarea class="block h-[200px]" v-else @input="saveDescription" v-model="item.description">{{ item.description }}</textarea>
+          </p>
 
-        <p class="md:text-lg text-gray-500 text-base">
-          <span v-if="isStaff">opis: </span>
-          <div v-if="!isStaff" v-html="item.description.replaceAll('\n', '<br />')"></div>
-          <textarea class="block h-[200px]" v-else @input="saveDescription" v-model="item.description">{{ item.description }}</textarea>
-        </p>
+          Ilość asortymentu wchodząca do jednej paczki: {{ item.assortment_quantity }}
+        </h3>
 
         <div v-if="item.meta_price">
           <p
@@ -182,6 +178,11 @@ const saveDescription = () => {
             v-for="val in item.meta_price.split(`.`)"
           >
             {{ getPriceString(val) }}
+            <div class="mt-4 text-sm">
+              <div :class="daysOfStockColor">
+                {{ daysOfStockText }}
+              </div>
+            </div>
             <button
               class="bg-blue-500 text-lg text-white rounded px-4 py-2"
               data-modal-target="calculatorModal"
