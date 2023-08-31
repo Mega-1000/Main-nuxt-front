@@ -335,7 +335,7 @@ const createChat = async (redirect: boolean) => {
 };
 </script>
 <template>
-  <div class="fixed right-5 p-[15px] bg-blue-400 rounded-lg" v-if="shipmentCostBrutto == 0">
+  <div class="fixed right-5 p-[15px] bg-blue-400 rounded-lg">
     Przewidywany koszt wysyłki: {{ shipmentCostBrutto }} zł
   </div>
 
