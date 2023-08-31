@@ -121,7 +121,8 @@ const getPackagesNumber = async (cart: Cart) => {
 onMounted(async () => {
   const cart = new Cart();
   cart.init();
-  if (query?.cart_token) await prepareCartEdition(cart, query?.cart_token);
+
+  if (query?.cart_token && !cart.getEditedCart()) await prepareCartEdition(cart, query?.cart_token);
   await getPackagesNumber(cart);
 
   productsCart.value = cart;
