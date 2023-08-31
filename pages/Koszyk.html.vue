@@ -275,7 +275,7 @@ const shipmentCostBrutto = computed(() => {
     
   });
 
-  return finalPrice.toFixed(2);
+  return finalPrice;
 });
 
 const isNewOrder = ref(false);
