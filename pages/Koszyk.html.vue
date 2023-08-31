@@ -244,11 +244,38 @@ const handleSubmitWithToken = async () => {
 };
 
 const shipmentCostBrutto = computed(() => {
-  return (
-    Math.ceil(
-      Number(parseFloat(productsCart.value.totalWeight()).toFixed(2)) / 31.5
-    ) * 18
-  );
+  // return (
+  //   Math.ceil(
+  //     Number(parseFloat(productsCart.value.totalWeight()).toFixed(2)) / 31.5
+  //   ) * 18
+  // );
+
+  let finalPrice = 0;
+  let GLSks = 0;
+  let GLSkd = 0;
+  let DPDd = 0;
+  const cart = new Cart();
+  cart.init();
+  const items = cart.products;
+
+  items.forEach((item) => {
+    switch(item) {
+      case 'GLSks':
+        GLSks += item.amount / item.assortment_quantity;
+        break;
+      case 'GLSkd':
+        GLSkd += item.amount / item.assortment_quantity;
+        break;
+      case 'DPDd':
+        DPDd += item.amount / item.assortment_quantity;
+        break;
+    }
+    
+    finalPrice += Math.ceil(GLSkd) * 18 + Math.ceil(GLSks) * 18 + Math.ceil(DPDd) * 48;
+    
+  });
+
+  return finalPrice.toFixed(2);
 });
 
 const isNewOrder = ref(false);
