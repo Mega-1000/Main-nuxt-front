@@ -335,6 +335,10 @@ const createChat = async (redirect: boolean) => {
 };
 </script>
 <template>
+  <div class="fixed right-5 p-[15px] bg-blue-400 rounded-lg" v-if="shipmentCostBrutto == 0">
+    Przewidywany koszt wysyłki: {{ shipmentCostBrutto }} zł
+  </div>
+
   <div class="flex">
     <div>
       <Sidebar class="h-fit flex flex-col justify-center mt-30 w-fit" :categories="categories" />
