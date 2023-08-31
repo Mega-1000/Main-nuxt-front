@@ -259,7 +259,7 @@ const shipmentCostBrutto = computed(() => {
   const items = cart.products;
 
   items.forEach((item) => {
-    switch(item) {
+    switch(item.delivery_type) {
       case 'GLSks':
         GLSks += item.amount / item.assortment_quantity;
         break;
