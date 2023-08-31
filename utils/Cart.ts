@@ -17,6 +17,10 @@ class Cart {
       }
     }
   }
+  
+  getEditedCart() {
+    return localStorage.getItem("editedCart") ?? false;
+  };
 
   addToCart(product: any, amount?: number | string) {
     this.init();
@@ -30,7 +34,10 @@ class Cart {
       });
       this.save();
     }
+
+    localStorage.setItem("editedCart", "true");
   }
+
 
   exists(id: number) {
     return this.getIdxByProductId(id) >= 0;
@@ -50,7 +57,10 @@ class Cart {
       this.save();
     }
   }
+
   removeAllFromCart() {
+    localStorage.removeItem("editedCart");
+
     this.products = [];
     this.save();
   }
