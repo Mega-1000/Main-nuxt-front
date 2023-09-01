@@ -4,6 +4,7 @@ const shipmentCostBrutto = (items: any) => {
     let GLSkd = 0;
     let DPDd = 0;
 
+    console.log(items);
     items.forEach((item: any) => {
         switch(item.delivery_type) {
             case 'GLS':

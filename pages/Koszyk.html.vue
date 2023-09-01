@@ -244,7 +244,9 @@ const handleSubmitWithToken = async () => {
   }
 };
 
-const shipmentCostBrutto = computed(() => shipmentCostBruttoFn(productsCart.value.idsWithQuantity()));
+const shipmentCostBrutto = computed(() => {
+  return shipmentCostBruttoFn(productsCart.value.products)
+});
 
 const isNewOrder = ref(false);
 
