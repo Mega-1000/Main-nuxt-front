@@ -6,7 +6,7 @@ const shipmentCostBrutto = (items: any) => {
 
     items.forEach((item: any) => {
         switch(item.delivery_type) {
-            case 'GLSks':
+            case 'GLS':
                 GLSks += item.amount / item.assortment_quantity;
                 break;
             case 'GLSd':
