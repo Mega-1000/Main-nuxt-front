@@ -17,14 +17,14 @@ class Cart {
       }
     }
   }
-  
+
   getEditedCart() {
     return localStorage.getItem("editedCart") ?? false;
   };
 
   addToCart(product: any, amount?: number | string) {
     this.init();
-    var idx = this.getIdxByProductId(product.id);
+    const idx = this.getIdxByProductId(product.id);
     if (idx >= 0) {
       this.incraseAmount(idx, amount as any);
     } else {

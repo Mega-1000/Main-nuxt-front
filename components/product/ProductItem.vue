@@ -179,7 +179,7 @@ const ShipmentCostItemsLeftText = computed(() => {
         </h3>
 
         <div v-if="item.meta_price">
-          <p
+          <div
             class="text-3xl font-bold"
             v-for="val in item.meta_price.split(`.`)"
           >
@@ -196,7 +196,7 @@ const ShipmentCostItemsLeftText = computed(() => {
             >
               Kalkulator cenowy
             </button>
-          </p>
+          </div>
         </div>
 
         <div class="inline-flex rounded-md shadow-sm" role="group">
