@@ -117,6 +117,8 @@ const handleCart = () => {
   const { cart: _cart, ...product } = currentItem.value;
   productsCart.value.addToCart(product, productAmount.value);
   modal.value?.hide();
+
+  window.dispatchEvent(new CustomEvent("foo-key-localstorage-changed"));
 };
 
 let emailInput = "";

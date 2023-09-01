@@ -4,6 +4,7 @@ import { getToken, setCookie } from "~~/helpers/authenticator";
 import transportPrice from "~~/helpers/transportPrice";
 import Cart from "~~/utils/Cart";
 import Swal from "sweetalert2";
+import shipmentCostBruttoFn from "~/helpers/ShipmentCostCalculator";
 
 const { query } = useRoute();
 
@@ -66,9 +67,9 @@ onBeforeMount(async () => {
     cart_token: cart_token,
   };
 
-  
+
   if (query && !query?.notReload) {
-    await setTimeout(() => window.location.reload(), 1000); 
+    setTimeout(() => window.location.reload(), 1000);
     //add timeout to prevent double reload
     router.push(`/koszyk.html?cart_token=${cart_token}&notReload=true`);
   }
@@ -243,40 +244,7 @@ const handleSubmitWithToken = async () => {
   }
 };
 
-const shipmentCostBrutto = computed(() => {
-  // return (
-  //   Math.ceil(
-  //     Number(parseFloat(productsCart.value.totalWeight()).toFixed(2)) / 31.5
-  //   ) * 18
-  // );
-
-  let finalPrice = 0;
-  let GLSks = 0;
-  let GLSkd = 0;
-  let DPDd = 0;
-  const cart = new Cart();
-  cart.init();
-  const items = cart.products;
-
-  items.forEach((item) => {
-    switch(item.delivery_type) {
-      case 'GLSks':
-        GLSks += item.amount / item.assortment_quantity;
-        break;
-      case 'GLSkd':
-        GLSkd += item.amount / item.assortment_quantity;
-        break;
-      case 'DPDd':
-        DPDd += item.amount / item.assortment_quantity;
-        break;
-    }
-    
-    finalPrice += Math.ceil(GLSkd) * 18 + Math.ceil(GLSks) * 18 + Math.ceil(DPDd) * 48;
-    
-  });
-
-  return finalPrice;
-});
+const shipmentCostBrutto = computed(() => shipmentCostBruttoFn(productsCart.value.idsWithQuantity()));
 
 const isNewOrder = ref(false);
 

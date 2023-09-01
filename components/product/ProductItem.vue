@@ -12,16 +12,31 @@ interface Props {
   isStaff: boolean;
 }
 
-const { $shopApi: shopApi, $buildImgRoute: buildImgRoute } = useNuxtApp();
-
 const props = defineProps<Props>();
 
+const { $shopApi: shopApi, $buildImgRoute: buildImgRoute } = useNuxtApp();
 const config = useRuntimeConfig().public;
-
 const currentItem = useCurrentItem();
+const computedReload = ref<boolean>(false);
+const items = ref();
 
-onMounted(props.setupModals);
+onBeforeMount(() => {
+  const cart = new Cart();
+  cart.init();
+  items.value = cart.products;
+});
 
+onMounted(() => {
+  props.setupModals();
+
+  window.addEventListener('foo-key-localstorage-changed', () => {
+    computedReload.value = !computedReload.value;
+
+    const cart = new Cart();
+    cart.init();
+    items.value = cart.products;
+  });
+});
 const handleShowModal = async (item: any, isSubProduct = false) => {
   if (!isSubProduct) {
     if (subProducts.value.length > 0) {
@@ -40,8 +55,6 @@ const handleShowModal = async (item: any, isSubProduct = false) => {
 };
 
 const subProducts = ref<any[]>([]);
-
-const selectedMediaId = useSelectedMediaId();
 
 const getSubProducts = async () => {
   const res = await shopApi.get("api/products/get-hidden", {
@@ -74,29 +87,6 @@ const getPriceString = (priceType: any) => {
   return `${price} PLN / ${unit}`;
 };
 
-const handleMediaButton = (e: Event, media: any) => {
-  if (media.url) {
-    window.open(media.url, "_blank");
-    return;
-  }
-
-  e.preventDefault();
-
-  const cookies = new Cookies();
-  const email = cookies.get("email");
-  const postalCode = cookies.get("post_code");
-  const phone = cookies.get("phone");
-
-  if (email && postalCode && phone) {
-    const url = `${config.baseUrl}/chat/getUrl/${media.id}/${postalCode}/${email}/${phone}`;
-    window.open(url, "_blank");
-    return;
-  }
-
-  selectedMediaId.value = media.id;
-  props.contactModal?.show();
-};
-
 const daysOfStock = computed(() => {
   return props.item.stock.quantity / props.item.selledInLastWeek * 7;
 });
@@ -104,7 +94,7 @@ const daysOfStock = computed(() => {
 const daysOfStockText = computed(() => {
   const days = daysOfStock.value;
 
-  if(localStorage.getItem('admin') == 'true') {
+  if (localStorage.getItem('admin') == 'true') {
     return props.item.stock.quantity;
   }
 
@@ -132,10 +122,24 @@ const saveDescription = () => {
     save_image: props.item.save_image,
   });
 };
+
+const ShipmentCostItemsLeftText = computed(() => {
+  const itemPackageQuantity = props.item.assortment_quantity;
+  let itemsLeft;
+
+  if (items.value.length > 0) {
+    const itemsQuantity = Math.round((items.value.reduce((acc: any, item: any) => acc + item.amount / item.assortment_quantity, 0) % 1) * 100) / 100;
+    itemsLeft = Math.floor((1 - itemsQuantity) / (1 / itemPackageQuantity));
+  } else {
+    itemsLeft = itemPackageQuantity;
+  }
+
+  return `Możesz dodać do przesyłki jeszcze ${itemsLeft} ${props.item.unit_commercial} tego produktu aby uniknąć dodatkowych kosztów`;
+});
 </script>
 
 <template>
-  <div class="flex flex-col justify-center">
+  <div class="flex flex-col justify-center" v-tooltip.auto-start="ShipmentCostItemsLeftText">
     <div
       data-modal-target="calculatorModal"
       class="justify-between cursor-pointer relative flex flex-col md:flex-row md:space-x-5 space-y-3 md:space-y-0 rounded-xl shadow-lg p-3 w-full mx-auto border border-white bg-white max-w-7xl"
@@ -154,22 +158,24 @@ const saveDescription = () => {
         class="w-full md:w-[170%] bg-white flex flex-col space-y-2 p-3 grid md:place-items-end"
       >
         <h3 class="font-black text-gray-800 md:text-3xl text-xl" style="margin-right: auto;">
-          <div v-if="!isStaff">
+          <span v-if="!isStaff">
             {{ item.name }}
-            <div class="text-left w-full font-light text-sm">
+            <span class="text-left w-full font-light text-sm">
               {{ item.symbol }}
-            </div>
-          </div>
+            </span>
+          </span>
 
           <EditProductSection :item="item" v-else />
 
-          <p class="md:text-lg text-gray-500 text-base">
+          <span class="md:text-lg text-gray-500 text-base">
             <span v-if="isStaff">opis: </span>
             <div v-if="!isStaff" v-html="item.description.replaceAll('\n', '<br />')"></div>
             <textarea class="block h-[200px]" v-else @input="saveDescription" v-model="item.description">{{ item.description }}</textarea>
-          </p>
+          </span>
 
-          Ilość asortymentu wchodząca do jednej paczki: {{ item.assortment_quantity }}
+          <span class="text-lg">
+            Ilość asortymentu wchodząca do jednej paczki: {{ item.assortment_quantity }}
+          </span>
         </h3>
 
         <div v-if="item.meta_price">
