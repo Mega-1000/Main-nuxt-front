@@ -23,7 +23,7 @@ const items = ref();
 onBeforeMount(() => {
   const cart = new Cart();
   cart.init();
-  items.value = cart.products;
+  items.value = cart.products.filter((item: any) => item.delivery_type === props.item.delivery_type);
 });
 
 onMounted(() => {
@@ -34,7 +34,6 @@ onMounted(() => {
 
     const cart = new Cart();
     cart.init();
-    items.value = cart.products;
     items.value = cart.products.filter((item: any) => item.delivery_type === props.item.delivery_type);
   });
 });
