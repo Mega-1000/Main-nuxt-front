@@ -9,7 +9,7 @@ const shipmentCostBrutto = (items: any) => {
             case 'GLSks':
                 GLSks += item.amount / item.assortment_quantity;
                 break;
-            case 'GLSkd':
+            case 'GLSd':
                 GLSkd += item.amount / item.assortment_quantity;
                 break;
             case 'DPDd':
