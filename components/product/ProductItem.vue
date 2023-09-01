@@ -35,6 +35,7 @@ onMounted(() => {
     const cart = new Cart();
     cart.init();
     items.value = cart.products;
+    items.value = cart.products.filter((item: any) => item.delivery_type === props.item.delivery_type);
   });
 });
 const handleShowModal = async (item: any, isSubProduct = false) => {
