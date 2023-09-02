@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { Modal } from "flowbite";
-import Cookies from "universal-cookie";
-import EditAccountInformations from "~/pages/EditAccountInformations.vue";
+import swal from 'sweetalert2';
 import EditProductSection from "~/components/product/EditProductSection.vue";
 
 interface Props {
@@ -19,11 +18,19 @@ const config = useRuntimeConfig().public;
 const currentItem = useCurrentItem();
 const computedReload = ref<boolean>(false);
 const items = ref();
+const fastAddToCartValue = ref(0);
+const route = useRoute();
+const router = useRouter();
 
 onBeforeMount(() => {
   const cart = new Cart();
   cart.init();
   items.value = cart.products.filter((item: any) => item.delivery_type === props.item.delivery_type);
+
+  if (route.query.fastAddToCart) {
+    swal.fire('Dodano do koszyka', '', 'success');
+    router.replace({ query: {} });
+  }
 });
 
 onMounted(() => {
@@ -136,6 +143,23 @@ const ShipmentCostItemsLeftText = computed(() => {
 
   return `Możesz dodać do przesyłki jeszcze ${itemsLeft} ${props.item.unit_commercial} tego produktu aby uniknąć dodatkowych kosztów`;
 });
+
+const fastAddToCart = () => {
+  let cart: any = new Cart();
+  cart.init();
+  const cartInstance = cart;
+  cart = cart.products;
+
+  const { cart: _cart, ...product } = props.item;
+  cartInstance.addToCart(product, fastAddToCartValue.value);
+
+  // add sucess message flag to locationquery
+  const url = new URL(window.location.href);
+  url.searchParams.set("fastAddToCart", "true");
+  window.history.replaceState({}, "", url.toString());
+
+  window.location.reload();
+};
 </script>
 
 <template>
@@ -196,6 +220,28 @@ const ShipmentCostItemsLeftText = computed(() => {
             >
               Kalkulator cenowy
             </button>
+
+            <form @submit.prevent="fastAddToCart" class="text-lg">
+              Szybkie dodawanie do koszyka:
+              <br>
+              <div class="flex w-fit items-center">
+                <span class="text-6xl px-3" @click="fastAddToCartValue--">
+                  -
+                </span>
+
+                <input type="number" v-model="fastAddToCartValue" class="border mt-4 text-center w-[80%]">
+
+                <span @click="fastAddToCartValue++" class="text-6xl px-3">
+                  +
+                </span>
+              </div>
+              <br>
+
+              <br>
+              <SubmitButton class="mt-4">
+                Dodaj do koszyka
+              </SubmitButton>
+            </form>
           </div>
         </div>
 

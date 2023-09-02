@@ -3,6 +3,7 @@ import findActiveMenu from "~~/helpers/findActiveMenu";
 import { defaultImgSrc } from "~~/helpers/buildImgRoute";
 import { Modal, ModalOptions } from "flowbite";
 import Cookies from "universal-cookie";
+import swal from "sweetalert2";
 
 const { $shopApi: shopApi, $buildImgRoute: buildImgRoute } = useNuxtApp();
 
