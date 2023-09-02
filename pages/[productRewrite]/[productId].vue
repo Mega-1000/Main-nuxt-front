@@ -4,6 +4,7 @@ import { defaultImgSrc } from "~~/helpers/buildImgRoute";
 import { Modal, ModalOptions } from "flowbite";
 import Cookies from "universal-cookie";
 import swal from "sweetalert2";
+import emmiter from "~/helpers/emitter";
 
 const { $shopApi: shopApi, $buildImgRoute: buildImgRoute } = useNuxtApp();
 
@@ -119,7 +120,7 @@ const handleCart = () => {
   productsCart.value.addToCart(product, productAmount.value);
   modal.value?.hide();
 
-  window.dispatchEvent(new CustomEvent("foo-key-localstorage-changed"));
+  emmiter.emit("cart:change");
 };
 
 let emailInput = "";

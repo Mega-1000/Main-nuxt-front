@@ -95,6 +95,10 @@ const toggleMenu = () => {
             </label>
           </div>
         </NuxtLink>
+
+        <div>
+          <NavbarShipmentCostTable />
+        </div>
       </div>
     </div>
   </nav>

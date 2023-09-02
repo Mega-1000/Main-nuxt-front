@@ -36,7 +36,7 @@ onBeforeMount(() => {
 onMounted(() => {
   props.setupModals();
 
-  window.addEventListener('foo-key-localstorage-changed', () => {
+  window.addEventListener('cart:change', () => {
     computedReload.value = !computedReload.value;
 
     const cart = new Cart();
@@ -141,7 +141,7 @@ const ShipmentCostItemsLeftText = computed(() => {
     itemsLeft = itemPackageQuantity;
   }
 
-  return `Możesz dodać do przesyłki jeszcze ${itemsLeft} ${props.item.unit_commercial} tego produktu aby uniknąć dodatkowych kosztów`;
+  return `Możesz dodać do przesyłki jeszcze ${itemsLeft} ${props.item.unit_commercial} tego produktu aby uzupełnić do pełna paczkę i nie ponosić dodatkowych kosztów transportu.`;
 });
 
 const fastAddToCart = () => {
@@ -153,7 +153,6 @@ const fastAddToCart = () => {
   const { cart: _cart, ...product } = props.item;
   cartInstance.addToCart(product, fastAddToCartValue.value);
 
-  // add sucess message flag to locationquery
   const url = new URL(window.location.href);
   url.searchParams.set("fastAddToCart", "true");
   window.history.replaceState({}, "", url.toString());

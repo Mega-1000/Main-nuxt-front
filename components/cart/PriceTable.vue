@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import DynamicCalculator from "~~/utils/DynamicCalculator";
+import emmiter from "~/helpers/emitter";
 
 const props = defineProps<{
   product: any;
@@ -278,6 +279,8 @@ const handleChange = (event: any) => {
   blurChange.value = true;
   state.value[event.target.name] = event.target.value.replace(",", ".");
   blurChange.value = false;
+
+  emmiter.emit("cart:change");
 };
 
 const handleBlur = (event: any) => {
@@ -310,6 +313,8 @@ const handleBlur = (event: any) => {
     resp!.selectedConsumption
   ).toFixed(2);
   props.handleProductAmount(resp!.selectedCommercial);
+
+  emmiter.emit("cart:change");
 };
 </script>
 
