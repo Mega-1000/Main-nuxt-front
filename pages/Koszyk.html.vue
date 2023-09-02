@@ -5,6 +5,7 @@ import transportPrice from "~~/helpers/transportPrice";
 import Cart from "~~/utils/Cart";
 import Swal from "sweetalert2";
 import shipmentCostBruttoFn from "~/helpers/ShipmentCostCalculator";
+import emitter from "~/helpers/emitter";
 
 const { query } = useRoute();
 
@@ -132,6 +133,8 @@ onMounted(async () => {
 const handleDelete = async () => {
   productsCart.value.init();
   await getPackagesNumber(productsCart.value);
+
+  emitter.emit("cart:change");
 };
 const updateAmount = (productId: number, value: string | number) => {
   const idx = productsCart.value.getIdxByProductId(productId);
@@ -305,10 +308,6 @@ const createChat = async (redirect: boolean) => {
 };
 </script>
 <template>
-  <div class="fixed right-5 p-[15px] bg-blue-400 rounded-lg">
-    Przewidywany koszt wysyłki: {{ shipmentCostBrutto }} zł
-  </div>
-
   <div class="flex">
     <div>
       <Sidebar class="h-fit flex flex-col justify-center mt-30 w-fit" :categories="categories" />
@@ -768,3 +767,29 @@ const createChat = async (redirect: boolean) => {
     </div>
   </div>
 </template>
+
+<style>
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+tr:hover {
+  background-color: #ccc;
+}
+</style>

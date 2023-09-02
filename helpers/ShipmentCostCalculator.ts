@@ -1,5 +1,4 @@
 const shipmentCostBrutto = (items: any) => {
-    let finalPrice = 0;
     let GLSks = 0;
     let GLSkd = 0;
     let DPDd = 0;
