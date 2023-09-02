@@ -4,10 +4,19 @@
   const cart = ref();
   const table = ref({});
   const total = ref(0);
+  const showBox = ref(localStorage.getItem('showBox') === 'true');
 
   onMounted(() => {
+    if (localStorage.getItem('showBox') === null) {
+      localStorage.setItem('showBox', 'true');
+    }
+
     init();
     window.addEventListener('cart:change', () => init());
+  });
+
+  watch(showBox, (val) => {
+    localStorage.setItem('showBox', val.toString());
   });
 
   const init = () => {
@@ -43,109 +52,114 @@
 
 <template>
   <div class="ml-4 fixed z-10 rounded-lg p-4 bg-gray-50">
-    <div>
-      Kosty dostawy:
-    </div>
+    <transition name="fade" mode="out-in">
+      <div v-if="showBox">
+        <div>
+          Kosty dostawy:
+        </div>
 
-    <table class="table-auto">
-      <thead>
+        <table class="table-auto">
+          <thead>
+          <tr>
+            <th></th>
+            <th></th>
+            <th style="border-left: 2px solid black" colspan="2" class="text-center">
+              Dłużyca
+            </th>
+          </tr>
+          <tr>
+            <td>
+              Kurier
+            </td>
 
-      <tr>
-        <th></th>
-        <th></th>
-        <th style="border-left: 2px solid black" colspan="2" class="text-center">
-          Dłużyca
-        </th>
-      </tr>
-      <tr>
-        <td>
-          Ilość
-        </td>
+            <td v-for="(v, k) in table">
+              {{ k }}
+            </td>
+          </tr>
+          </thead>
 
-        <td v-for="(v, k) in table">
-          {{ k }}
-        </td>
-      </tr>
-      </thead>
+          <tbody>
+            <tr>
+              <td>
+                Ilość paczek
+              </td>
 
-      <tbody>
-        <tr>
-          <td>
-            paczek
-          </td>
+              <td>
+                {{ Math.round(table.GLS * 100) / 100 }}
+              </td>
 
-          <td>
-            {{ Math.round(table.GLS * 100) / 100 }}
-          </td>
+              <td>
+                {{ Math.round(table.GLs * 100) / 100 }}
+              </td>
 
-          <td>
-            {{ Math.round(table.GLs * 100) / 100 }}
-          </td>
+              <td>
+                {{ Math.round(table.DPD * 100) / 100 }}
+              </td>
+            </tr>
 
-          <td>
-            {{ Math.round(table.DPD * 100) / 100 }}
-          </td>
-        </tr>
+            <tr>
+              <td>
+                po zaokrlągl.
+              </td>
 
-        <tr>
-          <td>
-            paczek po zaokrlągl.
-          </td>
+              <td>
+                {{ Math.ceil(table.GLS) }}
+              </td>
 
-          <td>
-            {{ Math.ceil(table.GLS) }}
-          </td>
+              <td>
+                {{ Math.ceil(table.GLs) }}
+              </td>
 
-          <td>
-            {{ Math.ceil(table.GLs) }}
-          </td>
+              <td>
+                {{ Math.ceil(table.DPD) }}
+              </td>
+            </tr>
 
-          <td>
-            {{ Math.ceil(table.DPD) }}
-          </td>
-        </tr>
+            <tr>
+              <td>
+                Cena w PLN
+              </td>
 
-        <tr>
-          <td>
-            Cena
-          </td>
+              <td>
+                18
+              </td>
 
-          <td>
-            18
-          </td>
+              <td>
+                18
+              </td>
 
-          <td>
-            18
-          </td>
+              <td>
+                48
+              </td>
+            </tr>
 
-          <td>
-            48
-          </td>
-        </tr>
+            <tr>
+              <td>
+                Warość w PLN
+              </td>
 
-        <tr>
-          <td>
-            Warość
-          </td>
+              <td>
+                {{ Math.ceil(table.GLS) * 18 }}
+              </td>
 
-          <td>
-            {{ Math.ceil(table.GLS) * 18 }}
-          </td>
+              <td>
+                {{ Math.ceil(table.GLs) * 18 }}
+              </td>
 
-          <td>
-            {{ Math.ceil(table.GLs) * 18 }}
-          </td>
+              <td>
+                {{ Math.ceil(table.DPD) * 48 }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
 
-          <td>
-            {{ Math.ceil(table.DPD) * 48 }}
-          </td>
-        </tr>
-      </tbody>
-    </table>
+        <div class="mt-4">
+          <b>Suma:</b> {{ total }} zł
+        </div>
+      </div>
+    </transition>
 
-    <div class="mt-4">
-      <b>Suma:</b> {{ total }} zł
-    </div>
+    <button @click="showBox = !showBox">{{ showBox ? 'ZAMKNIJ TABELĘ' : 'Otwórz tabelę kosztów transportu' }}</button>
   </div>
 </template>
 
@@ -158,5 +172,13 @@ td:nth-last-child(-n+1) {
 
 td:nth-last-child(2) {
   border-left: 2px solid black;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.5s;
+}
+
+.fade-enter, .fade-leave-to {
+  opacity: 0;
 }
 </style>
