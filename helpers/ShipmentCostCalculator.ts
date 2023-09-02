@@ -17,6 +17,7 @@ const shipmentCostBrutto = (items: any) => {
                 DPDd += item.amount / item.assortment_quantity;
                 break;
         }
+        console.log(GLSks, GLSkd, DPDd)
 
         finalPrice += Math.ceil(GLSkd) * 18 + Math.ceil(GLSks) * 18 + Math.ceil(DPDd) * 48;
     });
