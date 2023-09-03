@@ -306,7 +306,22 @@ const createChat = async (redirect: boolean) => {
     );
   }, 500);
 };
+
+const ShipmentCostItemsLeftText = (product: any) => {
+  const itemPackageQuantity = product.assortment_quantity;
+  let itemsLeft;
+
+  if (productsCart.value.products.length > 0) {
+    const itemsQuantity = Math.round((productsCart.value.products.reduce((acc: any, item: any) => acc + item.amount / item.assortment_quantity, 0) % 1) * 100) / 100;
+    itemsLeft = Math.floor((1 - itemsQuantity) / (1 / itemPackageQuantity));
+  } else {
+    itemsLeft = itemPackageQuantity;
+  }
+
+  return `Możesz dodać do przesyłki jeszcze ${itemsLeft} ${product.unit_commercial} tego produktu aby uzupełnić do pełna paczkę i nie ponosić dodatkowych kosztów transportu.`;
+};
 </script>
+
 <template>
   <div class="flex">
     <div>
@@ -349,7 +364,7 @@ const createChat = async (redirect: boolean) => {
               Usuń wszystko
             </button>
 
-            <div v-for="product in productsCart.products" class="max-w-[100vw]">
+            <div v-for="product in productsCart.products" class="max-w-[100vw]" v-tooltip.auto-start="ShipmentCostItemsLeftText(product)">>
               <div
                 class="relative flex flex-col md:flex-row md:space-x-5 space-y-3 md:space-y-0 rounded-xl shadow-lg p-3 max-w-7xl mx-auto border border-white bg-white">
                 <div class="w-full md:w-1/3 bg-white grid place-items-start md:max-w-2xl">
@@ -382,9 +397,8 @@ const createChat = async (redirect: boolean) => {
                   <h3 class="font-black text-gray-800 md:text-2xl text-xl">
                     {{ product.name }}
                   </h3>
-                  <CartPriceTable class="w-full pb-10" :product="product" :handle-product-amount="
-                    (val) => updateAmount(product.id, val)
-                  " />
+
+                  <CartPriceTable class="w-full pb-10" :product="product" :handle-product-amount="(val) => updateAmount(product.id, val)" />
                 </div>
               </div>
             </div>

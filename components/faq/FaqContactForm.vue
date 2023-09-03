@@ -92,7 +92,7 @@ user.value = userData.value;
 
     <div v-if="didClientGotAnswer === false">
       <div class="mt-6 text-2xl font-semibold">
-        Nie uzyskałem odpowiedzi na swoje pytanie.
+        Opisz problem i wyślij wiadomość do naszego zespołu (skontaktujemy się z tobą).
       </div>
       <textarea v-model="message" class="w-[100%]" />
       <SubmitButton @click.prevent="sendMessage">
