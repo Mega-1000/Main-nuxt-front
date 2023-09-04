@@ -20,9 +20,9 @@ const calculatePackages = (products: any[]): Package => {
     });
 
     return {
-        GLSks: Math.ceil(GLSks),
-        GLSkd: Math.ceil(GLSkd),
-        DPDd: Math.ceil(DPDd)
+        GLSks: GLSks,
+        GLSkd: GLSkd,
+        DPDd: DPDd
     }
 }
 
