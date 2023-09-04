@@ -30,7 +30,7 @@ const { data: banks } = await useAsyncData(async () => {
   } catch (err) {}
 });
 
-const accountNumber = "73 1140 2004 0000 3902 7979 8406";
+const accountNumber = "28 1140 2004 0000 3802 8205 1023";
 const adress = `ELEKTRONICZNA PLATFORMA HANDLOWA SP. Z O.O.`;
 
 const handleBank = (newBank: any) => {
