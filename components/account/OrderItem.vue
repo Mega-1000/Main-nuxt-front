@@ -16,6 +16,7 @@ const defaultError = "Wystąpil błąd. Spróbuj ponownie później";
 
 const editCart = (items: any[]) => {
   productsCart.value.removeAllFromCart();
+
   items.map((product) => {
     const prodPacking = product.product.packing;
     const prodPrice = product.product.price;
@@ -34,6 +35,7 @@ const editCart = (items: any[]) => {
     };
     productsCart.value.addToCart(productFinal, productFinal.quantity);
   });
+
   router.push("/koszyk.html");
 };
 

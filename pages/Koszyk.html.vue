@@ -72,7 +72,8 @@ onBeforeMount(async () => {
 
   if (query && !query?.notReload) {
     setTimeout(() => window.location.reload(), 1000);
-    router.push(`/koszyk.html?cart_token=${cart_token}&notReload=true`);
+    const redirectString = cart_token ? `/koszyk.html?cart_token=${cart_token}&notReload=true` : "/koszyk.html?notReload=true";
+    router.push(redirectString);
   }
 });
 
