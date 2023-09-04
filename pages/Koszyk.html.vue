@@ -6,6 +6,7 @@ import Cart from "~~/utils/Cart";
 import Swal from "sweetalert2";
 import shipmentCostBruttoFn from "~/helpers/ShipmentCostCalculator";
 import emitter from "~/helpers/emitter";
+import ShipmentCostCalculator from "~/helpers/PackageCalculator";
 
 const { query } = useRoute();
 
@@ -71,7 +72,6 @@ onBeforeMount(async () => {
 
   if (query && !query?.notReload) {
     setTimeout(() => window.location.reload(), 1000);
-    //add timeout to prevent double reload
     router.push(`/koszyk.html?cart_token=${cart_token}&notReload=true`);
   }
 });
@@ -205,6 +205,7 @@ const handleSubmit = async (e: Event | null) => {
     rewrite: 0,
     need_support: true,
     update_email: true,
+    packages: ShipmentCostCalculator(productsCart.value.products),
   };
 
   try {
@@ -279,11 +280,6 @@ const createChat = async (redirect: boolean) => {
   const data = await handleSubmit(null);
   loading.value = false;
 
-  if (data.canPay) router.push(`/payment?token=${data.token}`);
-  else router.push("/thanks");
-
-  if (!redirect) return;
-
   if (!getToken() && data.newAccount) {
     await Swal.fire('', `<span style="text-align: left; ">Informujemy że założyliśmy Państwu konto na naszej stronie na którym po zalogowaniu można :<br>
         <br>
@@ -299,12 +295,7 @@ const createChat = async (redirect: boolean) => {
     </span>`, 'info');
   }
 
-  setTimeout(async () => {
-    window.open(
-        `${config.baseUrl}/chat/${data.chatUserToken}`,
-        "_blank"
-    );
-  }, 500);
+  router.push(`/payment?token=${data.token}`);
 };
 
 const ShipmentCostItemsLeftText = (product: any) => {

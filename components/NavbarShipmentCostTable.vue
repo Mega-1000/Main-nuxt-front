@@ -1,5 +1,6 @@
 <script lang="ts" setup>
   import ShipmentCostCalculatorFn from "~/helpers/ShipmentCostCalculator";
+  import PackageCalculator from "~/helpers/PackageCalculator";
 
   const cart = ref();
   const table = ref({});
@@ -23,23 +24,7 @@
     cart.value = new Cart();
     cart.value.init();
 
-    let GLSks = 0;
-    let GLSkd = 0;
-    let DPDd = 0;
-
-    cart.value.products.forEach((item: any) => {
-      switch(item.delivery_type) {
-        case 'GLS':
-          GLSks += item.amount / item.assortment_quantity;
-          break;
-        case 'GLSd':
-          GLSkd += item.amount / item.assortment_quantity;
-          break;
-        case 'DPDd':
-          DPDd += item.amount / item.assortment_quantity;
-          break;
-      }
-    });
+    const { GLSks, GLSkd, DPDd } = PackageCalculator(cart.value.products);
 
     total.value = ShipmentCostCalculatorFn(cart.value.products)
     table.value = {
