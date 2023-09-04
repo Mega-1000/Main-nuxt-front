@@ -210,7 +210,6 @@ const handleSubmit = async (e: Event | null) => {
 
   try {
     const res = await shopApi.post("/api/new_order", params);
-    productsCart.value.removeAllFromCart();
     return res.data;
   } catch (err: any) {
     errorText2.value = err.response.data.error_message || "Wystąpił błąd";
@@ -277,7 +276,7 @@ const canBeSubmitted = computed(() => {
 
 const createChat = async (redirect: boolean) => {
   loading.value = true;
-  const data = await handleSubmit(null);
+  const data =  await handleSubmit(null);
   loading.value = false;
 
   if (!getToken() && data.newAccount) {
@@ -295,7 +294,8 @@ const createChat = async (redirect: boolean) => {
     </span>`, 'info');
   }
 
-  router.push(`/payment?token=${data.token}`);
+  setTimeout(() =>  productsCart.value.removeAllFromCart(), 100)
+  router.push(`/payment?token=${data.token}&total=${(parseFloat(productsCart.value.grossPrice()) + shipmentCostBrutto.value).toFixed(2)}`);
 };
 
 const ShipmentCostItemsLeftText = (product: any) => {

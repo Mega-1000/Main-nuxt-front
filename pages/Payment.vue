@@ -31,7 +31,7 @@ const { data: banks } = await useAsyncData(async () => {
 });
 
 const accountNumber = "73 1140 2004 0000 3902 7979 8406";
-const adress = `ELEKTRONICZNA PLATFORMA HANDLOWA 55-200 OŁAWA`;
+const adress = `ELEKTRONICZNA PLATFORMA HANDLOWA SP. Z O.O.`;
 
 const handleBank = (newBank: any) => {
   bank.value = newBank;
@@ -57,15 +57,15 @@ const handleClick = () => {
       </p>
       <p class="text-md md:text-xl font-md">
         Aby dokonać płatności przelej kwotę:
-        <span class="font-bold">{{ paymentData?.totalPrice }}</span>
+        <span class="font-bold">{{ $route.query.total }}</span>
       </p>
       <p class="text-md md:text-xl">
         na konto bankowe: <span class="font-bold">{{ accountNumber }}</span>
       </p>
       <p class="text-md md:text-xl">
-        W tytule przelewu wpisz:
+        W tytule przelewu wpisz tylko:
         <span class="font-bold"
-          >PLATNOSC OFERTA: QQ{{ paymentData?.id }}QQ</span
+          >QQ{{ paymentData?.id }}QQ</span
         >
       </p>
       <p class="text-md md:text-xl">
