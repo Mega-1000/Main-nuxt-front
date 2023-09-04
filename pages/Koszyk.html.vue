@@ -458,173 +458,6 @@ const ShipmentCostItemsLeftText = (product: any) => {
 
           <hr />
 
-          <div v-if="
-            state?.packages &&
-            (state?.packages.packages.length > 0 ||
-              state?.packages.transport_groups.length > 0 ||
-              state?.packages.not_calculated.length > 0)
-          " class="max-w-full sm:max-w-3xl md:max-w-4xl lg:max-w-5xl overflow-x-auto">
-              <table class="text-sm text-left text-black w-full">
-                <thead class="text-xs text-gray-700 uppercase bg-gray-50">
-                  <tr>
-                    <th scope="col" class="lg:px-6 lg:py-3 py-1 px-2">
-                      Rodzaj przesyłki
-                    </th>
-                    <th scope="col" class="lg:px-6 lg:py-3 py-1 px-2">Towar</th>
-                    <th scope="col" class="lg:px-6 lg:py-3 py-1 px-2">Ilość</th>
-                    <!--price for one unit-->
-                    <th scope="col" class="lg:px-6 lg:py-3 py-1 px-2">
-                      Cena netto
-                    </th>
-                    <th scope="col" class="lg:px-6 lg:py-3 py-1 px-2">
-                      Cena brutto
-                    </th>
-                    <th scope="col" class="lg:px-6 lg:py-3 py-1 px-2">
-                      Wartość netto
-                    </th>
-                    <th scope="col" class="lg:px-6 lg:py-3 py-1 px-2">
-                      Wartość brutto
-                    </th>
-                    <th scope="col" class="lg:px-6 lg:py-3 py-1 px-2">Waga</th>
-                    <th scope="col" class="lg:px-6 lg:py-3 py-1 px-2">
-                      Cena przesyłki
-                    </th>
-                  </tr>
-                </thead>
-
-                <tbody>
-                  <template v-for="item in state?.packages.transport_groups">
-                    <tr v-for="(product, i) in item.items" class="bg-white border-b">
-                      <td v-if="i === 0" :rowspan="item.items.length" class="lg:px-6 lg:py-3 py-1 px-2">
-                        {{ item.displayed_group_name }}
-                      </td>
-                      <td class="lg:px-6 lg:py-3 py-1 px-2">
-                        {{ product.name }}
-                      </td>
-                      <td class="lg:px-6 lg:py-3 py-1 px-2">
-                        {{ product.quantity }}
-                      </td>
-                      <td class="lg:px-6 lg:py-3 py-1 px-2">
-                        {{ product.price.net_purchase_price_commercial_unit }}
-                      </td>
-                      <td class="lg:px-6 lg:py-3 py-1 px-2">
-                        {{ product.price.gross_price_of_packing }}
-                      </td>
-                      <td class="lg:px-6 lg:py-3 py-1 px-2">
-                        {{
-                          (
-                            product.price.net_purchase_price_commercial_unit *
-                            product.quantity
-                          ).toFixed(2)
-                        }}
-                      </td>
-                      <td class="lg:px-6 lg:py-3 py-1 px-2">
-                        {{
-                          (
-                            product.price.gross_price_of_packing *
-                            product.quantity
-                          ).toFixed(2)
-                        }}
-                      </td>
-                      <td class="lg:px-6 lg:py-3 py-1 px-2">
-                        {{
-                          (product.weight_trade_unit * product.quantity).toFixed(
-                            2
-                          )
-                        }}
-                      </td>
-                      <td v-if="i === 0" :rowspan="item.items.length" class="lg:px-6 lg:py-3 py-1 px-2">
-                        {{ item.transport_price }}
-                      </td>
-                    </tr>
-                  </template>
-
-                  <template v-for="item in state?.packages.packages">
-                    <tr v-for="(product, i) in item.type
-                      ? prepareSpecialProducts(item)
-                      : item.productList" class="bg-white border-b">
-                      <td v-if="i === 0" :rowspan="
-                        item.type
-                          ? prepareSpecialProducts(item).length
-                          : item.productList.length
-                      " class="lg:px-6 lg:py-3 py-1 px-2">
-                        {{ item.displayed_name }}
-                      </td>
-                      <td class="lg:px-6 lg:py-3 py-1 px-2">
-                        {{ product.name }}
-                      </td>
-                      <td class="lg:px-6 lg:py-3 py-1 px-2">
-                        {{ product.quantity }}
-                      </td>
-                      <td class="lg:px-6 lg:py-3 py-1 px-2">
-                        {{
-                          (
-                            product.price.net_purchase_price_commercial_unit *
-                            product.quantity
-                          ).toFixed(2)
-                        }}
-                      </td>
-                      <td class="lg:px-6 lg:py-3 py-1 px-2">
-                        {{
-                          (
-                            product.price.gross_price_of_packing *
-                            product.quantity
-                          ).toFixed(2)
-                        }}
-                      </td>
-                      <td class="lg:px-6 lg:py-3 py-1 px-2">
-                        {{
-                          (product.weight_trade_unit * product.quantity).toFixed(
-                            2
-                          )
-                        }}
-                      </td>
-                      <td v-if="i === 0" :rowspan="
-                        item.type
-                          ? prepareSpecialProducts(item).length
-                          : item.productList.length
-                      " class="lg:px-6 lg:py-3 py-1 px-2">
-                        {{ item.price }}
-                      </td>
-                    </tr>
-                  </template>
-
-                  <tr v-for="(product, i) in state?.packages.not_calculated" class="bg-white border-b">
-                    <td v-if="i === 0" :rowspan="state.packages.not_calculated.length" class="lg:px-6 lg:py-3 py-1 px-2">
-                      Nie można wyznaczyć paczek
-                    </td>
-                    <td class="lg:px-6 lg:py-3 py-1 px-2">{{ product.name }}</td>
-                    <td class="lg:px-6 lg:py-3 py-1 px-2">
-                      {{ product.quantity }}
-                    </td>
-                    <td class="lg:px-6 lg:py-3 py-1 px-2">
-                      {{
-                        (
-                          product.price.net_purchase_price_commercial_unit *
-                          product.quantity
-                        ).toFixed(2)
-                      }}
-                    </td>
-                    <td class="lg:px-6 lg:py-3 py-1 px-2">
-                      {{
-                        (
-                          product.price.gross_price_of_packing * product.quantity
-                        ).toFixed(2)
-                      }}
-                    </td>
-                    <td class="lg:px-6 lg:py-3 py-1 px-2">
-                      {{
-                        (product.weight_trade_unit * product.quantity).toFixed(2)
-                      }}
-                    </td>
-                    <td v-if="i === 0" :rowspan="state?.packages.not_calculated.length" class="lg:px-6 lg:py-3 py-1 px-2">
-                      ---
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <hr />
             <div class="flex justify-between">
               <p class="text-2xl font-md">Łączne zamówienie</p>
               <div>
@@ -654,8 +487,6 @@ const ShipmentCostItemsLeftText = (product: any) => {
               </p>
             </div>
 
-            <CartDeliveryCostContact :disabled="!canBeSubmitted" @create-chat="createChat($event)" :loading="loading" />
-
             <hr />
             <div class="flex justify-between">
               <p class="text-2xl font-md">Łączna waga</p>
@@ -674,7 +505,7 @@ const ShipmentCostItemsLeftText = (product: any) => {
         ">
           <div
             class="w-screen max-w-sm md:max-w-md md:max-w-2xl xl:max-w-4xl p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8">
-            <form class="space-y-6" @submit="handleSubmit">
+            <form class="space-y-6" @submit.prevent="createChat">
               <div>
                 <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Email</label>
                 <input type="email" name="email" id="email"
@@ -742,15 +573,10 @@ const ShipmentCostItemsLeftText = (product: any) => {
               <p class="mt-2 text-sm text-red-600">
                 {{ errorText2 }}
               </p>
-              <!-- <button
-                    class="w-full text-white bg-cyan-400 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-                    :disabled="loading" type="submit">
-                    Prześlij do zapytania o darmowy transport (do niczego nie
-                    zobowiązuje)<span v-if="
-                      state?.packages && state.packages.not_calculated.length === 0
-                    ">
-                      lub zapłać</span>
-                  </button> -->
+              <SubmitButton
+                :disabled="loading" type="submit">
+                Zatwierdź
+              </SubmitButton>
             </form>
           </div>
         </div>
