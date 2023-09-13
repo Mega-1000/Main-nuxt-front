@@ -192,7 +192,7 @@ const fastAddToCart = () => {
 
           <span class="md:text-lg text-gray-500 text-base">
             <span v-if="isStaff">opis: </span>
-            <div v-if="!isStaff" v-html="item.description.replaceAll('\n', '<br />')"></div>
+            <div v-if="!isStaff" v-html="item?.description?.replaceAll('\n', '<br />')"></div>
             <textarea class="block h-[200px]" v-else @input="saveDescription" v-model="item.description">{{ item.description }}</textarea>
           </span>
 
