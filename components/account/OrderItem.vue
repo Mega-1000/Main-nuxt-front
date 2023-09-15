@@ -170,17 +170,15 @@ const markOfferAsInactive = async () => {
         Potwierdzenie przelewu podłączone - zapłacono
       </button>
 
-      <template>
-        <a is="button" :href="`${config.baseUrl}/order-proform-pdf/${item.order_offers[0]?.id}`"
-           class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mx-3 font-semibold">
-          Faktura proforma
-        </a>
+      <a is="button" :href="`${config.baseUrl}/order-proform-pdf/${item.order_offers[0]?.id}`"
+         class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mx-3 font-semibold">
+        Faktura proforma
+      </a>
 
-        <a is="button" target="_blank" :href="`${config.baseUrl}/order-offer-pdf/${item.order_offers[0]?.id}`"
-           class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mx-3 font-semibold" v-if="!isVisiblitityLimited">
-          Opis oferty
-        </a>
-      </template>
+      <a is="button" target="_blank" :href="`${config.baseUrl}/order-offer-pdf/${item.order_offers[0]?.id}`"
+         class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mx-3 font-semibold" v-if="!isVisiblitityLimited">
+        Opis oferty
+      </a>
 
       <accountActionButton :target="undefined" href="" type="button" @click="editCart(item.items)">
         Edytuj zamówienie
