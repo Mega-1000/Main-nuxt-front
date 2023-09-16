@@ -55,6 +55,12 @@ const handleClick = () => {
         Jeśli potrzebujesz się skontaktować zaloguj się i wejdź w zakładkę "Moje
         Konto" (domyślnie nr telefonu jest hasłem)
       </p>
+      <p>
+        Zaloguj się na swoim koncie aby
+        - sprawdzić/skorygować dane do dostawy i faktury i daty logistyczne
+        - podpiąć potwierdznie przelwu w przypadku gdy zależy ci na szybkiej wysyłce
+        - sprawdzic po nadaniu nr listów przewozowych oraz ich status
+      </p>
       <p class="text-md md:text-xl font-md">
         Aby dokonać płatności przelej kwotę:
         <span class="font-bold">{{ $route.query.total }}</span>
