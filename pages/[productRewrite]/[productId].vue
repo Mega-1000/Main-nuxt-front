@@ -3,7 +3,6 @@ import findActiveMenu from "~~/helpers/findActiveMenu";
 import { defaultImgSrc } from "~~/helpers/buildImgRoute";
 import { Modal, ModalOptions } from "flowbite";
 import Cookies from "universal-cookie";
-import swal from "sweetalert2";
 import emmiter from "~/helpers/emitter";
 
 const { $shopApi: shopApi, $buildImgRoute: buildImgRoute } = useNuxtApp();
@@ -50,7 +49,7 @@ const { data: categoryData, pending: pending2 } = await useAsyncData(
 const { data: itemsData, pending: pending3 } = await useAsyncData(
   async () => {
     try {
-      let currentPage = parseInt(page.value as any);
+      const currentPage = query?.page as string ?? 1;
       const res = await shopApi.get(
         `/api/products/categories/get?page=${currentPage}&per_page=10&category_id=${productId}`
       );
@@ -161,8 +160,19 @@ const handleSubmit = async (e: Event) => {
   }
 };
 
-const goToPage = (val: number) => {
+const router = useRouter();
+
+const goToPage = async (val: number) => {
   page.value = val;
+
+  await router.push({
+    query: {
+      ...query,
+      page: val,
+    },
+  });
+
+  window.location.reload();
   window.scrollTo(0, 0);
 };
 </script>
