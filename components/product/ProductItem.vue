@@ -159,6 +159,12 @@ const fastAddToCart = () => {
 
   window.location.reload();
 };
+
+const decreaseFastAddToCartValue = () => {
+  if (fastAddToCartValue.value > 0) {
+    fastAddToCartValue.value--;
+  }
+};
 </script>
 
 <template>
@@ -224,7 +230,7 @@ const fastAddToCart = () => {
               Szybkie dodawanie do koszyka:
               <br>
               <div class="flex w-fit items-center">
-                <span class="text-6xl px-3" @click="fastAddToCartValue--">
+                <span class="text-6xl px-3" @click="decreaseFastAddToCartValue">
                   -
                 </span>
 
