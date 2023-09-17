@@ -1,4 +1,4 @@
-`<script setup lang="ts">
+<script setup lang="ts">
 import findActiveMenu from "~~/helpers/findActiveMenu";
 import { defaultImgSrc } from "~~/helpers/buildImgRoute";
 import { Modal, ModalOptions } from "flowbite";
