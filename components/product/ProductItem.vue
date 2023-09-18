@@ -101,7 +101,7 @@ const daysOfStock = computed(() => {
 const daysOfStockText = computed(() => {
   const days = daysOfStock.value;
 
-  if (localStorage.getItem('admin') == 'true') {
+  if (localStorage.getItem('isAdmin') == 'true') {
     return props.item.stock.quantity;
   }
 
