@@ -167,7 +167,6 @@ const goToPage = async (val: number) => {
 
   await router.push({
     query: {
-      ...query,
       page: val,
     },
   });
