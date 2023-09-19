@@ -215,9 +215,6 @@ const decreaseFastAddToCartValue = () => {
             <div class="mt-4 text-lg">
               <div :class="daysOfStockColor">
                 {{ daysOfStockText }}
-                {{ daysOfStock }}
-                {{ item.stock.quantity }}
-                {{ (props.item.selledInLastWeek === 0 ? 1 : props.item.selledInLastWeek) * 7 }}
               </div>
             </div>
             <button
