@@ -105,15 +105,14 @@ const daysOfStockText = computed(() => {
     return props.item.stock.quantity;
   }
 
-  switch (days) {
-    case 2:
-      return "Bardzo mały stan magazynowy";
-    case 7:
-      return "Mały stan magazynowy";
-    case 14:
-      return "Duży stan magazynowy";
-    default:
-      return "Bardzo duży stan magazynowy";
+  if (days < 2) {
+    return "Bardzo mały stan magazynowy";
+  } else if (days < 7) {
+    return "Mały stan magazynowy";
+  } else if (days < 14) {
+    return "Duży stan magazynowy";
+  } else {
+    return "Bardzo duży stan magazynowy";
   }
 });
 
