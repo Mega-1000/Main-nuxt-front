@@ -215,6 +215,7 @@ const decreaseFastAddToCartValue = () => {
             <div class="mt-4 text-lg">
               <div :class="daysOfStockColor">
                 {{ daysOfStockText }}
+                {{ daysOfStock }}
               </div>
             </div>
             <button
