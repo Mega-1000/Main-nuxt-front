@@ -95,7 +95,7 @@ const getPriceString = (priceType: any) => {
 };
 
 const daysOfStock = computed(() => {
-  return props.item.stock.quantity / props.item.selledInLastWeek * 7;
+  return props.item.stock.quantity / (props.item.selledInLastWeek === 0 ? 1 : props.item.selledInLastWeek) * 7;
 });
 
 const daysOfStockText = computed(() => {
@@ -216,6 +216,8 @@ const decreaseFastAddToCartValue = () => {
               <div :class="daysOfStockColor">
                 {{ daysOfStockText }}
                 {{ daysOfStock }}
+                {{ item.stock.quantity }}
+                {{ (props.item.selledInLastWeek === 0 ? 1 : props.item.selledInLastWeek) * 7 }}
               </div>
             </div>
             <button
