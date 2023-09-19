@@ -213,7 +213,7 @@ const decreaseFastAddToCartValue = () => {
             v-for="val in item.meta_price.split(`.`)"
           >
             {{ getPriceString(val) }}
-            <div class="mt-4 text-sm">
+            <div class="mt-4 text-lg">
               <div :class="daysOfStockColor">
                 {{ daysOfStockText }}
               </div>
