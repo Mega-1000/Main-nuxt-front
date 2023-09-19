@@ -205,7 +205,7 @@
     />
 
     <TextInput
-        label="Wartość produktu"
+        label="Wartość całej oferty"
         type="number"
         :value="form.productValue"
         @input="form.productValue = $event"
