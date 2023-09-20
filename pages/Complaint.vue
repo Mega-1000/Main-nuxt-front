@@ -1,6 +1,7 @@
 <script setup lang="ts">
   import Complaint from "~/pages/Complaint.vue";
   import { checkIfUserIsLoggedIn } from "~/helpers/authenticationCheck";
+  import swal from 'sweetalert2';
 
   interface Complaint {
     reason: string;
@@ -96,7 +97,11 @@
           "_blank"
       );
     } catch (error) {
-      console.log(error);
+        swal.fire({
+          icon: 'error',
+          title: 'Błąd',
+          text: 'Wypełnij wszystkie pola',
+        });
     } finally {
       processing.value = false;
     }
@@ -127,6 +132,7 @@
     formData.append('phoneOfPersonHandlingTheComplaint', form.phone?.toString());
     formData.append('emailOfPersonHandlingTheComplaint', form.email);
     formData.append('proposalOfTheClientsClaimOrSolutionToTheTopic', form.proposalOfTheClientsClaimOrSolutionToTheTopic);
+
     return formData;
   }
 </script>
