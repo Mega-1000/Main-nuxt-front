@@ -64,6 +64,7 @@ const sendMessage = async () => {
   await shopApi.post('/api/create-message', {
     message: message.value,
     user: user.value.id,
+    questionsTree: props.questionsTree,
   });
 
   await swal.fire('Dziękujemy za wiadomość!', 'Odpowiemy na nią najszybciej jak to możliwe.', 'success');

@@ -30,7 +30,7 @@
   const processing = ref<boolean>(false);
   const { $shopApi: shopApi } = useNuxtApp();
   const route = useRoute();
-  const image = ref();
+  const images = ref<FileList | null>(null);
   const avaibleReasons = [
     {
       label: 'zaginięcie przesyłki',
@@ -116,8 +116,10 @@
     formData.append('reason', form.reason);
     formData.append('date', form.dateTimeOfIssue);
 
-    if (image.value) {
-      formData.append('image', image.value);
+    if (images.value) {
+      for (let i = 0; i < images.value.length; i++) {
+        formData.append('images', images.value[i]); // Append each selected image
+      }
     }
 
     formData.append('driverPhone', form.driverPhone?.toString());
@@ -255,11 +257,11 @@
         Zdjęcie uszkodzonego towaru
       </label>
       <input
-        type="file"
-        id="image"
-        accept="image/*"
-        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-        @change="image = $event.target.files[0]"
+          type="file"
+          id="images"
+          multiple
+          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          @change="images = $event.target.files"
       />
     </div>
 

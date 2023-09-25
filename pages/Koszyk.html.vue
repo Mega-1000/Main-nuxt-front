@@ -7,6 +7,7 @@ import Swal from "sweetalert2";
 import shipmentCostBruttoFn from "~/helpers/ShipmentCostCalculator";
 import emitter from "~/helpers/emitter";
 import ShipmentCostCalculator from "~/helpers/PackageCalculator";
+import swal from "sweetalert2";
 
 const { query } = useRoute();
 
@@ -276,6 +277,49 @@ const canBeSubmitted = computed(() => {
 });
 
 const createChat = async (redirect: boolean) => {
+  let deliveryTypesErrors: any[] = [];
+  await productsCart.value.products.forEach((product) => {
+    // if (!product.delivery_type) {
+    deliveryTypesErrors.push(product);
+    // }
+  });
+
+  if (deliveryTypesErrors.length != 0) {
+    const alertText = 'Brak możliwości wyceny transportu produktów poniżej i jeżeli chcesz dokonać od razu zakupu to usuń je z koszyka.\n' +
+        'W przypadku gdy chcesz poznać wycenę wraz z transportem to wyślij a skontaktujemy się z tobą.';
+
+    const listOfProducts = deliveryTypesErrors.map((product) => {
+      return `<br>${product.name} - ${product.amount} szt.`
+    });
+
+
+    const confirmation = await swal.fire({
+      title: '',
+      html: `${alertText}<br />${listOfProducts}`,
+      icon: 'warning',
+      showCancelButton: true,
+      cancelButtonText: 'Wróć do koszyka i dokonaj usunięcia',
+      confirmButtonText: 'Wyślij do sprawdzenia kosztów transportu',
+    });
+
+    if (!confirmation.isConfirmed) {
+      return;
+    } else {
+      loading.value = true;
+      const data =  await handleSubmit(null);
+      loading.value = false;
+
+      swal.fire({
+        title: '',
+        html: 'Dziękujemy za wysłanie zapytania ofertowego. Wkrótce skontaktujemy się z Tobą.',
+        icon: 'success',
+        confirmButtonText: 'OK',
+      });
+
+      return;
+    }
+  }
+
   loading.value = true;
   const data =  await handleSubmit(null);
   loading.value = false;
@@ -296,7 +340,8 @@ const createChat = async (redirect: boolean) => {
   }
 
   setTimeout(() =>  productsCart.value.removeAllFromCart(), 100)
-  router.push(`/payment?token=${data.token}&total=${(parseFloat(productsCart.value.grossPrice()) + shipmentCostBrutto.value).toFixed(2)}`);
+
+  await router.push(`/payment?token=${data.token}&total=${(parseFloat(productsCart.value.grossPrice()) + shipmentCostBrutto.value).toFixed(2)}`);
 };
 
 const ShipmentCostItemsLeftText = (product: any) => {
