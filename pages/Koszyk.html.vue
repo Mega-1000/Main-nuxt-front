@@ -279,9 +279,9 @@ const canBeSubmitted = computed(() => {
 const createChat = async (redirect: boolean) => {
   let deliveryTypesErrors: any[] = [];
   await productsCart.value.products.forEach((product) => {
-    // if (!product.delivery_type) {
-    deliveryTypesErrors.push(product);
-    // }
+    if (!product.delivery_type) {
+      deliveryTypesErrors.push(product);
+    }
   });
 
   if (deliveryTypesErrors.length != 0) {
