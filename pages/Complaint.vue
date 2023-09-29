@@ -92,12 +92,13 @@
     try {
       const { data: response } = await shopApi.post(`api/createCustomerComplaintChat/${form.offerId}`, dataToFormObject());
 
-      window.open(
-          `${config.baseUrl}/chat/${response.chatUserToken}`,
-          "_blank"
-      );
+      await swal.fire(
+          'Formularz został wysłany',
+          'Dziękujemy za wypełnienie formularza',
+          'success'
+      )
     } catch (error) {
-        swal.fire({
+        await swal.fire({
           icon: 'error',
           title: 'Błąd',
           text: 'Wypełnij wszystkie pola',
