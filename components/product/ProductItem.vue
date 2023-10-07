@@ -206,7 +206,29 @@ const decreaseFastAddToCartValue = () => {
           </span>
         </h3>
 
-        <div v-if="item.meta_price">
+        <div v-if="item.meta_price" class="flex">
+          <form @submit.prevent="fastAddToCart" class="text-lg">
+            Szybkie dodawanie do koszyka:
+            <br>
+            <div class="flex w-fit items-center">
+                <span class="text-6xl px-3" @click="decreaseFastAddToCartValue">
+                  -
+                </span>
+
+              <input type="number" v-model="fastAddToCartValue" class="border mt-4 text-center w-[80%]">
+
+              <span @click="fastAddToCartValue++" class="text-6xl px-3">
+                  +
+                </span>
+            </div>
+            <br>
+
+            <br>
+            <SubmitButton class="mt-1">
+              Dodaj do koszyka
+            </SubmitButton>
+          </form>
+
           <div
             class="text-3xl font-bold"
             v-for="val in item.meta_price.split(`.`)"
@@ -224,28 +246,6 @@ const decreaseFastAddToCartValue = () => {
             >
               Kalkulator cenowy
             </button>
-
-            <form @submit.prevent="fastAddToCart" class="text-lg">
-              Szybkie dodawanie do koszyka:
-              <br>
-              <div class="flex w-fit items-center">
-                <span class="text-6xl px-3" @click="decreaseFastAddToCartValue">
-                  -
-                </span>
-
-                <input type="number" v-model="fastAddToCartValue" class="border mt-4 text-center w-[80%]">
-
-                <span @click="fastAddToCartValue++" class="text-6xl px-3">
-                  +
-                </span>
-              </div>
-              <br>
-
-              <br>
-              <SubmitButton class="mt-4">
-                Dodaj do koszyka
-              </SubmitButton>
-            </form>
           </div>
         </div>
 
