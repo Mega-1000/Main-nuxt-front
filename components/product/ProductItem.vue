@@ -206,7 +206,7 @@ const decreaseFastAddToCartValue = () => {
           </span>
         </h3>
 
-        <div v-if="item.meta_price" class="flex">
+        <div v-if="item.meta_price" class="flex w-full justify-between">
           <form @submit.prevent="fastAddToCart" class="text-lg">
             Szybkie dodawanie do koszyka:
             <br>
@@ -221,12 +221,12 @@ const decreaseFastAddToCartValue = () => {
                   +
                 </span>
             </div>
-            <br>
 
-            <br>
-            <SubmitButton class="mt-1">
-              Dodaj do koszyka
-            </SubmitButton>
+            <div class="float-right">
+              <SubmitButton class="mt-1">
+                Dodaj do koszyka
+              </SubmitButton>
+            </div>
           </form>
 
           <div
