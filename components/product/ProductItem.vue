@@ -219,10 +219,8 @@ const decreaseFastAddToCartValue = () => {
 
               <span @click="fastAddToCartValue++" class="text-6xl px-3">
                   +
-                </span>
-            </div>
+              </span>
 
-            <div class="float-right">
               <SubmitButton class="mt-1">
                 Dodaj do koszyka
               </SubmitButton>
