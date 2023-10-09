@@ -145,6 +145,9 @@
     <h1 class="text-4xl font-bold mb-10">
       Formularz reklamacyjny
     </h1>
+    <p>
+      Uwaga w przypadku nieprawidłowego działania formularza prosimy skontaktować z działem IT pod numerem 691801594 ( 7-23)
+    </p>
 
     <SelectInput
         v-model="form.reason"
