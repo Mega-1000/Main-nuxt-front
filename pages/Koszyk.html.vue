@@ -191,6 +191,22 @@ const handleSubmit = async (e: Event | null) => {
     loading.value = false;
     return;
   }
+  let hideFromCustomer = false;
+
+  if (localStorage.getItem('isAdmin') == 'true') {
+    await Swal.fire({
+      title: 'Ukryć przed klientem?',
+      text: "Czy chcesz ukryć zamówienie przed klientem?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        hideFromCustomer = true;
+      }
+    })
+  }
 
   const params = {
     customer_login: emailInput.value,
@@ -207,6 +223,7 @@ const handleSubmit = async (e: Event | null) => {
     rewrite: 0,
     need_support: true,
     update_email: true,
+    hide_from_customer: hideFromCustomer,
     packages: ShipmentCostCalculator(productsCart.value.products),
   };
 
