@@ -11,7 +11,7 @@ const { data: orders } = useAsyncData(async () => {
     const inactiveStatusIds = [6, 8];
     const res = await shopApi.get("/api/orders/getAll");
     const activeOrders = res.data.filter(
-      (order: any) => !inactiveStatusIds.includes(order.status.id) && order.is_hidden == 0
+      (order: any) => !inactiveStatusIds.includes(order.status.id) && order.is_hidden === 0
     );
     const inactiveOrders = res.data.filter((order: any) =>
       inactiveStatusIds.includes(order.status.id)
