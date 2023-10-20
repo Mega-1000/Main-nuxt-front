@@ -1,12 +1,15 @@
 <script>
+import { onMounted } from "vue";
 const route = useRoute();
-onMounted(() => {
 
-  const formName = route.params.formName;
-  const orderId = route.params.orderId;
+const formName = route.query.formName;
+const orderId = route.query.orderId;
+console.log(formName);
 
-  setTimeout(() => {
-    window.location.href = `https://admin.mega1000.pl/form/${formName}/${orderId}`;
-  }, 10)
-})
+setTimeout(() => {
+  window.location.href = `https://admin.mega1000.pl/form/${formName}/${orderId}`;
+}, 10)
 </script>
+
+<template>
+</template>
