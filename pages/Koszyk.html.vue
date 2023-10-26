@@ -125,11 +125,12 @@ const getPackagesNumber = async (cart: Cart) => {
 onMounted(async () => {
   const cart = new Cart();
   cart.init();
+  await prepareCartEdition(cart, query?.cart_token)
 
-  if (query?.cart_token && !cart.getEditedCart() || query?.reloadCart) await prepareCartEdition(cart, query?.cart_token);
-  await getPackagesNumber(cart);
-
-  productsCart.value = cart;
+  // if (query?.cart_token && !cart.getEditedCart() || query?.reloadCart) await prepareCartEdition(cart, query?.cart_token);
+  // await getPackagesNumber(cart);
+  //
+  // productsCart.value = cart;
 });
 
 const handleDelete = async () => {
