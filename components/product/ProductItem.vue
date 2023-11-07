@@ -29,7 +29,12 @@ onBeforeMount(() => {
 
   if (route.query.fastAddToCart) {
     swal.fire('Dodano do koszyka', '', 'success');
-    router.replace({ query: {} });
+    router.replace({
+      query: {
+        ...route.query,
+        fastAddToCart: null,
+      }
+    });
   }
 });
 
