@@ -189,10 +189,10 @@ const markOfferAsInactive = async () => {
         Dane do dostawy i faktury oraz ich edycja
       </accountActionButton>
 
-      <accountActionButton v-for="invoice in item?.invoices?.filter((invoice: any) => invoice.is_visible_for_client)"
-                           target="_blank" is="button" :href="`${config.baseUrl}/storage/invoices/${invoice.invoice_name}`" type="link">
-        Pobierz fakturę {{ invoice.invoice_name }}
-      </accountActionButton>
+<!--      <accountActionButton v-for="invoice in item?.invoices?.filter((invoice: any) => invoice.is_visible_for_client)"-->
+<!--                           target="_blank" is="button" :href="`${config.baseUrl}/storage/invoices/${invoice.invoice_name}`" type="link">-->
+<!--        Pobierz fakturę {{ invoice.invoice_name }}-->
+<!--      </accountActionButton>-->
 
       <button v-for="invoice in item?.user_invoices" @click="() => downloadInvoice(invoice)"
               class="p-1 text-xs text-gray-900 border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700">
