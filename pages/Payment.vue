@@ -30,8 +30,8 @@ const { data: banks } = await useAsyncData(async () => {
   } catch (err) {}
 });
 
-const accountNumber = "28 1140 2004 0000 3802 8205 1023";
-const adress = `ELEKTRONICZNA PLATFORMA HANDLOWA SP. Z O.O.`;
+const accountNumber = "80 1140 2004 0000 3602 8433 3856";
+const adress = `ELEKTRONICZNA PLATFORMA HANDLOWA POLSKA SP. Z O.O.`;
 
 const handleBank = (newBank: any) => {
   bank.value = newBank;
@@ -51,6 +51,10 @@ const handleClick = () => {
 <template>
   <div class="flex justify-center pt-10 pb-20">
     <div>
+      <div class="text-3xl">
+          !!! UWAGA od dnia 2023.12.13 zmiana numeru konta oraz firmy !!!
+      </div>
+
       <p class="text-md md:text-xl">
         Jeśli potrzebujesz się skontaktować zaloguj się i wejdź w zakładkę "Moje
         Konto" (domyślnie nr telefonu jest hasłem)
