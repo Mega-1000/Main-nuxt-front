@@ -51,7 +51,7 @@ const handleClick = () => {
 <template>
   <div class="flex justify-center pt-10 pb-20">
     <div>
-      <div class="text-3xl">
+      <div class="text-3xl font-bold">
           !!! UWAGA od dnia 2023.12.13 zmiana numeru konta oraz firmy !!!
       </div>
 
