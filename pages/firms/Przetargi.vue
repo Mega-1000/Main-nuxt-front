@@ -9,23 +9,8 @@ onMounted(() => {
 
 const fetchAuctions = async () => {
   const firmToken = route.query.firmToken as string;
-
-  // const { data: response } = await shopApi.get(`/api/get-auctions/${firmToken}`) as any;
-  auctions.value = [
-    {
-      "id": 36,
-      "end_of_auction": "2024-02-08",
-      "date_of_delivery": "2024-02-16",
-      "price": 50,
-      "quality": 50,
-      "chat_id": 10555,
-      "confirmed": 1,
-      "created_at": "2024-02-03T09:37:34.000000Z",
-      "updated_at": "2024-02-03T09:43:02.000000Z"
-    }
-  ]
-
-  // auctions.value = response.data;
+  const { data: response } = await shopApi.get(`/api/get-auctions/${firmToken}`) as any;
+  auctions.value = response.data;
 };
 </script>
 
@@ -43,15 +28,15 @@ const fetchAuctions = async () => {
 
     <div>
       <SubmitButton>
-        Zobacz ten przetarg
+        Zmień swoje ceny w tym przetargu
       </SubmitButton>
+
+      <br>
 
       Oferty:
       <div v-for="offer in auction.offers">
         <div>
-          ID: {{ offer.id }}
-          <br>Symbol firmy: {{ offer.firm.symbol }}
-          <br>Cena: {{ offer.basic_price_net }}
+          ID: {{ offer.id }} Firma: {{ offer.firm.symbol }} Cena: {{ offer.basic_price_net }}
         </div>
       </div>
     </div>
