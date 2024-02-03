@@ -27,9 +27,11 @@ const fetchAuctions = async () => {
     </div>
 
     <div>
-      <SubmitButton>
-        Zmień swoje ceny w tym przetargu
-      </SubmitButton>
+      <a :href="auction.editPricesLink" target="__blank">
+        <SubmitButton>
+          Zmień swoje ceny w tym przetargu
+        </SubmitButton>
+      </a>
 
       <br>
 
