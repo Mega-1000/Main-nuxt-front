@@ -10,7 +10,7 @@ onMounted(() => {
 const fetchAuctions = async () => {
   const firmToken = route.query.firmToken as string;
   const { data: response } = await shopApi.get(`/api/get-auctions/${firmToken}`) as any;
-  auctions.value = response.data;
+  auctions.value = response;
 };
 </script>
 
