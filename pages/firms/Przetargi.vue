@@ -60,15 +60,15 @@ const showOfferTable = (auction: any) => {
 
         <br>
 
-        Oferty:
-        <div v-for="offer in auction.activeOffers" class="tooltip">
-            ID: {{ offer.id }} Firma: {{ offer.firm.symbol }} Cena: {{ offer.basic_price_net }}
-            <span class="tooltip-text">
-              Cena za opakowanie handlowe: {{ offer.commercial_price_net }}<br>
-              Cena za m3: {{ offer.basic_price_net }}<br>
-              cena za m2: {{ offer.calculated_price_net }}<br>
-            </span>
-        </div>
+<!--        Oferty:-->
+<!--        <div v-for="offer in auction.activeOffers" class="tooltip">-->
+<!--            ID: {{ offer.id }} Firma: {{ offer.firm.symbol }} Cena: {{ offer.basic_price_net }}-->
+<!--            <span class="tooltip-text">-->
+<!--              Cena za opakowanie handlowe: {{ offer.commercial_price_net }}<br>-->
+<!--              Cena za m3: {{ offer.basic_price_net }}<br>-->
+<!--              cena za m2: {{ offer.calculated_price_net }}<br>-->
+<!--            </span>-->
+<!--        </div>-->
 
         <SubmitButton @click="auction.offersExpanded === false ? expandOffers(auction) : collapseOffers(auction)">
           <span v-if="auction.offersExpanded === false">
