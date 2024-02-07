@@ -11,12 +11,20 @@ onMounted(() => {
 const fetchAuctions = async () => {
   const firmToken = route.query.firmToken as string;
   const { data: response } = await shopApi.get(`/api/get-auctions/${firmToken}`) as any;
-  auctions.value = response;
+  auctions.value = response.data;
 
   auctions.value.forEach((auction: any) => {
     auction.offersExpanded = false;
     auction.activeOffers = auction.offers.splice(0, 3);
   });
+};
+
+const toggleOffers = (auction: any) => {
+  if (auction.offersExpanded) {
+    collapseOffers(auction);
+  } else {
+    expandOffers(auction);
+  }
 };
 
 const expandOffers = (auction: any) => {
@@ -31,72 +39,87 @@ const collapseOffers = (auction: any) => {
 </script>
 
 <template>
-  <div v-for="auction in auctions" class="border p-3 mx-auto w-1/2 mt-12 text-lg flex justify-between">
-    <div>
-      Numer przetargu: {{ auction.id }}
-      <br>Koniec przetargu {{ auction.end_of_auction }}
-      <br>Wstępna data dostawy wskazana przez klienta {{ auction.date_of_delivery }}
-      <br>Procentowy udział ceny {{ auction.price }}
-      <br>Procentowy udział jakości {{ auction.quality }}
-      <br>Data rozpoczęcia przetargu {{ auction.created_at }}
-      <br>Zaktualizowana {{ auction.updated_at }}
-<!--      <br>Email klienta: {{ auction.chat.order.customer.login }}-->
-<!--      <br>Telefon klienta: {{ auction.chat.order.customer.addresses[0].phone }} <a :href="`tel:${auction.chat.order.customer.addresses[0].phone}`">Zadzwoń</a>-->
-    </div>
-
-    <div>
-      <a :href="auction.editPricesLink" target="__blank">
-        <SubmitButton>
-          Zmień swoje ceny w tym przetargu
-        </SubmitButton>
-      </a>
-
-      <br>
-
-      Oferty:
-      <div v-for="offer in auction.activeOffers" class="tooltip">
-          ID: {{ offer.id }} Firma: {{ offer.firm.symbol }} Cena: {{ offer.basic_price_net }}
-          <span class="tooltip-text">
-            Cena za opakowanie handlowe: {{ offer.commercial_price_net }}<br>
-            Cena za m3: {{ offer.basic_price_net }}<br>
-            cena za m2: {{ offer.calculated_price_net }}<br>
-          </span>
+  <div class="auctions-container">
+    <div v-for="auction in auctions" class="auction-card">
+      <div class="auction-header">
+        <h2>Numer przetargu: {{ auction.id }}</h2>
+        <p>Koniec przetargu: {{ auction.end_of_auction }}</p>
+      </div>
+      <div class="auction-details">
+        <p>Data dostawy: {{ auction.date_of_delivery }}</p>
+        <p>Cena: {{ auction.price }}%, Jakość: {{ auction.quality }}%</p>
+        <p>Data rozpoczęcia: {{ auction.created_at }}</p>
+        <button @click="toggleOffers(auction)" class="toggle-offers-btn">{{ auction.offersExpanded ? 'Ogranicz' : 'Wyświetl wszystkie' }} oferty</button>
+      </div>
+      <div v-if="auction.offersExpanded" class="offers-list">
+        <div v-for="offer in auction.activeOffers" class="offer">
+          <span>ID: {{ offer.id }}</span>
+          <span>Firma: {{ offer.firm.symbol }}</span>
+          <span>Cena: {{ offer.basic_price_net }}</span>
+          <div class="offer-details">
+            <p>Cena za opakowanie: {{ offer.commercial_price_net }}</p>
+            <p>Cena za m3: {{ offer.basic_price_net }}</p>
+            <p>Cena za m2: {{ offer.calculated_price_net }}</p>
+          </div>
+        </div>
       </div>
 
-      <SubmitButton @click="auction.offersExpanded === false ? expandOffers(auction) : collapseOffers(auction)">
-        <span v-if="auction.offersExpanded === false">
-          Wyświetl wszystkie oferty
-        </span>
-        <span v-else>
-          Ogranicz oferty
-        </span>
-      </SubmitButton>
+      <a :href="auction.editPricesLink" target="__blank" class="edit-prices-link">Zmień swoje ceny</a>
     </div>
   </div>
 </template>
 
 <style scoped>
-.tooltip {
-  position: relative;
+.auction-card {
+  background: #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  width: 50vw;
+  margin: 0 auto;
+  margin-top: 40px;
 }
 
-.tooltip .tooltip-text {
-  visibility: hidden;
-  background-color: black;
-  color: #fff;
+.auction-card:hover {
+  transform: translateY(-5px);
+}
+
+.auction-header h2, .auction-header p {
+  margin: 0;
+  padding: 16px;
+  background-color: #007BFF;
+  color: white;
+}
+
+.auction-details, .offers-list {
+  padding: 16px;
+}
+
+.toggle-offers-btn {
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.offer {
+  background: #F8F9FA;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
+.edit-prices-link {
+  display: inline-block;
+  background-color: #28A745;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
   text-align: center;
-  border-radius: 6px;
-  padding: 20px;
-  /* Position the tooltip */
-  position: absolute;
-  z-index: 1;
-  bottom: 100%;
-  left: 50%;
-  margin-left: -60px;
+  margin: 10px;
 }
-
-.tooltip:hover .tooltip-text {
-  visibility: visible;
-}
-
 </style>
