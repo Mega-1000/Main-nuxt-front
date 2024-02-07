@@ -33,15 +33,15 @@ const collapseOffers = (auction: any) => {
 <template>
   <div v-for="auction in auctions" class="border p-3 mx-auto w-1/2 mt-12 text-lg flex justify-between">
     <div>
-      ID: {{ auction.id }}
-      <br>Koniec aukcji {{ auction.end_of_auction }}
-      <br>Data dostawy {{ auction.date_of_delivery }}
-      <br>Cena {{ auction.price }}
-      <br>Jakość {{ auction.quality }}
-      <br>Utworzona {{ auction.created_at }}
+      Numer przetargu: {{ auction.id }}
+      <br>Koniec przetargu {{ auction.end_of_auction }}
+      <br>Wstępna data dostawy wskazana przez klienta {{ auction.date_of_delivery }}
+      <br>Procentowy udział ceny {{ auction.price }}
+      <br>Procentowy udział jakości {{ auction.quality }}
+      <br>Data rozpoczęcia przetargu {{ auction.created_at }}
       <br>Zaktualizowana {{ auction.updated_at }}
-      <br>Email klienta: {{ auction.chat.order.customer.login }}
-      <br>Telefon klienta: {{ auction.chat.order.customer.addresses[0].phone }} <a :href="`tel:${auction.chat.order.customer.addresses[0].phone}`">Zadzwoń</a>
+<!--      <br>Email klienta: {{ auction.chat.order.customer.login }}-->
+<!--      <br>Telefon klienta: {{ auction.chat.order.customer.addresses[0].phone }} <a :href="`tel:${auction.chat.order.customer.addresses[0].phone}`">Zadzwoń</a>-->
     </div>
 
     <div>
