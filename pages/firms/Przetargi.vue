@@ -70,14 +70,14 @@ const showOfferTable = (auction: any) => {
 <!--            </span>-->
 <!--        </div>-->
 
-        <SubmitButton @click="auction.offersExpanded === false ? expandOffers(auction) : collapseOffers(auction)">
-          <span v-if="auction.offersExpanded === false">
-            Wyświetl wszystkie oferty
-          </span>
-          <span v-else>
-            Ogranicz oferty
-          </span>
-        </SubmitButton>
+<!--        <SubmitButton @click="auction.offersExpanded === false ? expandOffers(auction) : collapseOffers(auction)">-->
+<!--          <span v-if="auction.offersExpanded === false">-->
+<!--            Wyświetl wszystkie oferty-->
+<!--          </span>-->
+<!--          <span v-else>-->
+<!--            Ogranicz oferty-->
+<!--          </span>-->
+<!--        </SubmitButton>-->
 
         <button @click="showOfferTable(auction)" class="bg-green-500 mt-4 block px-4 py-2 rounded text-sm">
           Zobacz tabelę ofert
@@ -89,7 +89,8 @@ const showOfferTable = (auction: any) => {
       <table>
         <tr>
           <th>Produkt</th>
-          <th>Ilość</th>
+          <th>Ilość opakowań</th>
+          <th>Ilość M3</th>
           <th>Twoja cena</th>
           <th>Najniższa cena na ten moment</th>
         </tr>
@@ -97,6 +98,7 @@ const showOfferTable = (auction: any) => {
         <tr v-for="item in auction.chat.order.items" class="mt-4">
           <td>{{ item.product.name.substr(item.product.name.indexOf(" ") + 1) }}</td>
           <td>{{ item.quantity }}</td>
+          <td>{{ item.product.packing.unit_commercial }}</td>
           <td>
             {{
                auction.offers.filter((offer) => offer.firm_id === currentFirm.id).sort((a, b) => a.basic_price_net - b.basic_price_net)[0]?.basic_price_net
