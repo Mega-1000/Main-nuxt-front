@@ -2,7 +2,6 @@
 const auctions = ref<any>([]);
 const { $shopApi: shopApi } = useNuxtApp();
 const route = useRoute();
-const offers = ref<[]>([]);
 
 onMounted(() => {
   fetchAuctions();
@@ -11,7 +10,7 @@ onMounted(() => {
 const fetchAuctions = async () => {
   const firmToken = route.query.firmToken as string;
   const { data: response } = await shopApi.get(`/api/get-auctions/${firmToken}`) as any;
-  auctions.value = response.data;
+  auctions.value = response;
 
   auctions.value.forEach((auction: any) => {
     auction.offersExpanded = false;
