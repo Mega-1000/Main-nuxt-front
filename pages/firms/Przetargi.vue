@@ -95,7 +95,7 @@ const showOfferTable = (auction: any) => {
         </tr>
 
         <tr v-for="item in auction.chat.order.items" class="mt-4">
-          <td>{{ item.product.name }}</td>
+          <td>{{ item.product.name.substr(item.product.name.indexOf(" ") + 1) }}</td>
           <td>{{ item.quantity }}</td>
           <td>
             {{
