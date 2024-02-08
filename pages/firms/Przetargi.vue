@@ -99,7 +99,7 @@ const showOfferTable = (auction: any) => {
           <td>{{ item.product.name.substr(item.product.name.indexOf(" ") + 1) }}</td>
           <td>{{ item.quantity }}</td>
           <td>{{ item.product.packing.unit_commercial }}</td>
-          <td></td>
+          <td>{{ item.quantity * item.product.packing.numbers_of_basic_commercial_units_in_pack }} {{ item.product.unit_basic }}</td>
           <td>{{ auction.offers.filter((offer) => offer.order_item_id === item.id).sort((a, b) => a.basic_price_net - b.basic_price_net)[0].basic_price_net }}</td>
         </tr>
       </table>
