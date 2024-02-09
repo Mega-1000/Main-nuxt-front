@@ -4,6 +4,7 @@ import { defaultImgSrc } from "~~/helpers/buildImgRoute";
 import { Modal, ModalOptions } from "flowbite";
 import Cookies from "universal-cookie";
 import emmiter from "~/helpers/emitter";
+import AskUserForZipCodeStyrofoarms from "~/components/AskUserForZipCodeStyrofoarms.vue";
 
 const { $shopApi: shopApi, $buildImgRoute: buildImgRoute } = useNuxtApp();
 
@@ -13,6 +14,7 @@ const { params, query } = useRoute();
 const { productId } = params;
 const page = ref(parseInt((query.page as string) || "1"));
 const isStaff = ref(false);
+const askUserForZipCode = ref(false);
 
 const { data: currentProduct, pending: pending1 } = await useAsyncData(
   async () => {
@@ -99,6 +101,10 @@ const setupModals = () => {
 onMounted(async () => {
   setupModals();
 
+  if (productId === '103') {
+    askUserForZipCode.value = true;
+  }
+
   const data:any = await shopApi.get('/api/staff/isStaff');
   if(data.data){
     isStaff.value = true;
@@ -177,6 +183,8 @@ const goToPage = async (val: number) => {
 </script>
 
 <template>
+  <AskUserForZipCodeStyrofoarms v-if="askUserForZipCode" />
+
   <div
     class="md:flex justify-items-center mb-40 mx-15"
     v-if="![pending1, pending2, pending3].some((el) => el)"
