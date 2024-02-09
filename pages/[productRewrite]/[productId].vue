@@ -101,8 +101,8 @@ const setupModals = () => {
 onMounted(async () => {
   setupModals();
 
-  if (productId === '103') {
     alert(productId)
+  if (productId === '103') {
     askUserForZipCode.value = true;
   }
 
