@@ -28,7 +28,8 @@
             Wpisz swój kod pocztowy żebyśmy mogli dobrać fabryki specjalnie dla ciebie
           </p>
           <form @submit.prevent="submitZipCode">
-            <TextInput type="text" @input="zipCode.value = $event" label="Wpisz kod pocztowy" />
+            {{ zipCode }}
+            <TextInput type="text" @input="zipCode = $event" label="Wpisz kod pocztowy" />
 
             <SubmitButton>
               Zapisz
