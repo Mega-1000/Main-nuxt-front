@@ -3,10 +3,11 @@
 
   const zipCode = ref('');
 
-  const submitZipCode = () =>  {
+  const submitZipCode = async () =>  {
     localStorage.setItem('zipCode', zipCode.value);
 
-    Swal.fire('Zapisano kod pocztowy', 'Od teraz będziemy ci pokazywać jedynie ofery w twoim zasięgu', 'success')
+    await Swal.fire('Zapisano kod pocztowy', 'Od teraz będziemy ci pokazywać jedynie ofery w twoim zasięgu', 'success')
+    await window.location.reload();
   }
 </script>
 
