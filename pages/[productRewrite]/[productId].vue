@@ -52,8 +52,10 @@ const { data: itemsData, pending: pending3 } = await useAsyncData(
   async () => {
     try {
       const currentPage = query?.page as string ?? 1;
+      const zipCode = localStorage.getItem('zipCode');
+
       const res = await shopApi.get(
-        `/api/products/categories/get?page=${currentPage}&per_page=10&category_id=${productId}`
+        `/api/products/categories/get?page=${currentPage}&per_page=10&category_id=${productId}?zipCode=${zipCode}`
       );
       return res.data;
     } catch (e) {
