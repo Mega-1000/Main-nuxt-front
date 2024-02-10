@@ -178,9 +178,9 @@ const decreaseFastAddToCartValue = () => {
         class="justify-between relative flex flex-col md:flex-row md:space-x-5 space-y-3 md:space-y-0 rounded-xl shadow-lg p-3 w-full mx-auto border border-white bg-white max-w-7xl"
         @click="props.item.blured ? $event.preventDefault() : null"
     >
-<!--      <div v-if="props.item.blured" class="absolute inset-0 z-10 flex justify-center items-center bg-white">-->
-<!--        <span class="text-red-500 font-semibold">Produkt niedostępny dla podanego kodu pocztowego</span>-->
-<!--      </div>-->
+      <div v-if="props.item.blured && props.item.variation_group === 'styropiany'" class="absolute inset-0 z-10 flex justify-center items-center bg-white">
+        <span class="text-red-500 font-semibold">Produkt: {{ props.item.name }} jest niedostępny dla podanego kodu pocztowego</span>
+      </div>
 
       <div
           class="w-full md:w-1/3 bg-white grid place-items-center md:place-items-start"
