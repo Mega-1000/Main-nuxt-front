@@ -3,6 +3,10 @@
 
   const zipCode = ref('');
 
+  onMounted(() => {
+    zipCode.value = localStorage.getItem('zipCode');
+  });
+
   const submitZipCode = async () =>  {
     localStorage.setItem('zipCode', zipCode.value);
 
@@ -33,7 +37,7 @@
                 <form @submit.prevent="submitZipCode">
                   <TextInput type="text" @input="zipCode = $event" label="Wpisz kod pocztowy" />
 
-                  <SubmitButton>
+                  <SubmitButton class="mt-5">
                     Zapisz
                   </SubmitButton>
                 </form>
