@@ -148,4 +148,7 @@ const showOfferTable = (auction: any) => {
   visibility: visible;
 }
 
+.alert-text {
+  color: red;
+}
 </style>
