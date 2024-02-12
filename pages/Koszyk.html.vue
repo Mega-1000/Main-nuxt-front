@@ -225,7 +225,7 @@ const handleSubmit = async (e: Event | null) => {
     update_email: true,
     hide_from_customer: hideFromCustomer,
     packages: ShipmentCostCalculator(productsCart.value.products),
-    registerRefferedUserId: localStorage.getItem('registerRefferedUserId') || null,
+    register_reffered_user_id: localStorage.getItem('registerRefferedUserId') || null,
   };
 
   try {
