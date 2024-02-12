@@ -54,8 +54,6 @@ const showOfferTable = (auction: any) => {
           <br>Procentowy udział jakości {{ auction.quality }}
           <br>Data rozpoczęcia przetargu {{ auction.created_at }}
           <br>Zaktualizowana {{ auction.updated_at }}
-          <br>Email klienta: {{ auction.chat.order.customer.login }}
-          <br>Telefon klienta: {{ auction.chat.order.customer.addresses[0].phone }} <a :href="`tel:${auction.chat.order.customer.addresses[0].phone}`">Zadzwoń</a>
         </div>
 
         <div>
