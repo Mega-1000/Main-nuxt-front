@@ -84,13 +84,13 @@ const showOfferTable = (auction: any) => {
   <!--          </span>-->
   <!--        </SubmitButton>-->
 
-          <button @click="showOfferTable(auction)" class="bg-green-500 mt-4 block px-4 py-2 rounded text-sm">
-            Zobacz tabelę ofert
-          </button>
+<!--          <button @click="showOfferTable(auction)" class="bg-green-500 mt-4 block px-4 py-2 rounded text-sm">-->
+<!--            Zobacz tabelę ofert-->
+<!--          </button>-->
         </div>
       </div>
 
-      <div v-if="auction.offerTableShown" class="mt-4">
+      <div class="mt-4">
         <table>
           <tr>
             <th>Produkt</th>
