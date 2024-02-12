@@ -37,6 +37,12 @@ const showOfferTable = (auction: any) => {
 </script>
 
 <template>
+  <SubmitButton>
+    <a :href="`https://new.mega1000.pl/magazyn/aktualizacja-cen/${currentFirm.id}/zaktualizuj`">
+      Zaktualizuj ceny produktów przydzielonych do twojego konta
+    </a>
+  </SubmitButton>
+
   <div v-for="auction in auctions" class="border mx-auto w-1/2 p-3 mt-12 text-lg">
     <div class=" flex justify-between">
       <div>
