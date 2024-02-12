@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { defaultImgSrc } from "~~/helpers/buildImgRoute";
+import Swal from "sweetalert2";
 
 const { $shopApi: shopApi, $buildImgRoute: buildImgRoute } = useNuxtApp();
 const route = useRoute();
@@ -17,7 +18,18 @@ const buildLink = ({ rewrite, id }: { rewrite: string; id: number }) =>
     `/${rewrite}/${id}`;
 
 onMounted(async () => {
-  localStorage.setItem('registerRefferedUserId', atob(route.query.ref as string || ''));
+  if (route.query.ref) {
+    localStorage.setItem('registerRefferedUserId', atob(route.query.ref as string || ''));
+
+    Swal.fire({
+      title: 'Kod poleceń został zapisany!',
+      text: 'Wchodzisz na stronę z kodem polecenia od twojego znajomego.',
+      icon: 'success',
+      confirmButtonText: 'OK'
+    }).then(() => {
+      localStorage.removeItem('registerRefferedUserId');
+    });
+  }
 
   if (localStorage.getItem('noAllegroVisibilityLimit') == null) {
     localStorage.setItem('noAllegroVisibilityLimit', 'true');
