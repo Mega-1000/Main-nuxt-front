@@ -16,7 +16,7 @@ const fetchAuctions = async () => {
   auctions.value = response[1];
 
   auctions.value.forEach((auction: any) => {
-    auction.offersExpanded = false;
+    auction.offersExpanded = true;
     auction.activeOffers = auction.offers.splice(0, 3);
   });
 };
@@ -108,12 +108,6 @@ const showOfferTable = (auction: any) => {
             <td>{{ auction.offers.filter((offer) => offer.order_item_id === item.id).sort((a, b) => a.basic_price_net - b.basic_price_net)[0]?.basic_price_net }}</td>
           </tr>
         </table>
-
-        <span>
-          <SubmitButton>
-            Zmień swoje ceny w tej ofercie
-          </SubmitButton>
-        </span>
       </div>
     </div>
   </div>
