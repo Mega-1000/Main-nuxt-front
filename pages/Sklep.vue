@@ -2,6 +2,7 @@
 import { defaultImgSrc } from "~~/helpers/buildImgRoute";
 
 const { $shopApi: shopApi, $buildImgRoute: buildImgRoute } = useNuxtApp();
+const route = useRoute();
 
 const { data: categories, pending } = await useAsyncData(async () => {
   try {
@@ -16,6 +17,8 @@ const buildLink = ({ rewrite, id }: { rewrite: string; id: number }) =>
     `/${rewrite}/${id}`;
 
 onMounted(async () => {
+  localStorage.setItem('registerRefferedUserId', atob(route.query.ref as string || ''));
+
   if (localStorage.getItem('noAllegroVisibilityLimit') == null) {
     localStorage.setItem('noAllegroVisibilityLimit', 'true');
     window.location.reload();
