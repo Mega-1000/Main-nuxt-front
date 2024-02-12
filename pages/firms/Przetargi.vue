@@ -112,10 +112,13 @@ const showOfferTable = (auction: any) => {
             <td>{{ item.product.name.substr(item.product.name.indexOf(" ") + 1) }}</td>
             <td>{{ item.quantity }}</td>
             <td>{{  Math.round(item.quantity * item.product.packing.numbers_of_basic_commercial_units_in_pack * 100) / 100 }} {{ item.product.unit_basic }}</td>
-            <td>{{ yourPrice = auction.offers.filter((offer) => offer.firm_id === currentFirm.id && offer.order_item_id === item.id).sort((a, b) => a.basic_price_net - b.basic_price_net)[0]?.basic_price_net }}</td>
             <td :class="{ 'text-red-700': (lowestPrice = Math.min(...auction.offers.filter((offer) => offer.order_item_id === item.id).map((offer) => offer.basic_price_net))) > yourPrice }">
-              {{ lowestPrice }}
+              {{ yourPrice = auction.offers.filter((offer) => offer.firm_id === currentFirm.id && offer.order_item_id === item.id).sort((a, b) => a.basic_price_net - b.basic_price_net)[0]?.basic_price_net }}
+
               <span v-if="lowestPrice < yourPrice" class="alert-text"> - Uwaga: Twoja oferta nie jest najniższa</span>
+            </td>
+            <td>
+              {{ lowestPrice }}
             </td>
           </tr>
         </table>
