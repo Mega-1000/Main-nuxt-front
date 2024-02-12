@@ -38,6 +38,10 @@ const showOfferTable = (auction: any) => {
 
 <template>
   <div class="mx-auto w-1/2">
+    <div class="text-center my-4 font-bold">
+      Aktualnie jesteś zalogowany jako: {{ currentFirm.name }}
+    </div>
+
     <SubmitButton>
       <a :href="`https://new.mega1000.pl/magazyn/aktualizacja-cen/${currentFirm.id}/zaktualizuj`" target="__blank" class="mt-4">
         Zaktualizuj ceny produktów przydzielonych do twojego konta
@@ -52,8 +56,8 @@ const showOfferTable = (auction: any) => {
           <br>Wstępna data dostawy wskazana przez klienta {{ auction.date_of_delivery }}
           <br>Procentowy udział ceny {{ auction.price }}
           <br>Procentowy udział jakości {{ auction.quality }}
-          <br>Data rozpoczęcia przetargu {{ auction.created_at }}
-          <br>Zaktualizowana {{ auction.updated_at }}
+          <br>Data rozpoczęcia przetargu {{ auction.created_at.spit('T')[0] }} {{ auction.created_at.spit('T')[1].split('.')[0] }}
+          <br>Ostatnia data aktualizacji danych przetargu {{ auction.updated_at.spit('T')[0] }} {{ auction.updated_at.spit('T')[1].split('.')[0] }}
         </div>
 
         <div>
