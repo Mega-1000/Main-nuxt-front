@@ -359,6 +359,18 @@ const createChat = async (redirect: boolean) => {
 
   setTimeout(() =>  productsCart.value.removeAllFromCart(), 100)
 
+  let isOrderStyrofoam = true;
+  productsCart.value.products.forEach((product: any) => {
+    if (product.variation_group != 'styropiany') {
+      isOrderStyrofoam = false;
+    }
+  });
+
+  if (isOrderStyrofoam) {
+    window.location.href = `https://admin.mega1000.pl/chat/${data.chatUserToken}`;
+
+    return;
+  }
   await router.push(`/payment?token=${data.token}&total=${(parseFloat(productsCart.value.grossPrice()) + shipmentCostBrutto.value).toFixed(2)}`);
 };
 
