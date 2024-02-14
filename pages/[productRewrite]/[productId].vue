@@ -111,19 +111,19 @@ onMounted(async () => {
 
   const data:any = await shopApi.get('/api/staff/isStaff');
   if (data.data) {
-    handleStaffUser();
+    await handleStaffUser();
   }
 });
 watch([itemsData], setupModals);
 
-const handleStaffUser = () => {
+const handleStaffUser = async () => {
   isStaff.value = true;
 
   const categoryFirmName: string = params.productRewrite as string;
   const matched = categoryFirmName.match(/-+([a-zA-Z]+-?[a-zA-Z]+-?[a-zA-Z]*)/);
   const result = matched ? matched[1] : null;
 
-  const categoryFirm: any = shopApi.get(`/api/firm/${result}`);
+  const categoryFirm: any = await shopApi.get(`/api/firm/${result}`);
   categoryFirmId.value = categoryFirm?.data?.id
 }
 
