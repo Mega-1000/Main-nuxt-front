@@ -161,6 +161,11 @@ const markOfferAsInactive = async () => {
     </div>
 
     <div class="grid md:flex w-[80%] justify-between">
+      <a is="button" :href="`${config.baseUrl}/auctions/${item?.chat?.auctions[0]?.id}/end`" v-if="item?.chat?.auctions[0]?.id"
+         class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mx-3 font-semibold" target="__blank">
+        Zobacz wyniki przetargu
+      </a>
+
       <button @click="modal?.show" v-if="!proofUploaded && (!item?.files || item.files.length === 0) && !isVisiblitityLimited"
               class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mx-3 font-semibold">
         Podłącz potwierdzenie przelewu - przyśpiesza realizacje
@@ -184,17 +189,10 @@ const markOfferAsInactive = async () => {
         Edytuj zamówienie
       </accountActionButton>
 
-      <a is="button" :href="`${config.baseUrl}/auctions/${item?.chat?.auctions[0]?.id}`" v-if="item?.chat?.auctions[0]?.id"
-         class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mx-3 font-semibold">
-        Zobacz wyniki przetargu
-      </a>
-
       <accountActionButton target="_blank" type="link" is="button"
                            :href="`${config.nuxtNewFront}zamowienie/mozliwe-do-realizacji/brak-danych/${item.id}`">
         Dane do dostawy i faktury oraz ich edycja
       </accountActionButton>
-
-
 
       <button v-for="invoice in item?.user_invoices" @click="() => downloadInvoice(invoice)"
               class="p-1 text-xs text-gray-900 border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700">
