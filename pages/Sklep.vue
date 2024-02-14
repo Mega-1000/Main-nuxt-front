@@ -26,9 +26,7 @@ onMounted(async () => {
       text: 'Wchodzisz na stronę z kodem polecenia od twojego znajomego.',
       icon: 'success',
       confirmButtonText: 'OK'
-    }).then(() => {
-      localStorage.removeItem('registerRefferedUserId');
-    });
+    })
   }
 
   if (localStorage.getItem('noAllegroVisibilityLimit') == null) {

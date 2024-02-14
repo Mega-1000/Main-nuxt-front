@@ -223,7 +223,7 @@ const goToPage = async (val: number) => {
       />
 
       <div v-if="isStaff && categoryFirmId">
-        <a :href="`https://new.mega1000.pl/magazyn/aktualizacja-cen/${categoryFirmId}/zaktualizuj`">
+        <a :href="`https://new.mega1000.pl/magazyn/aktualizacja-cen/${categoryFirmId}/zaktualizuj`" target="__blank">
           <SubmitButton>
             Edytuj cennik tej firmy
           </SubmitButton>
