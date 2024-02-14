@@ -367,7 +367,7 @@ const createChat = async (redirect: boolean) => {
   });
 
   if (isOrderStyrofoam) {
-    window.location.href = `https://admin.mega1000.pl/chat/${data.chatUserToken}`;
+    window.location.href = `${config.baseUrl}/chat-show-or-new/${data.id}/${data.customerId}`;
 
     return;
   }
