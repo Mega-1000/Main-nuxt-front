@@ -5,6 +5,7 @@ import { Modal, ModalOptions } from "flowbite";
 import Cookies from "universal-cookie";
 import emmiter from "~/helpers/emitter";
 import AskUserForZipCodeStyrofoarms from "~/components/AskUserForZipCodeStyrofoarms.vue";
+import {integer} from "vscode-languageserver-types";
 
 const { $shopApi: shopApi, $buildImgRoute: buildImgRoute } = useNuxtApp();
 
@@ -15,6 +16,7 @@ const { productId } = params;
 const page = ref(parseInt((query.page as string) || "1"));
 const isStaff = ref(false);
 const askUserForZipCode = ref(false);
+const categoryFirmId = ref<integer|null>(null);
 
 const { data: currentProduct, pending: pending1 } = await useAsyncData(
   async () => {
@@ -55,7 +57,7 @@ const { data: itemsData, pending: pending3 } = await useAsyncData(
       const zipCode = localStorage.getItem('zipCode');
 
       const res = await shopApi.get(
-        `/api/products/categories/get?page=${currentPage}&per_page=10&category_id=${productId}&wzipCode=${zipCode}`
+        `/api/products/categories/get?page=${currentPage}&per_page=10&category_id=${productId}&zipCode=${zipCode}`
       );
       return res.data;
     } catch (e) {
@@ -108,11 +110,22 @@ onMounted(async () => {
   }
 
   const data:any = await shopApi.get('/api/staff/isStaff');
-  if(data.data){
-    isStaff.value = true;
+  if (data.data) {
+    handleStaffUser();
   }
 });
 watch([itemsData], setupModals);
+
+const handleStaffUser = () => {
+  isStaff.value = true;
+
+  const categoryFirmName: string = params.productRewrite as string;
+  const matched = categoryFirmName.match(/-+([a-zA-Z]+-?[a-zA-Z]+-?[a-zA-Z]*)/);
+  const result = matched ? matched[1] : null;
+
+  const categoryFirm: any = shopApi.get(`/api/firm/${result}`);
+  categoryFirmId.value = categoryFirm?.data?.id
+}
 
 const handleCloseModal = () => {
   modal.value?.hide();
@@ -208,6 +221,15 @@ const goToPage = async (val: number) => {
         :editable="isStaff"
         :category="currentProduct"
       />
+
+      <div v-if="isStaff && categoryFirmId">
+        <a :href="`https://new.mega1000.pl/magazyn/aktualizacja-cen/${categoryFirmId}/zaktualizuj`">
+          <SubmitButton>
+            Edytuj cennik tej firmy
+          </SubmitButton>
+        </a>
+      </div>
+
       <div
         v-if="
           currentProduct?.currentProduct?.children &&
