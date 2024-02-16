@@ -121,7 +121,11 @@ const handleStaffUser = async () => {
 
   const categoryFirmName: string = params.productRewrite as string;
   const matched = categoryFirmName.match(/-+([a-zA-Z]+-?[a-zA-Z]+ ?[a-zA-Z]*)/);
-  const result = matched ? matched[1] : null;
+  let result = matched ? matched[1] : null;
+
+  if (result === 'arsanit-siemianowice-slaskie') {
+    result = 'arsanit-siemianowice-slaskie'
+  }
 
   const categoryFirm: any = await shopApi.get(`/api/firm/${result}`);
   categoryFirmId.value = categoryFirm?.data?.id
