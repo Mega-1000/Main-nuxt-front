@@ -10,19 +10,18 @@
     styrofoamTypes.value = types.data.map((styrofoam) => {return {'label': styrofoam, 'value': styrofoam}});
   });
 
-  watch(selectedStyrofoamType, selectedStyrofoamTypeUpdated())
-
-  const selectedStyrofoamTypeUpdated = () => {
-
-  }
+  // watch(selectedStyrofoamType, selectedStyrofoamTypeUpdated())
+  //
+  // const selectedStyrofoamTypeUpdated = () => {
+  //
+  // }
 </script>
 
 <template>
+  okej
   <SelectInput
       label="Wybierz rodzaj styropianu"
       :options="styrofoamTypes"
       v-model="selectedStyrofoamType"
-  >
-
-  </SelectInput>
+  />
 </template>
