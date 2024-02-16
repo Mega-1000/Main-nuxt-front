@@ -17,6 +17,7 @@ const page = ref(parseInt((query.page as string) || "1"));
 const isStaff = ref(false);
 const askUserForZipCode = ref(false);
 const categoryFirmId = ref<integer|null>(null);
+const isMainStyrofoamLobby = ref<bool>(false);
 
 const { data: currentProduct, pending: pending1 } = await useAsyncData(
   async () => {
@@ -107,6 +108,7 @@ onMounted(async () => {
 
   if (productId === '103' && !localStorage.getItem('zipCode')) {
     askUserForZipCode.value = true;
+    isMainStyrofoamLobby.value = true;
   }
 
   const data:any = await shopApi.get('/api/staff/isStaff');
@@ -186,7 +188,7 @@ const router = useRouter();
 const goToPage = async (val: number) => {
   page.value = val;
 
-  await router.push({
+  router.push({
     query: {
       page: val,
     },
@@ -221,6 +223,34 @@ const goToPage = async (val: number) => {
         :editable="isStaff"
         :category="currentProduct"
       />
+
+      <div class="rounded bg-blue-500 p-8 text-white my-5 font-bold" v-if="isMainStyrofoamLobby">
+        <div class="font-bold text-2xl">
+          Nie wiesz na jaki styropian się zdecydować?
+        </div>
+
+        <p>
+          Zobacz naszą sekcję porad do zakupu styropianu, gdzie znajdziesz tabelę wycen wszystkich typów od ponad 40 firm.
+
+          <nuxt-link href="porady-do-zakupu-styropianow">
+            Tutaj
+          </nuxt-link>
+        </p>
+      </div>
+
+      <div class="rounded bg-red-500 p-8 text-white my-5 font-bold" v-if="isMainStyrofoamLobby">
+        <div class="font-bold text-2xl">
+          Chcesz uzyskać niższe ceny?
+        </div>
+
+        <p>
+          Zobacz nasz automatyczny system przetargów. Zapytamy firmy o indywidualne wyceny dla twojego zlecenia.
+
+          <nuxt-link href="przetargi-styropianów">
+            Tutaj
+          </nuxt-link>
+        </p>
+      </div>
 
       <div v-if="isStaff && categoryFirmId">
         <a :href="`https://new.mega1000.pl/magazyn/aktualizacja-cen/${categoryFirmId}/zaktualizuj`" target="__blank">
