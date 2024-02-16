@@ -2,7 +2,7 @@
   const { $shopApi: shopApi } = useNuxtApp();
 
   const styrofoamTypes = ref([]);
-  const selectedStyrofoamType = '';
+  const selectedStyrofoamType = ref('');
 
   onMounted(async () => {
     const types = await shopApi.get('/auctions/get-styrofoarm-types');
