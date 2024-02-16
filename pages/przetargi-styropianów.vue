@@ -1,5 +1,6 @@
 <script setup>
 import { ref, onMounted } from 'vue';
+import SubmitButton from "../components/SubmitButton.vue";
 const { $shopApi: shopApi } = useNuxtApp();
 
 const styrofoamTypes = ref([]);
@@ -22,16 +23,30 @@ const updateSelection = (index, newValue) => {
     addSelection();
   }
 };
+
+const showQuotes = () => {
+
+}
 </script>
 
 <template>
-  <div v-for="(selection, index) in selections" :key="index">
+  <div v-for="(selection, index) in selections" :key="index" class="flex justify-between">
     <SelectInput
         label="Wybierz rodzaj styropianu"
         :options="styrofoamTypes"
         v-model="selection.value"
         @change="updateSelection(index, $event)"
         v-if="styrofoamTypes.length !== 0"
+        class="w-[70%]"
     />
+
+    <SubmitButton onclick="showQuotes(selection)">
+      Pokaż ceny
+    </SubmitButton>
   </div>
+  <br>
+  <br>
+  <SubmitButton>
+    Zapisz przetarg
+  </SubmitButton>
 </template>
