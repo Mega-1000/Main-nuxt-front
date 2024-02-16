@@ -20,7 +20,7 @@
 <template>
   <SelectInput
       label="Wybierz rodzaj styropianu"
-      :options="styrofoamTypes.value"
+      :options="styrofoamTypes"
       v-model="selectedStyrofoamType"
       v-if="styrofoamTypes.length !== 0"
   />
