@@ -30,23 +30,25 @@ const showQuotes = () => {
 </script>
 
 <template>
-  <div v-for="(selection, index) in selections" :key="index" class="flex justify-between">
-    <SelectInput
-        label="Wybierz rodzaj styropianu"
-        :options="styrofoamTypes"
-        v-model="selection.value"
-        @change="updateSelection(index, $event)"
-        v-if="styrofoamTypes.length !== 0"
-        class="w-[70%]"
-    />
+  <div class="w-[70%] mx-auto">
+    <div v-for="(selection, index) in selections" :key="index" class="flex justify-between mt-4">
+      <SelectInput
+          label="Wybierz rodzaj styropianu"
+          :options="styrofoamTypes"
+          v-model="selection.value"
+          @change="updateSelection(index, $event)"
+          v-if="styrofoamTypes.length !== 0"
+          class="w-[85%]"
+      />
 
-    <SubmitButton onclick="showQuotes(selection)">
-      Pokaż ceny
-    </SubmitButton>
-  </div>
-  <br>
-  <br>
-  <SubmitButton>
-    Zapisz przetarg
+      <SubmitButton onclick="showQuotes(selection)">
+        Pokaż ceny
+      </SubmitButton>
+    </div>
+    <br>
+    <br>
+    <SubmitButton>
+      Zapisz przetarg
   </SubmitButton>
+  </div>
 </template>
