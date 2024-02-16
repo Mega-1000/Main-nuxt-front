@@ -1,7 +1,7 @@
 <script setup>
   const { $shopApi: shopApi } = useNuxtApp();
 
-  const styrofoamTypes = [];
+  const styrofoamTypes = ref([]);
   const selectedStyrofoamType = '';
 
   onMounted(async () => {
@@ -18,10 +18,9 @@
 </script>
 
 <template>
-  {{ styrofoamTypes.value }}
   <SelectInput
       label="Wybierz rodzaj styropianu"
-      :options="styrofoamTypes"
+      :options="styrofoamTypes.value"
       v-model="selectedStyrofoamType"
   />
 </template>
