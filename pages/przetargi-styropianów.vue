@@ -18,7 +18,7 @@
 </script>
 
 <template>
-  okej
+  {{ styrofoamTypes.value }}
   <SelectInput
       label="Wybierz rodzaj styropianu"
       :options="styrofoamTypes"
