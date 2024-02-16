@@ -8,6 +8,7 @@
     const types = await shopApi.get('/auctions/get-styrofoarm-types');
 
     styrofoamTypes.value = types.data.map((styrofoam) => {return {'label': styrofoam, 'value': styrofoam}});
+    console.log(styrofoamTypes.value)
   });
 
   // watch(selectedStyrofoamType, selectedStyrofoamTypeUpdated())
@@ -22,5 +23,6 @@
       label="Wybierz rodzaj styropianu"
       :options="styrofoamTypes.value"
       v-model="selectedStyrofoamType"
+      v-if="styrofoamTypes.length !== 0"
   />
 </template>
