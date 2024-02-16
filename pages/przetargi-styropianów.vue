@@ -5,9 +5,9 @@
   const selectedStyrofoamType = '';
 
   onMounted(() => {
-    const {data: types} = shopApi.get('/auctions/get-styrofoarm-types');
+    const types = shopApi.get('/auctions/get-styrofoarm-types');
 
-    styrofoamTypes.value = types.map((styrofoam) => {return {'label': styrofoam, 'value': styrofoam}});
+    styrofoamTypes.value = types.data.map((styrofoam) => {return {'label': styrofoam, 'value': styrofoam}});
   });
 
   watch(selectedStyrofoamType, selectedStyrofoamTypeUpdated())
