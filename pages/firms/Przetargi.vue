@@ -44,7 +44,7 @@ const showOfferTable = (auction: any) => {
 
     <SubmitButton>
       <a :href="`https://new.mega1000.pl/magazyn/aktualizacja-cen/${currentFirm.id}/zaktualizuj`" target="__blank" class="mt-4">
-        Zaktualizuj ceny produktów przydzielonych do twojego konta
+        Zaktualizuj ceny podstawowe styropianów - po których klienci będą otrzymywać oferty w przypadku gdy nie weźmiesz udziału w przetargu.
       </a>
     </SubmitButton>
 
