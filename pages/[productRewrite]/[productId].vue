@@ -119,7 +119,7 @@ watch([itemsData], setupModals);
 const handleStaffUser = async () => {
   isStaff.value = true;
 
-  const categoryFirmName: string = params.productRewrite as string;
+  const categoryFirmName: string = currentProduct.value?.currentProduct?.name;
   const matched = categoryFirmName.match(/-+([a-zA-Z]+-?[a-zA-Z]+ ?[a-zA-Z]*)/);
   let result = matched ? matched[1] : null;
 
