@@ -224,11 +224,11 @@ const goToPage = async (val: number) => {
         :category="currentProduct"
       />
       <div class="rounded bg-blue-500 p-8 text-white my-5 font-bold mx-6">
-        <div class="font-bold text-2xl">
+        <div class="font-bold text-4xl">
           Nie wiesz, który styropian wybrać?
         </div>
 
-        <p>
+        <p class="mt-2">
           Odwiedź naszą sekcję poradników, gdzie znajdziesz kompleksowy przewodnik i porównanie cen styropianu od ponad 40 producentów.
           <nuxt-link href="/porady-do-zakupu-styropianow">
             Kliknij tutaj
@@ -237,11 +237,11 @@ const goToPage = async (val: number) => {
       </div>
 
       <div class="rounded bg-red-500 p-8 text-white my-5 font-bold mx-6">
-        <div class="font-bold text-2xl">
+        <div class="font-bold text-4xl">
           Chcesz zapłacić mniej?
         </div>
 
-        <p>
+        <p class="mt-2">
           Sprawdź nasz system przetargowy. Pozwoli Ci uzyskać specjalne oferty cenowe bezpośrednio od producentów na podstawie Twojego zapytania.
           <nuxt-link href="/przetargi-styropianów">
             Kliknij tutaj
