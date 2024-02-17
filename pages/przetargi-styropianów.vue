@@ -40,10 +40,8 @@ const showQuotes = async (name) => {
           v-model="selection.value"
           @change="updateSelection(index, $event)"
           v-if="styrofoamTypes.length !== 0"
-          class="w-[85%]"
+          :class="{'w-[85%]': selection.value, 'w-full': !selection.value}"
       />
-
-      {{ selection.value }}
 
       <SubmitButton @click="showQuotes(selection)" v-if="selection.value">
         Pokaż ceny
