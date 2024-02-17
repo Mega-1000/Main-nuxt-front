@@ -1,7 +1,22 @@
+<script setup>
+const route = useRoute();
+const isNoLayout = ref(false);
+
+onMounted(() => {
+  const lastSegment = route.path.split('/').pop();
+
+  if (lastSegment === 'no-layout') {
+    isNoLayout.value = true;
+  }
+});
+</script>
+
+
+
 <template>
-  <Navbar />
+  <Navbar v-if="!isNoLayout" />
   <NuxtPage class="mb-40" />
-  <Footer class="mt-20" />
+  <Footer class="mt-20" v-if="isNoLayout" />
 </template>
 
 <style>
