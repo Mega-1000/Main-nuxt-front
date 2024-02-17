@@ -432,7 +432,7 @@ const ShipmentCostItemsLeftText = (product: any) => {
               Usuń wszystko
             </button>
 
-            <div v-for="product in productsCart.products" class="max-w-[100vw]" v-tooltip.auto-start="ShipmentCostItemsLeftText(product)">>
+            <div v-for="product in productsCart.products" class="max-w-[100vw]" v-tooltip.auto-start="ShipmentCostItemsLeftText(product)">
               <div
                 class="relative flex flex-col md:flex-row md:space-x-5 space-y-3 md:space-y-0 rounded-xl shadow-lg p-3 max-w-7xl mx-auto border border-white bg-white">
                 <div class="w-full md:w-1/3 bg-white grid place-items-start md:max-w-2xl">
