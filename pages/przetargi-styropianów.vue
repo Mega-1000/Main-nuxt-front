@@ -12,20 +12,20 @@ onMounted(async () => {
 });
 
 const addSelection = () => {
-  if (selections.length < 5) {
-    selections.push({ value: null });
+  if (selections.value.length < 5) {
+    selections.value.push({ value: null });
   }
 };
 
 const updateSelection = (index, newValue) => {
-  selections[index].value = newValue;
-  if (index === selections.length - 1 && selections.length < 5) {
+  selections.value[index].value = newValue;
+  if (index === selections.value.length - 1 && selections.value.length < 5) {
     addSelection();
   }
 };
 
 const showQuotes = async (name) => {
-  const {data: request} = await shopApi.get(`/auctions/get-quotes-by-styrofoarm-type/${name}`);
+  const {data: request} = await shopApi.get(`/auctions/get-quotes-by-styrofoarm-type/${name.value}`);
 
   modalData.value = request;
 }
@@ -43,8 +43,7 @@ const showQuotes = async (name) => {
           :class="{'w-[85%]': selection.value, 'w-full': !selection.value}"
       />
 
-      {{ selection?.value?.value }} {{ JSON.stringify(selection) }}
-      <SubmitButton @click="showQuotes(selection.value)" v-if="selection.value">
+      <SubmitButton @click="showQuotes(selection)" v-if="selection.value">
         Pokaż ceny
       </SubmitButton>
     </div>
