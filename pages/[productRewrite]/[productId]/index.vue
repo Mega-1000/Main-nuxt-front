@@ -108,6 +108,9 @@ onMounted(async () => {
 
   if (productId === '103' && !localStorage.getItem('zipCode')) {
     askUserForZipCode.value = true;
+  }
+
+  if (productId === '103') {
     isMainStyrofoamLobby.value = true;
   }
 
@@ -224,7 +227,7 @@ const goToPage = async (val: number) => {
         :category="currentProduct"
       />
 
-      <div class="rounded bg-blue-500 p-8 text-white my-5 font-bold mx-6">
+      <div class="rounded bg-blue-500 p-8 text-white my-5 font-bold mx-6" v-if="isMainStyrofoamLobby">
         <div class="font-bold text-3xl">
           Nie wiesz, który styropian wybrać?
         </div>
@@ -237,7 +240,7 @@ const goToPage = async (val: number) => {
         </p>
       </div>
 
-      <div class="rounded bg-red-500 p-8 text-white my-5 font-bold mx-6">
+      <div class="rounded bg-red-500 p-8 text-white my-5 font-bold mx-6" v-if="isMainStyrofoamLobby">
         <div class="font-bold text-3xl">
           Chcesz zapłacić mniej?
         </div>
