@@ -12,14 +12,14 @@ onMounted(async () => {
 });
 
 const addSelection = () => {
-  if (selections.length < 5) {
+  if (selections.value.length < 5) {
     selections.value.push({ value: null });
   }
 };
 
 const updateSelection = (index, newValue) => {
-  selections[index].value = newValue;
-  if (index === selections.length - 1 && selections.length < 5) {
+  selections.value[index].value = newValue;
+  if (index === selections.value.length - 1 && selections.value.length < 5) {
     addSelection();
   }
 };
