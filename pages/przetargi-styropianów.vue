@@ -38,13 +38,15 @@ const showQuotes = async (name) => {
       <SelectInput
           label="Wybierz rodzaj styropianu"
           :options="styrofoamTypes"
-          v-model="selection.value"
+          v-model="selection"
           @change="updateSelection(index, $event)"
           v-if="styrofoamTypes.length !== 0"
           class="w-[85%]"
       />
 
-      <SubmitButton @click="showQuotes(selection)">
+      {{ selection }}
+
+      <SubmitButton @click="showQuotes(selection)" v-if="selection">
         Pokaż ceny
       </SubmitButton>
     </div>
