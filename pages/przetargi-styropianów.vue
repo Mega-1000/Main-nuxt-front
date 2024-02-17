@@ -25,7 +25,7 @@ const updateSelection = (index, newValue) => {
 };
 
 const showQuotes = async (name) => {
-  const {data: request} = await shopApi.get(`/auctions/get-quotes-by-styrofoarm-type/${name.value}`);
+  const {data: request} = await shopApi.get(`/auctions/get-quotes-by-styrofoarm-type/${name}`);
 
   modalData.value = request;
 }
@@ -43,6 +43,7 @@ const showQuotes = async (name) => {
           :class="{'w-[85%]': selection.value, 'w-full': !selection.value}"
       />
 
+      {{ selection.value }}
       <SubmitButton @click="showQuotes(selection.value)" v-if="selection.value">
         Pokaż ceny
       </SubmitButton>
