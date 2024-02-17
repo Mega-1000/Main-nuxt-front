@@ -223,8 +223,9 @@ const goToPage = async (val: number) => {
         :editable="isStaff"
         :category="currentProduct"
       />
+      
       <div class="rounded bg-blue-500 p-8 text-white my-5 font-bold mx-6">
-        <div class="font-bold text-4xl">
+        <div class="font-bold text-3xl">
           Nie wiesz, który styropian wybrać?
         </div>
 
@@ -237,7 +238,7 @@ const goToPage = async (val: number) => {
       </div>
 
       <div class="rounded bg-red-500 p-8 text-white my-5 font-bold mx-6">
-        <div class="font-bold text-4xl">
+        <div class="font-bold text-3xl">
           Chcesz zapłacić mniej?
         </div>
 
