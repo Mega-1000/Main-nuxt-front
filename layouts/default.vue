@@ -3,6 +3,14 @@ const route = useRoute();
 const isNoLayout = ref(false);
 
 onMounted(() => {
+
+  const script = document.createElement('script');
+  script.async = true;
+  script.dataset.id = "8598422425";
+  script.id = "chatling-embed-script";
+  script.src = "https://chatling.ai/js/embed.js";
+  document.body.appendChild(script);
+
   const lastSegment = route.path.split('/').pop();
 
   if (lastSegment === 'no-layout') {
@@ -17,6 +25,7 @@ onMounted(() => {
   <Navbar v-if="!isNoLayout" />
   <NuxtPage class="mb-40" />
   <Footer class="mt-20" v-if="isNoLayout" />
+
   <script async data-id="8598422425" id="chatling-embed-script" type="text/javascript" src="https://chatling.ai/js/embed.js"></script>
 </template>
 
