@@ -36,7 +36,7 @@
 </script>
 
 <template>
-  <div class="ml-4 fixed z-10 rounded-lg p-4 bg-gray-50">
+<!--  <div class="ml-4 fixed z-10 rounded-lg p-4 bg-gray-50">-->
 <!--    <transition name="fade" mode="out-in">-->
 <!--      <div v-if="showBox">-->
 <!--        <div>-->
@@ -144,8 +144,8 @@
 <!--      </div>-->
 <!--    </transition>-->
 
-    <button @click="showBox = !showBox">{{ showBox ? 'ZAMKNIJ TABELĘ' : 'Otwórz tabelę kosztów transportu' }}</button>
-  </div>
+<!--    <button @click="showBox = !showBox">{{ showBox ? 'ZAMKNIJ TABELĘ' : 'Otwórz tabelę kosztów transportu' }}</button>-->
+<!--  </div>-->
 </template>
 
 
