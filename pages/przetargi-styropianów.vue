@@ -26,7 +26,7 @@ const updateSelection = (index, newValue) => {
 };
 
 const showQuotes = async (name) => {
-  const {data: request} = await shopApi.get(`/auctions/get-quotes-by-styrofoarm-type/${name}`);
+  const {data: request} = await shopApi.get(`/auctions/get-quotes-by-styrofoarm-type/${name.value}`);
 
   modalData.value = request;
 }
