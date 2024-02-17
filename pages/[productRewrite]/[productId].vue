@@ -224,7 +224,7 @@ const goToPage = async (val: number) => {
         :category="currentProduct"
       />
 
-      <div class="rounded bg-blue-500 p-8 text-white my-5 font-bold">
+      <div class="rounded bg-blue-500 p-8 text-white my-5 font-bold mx-6">
         <div class="font-bold text-2xl">
           Nie wiesz na jaki styropian się zdecydować?
         </div>
@@ -232,13 +232,13 @@ const goToPage = async (val: number) => {
         <p>
           Zobacz naszą sekcję porad do zakupu styropianu, gdzie znajdziesz tabelę wycen wszystkich typów od ponad 40 firm.
 
-          <nuxt-link href="porady-do-zakupu-styropianow">
+          <nuxt-link href="/porady-do-zakupu-styropianow">
             Tutaj
           </nuxt-link>
         </p>
       </div>
 
-      <div class="rounded bg-red-500 p-8 text-white my-5 font-bold">
+      <div class="rounded bg-red-500 p-8 text-white my-5 font-bold mx-6">
         <div class="font-bold text-2xl">
           Chcesz uzyskać niższe ceny?
         </div>
@@ -246,7 +246,7 @@ const goToPage = async (val: number) => {
         <p>
           Zobacz nasz automatyczny system przetargów. Zapytamy firmy o indywidualne wyceny dla twojego zlecenia.
 
-          <nuxt-link href="przetargi-styropianów">
+          <nuxt-link href="/przetargi-styropianów">
             Tutaj
           </nuxt-link>
         </p>
