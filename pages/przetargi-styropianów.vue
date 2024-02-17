@@ -76,7 +76,22 @@ const showQuotes = async (name) => {
               </div>
               <!-- Modal body -->
               <div class="p-4 md:p-5 space-y-4">
-                {{ modalData }}
+                <table>
+                  <thead>
+                  <tr>
+                    <th>Nazwa</th>
+                    <th>Producent</th>
+                    <th>Cena jednostkowa netto</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr v-for="item in modalData" :key="item.id">
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.manufacturer }}</td>
+                    <td>{{ item.price.net_purchase_price_basic_unit }} PLN</td>
+                  </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
