@@ -3,7 +3,7 @@ import SubmitButton from "../components/SubmitButton.vue";
 const { $shopApi: shopApi } = useNuxtApp();
 
 const styrofoamTypes = ref([]);
-const selections = reactive([{ value: null }]);
+const selections = ref([{ value: null }]);
 const modalData = ref(false);
 
 onMounted(async () => {
