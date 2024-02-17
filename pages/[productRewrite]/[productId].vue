@@ -223,34 +223,32 @@ const goToPage = async (val: number) => {
         :editable="isStaff"
         :category="currentProduct"
       />
-
       <div class="rounded bg-blue-500 p-8 text-white my-5 font-bold mx-6">
         <div class="font-bold text-2xl">
-          Nie wiesz na jaki styropian się zdecydować?
+          Nie wiesz, który styropian wybrać?
         </div>
 
         <p>
-          Zobacz naszą sekcję porad do zakupu styropianu, gdzie znajdziesz tabelę wycen wszystkich typów od ponad 40 firm.
-
+          Odwiedź naszą sekcję poradników, gdzie znajdziesz kompleksowy przewodnik i porównanie cen styropianu od ponad 40 producentów.
           <nuxt-link href="/porady-do-zakupu-styropianow">
-            Tutaj
+            Kliknij tutaj
           </nuxt-link>
         </p>
       </div>
 
       <div class="rounded bg-red-500 p-8 text-white my-5 font-bold mx-6">
         <div class="font-bold text-2xl">
-          Chcesz uzyskać niższe ceny?
+          Chcesz zapłacić mniej?
         </div>
 
         <p>
-          Zobacz nasz automatyczny system przetargów. Zapytamy firmy o indywidualne wyceny dla twojego zlecenia.
-
+          Sprawdź nasz system przetargowy. Pozwoli Ci uzyskać specjalne oferty cenowe bezpośrednio od producentów na podstawie Twojego zapytania.
           <nuxt-link href="/przetargi-styropianów">
-            Tutaj
+            Kliknij tutaj
           </nuxt-link>
         </p>
       </div>
+
 
       <div v-if="isStaff && categoryFirmId">
         <a :href="`https://new.mega1000.pl/magazyn/aktualizacja-cen/${categoryFirmId}/zaktualizuj`" target="__blank">
