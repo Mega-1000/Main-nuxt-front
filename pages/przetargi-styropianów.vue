@@ -1,10 +1,9 @@
 <script setup>
-import { ref, onMounted } from 'vue';
 import SubmitButton from "../components/SubmitButton.vue";
 const { $shopApi: shopApi } = useNuxtApp();
 
 const styrofoamTypes = ref([]);
-const selections = ref([{ value: null }]);
+const selections = reactive([{ value: null }]);
 const modalData = ref(false);
 
 onMounted(async () => {
@@ -38,13 +37,13 @@ const showQuotes = async (name) => {
       <SelectInput
           label="Wybierz rodzaj styropianu"
           :options="styrofoamTypes"
-          v-model="selection"
+          v-model="selection.value"
           @change="updateSelection(index, $event)"
           v-if="styrofoamTypes.length !== 0"
           class="w-[85%]"
       />
 
-      {{ selection }}
+      {{ selection.value }}
 
       <SubmitButton @click="showQuotes(selection)" v-if="selection">
         Pokaż ceny
