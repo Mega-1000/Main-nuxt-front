@@ -24,7 +24,7 @@ onMounted(() => {
 <template>
   <Navbar v-if="!isNoLayout" />
   <NuxtPage class="mb-40" />
-  <Footer class="mt-20" v-if="isNoLayout" />
+  <Footer class="mt-20" v-if="!isNoLayout" />
 
   <script async data-id="8598422425" id="chatling-embed-script" type="text/javascript" src="https://chatling.ai/js/embed.js"></script>
 </template>
