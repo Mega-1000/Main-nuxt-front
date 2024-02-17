@@ -13,7 +13,7 @@ onMounted(async () => {
 
 const addSelection = () => {
   if (selections.length < 5) {
-    selections.push({ value: null });
+    selections.value.push({ value: null });
   }
 };
 
