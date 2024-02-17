@@ -224,7 +224,7 @@ const goToPage = async (val: number) => {
         :category="currentProduct"
       />
 
-      <div class="rounded bg-blue-500 p-8 text-white my-5 font-bold" v-if="isMainStyrofoamLobby">
+      <div class="rounded bg-blue-500 p-8 text-white my-5 font-bold">
         <div class="font-bold text-2xl">
           Nie wiesz na jaki styropian się zdecydować?
         </div>
@@ -238,7 +238,7 @@ const goToPage = async (val: number) => {
         </p>
       </div>
 
-      <div class="rounded bg-red-500 p-8 text-white my-5 font-bold" v-if="isMainStyrofoamLobby">
+      <div class="rounded bg-red-500 p-8 text-white my-5 font-bold">
         <div class="font-bold text-2xl">
           Chcesz uzyskać niższe ceny?
         </div>
