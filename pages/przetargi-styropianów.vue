@@ -43,6 +43,7 @@ const showQuotes = async (name) => {
           :class="{'w-[85%]': selection.value, 'w-full': !selection.value}"
       />
 
+      {{ selection.value }}
       <SubmitButton @click="showQuotes(selection)" v-if="selection.value">
         Pokaż ceny
       </SubmitButton>
