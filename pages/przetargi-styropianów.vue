@@ -12,21 +12,21 @@ onMounted(async () => {
 });
 
 const addSelection = () => {
-  if (selections.value.length < 5) {
-    selections.value.push({ value: null });
+  if (selections.length < 5) {
+    selections.push({ value: null });
   }
 };
 
 const updateSelection = (index, newValue) => {
-  selections.value[index].value = newValue;
-  if (index === selections.value.length - 1 && selections.value.length < 5) {
+  selections[index].value = newValue;
+  if (index === selections.length - 1 && selections.length < 5) {
     addSelection();
   }
 };
 
 const showQuotes = async (name) => {
   const {data: request} = await shopApi.get(`/auctions/get-quotes-by-styrofoarm-type/${name.value}`);
-  console.log(name)
+
   modalData.value = request;
 }
 </script>
@@ -40,7 +40,7 @@ const showQuotes = async (name) => {
           v-model="selection.value"
           @change="updateSelection(index, $event)"
           v-if="styrofoamTypes.length !== 0"
-          class="w-[85%]"
+          :class="{'w-[85%]': selection.value, 'w-full': !selection.value}"
       />
 
       <SubmitButton @click="showQuotes(selection)" v-if="selection.value">
