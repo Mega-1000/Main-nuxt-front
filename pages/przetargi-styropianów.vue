@@ -44,7 +44,7 @@ const showQuotes = async (name) => {
           class="w-[85%]"
       />
 
-      <SubmitButton onclick="showQuotes(selection)">
+      <SubmitButton @click="showQuotes(selection)">
         Pokaż ceny
       </SubmitButton>
     </div>
