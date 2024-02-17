@@ -172,7 +172,7 @@ const decreaseFastAddToCartValue = () => {
 </script>
 
 <template>
-  <div class="flex flex-col justify-center" v-tooltip.auto-start="ShipmentCostItemsLeftText">
+  <div class="flex flex-col justify-center" v-tooltip.auto-start="props.item.variation_group == 'styropiany' ? ShipmentCostItemsLeftText : ''">
     <div
         :class="{ 'cursor-not-allowed filter': props.item.blured }"
         data-modal-target="calculatorModal"
