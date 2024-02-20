@@ -93,7 +93,7 @@ const handleUploadProofOfPayment = async () => {
   formData.append("file", file);
 
   try {
-    await shopApi.post("api/orders/uploadProofOfPayment", formData, {
+    await shopApi.post("§", formData, {
       headers: { "Content-Type": "multipart/form-data" },
     });
 
