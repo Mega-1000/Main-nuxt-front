@@ -38,7 +38,7 @@
     setCookie(res.data);
 
     const redirect = router.currentRoute.value.query.redirect;
-    await router.push(`${redirect ?? "/account"}`);
+    router.push(`${redirect ?? "/account"}`);
 
     registering.value = false;
 
