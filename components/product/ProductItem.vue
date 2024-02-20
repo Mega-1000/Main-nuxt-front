@@ -218,25 +218,25 @@ const decreaseFastAddToCartValue = () => {
         </h3>
 
         <div v-if="item.meta_price && item.variation_group !== 'styropiany'" class="flex w-full justify-between">
-          <form @submit.prevent="fastAddToCart" v-if="!item.hasChildren" class="text-lg">
-            Szybkie dodawanie do koszyka:
-            <br>
-            <div class="flex w-fit items-center">
-                <span class="text-6xl px-3" @click="decreaseFastAddToCartValue">
-                  -
-                </span>
+<!--          <form @submit.prevent="fastAddToCart" v-if="!item.hasChildren" class="text-lg">-->
+<!--            Szybkie dodawanie do koszyka:-->
+<!--            <br>-->
+<!--            <div class="flex w-fit items-center">-->
+<!--                <span class="text-6xl px-3" @click="decreaseFastAddToCartValue">-->
+<!--                  - -->
+<!--                </span>-->
 
-              <input type="number" v-model="fastAddToCartValue" class="border mt-4 text-center w-[80%]">
+<!--              <input type="number" v-model="fastAddToCartValue" class="border mt-4 text-center w-[80%]">-->
 
-              <span @click="fastAddToCartValue++" class="text-6xl px-3">
-                  +
-              </span>
+<!--              <span @click="fastAddToCartValue++" class="text-6xl px-3">-->
+<!--                  +-->
+<!--              </span>-->
 
-              <SubmitButton class="mt-1">
-                Dodaj do koszyka
-              </SubmitButton>
-            </div>
-          </form>
+<!--              <SubmitButton class="mt-1">-->
+<!--                Dodaj do koszyka-->
+<!--              </SubmitButton>-->
+<!--            </div>-->
+<!--          </form>-->
 
           <div
             class="text-3xl font-bold"
