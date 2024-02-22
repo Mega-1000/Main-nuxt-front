@@ -10,21 +10,23 @@ const totalPages = ref(0); // To be updated with total pages from response
 const { $shopApi: shopApi } = useNuxtApp();
 
 // Fetch orders function with pagination
+const currentPage = ref(1);
+const totalPages = ref(0);
+const orders = ref({ active: [], inactive: [], all: [] });
+
+// Adjusted fetchOrders to directly update the orders ref
 const fetchOrders = async (page) => {
   try {
     const res = await shopApi.get(`/api/orders/getAll?page=${page}`);
     totalPages.value = res.data.last_page; // Update total pages from response
-
-    const activeOrders = res.data.data.filter(
-        order => !inactiveStatusIds.includes(order.status.id) && order.is_hidden === 0
-    );
-    const inactiveOrders = res.data.data.filter(order =>
-        inactiveStatusIds.includes(order.status.id)
-    );
-
-    return {
-      active: activeOrders,
-      inactive: inactiveOrders,
+    // Directly updating orders ref
+    orders.value = {
+      active: res.data.data.filter(
+          order => !inactiveStatusIds.includes(order.status.id) && order.is_hidden === 0
+      ),
+      inactive: res.data.data.filter(order =>
+          inactiveStatusIds.includes(order.status.id)
+      ),
       all: res.data.data,
     };
   } catch (e) {
@@ -33,20 +35,20 @@ const fetchOrders = async (page) => {
   }
 };
 
-// AsyncData for initial fetch
-const { data: orders, refresh } = useAsyncData('orders', () => fetchOrders(currentPage.value));
-
-const inactiveStatusIds = [6, 8];
-
-onMounted(() => {
-  checkIfUserIsLoggedIn('Aby przejść do twojego konta zaloguj się lub zarejestruj');
-  setupTabs();
+// Watch currentPage for changes and re-fetch orders
+watch(currentPage, (newPage) => {
+  fetchOrders(newPage);
 });
 
-// Pagination navigation
+// Initial fetch moved to onMounted to ensure it runs once component is mounted
+onMounted(() => {
+  fetchOrders(currentPage.value);
+  // Other setup tasks
+});
+
+// Ensure goToPage method updates currentPage correctly
 const goToPage = (page) => {
-  currentPage.value = page;
-  refresh(); // Trigger re-fetching of orders for the new page
+  currentPage.value = page; // This should trigger the watch effect
 };
 
 // Setup tabs - assuming this logic is needed for your component
