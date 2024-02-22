@@ -2,10 +2,6 @@
 import { Tabs } from "flowbite";
 import type { TabsOptions, TabsInterface, TabItem } from "flowbite";
 import OrderItem from "~~/components/account/OrderItem.vue";
-import { checkIfUserIsLoggedIn } from "~/helpers/authenticationCheck";
-
-const currentPage = ref(1); // Track the current page
-const totalPages = ref(0); // To be updated with total pages from response
 
 const { $shopApi: shopApi } = useNuxtApp();
 
