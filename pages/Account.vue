@@ -27,6 +27,8 @@ const fetchOrders = async (page) => {
       ),
       all: res.data.data,
     };
+
+    console.log(orders.value);
   } catch (e) {
     console.error(e);
     // Handle error appropriately
@@ -120,6 +122,8 @@ function setupTabs() {
       </li>
     </ul>
   </div>
+
+  {{orders.value }}
   <div id="tabContentExample" class="pb-20">
     <div
       class="hidden"
