@@ -9,7 +9,7 @@ const { $shopApi: shopApi } = useNuxtApp();
 // Fetch orders function with pagination
 const currentPage = ref(1);
 const totalPages = ref(0);
-const orders = ref({ active: [], inactive: [], all: [] });
+let orders = reactive({ active: [], inactive: [], all: [] });
 
 // Adjusted fetchOrders to directly update the orders ref
 const fetchOrders = async (page) => {
@@ -18,7 +18,7 @@ const fetchOrders = async (page) => {
     const res = await shopApi.get(`/api/orders/getAll?page=${page}`);
     totalPages.value = res.data.last_page; // Update total pages from response
     // Directly updating orders ref
-    orders.value = {
+    orders = {
       active: res.data.data.filter(
           order => !inactiveStatusIds.includes(order.status.id) && order.is_hidden === 0
       ),
@@ -28,7 +28,7 @@ const fetchOrders = async (page) => {
       all: res.data.data,
     };
 
-    console.log(orders.value);
+    console.log(orders);
   } catch (e) {
     console.error(e);
     // Handle error appropriately
@@ -123,7 +123,7 @@ function setupTabs() {
     </ul>
   </div>
 
-  {{orders.value }}
+  {{orders }}
   <div id="tabContentExample" class="pb-20">
     <div
       class="hidden"
