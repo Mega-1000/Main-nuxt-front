@@ -123,10 +123,8 @@ function setupTabs() {
     </ul>
   </div>
 
-  {{orders }}
   <div id="tabContentExample" class="pb-20">
     <div
-      class="hidden"
       id="active-content"
       role="tabpanel"
       aria-labelledby="active-tab"
