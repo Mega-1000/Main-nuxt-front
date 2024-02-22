@@ -4,12 +4,12 @@ const isNoLayout = ref(false);
 
 onMounted(() => {
 
-  const script = document.createElement('script');
-  script.async = true;
-  script.dataset.id = "8598422425";
-  script.id = "chatling-embed-script";
-  script.src = "https://chatling.ai/js/embed.js";
-  document.body.appendChild(script);
+  // const script = document.createElement('script');
+  // script.async = true;
+  // script.dataset.id = "8598422425";
+  // script.id = "chatling-embed-script";
+  // script.src = "https://chatling.ai/js/embed.js";
+  // document.body.appendChild(script);
 
   const lastSegment = route.path.split('/').pop();
 
