@@ -2,6 +2,7 @@
 import { Tabs } from "flowbite";
 import type { TabsOptions, TabsInterface, TabItem } from "flowbite";
 import OrderItem from "~~/components/account/OrderItem.vue";
+import { checkIfUserIsLoggedIn } from "~/helpers/authenticationCheck";
 
 const { $shopApi: shopApi } = useNuxtApp();
 
@@ -13,6 +14,7 @@ const orders = ref({ active: [], inactive: [], all: [] });
 // Adjusted fetchOrders to directly update the orders ref
 const fetchOrders = async (page) => {
   try {
+    const inactiveStatusIds = [6, 8];
     const res = await shopApi.get(`/api/orders/getAll?page=${page}`);
     totalPages.value = res.data.last_page; // Update total pages from response
     // Directly updating orders ref
