@@ -161,7 +161,7 @@ function setupTabs() {
     </div>
   </div>
 
-  <nav aria-label="Page navigation" class="flex justify-center mt-4">
+  <nav aria-label="Page navigation" class="flex justify-center mt-4 mb-16">
     <ul class="inline-flex items-center -space-x-px">
       <li :class="{ 'opacity-50': currentPage === 1 }">
         <button
