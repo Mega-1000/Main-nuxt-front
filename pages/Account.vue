@@ -161,18 +161,35 @@ function setupTabs() {
     </div>
   </div>
 
-  <nav aria-label="Page navigation">
-    <ul class="pagination">
-      <li class="page-item" :class="{ disabled: currentPage === 1 }">
-        <button class="page-link" @click="goToPage(currentPage - 1)">Previous</button>
+  <nav aria-label="Page navigation" class="flex justify-center mt-4">
+    <ul class="inline-flex items-center -space-x-px">
+      <li :class="{ 'opacity-50': currentPage === 1 }">
+        <button
+            class="py-2 px-3 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700"
+            @click="currentPage > 1 && goToPage(currentPage - 1)"
+            :disabled="currentPage === 1"
+        >
+          Previous
+        </button>
       </li>
-      <!-- Generate page numbers dynamically based on totalPages -->
-      <li class="page-item" :class="{ active: currentPage === page }" v-for="page in totalPages" :key="page">
-        <button class="page-link" @click="goToPage(page)">{{ page }}</button>
+      <li v-for="page in totalPages" :key="page" :class="{ 'bg-blue-500 border-blue-500 text-white': currentPage === page, 'border-gray-300 text-gray-500 hover:bg-gray-100': currentPage !== page }">
+        <button
+            class="py-2 px-3 leading-tight bg-white border hover:text-gray-700"
+            @click="goToPage(page)"
+        >
+          {{ page }}
+        </button>
       </li>
-      <li class="page-item" :class="{ disabled: currentPage === totalPages }">
-        <button class="page-link" @click="goToPage(currentPage + 1)">Next</button>
+      <li :class="{ 'opacity-50': currentPage === totalPages }">
+        <button
+            class="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700"
+            @click="currentPage < totalPages && goToPage(currentPage + 1)"
+            :disabled="currentPage === totalPages"
+        >
+          Next
+        </button>
       </li>
     </ul>
   </nav>
+
 </template>

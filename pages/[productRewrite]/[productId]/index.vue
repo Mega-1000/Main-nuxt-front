@@ -191,7 +191,7 @@ const router = useRouter();
 const goToPage = async (val: number) => {
   page.value = val;
 
-  router.push({
+  await router.push({
     query: {
       page: val,
     },
@@ -342,7 +342,7 @@ const goToPage = async (val: number) => {
                     </svg>
                   </button>
                 </li>
-                <li v-for="i in itemsData.last_page">
+                <li v-for="i in itemsData.last_opage">
                   <button
                     :disabled="page === i"
                     @click="() => goToPage(i)"
