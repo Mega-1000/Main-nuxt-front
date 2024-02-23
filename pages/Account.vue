@@ -169,7 +169,7 @@ function setupTabs() {
             @click="currentPage > 1 && goToPage(currentPage - 1)"
             :disabled="currentPage === 1"
         >
-          Previous
+          Poprzednia
         </button>
       </li>
       <li v-for="page in totalPages" :key="page" :class="{ 'bg-blue-500 border-blue-500 text-white': currentPage === page, 'border-gray-300 text-gray-500 hover:bg-gray-100': currentPage !== page }">
@@ -186,7 +186,7 @@ function setupTabs() {
             @click="currentPage < totalPages && goToPage(currentPage + 1)"
             :disabled="currentPage === totalPages"
         >
-          Next
+          Następna
         </button>
       </li>
     </ul>
