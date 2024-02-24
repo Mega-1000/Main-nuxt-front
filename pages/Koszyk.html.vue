@@ -367,8 +367,9 @@ const createChat = async (redirect: boolean) => {
   });
 
   if (isOrderStyrofoam) {
-    window.location.href = `${config.baseUrl}/chat-show-or-new/${data.id}/${data.customerId}?showAuctionInstructions=true`;
+    var url = `${config.baseUrl}/chat-show-or-new/${data.id}/${data.customerId}?showAuctionInstructions=true`;
 
+    window.open(url, '_blank');
     return;
   }
   await router.push(`/payment?token=${data.token}&total=${(parseFloat(productsCart.value.grossPrice()) + shipmentCostBrutto.value).toFixed(2)}`);
@@ -641,12 +642,12 @@ const ShipmentCostItemsLeftText = (product: any) => {
                 </div>
                 <label for="rules-3" class="ml-2 text-sm font-medium text-gray-900">Zapoznałem się z regulaminem 3</label>
               </div>
-              <div>
-                <FileBase64 multiple @onDone="handleFiles" />
-                <p class="mt-1 text-sm text-gray-500" id="file_input_help">
-                  PNG, JPG, JPEG, GIF, TIF, lub PDF
-                </p>
-              </div>
+<!--              <div>-->
+<!--                <FileBase64 multiple @onDone="handleFiles" />-->
+<!--                <p class="mt-1 text-sm text-gray-500" id="file_input_help">-->
+<!--                  PNG, JPG, JPEG, GIF, TIF, lub PDF-->
+<!--                </p>-->
+<!--              </div>-->
               <p class="mt-2 text-sm text-red-600">
                 {{ errorText2 }}
               </p>
