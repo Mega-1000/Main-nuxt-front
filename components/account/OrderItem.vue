@@ -201,7 +201,7 @@ const markOfferAsInactive = async () => {
 
       <accountActionButton type="link" target="_blank" is="button"
                         :href="`${config.baseUrl}/chat-show-or-new/${item.id}/${item.customer_id}`">
-        Dyskusja
+        Dyskusja i zarządzanie datami dostawy
       </accountActionButton>
 
       <accountActionButton type="link" is="button" :href="`/Complaint?offerId=${item.id}`">
