@@ -227,31 +227,28 @@ const goToPage = async (val: number) => {
         :category="currentProduct"
       />
 
-      <div class="rounded bg-blue-500 p-8 text-white my-5 font-bold mx-6" v-if="isMainStyrofoamLobby">
+      <a href="/porady-do-zakupu-styropianow" target="__blank" class="rounded bg-blue-500 p-8 text-white my-5 font-bold mx-6" v-if="isMainStyrofoamLobby">
         <div class="font-bold text-3xl">
-          Nie wiesz, który styropian wybrać?
+          Zobacz tabelę styropianów
         </div>
 
         <p class="mt-2">
-          Odwiedź naszą sekcję poradników, gdzie znajdziesz kompleksowy przewodnik i porównanie cen styropianu od ponad 40 producentów.
-          <nuxt-link href="/porady-do-zakupu-styropianow">
-            Kliknij tutaj
-          </nuxt-link>
+          Odwiedź naszą sekcję poradników, gdzie znajdziesz porównanie cen styropianu od ponad 50 producentów.
         </p>
-      </div>
+      </a>
 
-      <div class="rounded bg-red-500 p-8 text-white my-5 font-bold mx-6" v-if="isMainStyrofoamLobby">
-        <div class="font-bold text-3xl">
-          Chcesz zapłacić mniej?
-        </div>
-
-        <p class="mt-2">
-          Sprawdź nasz system przetargowy. Pozwoli Ci uzyskać specjalne oferty cenowe bezpośrednio od producentów na podstawie Twojego zapytania.
-          <nuxt-link href="/przetargi-styropianów">
-            Kliknij tutaj
-          </nuxt-link>
-        </p>
-      </div>
+<!--      <div class="rounded bg-red-500 p-8 text-white my-5 font-bold mx-6" v-if="isMainStyrofoamLobby">-->
+<!--        <div class="font-bold text-3xl">-->
+<!--          Chcesz zapłacić mniej?-->
+<!--        </div>-->
+<!---->
+<!--        <p class="mt-2">-->
+<!--          Sprawdź nasz system przetargowy. Pozwoli Ci uzyskać specjalne oferty cenowe bezpośrednio od producentów na podstawie Twojego zapytania.-->
+<!--          <nuxt-link href="/przetargi-styropianów">-->
+<!--            Kliknij tutaj-->
+<!--          </nuxt-link>-->
+<!--        </p>-->
+<!--      </div>-->
 
 
       <div v-if="isStaff && categoryFirmId">
