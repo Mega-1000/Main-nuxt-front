@@ -67,7 +67,7 @@
 
         <div class="w-[60%] text-red-600 font-bold">
           <div v-if="!isVisibilityLimited">
-            !! Gdybyście państwo mieli problemy z wypełnieniem lub złym działaniem strony prosimy dzwonić do działu obsługi informatycznej  pod numer 691801594 w godzinach 7-23
+            !! Gdybyście państwo mieli problemy z wypełnieniem lub złym działaniem strony prosimy dzwonić do działu obsługi informatycznej  pod numer 507925963 w godzinach 7-23
             <br>
             !!!  Dział ten nie obsługuje ofert !!!
           </div>
@@ -112,11 +112,6 @@
           >
             <li>
               <NuxtLink v-if="!isVisibilityLimited" href="/info" class="text-gray-900 hover:underline"
-                >Informacje</NuxtLink
-              >
-            </li>
-            <li>
-              <NuxtLink href="/contact" class="text-gray-900 hover:underline" v-if="!isVisibilityLimited"
                 >Kontakt</NuxtLink
               >
             </li>
@@ -161,11 +156,6 @@
             <ul class="text-sm md:text-md font-medium space-y-1" v-if="showMenu">
               <li>
                 <NuxtLink href="/info" class="text-gray-900 hover:underline"
-                  >Informacje</NuxtLink
-                >
-              </li>
-              <li>
-                <NuxtLink href="/contact" class="text-gray-900 hover:underline"
                   >Kontakt</NuxtLink
                 >
               </li>

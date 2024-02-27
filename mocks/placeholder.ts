@@ -3,20 +3,20 @@ export default `
    <div class="proc_100 animatable fadeInUp animated">
       <div class="max_szer">
          <p>&nbsp;</p>
-         <p><span style="color:#FF0000;"><span style="font-size:22px;">INWESTYCJE DEVELOPERZY WYKONAWCY szybki kontakt 691801594 badz pisac na info@mega1000.pl</span></span></p>
+         <p><span style="color:#FF0000;"><span style="font-size:22px;">INWESTYCJE DEVELOPERZY WYKONAWCY szybki kontakt 507925963 badz pisac na info@ephpolska.pl</span></span></p>
          <p>&nbsp;</p>
          <p><strong><span style="font-size:18px;">OBSLUGA SAMODZIELNA</span></strong><span style="font-size:16px;"> (gwarantujemy w tym przypadku cene nie do przebicia)</span></p>
          <p><span style="font-size:16px;">Gdy nie potrzebujesz pomocy i chcesz najtaniej zakupic towar nalezy samodzielnie wycenic go (menu po lewej stronie) i wyslac do sprawdzenia gratisowego transportu.</span></p>
          <p><span style="font-size:16px;">Do dyspozycji dostajecie panstwo kalkulatory obliczeniowe i inoformacje przy kazdym produkcie.</span></p>
          <p><span style="font-size:16px;">W tym przypadku Informacje na temat produktow udzielane sa wyłacznie pod telefonami infolinii ktore znajduja sie na kazdym dziale.</span></p>
          <p><strong><span style="font-size:20px;">Dzial kominowy jako jedyny ma obsluge przez konsultantow darmową poniewaz jestesmy producentem.</span></strong></p>
-         <p><span style="font-size:16px;">Zglos prosbe o kontakt pod&nbsp; numerem <strong>881406865</strong>.</span></p>
+         <p><span style="font-size:16px;">Zglos prosbe o kontakt pod&nbsp; numerem <strong>507925963</strong>.</span></p>
          <p><span style="font-size:16px;">Mozesz takze samodzielnie dokonac wizualizacji i wyceny calego komina na dziale 180.kominy</span></p>
          <p>&nbsp;</p>
          <p><strong><span style="font-size:18px;">OBSLUGA PRZEZ KONSULTANTOW</span></strong></p>
          <p><span style="font-size:16px;">Do panstwa dyspozycji sa konsultanci ktorzy pomagaja w wycenie oraz prawidlowej dostawie towaru aczkolwiek moga oni doliczyc koszt obslugi w przypadku dlutotrwalych i ciezkich wycen badz tych ktore nie generuja w ogole zysku</span></p>
          <p><span style="font-size:16px;">Dodatkowy koszt obslugi w przypadkach&nbsp; zakupu pojedynczych asortymentow moze wyniesc okolo 0-50 zl oraz w przypadku zakupu calych systemow&nbsp; 0-150 zl</span></p>
-         <p><span style="font-size:16px;">Aby zglosic prosbe o kontakt z konsultantem zadzwon pod 881406865 badza na gorze strony uzyj PROSBA O KONTAKT Z KONSULTANTEM badz wypelnij towary jaki chcesz zakupic uzywacjac menu po lewej stronie&nbsp; i wyslij do sprawdzenia gratisowego transportu i w uwagach dopisz prosba o kontakt z konsultantem.</span></p>
+         <p><span style="font-size:16px;">Aby zglosic prosbe o kontakt z konsultantem zadzwon pod 507925963 badza na gorze strony uzyj PROSBA O KONTAKT Z KONSULTANTEM badz wypelnij towary jaki chcesz zakupic uzywacjac menu po lewej stronie&nbsp; i wyslij do sprawdzenia gratisowego transportu i w uwagach dopisz prosba o kontakt z konsultantem.</span></p>
          <p>&nbsp;</p>
          <p><span style="font-size:18px;"><strong>BLOCZKI BETONOWE</strong></span></p>
          <p>Aby miec mozliwosc kontaktu z przedstawicielami zajmujacymi sie panstwa rejonem nalezy postepowac wedlug instrukcji w dziale 160.FUNDAMENTY/BLOCZKI FUNDAMENTOWE</p>
