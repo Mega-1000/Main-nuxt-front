@@ -4,6 +4,8 @@ import { ref } from 'vue';
 // State to track if the iframe is loading
 const isLoading = ref(true);
 
+const currentZipCode = localStorage.getItem('zipCode');
+
 // Function to call when the iframe has finished loading
 function onIframeLoad() {
   isLoading.value = false;
@@ -18,6 +20,6 @@ function onIframeLoad() {
     </div>
 
     <!-- IFrame with the load event listener -->
-    <iframe src="https://admin.mega1000.pl/auctions/display-prices-table?zip-code=66-400" style="width: 100%; height: 100%;" @load="onIframeLoad"></iframe>
+    <iframe :src="`https://admin.mega1000.pl/auctions/display-prices-table?zip-code=${currentZipCode}`" style="width: 100%; height: 100%;" @load="onIframeLoad"></iframe>
   </div>
 </template>
