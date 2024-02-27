@@ -18,6 +18,6 @@ function onIframeLoad() {
     </div>
 
     <!-- IFrame with the load event listener -->
-    <iframe src="https://admin.mega1000.pl/auctions/display-prices-table" style="width: 100%; height: 100%;" @load="onIframeLoad"></iframe>
+    <iframe src="https://admin.mega1000.pl/auctions/display-prices-table?zip-code=66-400" style="width: 100%; height: 100%;" @load="onIframeLoad"></iframe>
   </div>
 </template>
