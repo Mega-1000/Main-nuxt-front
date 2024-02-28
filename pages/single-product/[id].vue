@@ -34,13 +34,13 @@
 <template>
   <div>
     {{ item }}
-    <ProductItem
-        :item="item"
-        :modal="modal"
-        :setupModals="setupModals"
-        class="w-full"
-        :isStaff="false"
-    />
+<!--    <ProductItem-->
+<!--        :item="item"-->
+<!--        :modal="modal"-->
+<!--        :setupModals="setupModals"-->
+<!--        class="w-full"-->
+<!--        :isStaff="false"-->
+<!--    />-->
 
     <div
         id="calculatorModal"
