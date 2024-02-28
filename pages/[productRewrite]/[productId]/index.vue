@@ -339,7 +339,7 @@ const goToPage = async (val: number) => {
                     </svg>
                   </button>
                 </li>
-                <li v-for="i in itemsData.last_opage">
+                <li v-for="i in itemsData.last_page">
                   <button
                     :disabled="page === i"
                     @click="() => goToPage(i)"
