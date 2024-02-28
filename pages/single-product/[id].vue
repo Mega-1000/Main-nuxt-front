@@ -25,7 +25,7 @@
   onMounted(() => {
     setupModals();
 
-    const {data: response} = shopApi.get(`get-product/${route.params.id}`);
+    const {data: response} = shopApi.get(`api/get-product/${route.params.id}`);
 
     item.value = response;
   });
