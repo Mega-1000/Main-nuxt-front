@@ -2,7 +2,7 @@
   import { Modal, ModalOptions } from "flowbite";
 
   const item = ref();
-  const modal = ref<Modal | null>(null);
+  const modal = ref(null);
   const route = useRoute();
   const { $shopApi: shopApi } = useNuxtApp();
 
@@ -11,7 +11,7 @@
     const $targetEl = document.getElementById("calculatorModal");
 
     // options with default values
-    const options: ModalOptions = {
+    const options = {
       placement: "center",
       backdrop: "dynamic",
       backdropClasses: "bg-gray-900 bg-opacity-50 fixed inset-0 z-40",
