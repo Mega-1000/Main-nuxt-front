@@ -1,10 +1,13 @@
 <script setup>
   import { Modal, ModalOptions } from "flowbite";
+  import emmiter from "~/helpers/emitter";
 
   const item = ref({});
   const modal = ref(null);
   const route = useRoute();
   const { $shopApi: shopApi } = useNuxtApp();
+  const productsCart = useProductsCart();
+  const productAmount = useProductAmount();
 
   const setupModals = () => {
     // set the modal menu element
@@ -29,6 +32,15 @@
 
     item.value = response;
   });
+
+
+  const handleCart = () => {
+    const { cart: _cart, ...product } = item.value;
+    productsCart.value.addToCart(product, productAmount.value);
+    modal.value?.hide();
+
+    emmiter.emit("cart:change");
+  };
 </script>
 
 <template>
