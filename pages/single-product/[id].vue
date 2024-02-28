@@ -33,7 +33,6 @@
 
 <template>
   <div>
-    {{ item }}
     <ProductItem
         :item="item"
         :modal="modal"
