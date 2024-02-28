@@ -1,7 +1,7 @@
 <script setup>
   import { Modal, ModalOptions } from "flowbite";
 
-  const item = ref();
+  const item = ref({});
   const modal = ref(null);
   const route = useRoute();
   const { $shopApi: shopApi } = useNuxtApp();
@@ -28,6 +28,7 @@
     const {data: response} = shopApi.get(`api/get-product/${route.params.id}`);
 
     item.value = response;
+    console.log(item.value)
   });
 </script>
 
