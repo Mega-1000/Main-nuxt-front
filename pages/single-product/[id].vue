@@ -22,26 +22,25 @@
   };
 
 
-  onMounted(() => {
+  onMounted(async () => {
     setupModals();
 
-    const {data: response} = shopApi.get(`api/get-product/${route.params.id}`);
+    const {data: response} = await shopApi.get(`api/get-product/${route.params.id}`);
 
     item.value = response;
-    console.log(item.value)
   });
 </script>
 
 <template>
   <div>
     {{ item }}
-<!--    <ProductItem-->
-<!--        :item="item"-->
-<!--        :modal="modal"-->
-<!--        :setupModals="setupModals"-->
-<!--        class="w-full"-->
-<!--        :isStaff="false"-->
-<!--    />-->
+    <ProductItem
+        :item="item"
+        :modal="modal"
+        :setupModals="setupModals"
+        class="w-full"
+        :isStaff="false"
+    />
 
     <div
         id="calculatorModal"
