@@ -2,7 +2,6 @@
 import { Tabs } from "flowbite";
 import type { TabsOptions, TabsInterface, TabItem } from "flowbite";
 import OrderItem from "~~/components/account/OrderItem.vue";
-import { checkIfUserIsLoggedIn } from "~/helpers/authenticationCheck";
 
 const { $shopApi: shopApi } = useNuxtApp();
 
