@@ -10,10 +10,11 @@ const submitForm = () => {
 };
 </script>
 <template>
-  <div>
-    <h1>
+  <div class="lg:pl-20 max-w-[90%] mb-40">
+    <h1 class="font-bold text-4xl">
       Zgarnij 30 zł polecając nas znajomym!
     </h1>
+    <br>
     <p>
       Mamy świetną wiadomość: zaproś do nas dowolną ilość znajomych, którzy jeszcze nie kupowali styropianów na naszej stronie, i odbierz 25 zł na każde zamówienie nowego użytkownika! Twoje bonusy automatycznie zamienią się na zniżki przy kolejnych zakupach.
       <br>
