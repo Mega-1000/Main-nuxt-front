@@ -1,12 +1,22 @@
 <script setup>
 import { checkIfUserIsLoggedIn } from "~/helpers/authenticationCheck";
+import swal from "sweetalert2";
+
+const refereedPhoneNumber = ref('');
+const { $shopApi: shopApi } = useNuxtApp();
 
 onMounted(() => {
   checkIfUserIsLoggedIn();
 });
 
-const submitForm = () => {
+const submitForm = async () => {
+  const {data: response} = await shopApi.post('api/send-phone-number-as-refferal', {
+    phone: refereedPhoneNumber.value
+  });
 
+  if (response) {
+    await swal.fire('Pomyślnie wysłano numer telefonu!', 'Skontaktujemy się z twoim znajomym i powiadomimy cię jeśli dojdzie do zakupu!', 'success');
+  }
 };
 </script>
 <template>
@@ -21,11 +31,13 @@ const submitForm = () => {
       <br>
       Wystarczy, że wpiszesz tutaj numer telefonu twojego znajomego lub wyślesz mu twój link referencyjny.
     </p>
-
+    <div class="my-5">
+      Twój link referencyjny to:
+    </div>
     <form @submit.prevent="submitForm">
-      <TextInput placeholder="Wpisz numer telefonu" />
+      <TextInput :value="refereedPhoneNumber" @input="refereedPhoneNumber = $event" placeholder="Wpisz numer telefonu" />
 
-      <SubmitButton>
+      <SubmitButton class="mt-4">
         Wyślij numer
       </SubmitButton>
     </form>
