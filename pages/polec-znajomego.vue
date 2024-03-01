@@ -4,10 +4,12 @@ import swal from "sweetalert2";
 
 const refereedPhoneNumber = ref('');
 const currentUser = ref({});
+const userIdEncoded = ref('');
 const { $shopApi: shopApi } = useNuxtApp();
 
-onMounted(() => {
-  currentUser.value = checkIfUserIsLoggedIn();
+onMounted(async () => {
+  currentUser.value = await checkIfUserIsLoggedIn();
+  userIdEncoded.value = btoa(currentUser.value.id);
 });
 
 const submitForm = async () => {
@@ -34,7 +36,8 @@ const submitForm = async () => {
       Wystarczy, że wpiszesz tutaj numer telefonu twojego znajomego lub wyślesz mu twój link referencyjny.
     </p>
     <div class="my-5">
-      Twój link referencyjny to: https://mega1000.pl/sklep?ref=
+      {{ currentUser }}
+      Twój link referencyjny to: https://mega1000.pl/sklep?ref={{ userIdEncoded }}
     </div>
     <form @submit.prevent="submitForm">
       <TextInput :value="refereedPhoneNumber" @input="refereedPhoneNumber = $event" placeholder="Wpisz numer telefonu" />
