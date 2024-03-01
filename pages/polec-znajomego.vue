@@ -34,7 +34,7 @@ const submitForm = async () => {
       Wystarczy, że wpiszesz tutaj numer telefonu twojego znajomego lub wyślesz mu twój link referencyjny.
     </p>
     <div class="my-5">
-      Twój link referencyjny to: https://mega1000.pl/sklep?ref={{ btoa(currentUser.id) }}
+      Twój link referencyjny to: https://mega1000.pl/sklep?ref={{ window.btoa(currentUser.id) }}
     </div>
     <form @submit.prevent="submitForm">
       <TextInput :value="refereedPhoneNumber" @input="refereedPhoneNumber = $event" placeholder="Wpisz numer telefonu" />
