@@ -6,10 +6,13 @@ const refereedPhoneNumber = ref('');
 const currentUser = ref({});
 const userIdEncoded = ref('');
 const { $shopApi: shopApi } = useNuxtApp();
+const activeReferrals = ref([]);
 
 onMounted(async () => {
   currentUser.value = await checkIfUserIsLoggedIn();
   userIdEncoded.value = btoa(currentUser.value.id);
+
+  activeReferrals.value = await shopApi.get(`/api/contact-approach/${currentUser.value.id}`).data;
 });
 
 const submitForm = async () => {
@@ -59,5 +62,19 @@ const copyReferralLink = async () => {
         Wyślij numer
       </SubmitButton>
     </form>
+
+    <div class="referrals-section my-10">
+      <h2 class="font-bold text-3xl mb-4">Twoje polecone kontakty</h2>
+      <div v-if="activeReferrals.length > 0">
+        <ul>
+          <li v-for="(referral, index) in activeReferrals" :key="index" class="mb-2">
+            Numer telefonu: {{ referral.phone_number }}, Status: <span :class="{'text-green-500': referral.done, 'text-red-500': !referral.done}">{{ referral.done ? 'Zakończony' : 'W trakcie' }}</span>
+          </li>
+        </ul>
+      </div>
+      <div v-else>
+        <p>Nie masz jeszcze żadnych poleconych kontaktów.</p>
+      </div>
+    </div>
   </div>
 </template>
