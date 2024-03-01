@@ -3,15 +3,17 @@ import { checkIfUserIsLoggedIn } from "~/helpers/authenticationCheck";
 import swal from "sweetalert2";
 
 const refereedPhoneNumber = ref('');
+const currentUser = ref({});
 const { $shopApi: shopApi } = useNuxtApp();
 
 onMounted(() => {
-  checkIfUserIsLoggedIn();
+  currentUser.value = checkIfUserIsLoggedIn();
 });
 
 const submitForm = async () => {
-  const {data: response} = await shopApi.post('api/send-phone-number-as-refferal', {
-    phone: refereedPhoneNumber.value
+  const {data: response} = await shopApi.post('api/contact-approach/create', {
+    phone: refereedPhoneNumber.value,
+    referred_by_user_id: currentUser.value.id,
   });
 
   if (response) {
@@ -32,7 +34,7 @@ const submitForm = async () => {
       Wystarczy, że wpiszesz tutaj numer telefonu twojego znajomego lub wyślesz mu twój link referencyjny.
     </p>
     <div class="my-5">
-      Twój link referencyjny to:
+      Twój link referencyjny to: https://mega1000.pl/sklep?ref={{ btoa(currentUser.id) }}
     </div>
     <form @submit.prevent="submitForm">
       <TextInput :value="refereedPhoneNumber" @input="refereedPhoneNumber = $event" placeholder="Wpisz numer telefonu" />
