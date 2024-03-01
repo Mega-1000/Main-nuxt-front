@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { defaultImgSrc } from "~~/helpers/buildImgRoute";
 import Swal from "sweetalert2";
+import ReferalBanner from "~/components/ReferalBanner.vue";
 
 const { $shopApi: shopApi, $buildImgRoute: buildImgRoute } = useNuxtApp();
 const route = useRoute();
@@ -47,6 +48,7 @@ const config = useRuntimeConfig().public;
 </script>
 
 <template>
+  <ReferalBanner />
   <p v-if="pending">Loading...</p>
   <div v-else class="flex">
     <section class="pt-10 pb-20 w-full flex justify-center">

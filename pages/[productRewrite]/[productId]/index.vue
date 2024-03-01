@@ -203,6 +203,7 @@ const goToPage = async (val: number) => {
 </script>
 
 <template>
+  <ReferalBanner />
   <AskUserForZipCodeStyrofoarms v-if="askUserForZipCode" />
 
   <div
