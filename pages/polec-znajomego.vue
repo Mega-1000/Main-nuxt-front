@@ -12,8 +12,7 @@ onMounted(async () => {
   currentUser.value = await checkIfUserIsLoggedIn();
   userIdEncoded.value = btoa(currentUser.value.id);
 
-  const {data: response} = await shopApi.get(`/api/contact-approach/${currentUser.value.id}`);
-  activeReferrals.value = response;
+  await loadReferrals();
 });
 
 const submitForm = async () => {
@@ -22,10 +21,20 @@ const submitForm = async () => {
     referred_by_user_id: currentUser.value.id,
   });
 
+  if (response.success === false) {
+    return await swal.fire('Ten numer telefonu jest już w bazie!', 'Nie możemy dodać tego numeru jako polecenie!', 'info');
+  }
+
   if (response) {
+    loadReferrals();
     await swal.fire('Pomyślnie wysłano numer telefonu!', 'Skontaktujemy się z twoim znajomym i powiadomimy cię jeśli dojdzie do zakupu!', 'success');
   }
 };
+
+const loadReferrals = async () => {
+  const {data: response} = await shopApi.get(`/api/contact-approach/${currentUser.value.id}`);
+  activeReferrals.value = response;
+}
 
 const copyReferralLink = async () => {
   const referralLink = `https://mega1000.pl/sklep?ref=${userIdEncoded.value}`;
