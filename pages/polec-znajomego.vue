@@ -12,7 +12,8 @@ onMounted(async () => {
   currentUser.value = await checkIfUserIsLoggedIn();
   userIdEncoded.value = btoa(currentUser.value.id);
 
-  activeReferrals.value = await (shopApi.get(`/api/contact-approach/${currentUser.value.id}`)).data;
+  const {data: response} = await shopApi.get(`/api/contact-approach/${currentUser.value.id}`);
+  activeReferrals.value = response;
 });
 
 const submitForm = async () => {
