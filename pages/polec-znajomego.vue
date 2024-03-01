@@ -14,12 +14,23 @@ onMounted(async () => {
 
 const submitForm = async () => {
   const {data: response} = await shopApi.post('api/contact-approach/create', {
-    phone: refereedPhoneNumber.value,
+    phone_number: refereedPhoneNumber.value,
     referred_by_user_id: currentUser.value.id,
   });
 
   if (response) {
     await swal.fire('Pomyślnie wysłano numer telefonu!', 'Skontaktujemy się z twoim znajomym i powiadomimy cię jeśli dojdzie do zakupu!', 'success');
+  }
+};
+
+const copyReferralLink = async () => {
+  const referralLink = `https://mega1000.pl/sklep?ref=${userIdEncoded.value}`;
+  try {
+    await navigator.clipboard.writeText(referralLink);
+    await swal.fire('Skopiowano!', 'Twój link referencyjny został skopiowany do schowka.', 'success');
+  } catch (err) {
+    console.error('Failed to copy: ', err);
+    await swal.fire('Błąd', 'Nie udało się skopiować linku.', 'error');
   }
 };
 </script>
@@ -36,8 +47,10 @@ const submitForm = async () => {
       Wystarczy, że wpiszesz tutaj numer telefonu twojego znajomego lub wyślesz mu twój link referencyjny.
     </p>
     <div class="my-5">
-      {{ currentUser }}
       Twój link referencyjny to: https://mega1000.pl/sklep?ref={{ userIdEncoded }}
+      <button @click="copyReferralLink" class="ml-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700 transition duration-300">
+        Kopiuj link
+      </button>
     </div>
     <form @submit.prevent="submitForm">
       <TextInput :value="refereedPhoneNumber" @input="refereedPhoneNumber = $event" placeholder="Wpisz numer telefonu" />
