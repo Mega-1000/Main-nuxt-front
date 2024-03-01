@@ -43,7 +43,7 @@ const showOfferTable = (auction: any) => {
     </div>
 
     <SubmitButton>
-      <a :href="`https://new.mega1000.pl/magazyn/aktualizacja-cen/${currentFirm.id}/zaktualizuj`" target="__blank" class="mt-4">
+      <a :href="`https://new.mega1000.pl/magazyn/aktualizacja-cen/${currentFirm?.id}/zaktualizuj`" target="__blank" class="mt-4">
         Zaktualizuj ceny podstawowe styropianów - po których klienci będą otrzymywać oferty w przypadku gdy nie weźmiesz udziału w przetargu.
       </a>
     </SubmitButton>
@@ -108,7 +108,7 @@ const showOfferTable = (auction: any) => {
             <th>Najniższa cena na ten moment</th>
           </tr>
 
-          <tr v-for="item in auction.chat.order.items" class="mt-4">
+          <tr v-for="item in auction?.chat?.order?.items" class="mt-4">
             <td>{{ item.product.name.substr(item.product.name.indexOf(" ") + 1) }}</td>
             <td>{{ item.quantity }}</td>
             <td>{{  Math.round(item.quantity * item.product.packing.numbers_of_basic_commercial_units_in_pack * 100) / 100 }} {{ item.product.unit_basic }}</td>
