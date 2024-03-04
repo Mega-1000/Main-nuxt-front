@@ -51,6 +51,7 @@ const handleCart = () => {
         :setupModals="setupModals"
         class="w-full"
         :isStaff="false"
+        :showModal="true"
     />
     <CalculatorModal />
   </div>
