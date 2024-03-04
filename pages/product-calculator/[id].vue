@@ -1,3 +1,0 @@
-<template>
-  <CalculatorModal />
-</template>
