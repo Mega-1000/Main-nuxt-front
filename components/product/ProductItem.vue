@@ -50,9 +50,7 @@ onMounted(() => {
     items.value = cart.products.filter((item: any) => item.delivery_type === props.item.delivery_type);
   });
 
-  if (props.showModal) {
-    handleShowModal(items.value[0]);
-  }
+  handleShowModal(items.value[0]);
 });
 const handleShowModal = async (item: any, isSubProduct = false) => {
   if (!isSubProduct) {
