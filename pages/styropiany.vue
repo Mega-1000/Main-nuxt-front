@@ -1,4 +1,4 @@
 <script setup>
-  await navigateTo('/----100styropiany-elewacyjne/103');
+  await navigateTo('/----100styropiany-elewacyjne/100');
 </script>
 

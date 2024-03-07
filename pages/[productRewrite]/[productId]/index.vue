@@ -106,11 +106,11 @@ const setupModals = () => {
 onMounted(async () => {
   setupModals();
 
-  if (productId === '103' && !localStorage.getItem('zipCode')) {
+  if (productId === '100' && !localStorage.getItem('zipCode')) {
     askUserForZipCode.value = true;
   }
 
-  if (productId >= 102 && productId <= 147) {
+  if (productId >= 100 && productId <= 142) {
     isMainStyrofoamLobby.value = true;
   }
 
