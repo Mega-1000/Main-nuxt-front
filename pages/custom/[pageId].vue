@@ -14,7 +14,7 @@ const { data: content, pending } = await useAsyncData(async () => {
 </script>
 
 <template>
-  <div class="lg:ml-10 max-w-[90%] mb-40">
+  <div class="lg:ml-10 max-w-[90%] mb-40">w
     <p v-if="pending">Loading...</p>
     <div v-else :innerHTML="content"></div>
   </div>

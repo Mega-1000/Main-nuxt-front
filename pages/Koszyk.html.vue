@@ -359,15 +359,15 @@ const createChat = async (redirect: boolean) => {
 
   setTimeout(() =>  productsCart.value.removeAllFromCart(), 100)
 
-  let isOrderStyrofoam = true;
+  let isOrderStyrofoam = false;
   productsCart.value.products.forEach((product: any) => {
-    if (product.variation_group != 'styropiany') {
-      isOrderStyrofoam = false;
+    if (product.variation_group === 'styropiany') {
+      isOrderStyrofoam = true;
     }
   });
 
   if (isOrderStyrofoam) {
-    var url = `${config.baseUrl}/chat-show-or-new/${data.id}/${data.customerId}?showAuctionInstructions=true`;
+    const url = `${config.baseUrl}/chat-show-or-new/${data.id}/${data.customerId}?showAuctionInstructions=true`;
 
     window.open(url, '_blank');
     return;
