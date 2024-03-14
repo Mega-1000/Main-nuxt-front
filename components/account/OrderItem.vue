@@ -160,6 +160,14 @@ const markOfferAsInactive = async () => {
       </p>
     </div>
 
+    <div class="mt-4" v-if="item.auctionCanBeCreated">
+      To jest zamówienie na styropian!<br>Możesz stworzyć przetarg a my zapytamy firmy obsługujące twój kod pocztowy o indywidualną wycenę!
+      <br>
+      <a :href="`admin.mega1000.pl/auctions/${item.chat.id}/create`" target="_blank" class="px-4 py-2 rounded text-white bg-green-500">
+        Rozpocznij przetarg
+      </a>
+    </div>
+
     <div class="grid md:flex w-[80%] justify-between">
       <a is="button" :href="`${config.baseUrl}/auctions/${item?.chat?.auctions[0]?.id}/end`" v-if="item?.chat?.auctions[0]?.id"
          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mx-3 font-semibold" target="__blank">
