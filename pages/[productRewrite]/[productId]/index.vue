@@ -272,7 +272,7 @@ const goToPage = async (val: number) => {
           v-for="product in currentProduct.currentProduct.children"
           class="w-full h-full rounded-xl bg-white p-3 shadow-lg hover:shadow-xl hover:transform hover:scale-105 duration-300"
         >
-          <div :class="category.blured ? 'blur-sm' : ''">
+          <div :class="product.blured ? 'blur-sm' : ''">
             <NuxtLink
               :href="buildLink(product)"
               class="flex flex-col justify-between h-full"
@@ -555,4 +555,3 @@ const goToPage = async (val: number) => {
     </div>
   </div>
 </template>
-`
