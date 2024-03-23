@@ -22,7 +22,7 @@ const isMainStyrofoamLobby = ref<bool>(false);
 const { data: currentProduct, pending: pending1 } = await useAsyncData(
   async () => {
     try {
-      const res = await shopApi.get("/api/products/categories?zip-code=${localStorage.getItem('zipCode')}");
+      const res = await shopApi.get(`/api/products/categories?zip-code=${localStorage.getItem('zipCode')}`);
       const currentProduct = findActiveMenu(res.data, productId as string);
       let product = { ...currentProduct };
       let categoryTree = [currentProduct];
