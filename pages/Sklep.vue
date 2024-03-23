@@ -8,7 +8,7 @@ const route = useRoute();
 
 const { data: categories, pending } = await useAsyncData(async () => {
   try {
-    const res = await shopApi.get("/api/products/categories");
+    const res = await shopApi.get("/api/products/categories?zip-code=${localStorage.getItem('zipCode')}");
     return res.data;
   } catch (e: any) {}
 });
