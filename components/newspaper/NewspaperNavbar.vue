@@ -13,7 +13,7 @@ const { $shopApi: shopApi } = useNuxtApp();
 const categories = ref([]);
 
 onMounted(async () => {
-  const { data } = await shopApi.get("/api/discounts/get-categories");
+  const { data } = await shopApi.get(`/api/discounts/get-categories?zip-code=${localStorage.getItem('zipCode')}`);
   categories.value = data;
 });
 </script>
