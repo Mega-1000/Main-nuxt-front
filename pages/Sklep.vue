@@ -71,22 +71,24 @@ const config = useRuntimeConfig().public;
                     v-for="category in categories"
                     class="h-full w-fit sm:w-auto rounded-xl bg-white p-3 shadow-lg hover:shadow-xl hover:transform hover:scale-105 duration-300"
                 >
-                  <NuxtLink :href="buildLink(category)">
-                    <div class="overflow-hidden rounded-xl h-4/5">
-                      <img
-                          :src="buildImgRoute(category.img)"
-                          alt="Photo"
-                          @error="(e: any) => (e.target!.src = defaultImgSrc)"
-                          class="w-full h-full"
-                      />
-                    </div>
+                  <div :class="category.blured ? 'blur-sm' : ''">
+                    <NuxtLink :href="buildLink(category)">
+                      <div class="overflow-hidden rounded-xl h-4/5">
+                        <img
+                            :src="buildImgRoute(category.img)"
+                            alt="Photo"
+                            @error="(e: any) => (e.target!.src = defaultImgSrc)"
+                            class="w-full h-full"
+                        />
+                      </div>
 
-                    <div class="mt-1 p-2 h-1/5">
-                      <h2 class="text-gray-900 font-medium">
-                        {{ category.name }}
-                      </h2>
-                    </div>
-                  </NuxtLink>
+                      <div class="mt-1 p-2 h-1/5">
+                        <h2 class="text-gray-900 font-medium">
+                          {{ category.name }}
+                        </h2>
+                      </div>
+                    </NuxtLink>
+                  </div>
                 </article>
               </div>
             </div>
