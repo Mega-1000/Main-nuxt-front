@@ -272,26 +272,28 @@ const goToPage = async (val: number) => {
           v-for="product in currentProduct.currentProduct.children"
           class="w-full h-full rounded-xl bg-white p-3 shadow-lg hover:shadow-xl hover:transform hover:scale-105 duration-300"
         >
-          <NuxtLink
-            :href="buildLink(product)"
-            class="flex flex-col justify-between h-full"
-          >
-            <div class="overflow-hidden rounded-xl">
-              <img
-                :src="buildImgRoute(product.img)"
-                alt="Photo"
-                loading="lazy"
-                @error="(e: any) => (e.target!.src = defaultImgSrc)"
-                class="h-full w-full"
-              />
-            </div>
+          <div :class="category.blured ? 'blur-sm' : ''">
+            <NuxtLink
+              :href="buildLink(product)"
+              class="flex flex-col justify-between h-full"
+            >
+              <div class="overflow-hidden rounded-xl">
+                <img
+                  :src="buildImgRoute(product.img)"
+                  alt="Photo"
+                  loading="lazy"
+                  @error="(e: any) => (e.target!.src = defaultImgSrc)"
+                  class="h-full w-full"
+                />
+              </div>
 
-            <div class="mt-1 p-2">
-              <h2 class="text-gray-900 font-medium">
-                {{ product.name }}
-              </h2>
-            </div>
-          </NuxtLink>
+              <div class="mt-1 p-2">
+                <h2 class="text-gray-900 font-medium">
+                  {{ product.name }}
+                </h2>
+              </div>
+            </NuxtLink>
+          </div>
         </article>
       </div>
 
