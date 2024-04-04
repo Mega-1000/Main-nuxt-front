@@ -169,6 +169,17 @@ const markOfferAsInactive = async () => {
       </a>
     </div>
 
+    <div class="mt-4" style="margin: 40px 0" v-if="item.isAuctionCreated">
+      Na to zamówienie jest aktywny przetarg!
+      <br>
+      Jeśli chcesz zmienić ejgo szczeguły kliknij przycisk przejdz do chatu.
+      <br>
+      <br>
+      <a :href="`${config.baseUrl}/chat-show-or-new/${item.id}/${item.customer_id}`" target="_blank" style="margin-top: 20px" class="px-5 my-6 py-3 rounded text-white bg-green-500">
+        przejdz do chatu
+      </a>
+    </div>
+
     <div class="grid md:flex w-[80%] justify-between">
       <a is="button" :href="`${config.baseUrl}/auctions/${item?.chat?.auctions[0]?.id}/end`" v-if="item?.chat?.auctions[0]?.id"
          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mx-3 font-semibold" target="__blank">
