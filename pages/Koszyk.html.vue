@@ -285,6 +285,7 @@ const updateProduct = async (
     const response = await shopApi.get(`/api/products/${productId}`);
     let product = response.data;
     product.recalculate = 1;
+    product.id += 1;
     cart.addToCart(product, amount);
   } catch (err) { }
 };
