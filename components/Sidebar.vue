@@ -8,14 +8,14 @@ const props = defineProps<{
 
 <template>
   <div
-    :class="`sm:hidden w-15 md:w-25 h-fit w-full bg-white  ${
+    :class="`hidden lg:block w-15 md:w-25 h-fit w-full bg-white  ${
       !nested ? `shadow-md border border-gray-500` : ``
     }`"
     id="sidenavExample"
   >
     <h3
       v-if="!nested"
-      class="hidden lg:block text-xl lg:text-2xl py-5 uppercase px-3 font-medium bg-gray-100"
+      class="text-xl lg:text-2xl py-5 uppercase px-3 font-medium bg-gray-100"
     >
       Kategorie
     </h3>
