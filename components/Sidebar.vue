@@ -15,7 +15,7 @@ const props = defineProps<{
   >
     <h3
       v-if="!nested"
-      class="text-xl lg:text-2xl py-5 uppercase px-3 font-medium bg-gray-100"
+      class="hidden lg:block text-xl lg:text-2xl py-5 uppercase px-3 font-medium bg-gray-100"
     >
       Kategorie
     </h3>
