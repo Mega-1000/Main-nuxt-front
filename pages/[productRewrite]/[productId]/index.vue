@@ -110,7 +110,11 @@ onMounted(async () => {
     askUserForZipCode.value = true;
   }
 
-  if (productId >= 100 && productId <= 142) {
+  if (
+      (productId >= 100 && productId <= 142) ||
+      (productId >= 100 && productId <= 142) ||
+      (productId >= 4 && productId <= 10) ||
+  ) {
     isMainStyrofoamLobby.value = true;
   }
 
