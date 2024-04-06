@@ -113,10 +113,11 @@ onMounted(async () => {
   if (
       (productId >= 100 && productId <= 142) ||
       (productId >= 49 && productId <= 90) ||
-      (productId >= 4 && productId <= 10) ||
+      (productId >= 4 && productId <= 10)
   ) {
     isMainStyrofoamLobby.value = true;
   }
+
 
   const data:any = await shopApi.get('/api/staff/isStaff');
   if (data.data) {
