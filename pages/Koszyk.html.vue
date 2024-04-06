@@ -370,7 +370,7 @@ const createChat = async (redirect: boolean) => {
   if (isOrderStyrofoam) {
     const url = `${config.baseUrl}/chat-show-or-new/${data.id}/${data.customerId}?showAuctionInstructions=true`;
 
-    window.open(url, '_blank');
+    window.open(url, '');
     return;
   }
   await router.push(`/payment?token=${data.token}&total=${(parseFloat(productsCart.value.grossPrice()) + shipmentCostBrutto.value).toFixed(2)}`);
