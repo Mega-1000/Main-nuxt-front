@@ -14,21 +14,14 @@ let orders = reactive({ active: [], inactive: [], all: [] });
 // Adjusted fetchOrders to directly update the orders ref
 const fetchOrders = async (page) => {
   try {
-    const fetchOrders = async (page) => {
-      try {
-        const inactiveStatusIds = [6, 8];
-        const res = await shopApi.get(`/api/orders/getAll?page=${page}`);
-        totalPages.value = res.data.last_page;
-        orders.active = res.data.data.filter(order => !inactiveStatusIds.includes(order.status.id) && order.is_hidden === 0);
-        orders.inactive = res.data.data.filter(order => inactiveStatusIds.includes(order.status.id));
-        orders.all = res.data.data;
-      } catch (e) {
-        console.error(e);
-      }
-    };
+    const inactiveStatusIds = [6, 8];
+    const res = await shopApi.get(`/api/orders/getAll?page=${page}`);
+    totalPages.value = res.data.last_page;
+    orders.active = res.data.data.filter(order => !inactiveStatusIds.includes(order.status.id) && order.is_hidden === 0);
+    orders.inactive = res.data.data.filter(order => inactiveStatusIds.includes(order.status.id));
+    orders.all = res.data.data;
   } catch (e) {
     console.error(e);
-    // Handle error appropriately
   }
 };
 
