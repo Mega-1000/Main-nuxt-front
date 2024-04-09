@@ -87,21 +87,21 @@ const changeTab = (tabName) => {
   </div>
 
   <div id="tabContentExample" class="pb-20">
-    <div v-show="currentTab === 'active'" id="active-content" role="tabpanel">
+    <div v-if="currentTab === 'active'" id="active-content" role="tabpanel">
       <div class="grid space-y-10">
         <div class="flex justify-center" v-for="order in orders.active" :key="order.id">
           <OrderItem :item="order" />
         </div>
       </div>
     </div>
-    <div v-show="currentTab === 'inactive'" id="inactive-content" role="tabpanel">
+    <div v-if="currentTab === 'inactive'" id="inactive-content" role="tabpanel">
       <div class="grid space-y-10">
         <div class="flex justify-center" v-for="order in orders.inactive" :key="order.id">
           <OrderItem :item="order" />
         </div>
       </div>
     </div>
-    <div v-show="currentTab === 'all'" id="all-content" role="tabpanel">
+    <div v-if="currentTab === 'all'" id="all-content" role="tabpanel">
       <div class="grid space-y-10">
         <div class="flex justify-center" v-for="order in orders.all" :key="order.id">
           <OrderItem :item="order" />
