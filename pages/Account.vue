@@ -8,26 +8,24 @@ const { $shopApi: shopApi } = useNuxtApp();
 // Fetch orders function with pagination
 const currentPage = ref(1);
 const totalPages = ref(0);
+const currentTab = ref('active');
 let orders = reactive({ active: [], inactive: [], all: [] });
 
 // Adjusted fetchOrders to directly update the orders ref
 const fetchOrders = async (page) => {
   try {
-    const inactiveStatusIds = [6, 8];
-    const res = await shopApi.get(`/api/orders/getAll?page=${page}`);
-    totalPages.value = res.data.last_page; // Update total pages from response
-    // Directly updating orders ref
-    orders = {
-      active: res.data.data.filter(
-          order => !inactiveStatusIds.includes(order.status.id) && order.is_hidden === 0
-      ),
-      inactive: res.data.data.filter(order =>
-          inactiveStatusIds.includes(order.status.id)
-      ),
-      all: res.data.data,
+    const fetchOrders = async (page) => {
+      try {
+        const inactiveStatusIds = [6, 8];
+        const res = await shopApi.get(`/api/orders/getAll?page=${page}`);
+        totalPages.value = res.data.last_page;
+        orders.active = res.data.data.filter(order => !inactiveStatusIds.includes(order.status.id) && order.is_hidden === 0);
+        orders.inactive = res.data.data.filter(order => inactiveStatusIds.includes(order.status.id));
+        orders.all = res.data.data;
+      } catch (e) {
+        console.error(e);
+      }
     };
-
-    console.log(orders);
   } catch (e) {
     console.error(e);
     // Handle error appropriately
@@ -47,7 +45,7 @@ onMounted(() => {
 
 // Ensure goToPage method updates currentPage correctly
 const goToPage = (page) => {
-  currentPage.value = page; // This should trigger the watch effect
+  currentPage.value = page;
 };
 
 // Setup tabs - assuming this logic is needed for your component
@@ -61,99 +59,51 @@ function setupTabs() {
   const tabs: TabsInterface = new Tabs(tabElements, tabsOptions);
   tabs.show("active");
 }
+
+const changeTab = (tabName) => {
+  currentTab.value = tabName;
+};
 </script>
 
 <template>
   <div class="mb-5 border-b border-gray-200 mt-5 flex justify-center">
-    <ul
-      class="flex flex-wrap -mb-px text-sm font-medium text-center text-black"
-      id="tabExample"
-      role="tablist"
-    >
+    <ul class="flex flex-wrap -mb-px text-sm font-medium text-center text-black" id="tabExample" role="tablist">
       <li class="mr-2" role="presentation">
-        <button
-          class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300"
-          id="active-tab"
-          type="button"
-          role="tab"
-          aria-controls="active-content"
-          aria-selected="false"
-        >
+        <button @click="changeTab('active')" :class="{'border-b-2 border-blue-500': currentTab === 'active'}" class="inline-block p-4 rounded-t-lg hover:text-gray-600 hover:border-gray-300" role="tab">
           Aktywne
         </button>
       </li>
       <li class="mr-2" role="presentation">
-        <button
-          class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300"
-          id="inactive-tab"
-          type="button"
-          role="tab"
-          aria-controls="inactive-content"
-          aria-selected="false"
-        >
+        <button @click="changeTab('inactive')" :class="{'border-b-2 border-blue-500': currentTab === 'inactive'}" class="inline-block p-4 rounded-t-lg hover:text-gray-600 hover:border-gray-300" role="tab">
           Nieaktywne
         </button>
       </li>
       <li class="mr-2" role="presentation">
-        <button
-          class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300"
-          id="all-tab"
-          type="button"
-          role="tab"
-          aria-controls="all-content"
-          aria-selected="false"
-        >
+        <button @click="changeTab('all')" :class="{'border-b-2 border-blue-500': currentTab === 'all'}" class="inline-block p-4 rounded-t-lg hover:text-gray-600 hover:border-gray-300" role="tab">
           Wszystkie
         </button>
-      </li>
-      <li class="mr-2" role="presentation">
-        <nuxt-link
-            class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300"
-            id="active-tab"
-            type="button"
-            role="tab"
-            aria-controls="active-content"
-            aria-selected="false"
-            href="/EditAccountInformations"
-        >
-          Edycja/korekta danych konta
-        </nuxt-link>
       </li>
     </ul>
   </div>
 
   <div id="tabContentExample" class="pb-20">
-    <div
-      id="active-content"
-      role="tabpanel"
-      aria-labelledby="active-tab"
-    >
+    <div v-show="currentTab === 'active'" id="active-content" role="tabpanel">
       <div class="grid space-y-10">
-        <div class="flex justify-center" v-for="order in orders?.active">
+        <div class="flex justify-center" v-for="order in orders.active" :key="order.id">
           <OrderItem :item="order" />
         </div>
       </div>
     </div>
-    <div
-      class="hidden"
-      id="inactive-content"
-      role="tabpanel"
-      aria-labelledby="inactive-tab"
-    >
+    <div v-show="currentTab === 'inactive'" id="inactive-content" role="tabpanel">
       <div class="grid space-y-10">
-        <div class="flex justify-center" v-for="order in orders?.inactive">
+        <div class="flex justify-center" v-for="order in orders.inactive" :key="order.id">
           <OrderItem :item="order" />
         </div>
       </div>
     </div>
-    <div
-      class="hidden"
-      id="all-content"
-      role="tabpanel"
-      aria-labelledby="all-tab"
-    >
+    <div v-show="currentTab === 'all'" id="all-content" role="tabpanel">
       <div class="grid space-y-10">
-        <div class="flex justify-center" v-for="order in orders?.all">
+        <div class="flex justify-center" v-for="order in orders.all" :key="order.id">
           <OrderItem :item="order" />
         </div>
       </div>

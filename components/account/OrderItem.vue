@@ -128,14 +128,14 @@ const markOfferAsInactive = async () => {
 <template>
   <div class="relative space-y-3 rounded-xl shadow-lg p-3 w-[60vw] max-w-7xl mx-auto border border-white bg-white">
     <p class="text-md">
-      <span class="font-bold">Nr zamówienia:</span> {{ item.id }}
+      <span class="font-bold">Nr oferty:</span> {{ item.id }}
     </p>
     <p class="text-md" v-if="item.master_order_id">
       <span class="font-bold">Nr zamówienia głównego:</span>
       {{ item.master_order_id }}
     </p>
     <p class="text-md">
-      <span class="font-bold">Data stworzenia:</span> {{ item.created_at }}
+      <span class="font-bold">Data stworzenia:</span> {{ item.created_at.replace('T', ' ').split('.')[0] }}
     </p>
     <p class="text-md">
       <span class="font-bold">Status:</span> {{ item.status.name }}
