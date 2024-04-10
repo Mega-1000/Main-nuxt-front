@@ -74,7 +74,7 @@
         </div>
         <div class="flex items-center">
           <NuxtLink href="/koszyk.html">
-            <div class="flex mr-5" v-if="!isVisibilityLimited">
+            <div class="flex mr-[30px]" v-if="!isVisibilityLimited">
               <Icon
                 id="icon"
                 name="clarity:shopping-cart-solid"
