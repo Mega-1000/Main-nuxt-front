@@ -111,7 +111,7 @@ onMounted(async () => {
   }
 
   if (
-      (productId >= 100 && productId <= 142) ||
+      (productId >= 101 && productId <= 142) ||
       (productId >= 49 && productId <= 90) ||
       (productId >= 4 && productId <= 10)
   ) {
