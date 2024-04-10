@@ -20,7 +20,7 @@ class Cart {
 
   getEditedCart() {
     return localStorage.getItem("editedCart") ?? false;
-  };
+  }
 
   addToCart(product: any, amount?: number | string) {
     this.init();
@@ -37,7 +37,6 @@ class Cart {
 
     localStorage.setItem("editedCart", "true");
   }
-
 
   exists(id: number) {
     return this.getIdxByProductId(id) >= 0;
@@ -79,9 +78,10 @@ class Cart {
   }
 
   decraseAmount(idx: number) {
-    this.products[idx].amount = this.products[idx].amount - 1;
-
-    this.save();
+    if (this.products[idx].amount > 1) {
+      this.products[idx].amount = this.products[idx].amount - 1;
+      this.save();
+    }
   }
 
   changeAmount(idx: number, newAmount: number | string) {

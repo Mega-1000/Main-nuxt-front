@@ -279,13 +279,13 @@ const updateProduct = async (
   amount: number,
   prodId: number
 ) => {
-  cart.removeFromCart(prodId);
+  await cart.removeFromCart(prodId);
 
   try {
     const response = await shopApi.get(`/api/products/${productId}`);
     let product = response.data;
     product.recalculate = 1;
-    cart.addToCart(product, amount);
+    await cart.addToCart(product, amount);
   } catch (err) { }
 };
 
