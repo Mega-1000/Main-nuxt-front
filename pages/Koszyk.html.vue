@@ -400,7 +400,7 @@ const ShipmentCostItemsLeftText = (product: any) => {
     <div>
       <Sidebar class="h-fit flex flex-col justify-center mt-30 w-fit" :categories="categories" />
     </div>
-    <div class="w-[50%] mx-auto">
+    <div class=" mx-auto">
       <div class="pb-15">
         <div class="flex justify-center mt-7">
           <h2 v-if="!productsCart?.products || productsCart?.products?.length === 0" class="text-xl md:text-3xl">
