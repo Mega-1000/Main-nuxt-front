@@ -39,8 +39,10 @@ function onIframeLoad() {
         <li>pseudoznawców, którzy nie mają wiedzy i doświadczenia lub mają korzyść z Państwa wyboru.</li>
       </ul>
       <p>Dlatego z naszej strony proponujemy, aby dowiedzieć się u kogoś mocno zaufanego, który nie będzie miał żadnej korzyści z Państwa wyboru, aczkolwiek będzie posiadał dużą wiedzę i doświadczenie. Dla osób, które jednak chcą otrzymać jakąś informację na temat danego producenta, podajemy na samym dole nasze spostrzeżenia, ale prosimy pamiętać, że jest to nasza subiektywna opinia, i prosimy najlepiej skorzystać z opinii z innych zaufanych źródeł.</p>
-
+      <br>
+      <br>
       <h2>JAK DOKONAĆ WYCENY I ZAKUPU STYROPIANU</h2>
+      <br>
       <p>Styropiany znajdują się w 3 działach:</p>
       <ul>
         <li>160 - fundamentowy</li>
@@ -51,12 +53,14 @@ function onIframeLoad() {
       <p>Po dokonaniu obliczeń i wrzuceniu do koszyka odpowiedniego asortymentu na górze znajduje się ikona koszyka, na którą trzeba kliknąć. Po kliknięciu otrzymamy spis całości asortymentu, który został dokonany, w którym można jeszcze dokonać korekty pod względem ilościowym.</p>
       <p>Na końcu prosimy uzupełnić niezbędne dane i wysłać nam do sprawdzenia poprawności. Bezzwłocznie po jego otrzymaniu sprawdzimy pod tym kątem, po czym odeślemy informacje na e-maila w przypadku, gdy oferta zostanie już przygotowana. Ofertę taką można będzie sprawdzić po zalogowaniu się na swoje konto na naszej stronie.</p>
       <p>Szczegóły transakcji omawiacie z przedstawicielem handlowym danej fabryki z którym kontakt będziecie mieć poprzez czata lub telefon według uznania. Istnieje możliwość płatności jako niewielka zaliczka i reszta płatność przy dostawie.</p>
-
+      <br><br>
       <h3>GWARANCJA NAJNIŻEJSZEJ CENY - SYSTEM PRZETARGOWY ZAKUPU STYROPIANU</h3>
+      <br>
       <p>W przypadku zakupu dużych ilości powyżej 100m3 najlepszą formą zakupu jest tak zwany przetarg. W tym przypadku proponujemy wybrać z tabeli wstępnie ulubionego producenta, po czym wrzucić do koszyka wybrany asortyment i wysłać do systemu.</p>
       <p>Następnie zalogować się na swoje konto na naszej stronie, po czym dokonać za pomocą przycisku ROZPOCZNIJ PRZETARG. System przekaże informacje do przedstawicieli wszystkich fabryk, którzy do zakończenia przetargu będą w nim uczestniczyć w formie jak na giełdzie, czyli każdy będzie informowany o pojawieniu się nowej korzystniejszej oferty cenowo niż była. Gwarantuje to najniższą możliwą cenę, ponieważ nawet w przypadkach z nimi wieloletniej współpracy z naszego doświadczenia wiemy, że i tak zawyżają wam cenę, ponieważ brak konkurencji, która zmusza do jej obniżenia.</p>
-
+      <br><br>
       <h3>NASZE OPINIE NA TEMAT PRODUCENTÓW STYROPIANU</h3>
+      <br>
       <ul>
         <li>albaterm - dobry jakościowo styropian w dobrej cenie</li>
         <li>arsanit - standardowy styropian w przeciętnej cenie</li>
