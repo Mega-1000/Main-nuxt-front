@@ -126,7 +126,7 @@ const markOfferAsInactive = async () => {
 </script>
 
 <template>
-  <div class="relative space-y-3 rounded-xl shadow-lg p-3 w-[60vw] max-w-7xl mx-auto border border-white bg-white">
+  <div class="relative space-y-3 rounded-xl shadow-lg p-3 max-w-7xl mx-auto border border-white bg-white">
     <p class="text-md">
       <span class="font-bold">Nr oferty:</span> {{ item.id }}
     </p>
