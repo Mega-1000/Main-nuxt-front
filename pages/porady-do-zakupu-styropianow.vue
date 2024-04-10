@@ -13,10 +13,10 @@ function onIframeLoad() {
 </script>
 
 <template>
-  <div class="w-[70%] mx-auto text-lg">
+  <div class="w-[70%] sm:w-full mx-auto text-lg">
 
   Jeśli chcesz wiedzieć jaki styropian wybrać lub nie wiesz jak go zamówić sprawdź tekst na dole lub kliknij <a style="color: #1e40af" href="#porady">tutaj</a>
-  <div style="position: relative; width: 70%; margin: 0 auto; height: 80vh;">
+  <div style="position: relative; height: 80vh;">
     <!-- Loader displayed while isLoading is true -->
     <div v-if="isLoading" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex; justify-content: center; align-items: center; background-color: rgba(255, 255, 255, 0.8); z-index: 100; font-weight: bold; font-size: larger">
       <span>Ładowanie tabeli, proszę czekać...</span>
