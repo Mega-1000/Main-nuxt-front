@@ -13,8 +13,7 @@ function onIframeLoad() {
 </script>
 
 <template>
-  <div class="w-[70%] sm:w-full mx-auto text-lg">
-
+  <div class="sm:w-full md:w-[70%] mx-auto text-lg">
   Jeśli chcesz wiedzieć jaki styropian wybrać lub nie wiesz jak go zamówić sprawdź tekst na dole lub kliknij <a style="color: #1e40af" href="#porady">tutaj</a>
   <div style="position: relative; height: 80vh;">
     <!-- Loader displayed while isLoading is true -->
