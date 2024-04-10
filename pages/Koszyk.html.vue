@@ -281,12 +281,14 @@ const updateProduct = async (
 ) => {
   await cart.removeFromCart(prodId);
 
-  try {
-    const response = await shopApi.get(`/api/products/${productId}`);
-    let product = response.data;
-    product.recalculate = 1;
-    await cart.addToCart(product, amount);
-  } catch (err) { }
+  setTimeout(async () => {
+    try {
+      const response = await shopApi.get(`/api/products/${productId}`);
+      let product = response.data;
+      product.recalculate = 1;
+      await cart.addToCart(product, amount);
+    } catch (err) { }
+  }, 3000)
 };
 
 const canBeSubmitted = computed(() => {
