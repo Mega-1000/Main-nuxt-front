@@ -96,7 +96,7 @@ class Cart {
         return;
       }
       var item = {
-        id: product.id,
+        symbol: product.symbol,
         amount: product.amount,
         recalculate: product.recalculate,
       };
