@@ -288,7 +288,9 @@ const updateProduct = async (
       product.recalculate = 1;
       await cart.addToCart(product, amount);
     } catch (err) { }
-  }, 3000)
+
+    window.location.reload();
+  }, 300)
 };
 
 const canBeSubmitted = computed(() => {
