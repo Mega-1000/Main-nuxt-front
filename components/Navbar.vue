@@ -67,9 +67,7 @@
 
         <div class="w-[60%] text-red-600 font-bold">
           <div v-if="!isVisibilityLimited">
-            !! Gdybyście państwo mieli problemy z wypełnieniem lub złym działaniem strony prosimy dzwonić do działu obsługi informatycznej  pod numer 507925963 w godzinach 7-23
-            <br>
-            !!!  Dział ten nie obsługuje ofert !!!
+            Pomoc techniczna 507925963 7-23
           </div>
         </div>
         <div class="flex items-center">
