@@ -2,7 +2,6 @@
   import { getToken, removeCookie } from "~~/helpers/authenticator";
   import { getPages } from "~~/helpers/customPages";
   import Cart from "~~/utils/Cart";
-  import allegroVisibilityLimit from "~/helpers/allegroVisibilityLimit";
 
   const { $shopApi: shopApi } = useNuxtApp();
   const productsCart = useProductsCart();

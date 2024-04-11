@@ -13,7 +13,7 @@ onMounted(() => {
 
   const lastSegment = route.path.split('/').pop();
 
-  if (lastSegment === 'no-layout') {
+  if (lastSegment === 'no-layout' || lastSegment === 'styropiany') {
     isNoLayout.value = true;
   }
 });
