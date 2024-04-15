@@ -48,7 +48,7 @@
         class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl px-4 md:px-6 py-2.5"
     >
       <NuxtLink :href="isVisibilityLimited ? '/' : '/sklep'" class="flex items-center text-2xl font-semibold">
-        EPH POLSKA SP Z O.O.
+        EPH POLSKA
       </NuxtLink>
 
       <div class="w-[60%] text-red-600 font-bold">
