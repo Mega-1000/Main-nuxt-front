@@ -92,11 +92,11 @@ const config = useRuntimeConfig().public;
           <div class="w-full flex justify-center">
             <div>
               <div
-                  class="lg:w-2/3 grid grid-cols-1 gap-6 p-6 sm:grid-cols-2 mb-10 items-center lg:grid-cols-3 h-fit"
+                  class="grid grid-cols-1 gap-6 p-6 sm:grid-cols-2 mb-10 items-center lg:grid-cols-3 h-fit"
               >
                 <article
                     v-for="category in categories"
-                    class="h-full w-fit sm:w-auto rounded-xl bg-white p-3 shadow-lg hover:shadow-xl hover:transform hover:scale-105 duration-300"
+                    class="h-full w-full sm:w-auto rounded bg-white p-3 shadow hover:shadow-xl hover:transform hover:scale-105 duration-300"
                 >
                   <div :class="category.blured ? 'blur-sm' : ''">
                     <NuxtLink :href="buildLink(category)">
