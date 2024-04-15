@@ -54,23 +54,23 @@ const config = useRuntimeConfig().public;
     <div class="py-8 lg:py-16 mx-auto max-w-screen-xl px-4">
       <div class="grid grid-cols-2 gap-8 text-gray-500 sm:gap-12 md:grid-cols-3 lg:grid-cols-6 text-gray-400">
         <a href="#" class="flex justify-center items-center">
-          <img src="/genderka.webp" alt="">
+          <img src="/genderka.webp" alt="" style="width: 50%">
         </a>
         <a href="#" class="flex justify-center items-center">
-          <img src="/swisspor.webp" alt="">
+          <img src="/swisspor.webp" alt="" style="width: 50%">
         </a>
         <a href="#" class="flex justify-center items-center">
-          <img src="/kubala.webp" alt="">
+          <img src="/kubala.webp" alt="" style="width: 50%">
         </a>
 
         <a href="#" class="flex justify-center items-center">
-          <img src="/arsanit.webp" alt="">
+          <img src="/arsanit.webp" alt="" style="width: 50%">
         </a>
         <a href="#" class="flex justify-center items-center">
-          <img src="/austroterm.webp" alt="">
+          <img src="/austroterm.webp" alt="" style="width: 50%">
         </a>
         <a href="#" class="flex justify-center items-center">
-          <img src="/yetico.webp">
+          <img src="/yetico.webp" style="width: 50%">
         </a>
       </div>
     </div>
