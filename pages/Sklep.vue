@@ -49,6 +49,33 @@ const config = useRuntimeConfig().public;
 
 <template>
   <ReferalBanner />
+
+  <section class="bg-white">
+    <div class="py-8 lg:py-16 mx-auto max-w-screen-xl px-4">
+      <div class="grid grid-cols-2 gap-8 text-gray-500 sm:gap-12 md:grid-cols-3 lg:grid-cols-6 text-gray-400">
+        <a href="#" class="flex justify-center items-center">
+          <img src="/genderka.webp" alt="">
+        </a>
+        <a href="#" class="flex justify-center items-center">
+          <img src="/swisspor.webp" alt="">
+        </a>
+        <a href="#" class="flex justify-center items-center">
+          <img src="/kubala.webp" alt="">
+        </a>
+
+        <a href="#" class="flex justify-center items-center">
+          <img src="/arsanit.webp" alt="">
+        </a>
+        <a href="#" class="flex justify-center items-center">
+          <img src="/austroterm.webp" alt="">
+        </a>
+        <a href="#" class="flex justify-center items-center">
+          <img src="/yetico.webp">
+        </a>
+      </div>
+    </div>
+  </section>
+
   <p v-if="pending">Loading...</p>
   <div v-else class="flex">
     <section class="pt-10 pb-20 w-full flex justify-center">
