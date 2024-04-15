@@ -17,7 +17,7 @@ onMounted(() => {
     </span>
   </footer>
 
-  <div class="fixed bottom-0 z-30 right-20 p-5 rounded-t-xl cursor-pointer bg-blue-600 text-white font-bold" @click="zipCodeChangeModalShown = true" v-if="zipCode && !zipCodeChangeModalShown">
+  <div class="fixed bottom-0 z-30 right-20 p-5 rounded-t-xl cursor-pointer bg-blue-600 text-white text-sm" @click="zipCodeChangeModalShown = true" v-if="zipCode && !zipCodeChangeModalShown">
     Zmień swój kod pocztowy, aktualnie: {{ zipCode }}
   </div>
 

@@ -2,12 +2,15 @@
   import { getToken, removeCookie } from "~~/helpers/authenticator";
   import { getPages } from "~~/helpers/customPages";
   import Cart from "~~/utils/Cart";
+  import {cursor} from "sisteransi";
+  import show = cursor.show;
 
   const { $shopApi: shopApi } = useNuxtApp();
   const productsCart = useProductsCart();
   const router = useRouter();
   const isVisibilityLimited = ref(false);
   const userToken = useUserToken();
+  const showMenu = ref(false);
 
   onMounted(() => {
     isVisibilityLimited.value = localStorage.getItem('noAllegroVisibilityLimit') != 'true';
@@ -33,6 +36,10 @@
     cart.init();
     productsCart.value = cart;
   });
+
+  const toggleMenu = () => {
+    showMenu.value = !showMenu.value;
+  }
 </script>
 
 <template>
