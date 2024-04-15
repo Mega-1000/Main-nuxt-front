@@ -51,26 +51,26 @@ const config = useRuntimeConfig().public;
   <ReferalBanner />
 
   <section class="bg-white">
-    <div class="py-8 lg:py-16 mx-auto max-w-screen-xl px-4">
+    <div class=" mx-auto max-w-screen-xl">
       <div class="grid grid-cols-2 gap-8 text-gray-500 sm:gap-12 md:grid-cols-3 lg:grid-cols-6 text-gray-400">
         <a href="#" class="flex justify-center items-center">
-          <img src="/genderka.webp" alt="" style="width: 50%">
+          <img src="/genderka.webp" alt="" style="width: 70%">
         </a>
         <a href="#" class="flex justify-center items-center">
-          <img src="/swisspor.webp" alt="" style="width: 50%">
+          <img src="/swisspor.webp" alt="" style="width: 70%">
         </a>
         <a href="#" class="flex justify-center items-center">
-          <img src="/kubala.webp" alt="" style="width: 50%">
+          <img src="/kubala.webp" alt="" style="width: 70%">
         </a>
 
         <a href="#" class="flex justify-center items-center">
-          <img src="/arsanit.webp" alt="" style="width: 50%">
+          <img src="/arsanit.webp" alt="" style="width: 70%">
         </a>
         <a href="#" class="flex justify-center items-center">
-          <img src="/austroterm.webp" alt="" style="width: 50%">
+          <img src="/austroterm.webp" alt="" style="width: 70%">
         </a>
         <a href="#" class="flex justify-center items-center">
-          <img src="/yetico.webp" style="width: 50%">
+          <img src="/yetico.webp" style="width: 70%">
         </a>
       </div>
     </div>

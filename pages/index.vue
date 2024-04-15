@@ -1,13 +1,14 @@
 <script setup lang="ts">
 import { defaultImgSrc } from "~~/helpers/buildImgRoute";
 import Swal from "sweetalert2";
+import ReferalBanner from "~/components/ReferalBanner.vue";
 
 const { $shopApi: shopApi, $buildImgRoute: buildImgRoute } = useNuxtApp();
 const route = useRoute();
 
 const { data: categories, pending } = await useAsyncData(async () => {
   try {
-    const res = await shopApi.get("/api/products/categories");
+    const res = await shopApi.get(`/api/products/categories?zip-code=${localStorage.getItem('zipCode')}&`);
     return res.data;
   } catch (e: any) {}
 });
@@ -49,12 +50,38 @@ const config = useRuntimeConfig().public;
 <template>
   <ReferalBanner />
 
+  <section class="bg-white">
+    <div class=" mx-auto max-w-screen-xl">
+      <div class="grid grid-cols-2 gap-8 text-gray-500 sm:gap-12 md:grid-cols-3 lg:grid-cols-6 text-gray-400">
+        <a href="#" class="flex justify-center items-center">
+          <img src="/genderka.webp" alt="" style="width: 70%">
+        </a>
+        <a href="#" class="flex justify-center items-center">
+          <img src="/swisspor.webp" alt="" style="width: 70%">
+        </a>
+        <a href="#" class="flex justify-center items-center">
+          <img src="/kubala.webp" alt="" style="width: 70%">
+        </a>
+
+        <a href="#" class="flex justify-center items-center">
+          <img src="/arsanit.webp" alt="" style="width: 70%">
+        </a>
+        <a href="#" class="flex justify-center items-center">
+          <img src="/austroterm.webp" alt="" style="width: 70%">
+        </a>
+        <a href="#" class="flex justify-center items-center">
+          <img src="/yetico.webp" style="width: 70%">
+        </a>
+      </div>
+    </div>
+  </section>
+
   <p v-if="pending">Loading...</p>
   <div v-else class="flex">
     <section class="pt-10 pb-20 w-full flex justify-center">
       <div>
         <div class="lg:flex justify-center">
-          <div class="px-10 w-full lg:w-fit justify-center lg:w-1/3">
+          <div class="px-10 w-full lg:w-fit justify-center">
             <Sidebar
                 class="h-fit flex flex-col justify-center mt-30 w-full"
                 :categories="categories"
@@ -71,22 +98,24 @@ const config = useRuntimeConfig().public;
                     v-for="category in categories"
                     class="h-full w-fit sm:w-auto rounded-xl bg-white p-3 shadow-lg hover:shadow-xl hover:transform hover:scale-105 duration-300"
                 >
-                  <NuxtLink :href="buildLink(category)">
-                    <div class="overflow-hidden rounded-xl h-4/5">
-                      <img
-                          :src="buildImgRoute(category.img)"
-                          alt="Photo"
-                          @error="(e: any) => (e.target!.src = defaultImgSrc)"
-                          class="w-full h-full"
-                      />
-                    </div>
+                  <div :class="category.blured ? 'blur-sm' : ''">
+                    <NuxtLink :href="buildLink(category)">
+                      <div class="overflow-hidden rounded-xl h-4/5">
+                        <img
+                            :src="buildImgRoute(category.img)"
+                            alt="Photo"
+                            @error="(e: any) => (e.target!.src = defaultImgSrc)"
+                            class="w-full h-full"
+                        />
+                      </div>
 
-                    <div class="mt-1 p-2 h-1/5">
-                      <h2 class="text-gray-900 font-medium">
-                        {{ category.name }}
-                      </h2>
-                    </div>
-                  </NuxtLink>
+                      <div class="mt-1 p-2 h-1/5">
+                        <h2 class="text-gray-900 font-medium">
+                          {{ category.name }}
+                        </h2>
+                      </div>
+                    </NuxtLink>
+                  </div>
                 </article>
               </div>
             </div>
