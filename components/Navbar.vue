@@ -4,15 +4,19 @@
   import Cart from "~~/utils/Cart";
   import {cursor} from "sisteransi";
   import show = cursor.show;
+  import Cookies from "universal-cookie";
 
   const { $shopApi: shopApi } = useNuxtApp();
   const productsCart = useProductsCart();
   const router = useRouter();
   const isVisibilityLimited = ref(false);
-  const userToken = useUserToken();
+  const userToken = ref('');
   const showMenu = ref(false);
 
   onMounted(() => {
+    const cookies = new Cookies();
+    userToken.value = cookies.get("token");
+
     isVisibilityLimited.value = localStorage.getItem('noAllegroVisibilityLimit') != 'true';
   });
 
