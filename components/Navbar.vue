@@ -53,12 +53,14 @@
 </script>
 
 <template>
-  <nav class="bg-cyan-100 border-b border-gray-200">
+  <nav class="bg-gray-200 border-b border-gray-200 shadow-lg">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-16">
         <div class="flex items-center">
           <div class="flex-shrink-0">
-            <img src="/logo.webp" alt="">
+            <NuxtLink href="/">
+              <img src="/logo.webp" alt="" class="w-[45px]">
+            </NuxtLink>
           </div>
           <div class="hidden md:ml-6 md:flex md:space-x-8">
             <!-- Desktop navigation links -->
