@@ -48,7 +48,7 @@
   }
 
   const searchProduct = async () => {
-    searchResults.value = (await shopApi.get(`searchProduct/${searchQuery.value}`)).data;
+    searchResults.value = (await shopApi.get(`/api/searchProduct/${searchQuery.value}`)).data;
   }
 </script>
 
