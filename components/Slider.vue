@@ -1,8 +1,8 @@
 <template>
-  <div class="relative w-full select-none overflow-hidden sm:w-full md:w-2/3 mx-auto mt-4">
+  <div class="relative">
     <div class="flex transition-transform duration-500" :style="{ transform: `translateX(-${currentSlide * 100}%)` }">
       <div v-for="(image, index) in images" :key="index" class="flex-none w-full">
-        <img :src="image" class="w-full object-cover h-64" alt="Slide image">
+        <img :src="`/${image}`" class="w-full object-cover h-64" :alt="`Slide ${index + 1}`">
       </div>
     </div>
     <div class="absolute inset-0 flex justify-between items-center">
@@ -17,8 +17,8 @@ import { ref } from 'vue';
 import { useIntervalFn } from '@vueuse/core';
 
 const images = ref([
-  '/promo1.png',
-  '/promo2.png',
+  'promo1.png',
+  'promo2.png',
 ]);
 const currentSlide = ref(0);
 
