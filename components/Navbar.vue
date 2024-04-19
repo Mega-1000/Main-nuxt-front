@@ -58,7 +58,7 @@
       <div class="flex items-center justify-between h-16">
         <div class="flex items-center">
           <div class="flex-shrink-0">
-            <NuxtLink :href="isVisibilityLimited ? '/' : '/sklep'" class="text-2xl font-semibold text-gray-900">
+            <NuxtLink :href="isVisibilityLimited ? '/' : '/sklep'" class="md:text-2xl text-lg font-semibold text-gray-900">
               EPH POLSKA
             </NuxtLink>
           </div>
@@ -90,31 +90,15 @@
           </div>
         </div>
         <div class="flex items-center">
-          <div class="relative mr-4">
-            <input type="search" v-model="searchQuery" @input="searchProduct()" class="block w-full pl-4 pr-12 sm:text-sm sm:leading-5 border-gray-300 rounded-md" placeholder="Wyszukaj produkt" />
-            <div v-if="searchResults.length > 0" class="absolute z-10 mt-1 w-full bg-white rounded-md shadow-lg">
-              <ul class="py-1">
-                <li v-for="result in searchResults" :key="result.id" class="py-2 px-4 border-b border-gray-200 last:border-b-0 hover:bg-gray-100 cursor-pointer">
-                  <div class="flex items-center">
-                    <img :src="`https://admin.mega1000.pl${result.url_for_website}`" class="h-8 w-8 object-cover rounded-full mr-2" />
-                    <div>
-                      <p class="text-sm font-medium text-gray-900">{{ result.name }}</p>
-                      <p class="text-sm text-gray-500">59.99 zł</p>
-                    </div>
-                  </div>
-                </li>
-              </ul>
-            </div>
+          <div class="relative md:mr-4">
+            <input type="search" v-model="searchQuery" @input="searchProduct()" class="block md:pl-4 md:pr-12 sm:text-sm sm:leading-5 border-gray-300 rounded-md p-2 w-full" placeholder="Wyszukaj produkt" />
           </div>
           <NuxtLink href="/koszyk.html" class="relative inline-flex items-center text-sm font-medium leading-5 text-gray-900 hover:text-gray-700 focus:outline-none focus:text-gray-700 transition duration-150 ease-in-out">
-            <Icon name="clarity:shopping-cart-solid" size="24" class="text-cyan-500" />
+            <Icon name="clarity:shopping-cart-solid" size="40" class="text-cyan-500" />
             <span v-if="productsCart.products.length > 0" class="ml-2 bg-red-500 text-white rounded-full px-2 py-1 text-xs">
             {{ productsCart.products.length > 9 ? '9+' : productsCart.products.length }}
           </span>
           </NuxtLink>
-          <div v-if="!isVisibilityLimited" class="hidden sm:block ml-4 flex-shrink-0 text-sm font-medium text-red-600">
-            Pomoc techniczna 507925963 7-23
-          </div>
         </div>
         <div class="md:hidden flex items-center">
           <button @click="showMenu = !showMenu" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
