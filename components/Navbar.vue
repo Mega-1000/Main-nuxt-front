@@ -3,7 +3,6 @@
   import { getPages } from "~~/helpers/customPages";
   import Cart from "~~/utils/Cart";
   import {cursor} from "sisteransi";
-  import show = cursor.show;
   import Cookies from "universal-cookie";
 
   const { $shopApi: shopApi } = useNuxtApp();
@@ -15,7 +14,13 @@
   const searchQuery = ref('');
   const searchResults = ref([]);
 
-  onMounted(() => {
+  useSeoMeta({
+    title: 'EPH polska - styropiany, systemy elewacyjne, ocieplenia',
+    ogTitle: 'EPH polska - styropiany, systemy elewacyjne, ocieplenia',
+    description: 'systemy ociepleniowe z gwarancją najniższej ceny',
+  })
+
+onMounted(() => {
     const cookies = new Cookies();
     userToken.value = cookies.get("token");
 

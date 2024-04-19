@@ -16,5 +16,8 @@ export default defineNuxtConfig({
       google_analytics_id: process.env.google_analytics_id,
       production_mode: isProduction,
     },
+  },
+  useHead: {
+    title: "EPH Polska - styropiany, systemy elewacyjne, ocieplenia"
   }
 });
