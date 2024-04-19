@@ -2,7 +2,6 @@
   import { getToken, removeCookie } from "~~/helpers/authenticator";
   import { getPages } from "~~/helpers/customPages";
   import Cart from "~~/utils/Cart";
-  import {cursor} from "sisteransi";
   import Cookies from "universal-cookie";
 
   const { $shopApi: shopApi } = useNuxtApp();
@@ -189,4 +188,6 @@ onMounted(() => {
       <NavbarShipmentCostTable />
     </div>
   </nav>
+
 </template>
+

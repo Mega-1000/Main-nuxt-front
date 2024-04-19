@@ -19,5 +19,8 @@ export default defineNuxtConfig({
   },
   useHead: {
     title: "EPH Polska - styropiany, systemy elewacyjne, ocieplenia"
-  }
+  },
+  plugins: [
+    '~/plugins/tawkto.client.ts'
+  ]
 });
