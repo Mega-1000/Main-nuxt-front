@@ -63,15 +63,6 @@
 
         <input type="search" class="w-[80%] md:w-[20%] p-2" v-model="searchQuery" @input="searchProduct()" placeholder="Wyszukaj produkt">
 
-        <div v-if="searchResults.length > 0">
-          <ul>
-            <li v-for="result in searchResults" :key="result.id">
-              {{ result.name }}
-            </li>
-          </ul>
-        </div>
-
-
       <div class="w-[60%] text-red-600 font-bold">
         <div v-if="!isVisibilityLimited">
           Pomoc techniczna 507925963 7-23
@@ -107,6 +98,24 @@
       </div>
     </div>
   </nav>
+
+  <div class="text-center fixed bg-blue-50 right-[50%]" v-if="searchResults.length > 0">
+    <ul>
+      <li class="rounded p-4 border mx-4" v-for="result in searchResults" :key="result.id">
+        <div class="flex justify-center content-center">
+          <img :src="`https://admin.mega1000.pl${result.url_for_website}`" alt="" class="h-[60px] mr-8">
+          <div>
+            {{ result.name }}
+
+            <div class="text-red-500 text-lg font-bold text-left">
+              59.99 zł
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+
   <nav class="bg-cyan-50 grid sm:flex items-center">
     <div
         class="max-w-full sm:max-w-screen-xl px-4 py-1 sm:py-3 md:px-6 mx-auto"
