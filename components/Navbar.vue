@@ -58,9 +58,7 @@
       <div class="flex items-center justify-between h-16">
         <div class="flex items-center">
           <div class="flex-shrink-0">
-            <NuxtLink :href="isVisibilityLimited ? '/' : '/sklep'" class="md:text-2xl text-lg font-semibold text-gray-900">
-              EPH POLSKA
-            </NuxtLink>
+            <img src="/logo.webp" alt="">
           </div>
           <div class="hidden md:ml-6 md:flex md:space-x-8">
             <!-- Desktop navigation links -->
