@@ -1,18 +1,13 @@
 <template>
   <div class="relative">
-    <!-- Updated the style for the flex container -->
-    <div class="flex transition-transform duration-500"
-         :style="{
-           transform: `translateX(-${currentSlide.value * 100}%)`,
-           width: `${images.value.length * 100}%`
-         }">
-      <div v-for="(image, index) in images" :key="index" class="flex-none w-full" style="width: 100%;">
+    <div class="flex transition-transform duration-500" :style="{ transform: `translateX(-${currentSlide * 100}%)` }">
+      <div v-for="(image, index) in images" :key="index" class="flex-none w-full">
         <img :src="`/${image}`" class="w-full object-cover h-64" :alt="`Slide ${index + 1}`">
       </div>
     </div>
     <div class="absolute inset-0 flex justify-between items-center">
       <button @click="prevSlide" class="text-white p-2 focus:outline-none hover:opacity-75">Prev</button>
-      <button @click="nextSlide" class="text-white p-pocus:outline-none hover:opacity-75">Next</button>
+      <button @click="nextSlide" class="text-white p-2 focus:outline-none hover:opacity-75">Next</button>
     </div>
   </div>
 </template>
