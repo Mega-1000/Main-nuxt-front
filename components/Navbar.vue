@@ -12,6 +12,8 @@
   const isVisibilityLimited = ref(false);
   const userToken = ref('');
   const showMenu = ref(false);
+  const searchQuery = ref('');
+  const searchResults = ref([]);
 
   onMounted(() => {
     const cookies = new Cookies();
@@ -44,16 +46,31 @@
   const toggleMenu = () => {
     showMenu.value = !showMenu.value;
   }
+
+  const searchProduct = async () => {
+    searchResults.value = (await shopApi.get(`searchProduct/${searchQuery.value}`)).data;
+  }
 </script>
 
 <template>
   <nav class="bg-cyan-100 border-gray-500">
     <div
-        class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl px-4 md:px-6 py-2.5"
+        class="md:flex flex-wrap justify-between items-center mx-auto max-w-screen-xl px-4 md:px-6 py-2.5"
     >
-      <NuxtLink :href="isVisibilityLimited ? '/' : '/sklep'" class="flex items-center text-2xl font-semibold">
-        EPH POLSKA
-      </NuxtLink>
+        <NuxtLink :href="isVisibilityLimited ? '/' : '/sklep'" class=" flex items-center text-2xl font-semibold">
+          EPH POLSKA
+        </NuxtLink>
+
+        <input type="search" class="w-[80%] md:w-[20%] p-2" v-model="searchQuery" @input="searchProduct()" placeholder="Wyszukaj produkt">
+
+        <div v-if="searchResults.length > 0">
+          <ul>
+            <li v-for="result in searchResults" :key="result.id">
+              {{ result.name }}
+            </li>
+          </ul>
+        </div>
+
 
       <div class="w-[60%] text-red-600 font-bold">
         <div v-if="!isVisibilityLimited">
