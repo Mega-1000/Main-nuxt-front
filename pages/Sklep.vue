@@ -51,11 +51,12 @@ const config = useRuntimeConfig().public;
   <ReferalBanner />
 
   <section class="bg-white">
-    <div class=" mx-auto max-w-screen-xl">
+    <div class="mx-auto max-w-screen-xl">
       <div class="grid grid-cols-2 gap-8 text-gray-500 sm:gap-12 md:grid-cols-3 lg:grid-cols-6 text-gray-400">
         <a href="#" class="flex justify-center items-center">
           <img src="/genderka.webp" alt="" style="width: 70%">
         </a>
+
         <a href="#" class="flex justify-center items-center">
           <img src="/swisspor.webp" alt="" style="width: 70%">
         </a>

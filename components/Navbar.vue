@@ -164,13 +164,13 @@
               <div class="mt-6 relative flex-1 px-4 sm:px-6">
                 <ul>
                   <li v-for="result in searchResults" :key="result.id" class="py-4 border-b border-gray-200">
-                    <div class="flex items-center">
+                    <NuxtLink class="flex items-center" :href="`/singleProduct/${result.id}`">
                       <img :src="`https://admin.mega1000.pl${result.url_for_website}`" class="h-16 w-16 object-cover rounded-full mr-4" />
                       <div>
                         <p class="text-sm font-medium text-gray-900">{{ result.name }}</p>
-                        <p class="text-sm text-gray-500">59.99 zł</p>
+                        <p class="text-sm text-gray-500">{{ result.price.gross_price_of_packing }} PLN</p>
                       </div>
-                    </div>
+                    </NuxtLink>
                   </li>
                 </ul>
               </div>
