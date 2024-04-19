@@ -36,7 +36,7 @@
 </script>
 
 <template>
-  <div class="hidden md:block ml-4 fixed z-10 rounded-lg p-4 bg-gray-50">
+  <div class="hidden ml-4 fixed z-10 rounded-lg p-4 bg-gray-50">
     <transition name="fade" mode="out-in">
       <div v-if="showBox">
         <div>
