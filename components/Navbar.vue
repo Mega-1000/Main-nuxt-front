@@ -53,151 +53,154 @@
 </script>
 
 <template>
-  <nav class="bg-cyan-100 border-gray-500">
-    <div
-        class="md:flex flex-wrap justify-between items-center mx-auto max-w-screen-xl px-4 md:px-6 py-2.5"
-    >
-        <NuxtLink :href="isVisibilityLimited ? '/' : '/sklep'" class=" flex items-center text-2xl font-semibold">
-          EPH POLSKA
-        </NuxtLink>
-
-        <input type="search" class="w-[80%] md:w-[20%] p-2" v-model="searchQuery" @input="searchProduct()" placeholder="Wyszukaj produkt">
-
-      <div class="w-[60%] text-red-600 font-bold">
-        <div v-if="!isVisibilityLimited">
-          Pomoc techniczna 507925963 7-23
+  <nav class="bg-cyan-100 border-b border-gray-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between h-16">
+        <div class="flex items-center">
+          <div class="flex-shrink-0">
+            <NuxtLink :href="isVisibilityLimited ? '/' : '/sklep'" class="text-2xl font-semibold text-gray-900">
+              EPH POLSKA
+            </NuxtLink>
+          </div>
+          <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
+            <!-- Desktop navigation links -->
+            <NuxtLink v-if="!isVisibilityLimited" href="/info" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-900 hover:border-gray-300 focus:outline-none focus:border-gray-700 transition duration-150 ease-in-out">
+              Kontakt
+            </NuxtLink>
+            <template v-for="page in customPages" v-if="!isVisibilityLimited">
+              <NuxtLink :href="buildCustomLink(page.id)" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-900 hover:border-gray-300 focus:outline-none focus:border-gray-700 transition duration-150 ease-in-out">
+                {{ page.title }}
+              </NuxtLink>
+            </template>
+            <NuxtLink v-if="userToken && !isVisibilityLimited" href="/account" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-900 hover:border-gray-300 focus:outline-none focus:border-gray-700 transition duration-150 ease-in-out">
+              Konto
+            </NuxtLink>
+            <NuxtLink href="/Complaint" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-900 hover:border-gray-300 focus:outline-none focus:border-gray-700 transition duration-150 ease-in-out">
+              Zgłoś reklamację
+            </NuxtLink>
+            <NuxtLink v-if="userToken && !isVisibilityLimited" href="/" @click.prevent="logOut" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-900 hover:border-gray-300 focus:outline-none focus:border-gray-700 transition duration-150 ease-in-out">
+              Wyloguj
+            </NuxtLink>
+            <NuxtLink v-else href="/login" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-900 hover:border-gray-300 focus:outline-none focus:border-gray-700 transition duration-150 ease-in-out">
+              Zaloguj
+            </NuxtLink>
+            <NuxtLink href="/faq" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-900 hover:border-gray-300 focus:outline-none focus:border-gray-700 transition duration-150 ease-in-out">
+              FAQ
+            </NuxtLink>
+          </div>
+        </div>
+        <div class="flex items-center">
+          <div class="flex-shrink-0">
+            <NuxtLink href="/koszyk.html" class="relative inline-flex items-center text-sm font-medium leading-5 text-gray-900 hover:text-gray-700 focus:outline-none focus:text-gray-700 transition duration-150 ease-in-out">
+              <Icon name="clarity:shopping-cart-solid" size="24" class="text-cyan-500" />
+              <span v-if="productsCart.products.length > 0" class="ml-2 bg-red-500 text-white rounded-full px-2 py-1 text-xs">
+                {{ productsCart.products.length > 9 ? '9+' : productsCart.products.length }}
+              </span>
+            </NuxtLink>
+          </div>
+          <div class="ml-4 flex-shrink-0 relative">
+            <input type="search" v-model="searchQuery" @input="searchProduct()" class="block w-full pl-4 pr-12 sm:text-sm sm:leading-5 border-gray-300 rounded-md" placeholder="Wyszukaj produkt" />
+            <div v-if="searchResults.length > 0" class="absolute z-10 mt-1 w-full bg-white rounded-md shadow-lg">
+              <ul class="py-1">
+                <li v-for="result in searchResults" :key="result.id" class="py-2 px-4 border-b border-gray-200 last:border-b-0 hover:bg-gray-100 cursor-pointer">
+                  <div class="flex items-center">
+                    <img :src="`https://admin.mega1000.pl${result.url_for_website}`" class="h-8 w-8 object-cover rounded-full mr-2" />
+                    <div>
+                      <p class="text-sm font-medium text-gray-900">{{ result.name }}</p>
+                      <p class="text-sm text-gray-500">59.99 zł</p>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div v-if="!isVisibilityLimited" class="hidden sm:block ml-4 flex-shrink-0 text-sm font-medium text-red-600">
+            Pomoc techniczna 507925963 7-23
+          </div>
+        </div>
+        <div class="-mr-2 flex items-center sm:hidden">
+          <button @click="showMenu = !showMenu" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
+            <svg :class="{ 'hidden': showMenu, 'inline-flex': !showMenu }" class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+              <path class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+            <svg :class="{ 'hidden': !showMenu, 'inline-flex': showMenu }" class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+              <path class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
         </div>
       </div>
-      <div class="flex items-center">
-        <NuxtLink href="/koszyk.html">
-          <div class="flex mr-[30px]" v-if="!isVisibilityLimited">
-            <Icon
-                id="icon"
-                name="clarity:shopping-cart-solid"
-                size="60"
-                class="ml-50 text-cyan-500"
-            />
-            <label
-                for="icon"
-                class="cursor-pointer font-bold text-teal-200 text-3xl ml-[-1.45em] mt-[.35em] align-center"
-            >
-              {{
-                productsCart.products.length > 0
-                    ? productsCart.products.length > 9
-                        ? "9+"
-                        : productsCart.products.length
-                    : ``
-              }}
-            </label>
-          </div>
+    </div>
+    <div :class="{ 'hidden': !showMenu, 'block': showMenu }" class="hidden sm:hidden">
+      <div class="pt-2 pb-3">
+        <NuxtLink v-if="!isVisibilityLimited" href="/info" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
+          Kontakt
         </NuxtLink>
-
-        <div>
-          <NavbarShipmentCostTable />
-        </div>
+        <template v-for="page in customPages" v-if="!isVisibilityLimited">
+          <NuxtLink :href="buildCustomLink(page.id)" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
+            {{ page.title }}
+          </NuxtLink>
+        </template>
+        <NuxtLink v-if="userToken && !isVisibilityLimited" href="/account" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
+          Konto
+        </NuxtLink>
+        <NuxtLink href="/Complaint" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
+          Zgłoś reklamację
+        </NuxtLink>
+        <NuxtLink v-if="userToken && !isVisibilityLimited" href="/" @click.prevent="logOut" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
+          Wyloguj
+        </NuxtLink>
+        <NuxtLink v-else href="/login" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
+          Zaloguj
+        </NuxtLink>
+        <NuxtLink href="/faq" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
+          FAQ
+        </NuxtLink>
       </div>
     </div>
   </nav>
 
-  <div class="text-center fixed bg-blue-50 right-[50%]" v-if="searchResults.length > 0">
-    <ul>
-      <li class="rounded p-4 border mx-4" v-for="result in searchResults" :key="result.id">
-        <div class="flex justify-center content-center">
-          <img :src="`https://admin.mega1000.pl${result.url_for_website}`" alt="" class="h-[60px] mr-8">
-          <div>
-            {{ result.name }}
-
-            <div class="text-red-500 text-lg font-bold text-left">
-              59.99 zł
+  <div v-if="searchResults.length > 0" class="fixed inset-0 overflow-hidden" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
+    <div class="absolute inset-0 overflow-hidden">
+      <div class="absolute inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+      <div class="fixed inset-y-0 right-0 pl-10 max-w-full flex">
+        <div class="relative w-screen max-w-md">
+          <div class="h-full flex flex-col py-6 bg-white shadow-xl overflow-y-scroll">
+            <div class="px-4 sm:px-6">
+              <div class="flex items-start justify-between">
+                <h2 class="text-lg font-medium text-gray-900" id="slide-over-title">
+                  Wyniki wyszukiwania
+                </h2>
+                <div class="ml-3 h-7 flex items-center">
+                  <button @click="searchResults = []" class="bg-white rounded-md text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    <span class="sr-only">Zamknij</span>
+                    <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="mt-6 relative flex-1 px-4 sm:px-6">
+              <ul>
+                <li v-for="result in searchResults" :key="result.id" class="py-4 border-b border-gray-200">
+                  <div class="flex items-center">
+                    <img :src="`https://admin.mega1000.pl${result.url_for_website}`" class="h-16 w-16 object-cover rounded-full mr-4" />
+                    <div>
+                      <p class="text-sm font-medium text-gray-900">{{ result.name }}</p>
+                      <p class="text-sm text-gray-500">59.99 zł</p>
+                    </div>
+                  </div>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
-      </li>
-    </ul>
-  </div>
-
-  <nav class="bg-cyan-50 grid sm:flex items-center">
-    <div
-        class="max-w-full sm:max-w-screen-xl px-4 py-1 sm:py-3 md:px-6 mx-auto"
-    >
-      <div class="flex items-center mx-auto">
-        <ul
-            class="flex-row mt-0 mr-6 space-x-5 sm:space-x-8 text-sm md:text-md font-medium space-y-1 hidden sm:flex items-center"
-        >
-          <li>
-            <NuxtLink v-if="!isVisibilityLimited" href="/info" class="text-gray-900 hover:underline"
-            >Kontakt</NuxtLink
-            >
-          </li>
-          <li v-for="page in customPages" v-if="!isVisibilityLimited">
-            <NuxtLink
-                :href="buildCustomLink(page.id)"
-                class="text-gray-900 hover:underline"
-            >{{ page.title }}</NuxtLink
-            >
-          </li>
-          <li v-if="userToken">
-            <NuxtLink href="/account" v-if="!isVisibilityLimited" class="text-gray-900 hover:underline"
-            >Konto</NuxtLink
-            >
-          </li>
-          <li>
-            <NuxtLink href="/Complaint" class="text-gray-900 hover:underline"
-            >Zgłoś reklamację</NuxtLink>
-          </li>
-          <li v-if="userToken" @click="logOut">
-            <NuxtLink v-if="!isVisibilityLimited" href="/" class="text-gray-900 hover:underline"
-            >Wyloguj</NuxtLink
-            >
-          </li>
-          <li v-else>
-            <NuxtLink href="/login" class="text-gray-900 hover:underline"
-            >Zaloguj</NuxtLink
-            >
-          </li>
-          <li>
-            <NuxtLink href="/faq" class="text-gray-900 hover:underline">FAQ</NuxtLink>
-          </li>
-        </ul>
-        <div class="mx-auto grid sm:hidden cursor-pointer" @click="toggleMenu">
-          <div v-if="!showMenu">
-            <Icon name="ic:outline-arrow-drop-down" size="20" />
-            Rozwiń menu
-          </div>
-
-          <Icon v-else name="ic:outline-arrow-drop-up" size="20" />
-
-          <ul class="text-sm md:text-md font-medium space-y-1" v-if="showMenu">
-            <li>
-              <NuxtLink href="/info" class="text-gray-900 hover:underline"
-              >Kontakt</NuxtLink
-              >
-            </li>
-            <li v-for="page in customPages">
-              <NuxtLink
-                  :href="buildCustomLink(page.id)"
-                  class="text-gray-900 hover:underline"
-              >{{ page.title }}</NuxtLink
-              >
-            </li>
-            <li v-if="userToken">
-              <NuxtLink href="/account" class="text-gray-900 hover:underline"
-              >Konto</NuxtLink
-              >
-            </li>
-            <li v-if="userToken" @click="logOut">
-              <NuxtLink href="/" class="text-gray-900 hover:underline"
-              >Wyloguj</NuxtLink
-              >
-            </li>
-            <li v-else>
-              <NuxtLink href="/login" class="text-gray-900 hover:underline"
-              >Zaloguj</NuxtLink
-              >
-            </li>
-          </ul>
-        </div>
       </div>
     </div>
-  </nav>
+  </div>
+
+  <div class="ml-4 flex-shrink-0">
+    <NavbarShipmentCostTable />
+  </div>
+
 </template>

@@ -48,7 +48,7 @@ const copyReferralLink = async () => {
 };
 </script>
 <template>
-  <div class="lg:pl-20 max-w-[90%] mb-40">
+  <div class="lg:pl-20 max-w-[90%] mb-40 mt-4">
     <h1 class="font-bold text-4xl">
       Zgarnij 30 zł polecając nas znajomym!
     </h1>
