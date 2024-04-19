@@ -8,7 +8,7 @@ const props = defineProps<{
 
 <template>
   <div
-      :class="`lg:block w-15 md:w-25 h-fit w-full bg-white ${
+      :class="`lg:block w-15 md:w-25 h-fit w-full bg-white hidden md:block ${
       !nested ? 'shadow rounded' : ''
     }`"
       id="sidenavExample"

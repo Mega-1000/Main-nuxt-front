@@ -76,6 +76,8 @@ const config = useRuntimeConfig().public;
     </div>
   </section>
 
+  <Slider />
+
   <p v-if="pending">Loading...</p>
   <div v-else class="flex">
     <section class="pt-10 pb-20 w-full flex justify-center">
