@@ -35,13 +35,13 @@ onMounted(async () => {
     window.location.reload();
   }
 
-  const data:any = await shopApi.get('/api/staff/isStaff');
-
-  if (data.data) {
-    isStaff.value = true;
-  }
-
-  useState('isStaff', () => isStaff.value);
+  // const data:any = await shopApi.get('/api/staff/isStaff');
+  //
+  // if (data.data) {
+  //   isStaff.value = true;
+  // }
+  //
+  // useState('isStaff', () => isStaff.value);
 })
 
 const config = useRuntimeConfig().public;
