@@ -56,9 +56,11 @@ const config = useRuntimeConfig().public;
         <a href="#" class="flex justify-center items-center">
           <img src="/genderka.webp" alt="" style="width: 70%">
         </a>
+
         <a href="#" class="flex justify-center items-center">
           <img src="/swisspor.webp" alt="" style="width: 70%">
         </a>
+
         <a href="#" class="flex justify-center items-center">
           <img src="/kubala.webp" alt="" style="width: 70%">
         </a>
@@ -66,9 +68,11 @@ const config = useRuntimeConfig().public;
         <a href="#" class="flex justify-center items-center">
           <img src="/arsanit.webp" alt="" style="width: 70%">
         </a>
+
         <a href="#" class="flex justify-center items-center">
           <img src="/austroterm.webp" alt="" style="width: 70%">
         </a>
+
         <a href="#" class="flex justify-center items-center">
           <img src="/yetico.webp" style="width: 70%">
         </a>

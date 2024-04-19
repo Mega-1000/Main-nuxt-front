@@ -56,9 +56,11 @@ const config = useRuntimeConfig().public;
         <a href="#" class="flex justify-center items-center">
           <img src="/genderka.webp" alt="" style="width: 70%">
         </a>
+
         <a href="#" class="flex justify-center items-center">
           <img src="/swisspor.webp" alt="" style="width: 70%">
         </a>
+
         <a href="#" class="flex justify-center items-center">
           <img src="/kubala.webp" alt="" style="width: 70%">
         </a>
@@ -66,9 +68,11 @@ const config = useRuntimeConfig().public;
         <a href="#" class="flex justify-center items-center">
           <img src="/arsanit.webp" alt="" style="width: 70%">
         </a>
+
         <a href="#" class="flex justify-center items-center">
           <img src="/austroterm.webp" alt="" style="width: 70%">
         </a>
+
         <a href="#" class="flex justify-center items-center">
           <img src="/yetico.webp" style="width: 70%">
         </a>
@@ -81,7 +85,7 @@ const config = useRuntimeConfig().public;
     <section class="pt-10 pb-20 w-full flex justify-center">
       <div>
         <div class="lg:flex justify-center">
-          <div class="px-10 w-full lg:w-fit justify-center">
+          <div class="px-10 w-full lg:w-fit justify-center lg:w-1/3">
             <Sidebar
                 class="h-fit flex flex-col justify-center mt-30 w-full"
                 :categories="categories"
@@ -92,11 +96,11 @@ const config = useRuntimeConfig().public;
           <div class="w-full flex justify-center">
             <div>
               <div
-                  class="grid grid-cols-1 gap-6 p-6 sm:grid-cols-2 mb-10 items-center lg:grid-cols-3 h-fit"
+                  class="lg:w-2/3 grid grid-cols-1 gap-6 p-6 sm:grid-cols-2 mb-10 items-center lg:grid-cols-3 h-fit"
               >
                 <article
                     v-for="category in categories"
-                    class="h-full w-full sm:w-auto rounded bg-white p-3 shadow hover:shadow-xl hover:transform hover:scale-105 duration-300"
+                    class="h-full w-fit sm:w-auto rounded-xl bg-white p-3 shadow-lg hover:shadow-xl hover:transform hover:scale-105 duration-300"
                 >
                   <div :class="category.blured ? 'blur-sm' : ''">
                     <NuxtLink :href="buildLink(category)">
