@@ -177,10 +177,10 @@ onMounted(() => {
 
                         <div>
                           <div class="star-rating">
-                            <span v-for="i in 5" :key="i" class="star" v-bind:class="{ active: i <= result.meanOpinion }">
+                            <span v-for="i in 5" :key="i" class="star" v-bind:class="{ active: i <= result.meanOpinion ?? 0 }">
                               ★
                             </span>
-                            <p>Rating: {{ result.meanOpinion.toFixed(1) }} / 5</p>
+                            <p>Rating: {{ result.meanOpinion?.toFixed(1) ?? 0 }} / 5</p>
                           </div>>
                         </div>
                       </div>
