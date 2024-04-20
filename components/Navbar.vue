@@ -180,8 +180,8 @@ onMounted(() => {
                             <span v-for="i in 5" :key="i" class="star" v-bind:class="{ active: i <= result.meanOpinion ?? 0 }">
                               ★
                             </span>
-                            <p>Rating: {{ result.meanOpinion?.toFixed(1) ?? 0 }} / 5</p>
-                          </div>>
+                            <p>Ocena: {{ result.meanOpinion?.toFixed(1) ?? 0 }} / 5</p>
+                          </div>
                         </div>
                       </div>
                     </NuxtLink>

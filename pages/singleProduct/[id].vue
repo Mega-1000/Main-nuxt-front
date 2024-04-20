@@ -48,7 +48,7 @@ const handleCart = () => {
         :item="item"
         :modal="modal"
         :setupModals="setupModals"
-        class="w-full"
+        class="w-full md:w-2/3 mx-auto"
         :isStaff="false"
     />
 
@@ -112,7 +112,5 @@ const handleCart = () => {
     </div>
   </div>
 
-  <create-rating :productId="route.params.id">
-
-  </create-rating>
+  <create-rating :productId="route.params.id" class="mt-6"></create-rating>
 </template>
