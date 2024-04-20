@@ -165,6 +165,7 @@ onMounted(() => {
                   </div>
                 </div>
               </div>
+
               <div class="mt-6 relative flex-1 px-4 sm:px-6">
                 <ul>
                   <li v-for="result in searchResults" :key="result.id" class="py-4 border-b border-gray-200">
@@ -173,6 +174,15 @@ onMounted(() => {
                       <div>
                         <p class="text-sm font-medium text-gray-900">{{ result.name }}</p>
                         <p class="text-sm text-gray-500">{{ result.price.gross_price_of_packing }} PLN</p>
+
+                        <div>
+                          <div class="star-rating">
+                            <span v-for="i in 5" :key="i" class="star" v-bind:class="{ active: i <= result.meanOpinion }">
+                              ★
+                            </span>
+                            <p>Rating: {{ result.meanOpinion.toFixed(1) }} / 5</p>
+                          </div>>
+                        </div>
                       </div>
                     </NuxtLink>
                   </li>
@@ -190,4 +200,14 @@ onMounted(() => {
   </nav>
 
 </template>
+
+<style scoped>
+.star {
+  color: #ccc; /* Gray by default */
+  font-size: 24px;
+}
+.star.active {
+  color: #f5d742; /* Gold for active stars */
+}
+</style>
 
