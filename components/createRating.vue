@@ -27,6 +27,8 @@
 </template>
 
 <script setup>
+  import swal from "sweetalert2";
+
   const props = defineProps(['productId']);
 
   const rating = ref(0);
@@ -44,5 +46,9 @@
       text: description.value,
       user_name: 'Użytkownik',
     });
+
+    await swal.fire('Dodano komentarz', '', 'success').then(() => {
+      window.location.reload();
+    })
   }
 </script>
