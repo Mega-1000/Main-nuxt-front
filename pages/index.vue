@@ -50,27 +50,26 @@ const config = useRuntimeConfig().public;
 <template>
   <ReferalBanner />
 
-  <section class="bg-white">
-    <div class="mx-auto max-w-screen-xl">
-      <div class="grid grid-cols-2 gap-8 text-gray-500 sm:gap-12 md:grid-cols-3 lg:grid-cols-6 text-gray-400">
-        <a href="#" class="flex justify-center items-center">
-          <img src="/genderka.webp" alt="" style="width: 70%">
+  <section class="bg-gray-50">
+    <div class="mx-auto max-w-screen-xl py-10">
+      <div class="grid grid-cols-2 gap-8 text-gray-400 sm:gap-12 md:grid-cols-3 lg:grid-cols-6">
+        <a href="#" class="flex justify-center items-center hover:scale-105 transition-transform duration-300">
+          <img src="/genderka.webp" alt="Genderka Logo" style="width: 70%">
         </a>
-        <a href="#" class="flex justify-center items-center">
-          <img src="/swisspor.webp" alt="" style="width: 70%">
+        <a href="#" class="flex justify-center items-center hover:scale-105 transition-transform duration-300">
+          <img src="/swisspor.webp" alt="Swisspor Logo" style="width: 70%">
         </a>
-        <a href="#" class="flex justify-center items-center">
-          <img src="/kubala.webp" alt="" style="width: 70%">
+        <a href="#" class="flex justify-center items-center hover:scale-105 transition-transform duration-300">
+          <img src="/kubala.webp" alt="Kubala Logo" style="width: 70%">
         </a>
-
-        <a href="#" class="flex justify-center items-center">
-          <img src="/arsanit.webp" alt="" style="width: 70%">
+        <a href="#" class="flex justify-center items-center hover:scale-105 transition-transform duration-300">
+          <img src="/arsanit.webp" alt="Arsanit Logo" style="width: 70%">
         </a>
-        <a href="#" class="flex justify-center items-center">
-          <img src="/austroterm.webp" alt="" style="width: 70%">
+        <a href="#" class="flex justify-center items-center hover:scale-105 transition-transform duration-300">
+          <img src="/austroterm.webp" alt="Austroterm Logo" style="width: 70%">
         </a>
-        <a href="#" class="flex justify-center items-center">
-          <img src="/yetico.webp" style="width: 70%">
+        <a href="#" class="flex justify-center items-center hover:scale-105 transition-transform duration-300">
+          <img src="/yetico.webp" alt="Yetico Logo" style="width: 70%">
         </a>
       </div>
     </div>
@@ -78,48 +77,39 @@ const config = useRuntimeConfig().public;
 
   <Slider />
 
-  <p v-if="pending">Loading...</p>
-  <div v-else class="flex">
-    <section class="pt-10 pb-20 w-full flex justify-center">
-      <div>
-        <div class="lg:flex justify-center">
-          <div class="px-10 w-full lg:w-fit justify-center">
-            <Sidebar
-                class="h-fit flex flex-col justify-center mt-30 w-full"
-                :categories="categories"
-            />
-
-            <nuxt-link class="bg-green-500 rounded px-4 py-2 text-white" href="/categories/create" v-if="isStaff">Dodaj kategorię</nuxt-link>
-          </div>
-          <div class="w-full flex justify-center">
-            <div>
-              <div
-                  class="grid grid-cols-1 gap-6 p-6 sm:grid-cols-2 mb-10 items-center lg:grid-cols-3 h-fit"
+  <p v-if="pending" class="text-center text-xl text-gray-600">Loading...</p>
+  <div v-else class="flex justify-center">
+    <section class="pt-10 pb-20 w-full">
+      <div class="lg:flex justify-center">
+        <div class="px-10 w-full lg:w-1/4">
+          <Sidebar class="h-fit flex flex-col mt-10" :categories="categories" />
+          <nuxt-link class="bg-green-500 rounded px-4 py-2 text-white mt-4 hover:bg-green-600" to="/categories/create" v-if="isStaff">Dodaj kategorię</nuxt-link>
+        </div>
+        <div class="w-full lg:w-3/4 flex justify-center">
+          <div>
+            <div class="grid grid-cols-1 gap-6 p-6 sm:grid-cols-2 items-center lg:grid-cols-3">
+              <article
+                  v-for="category in categories"
+                  class="h-full w-full sm:w-auto rounded-lg bg-white p-3 shadow hover:shadow-xl transition-shadow duration-300"
               >
-                <article
-                    v-for="category in categories"
-                    class="h-full w-full sm:w-auto rounded bg-white p-3 shadow hover:shadow-xl hover:transform hover:scale-105 duration-300"
-                >
-                  <div :class="category.blured ? 'blur-sm' : ''">
-                    <NuxtLink :href="buildLink(category)">
-                      <div class="overflow-hidden rounded-xl h-4/5">
-                        <img
-                            :src="buildImgRoute(category.img)"
-                            alt="Photo"
-                            @error="(e: any) => (e.target!.src = defaultImgSrc)"
-                            class="w-full h-full"
-                        />
-                      </div>
-
-                      <div class="mt-1 p-2 h-1/5">
-                        <h2 class="text-gray-900 font-medium">
-                          {{ category.name }}
-                        </h2>
-                      </div>
-                    </NuxtLink>
-                  </div>
-                </article>
-              </div>
+                <div :class="category.blured ? 'blur-sm' : ''">
+                  <NuxtLink :to="buildLink(category)">
+                    <div class="overflow-hidden rounded-xl">
+                      <img
+                          :src="buildImgRoute(category.img)"
+                          alt="Category Image"
+                          @error="(e) => (e.target.src = defaultImgSrc)"
+                          class="w-full h-auto transition-transform duration-300 hover:scale-105"
+                      />
+                    </div>
+                    <div class="mt-2 p-2">
+                      <h2 class="text-gray-900 font-medium text-lg">
+                        {{ category.name }}
+                      </h2>
+                    </div>
+                  </NuxtLink>
+                </div>
+              </article>
             </div>
           </div>
         </div>
