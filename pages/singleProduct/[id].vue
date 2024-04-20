@@ -24,7 +24,6 @@ const setupModals = () => {
   modal.value = new Modal($targetEl, options);
 };
 
-
 onMounted(async () => {
   setupModals();
 
@@ -112,4 +111,8 @@ const handleCart = () => {
       </div>
     </div>
   </div>
+
+  <create-rating :productId="route.params.id">
+
+  </create-rating>
 </template>
