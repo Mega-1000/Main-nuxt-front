@@ -396,7 +396,7 @@ const ShipmentCostItemsLeftText = (product: any) => {
 </script>
 
 <template>
-  <div class="flex">
+  <div class="flex mt-8">
     <div>
       <Sidebar class="h-fit flex flex-col justify-center mt-30 w-fit" :categories="categories" />
     </div>
