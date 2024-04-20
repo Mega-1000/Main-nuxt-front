@@ -1,16 +1,5 @@
 <template>
   <div>
-    <header class="header py-6 shadow-md bg-gray-100">
-      <div class="container mx-auto flex justify-between items-center">
-        <a href="/" class="text-2xl font-bold text-gray-800">Eph Polska</a>
-        <nav class="flex space-x-6">
-          <a href="https://mega1000.pl/100styropiany-elewacyjne/101" class="text-gray-700 font-medium hover:text-blue-600 transition-colors">Styropiany elewacyjne</a>
-          <a href="https://mega1000.pl/10styropiany/49" class="text-gray-700 font-medium hover:text-blue-600 transition-colors">Styropiany posadskowe</a>
-          <a href="https://mega1000.pl/--30termoizolacja-fundamentow/4" class="text-gray-700 font-medium hover:text-blue-600 transition-colors">Styropiany fundamentowe</a>
-        </nav>
-      </div>
-    </header>
-
     <main>
       <section class="hero-section py-24 px-4 bg-gradient-to-r from-blue-600 to-blue-800 text-white">
         <div class="container mx-auto text-center">

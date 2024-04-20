@@ -50,7 +50,7 @@ const config = useRuntimeConfig().public;
 <template>
   <ReferalBanner />
 
-  <section class="bg-gray-50">
+  <section>
     <div class="mx-auto max-w-screen-xl py-10">
       <div class="grid grid-cols-2 gap-8 text-gray-400 sm:gap-12 md:grid-cols-3 lg:grid-cols-6">
         <a href="#" class="flex justify-center items-center hover:scale-105 transition-transform duration-300">
@@ -74,6 +74,16 @@ const config = useRuntimeConfig().public;
       </div>
     </div>
   </section>
+
+  <div class="bg-gradient-to-r from-blue-300 to-gray-600 font-[sans-serif] p-6">
+    <div class="container mx-auto flex flex-col justify-center items-center">
+      <h2 class="text-white text-3xl font-bold mb-4">Ponad 50 producentów styropianu</h2>
+      <p class="text-white text-base text-center mb-6">Gwarantujemy najniższą cenę w polsce z darmową dostawą po spełnieniu minimum logistycznego.</p>
+      <NuxtLink href="/styropiany" class="bg-white text-sm text-blue-600 font-semibold py-2 px-6 rounded hover:bg-slate-100">
+        Kup styropian
+      </NuxtLink>
+    </div>
+  </div>
 
   <Slider />
 
