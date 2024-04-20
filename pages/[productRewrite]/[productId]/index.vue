@@ -19,11 +19,14 @@ const askUserForZipCode = ref(false);
 const categoryFirmId = ref<integer|null>(null);
 const isMainStyrofoamLobby = ref<bool>(false);
 
-const { data: currentProduct, pending: pending1 } = await useAsyncData(
-  async () => {
+async function loadData(productId, page) {
+  const zipCode = localStorage.getItem('zipCode');
+
+  // Define each API call as a function that returns a promise
+  const fetchProductDetails = async () => {
     try {
-      const res = await shopApi.get(`/api/products/categories?zip-code=${localStorage.getItem('zipCode')}`);
-      const currentProduct = findActiveMenu(res.data, productId as string);
+      const res = await shopApi.get(`/api/products/categories?zip-code=${zipCode}`);
+      const currentProduct = findActiveMenu(res.data, productId);
       let product = { ...currentProduct };
       let categoryTree = [currentProduct];
       while (product.parent_id && parseInt(product.parent_id) !== 0) {
@@ -36,38 +39,56 @@ const { data: currentProduct, pending: pending1 } = await useAsyncData(
         categories: res.data,
         categoryTree,
       };
-    } catch (err) {}
-  }
-);
+    } catch (err) {
+      console.error("Error fetching product details:", err);
+      return null;
+    }
+  };
 
-const { data: categoryData, pending: pending2 } = await useAsyncData(
-  async () => {
+  const fetchCategoryDetails = async () => {
     try {
-      const res = await shopApi.get(
-        `/api/categories/details/search?category=${productId}`
-      );
+      const res = await shopApi.get(`/api/categories/details/search?category=${productId}`);
       return res.data;
-    } catch (err) {}
-  }
-);
+    } catch (err) {
+      console.error("Error fetching category details:", err);
+      return null;
+    }
+  };
 
-const { data: itemsData, pending: pending3 } = await useAsyncData(
-  async () => {
+  const fetchItemsData = async () => {
     try {
-      const currentPage = query?.page as string ?? 1;
-      const zipCode = localStorage.getItem('zipCode');
-
-      const res = await shopApi.get(
-        `/api/products/categories/get?page=${currentPage}&per_page=10&category_id=${productId}&zipCode=${zipCode}`
-      );
+      const currentPage = page ?? 1;
+      const res = await shopApi.get(`/api/products/categories/get?page=${currentPage}&per_page=10&category_id=${productId}&zipCode=${zipCode}`);
       return res.data;
-    } catch (e) {
-      console.log(e);
+    } catch (err) {
+      console.error("Error fetching items data:", err);
       return [];
     }
-  },
-  { watch: [page] }
-);
+  };
+
+  // Use Promise.all to run all fetch functions simultaneously
+  try {
+    const [productData, categoryData, itemsData] = await Promise.all([
+      fetchProductDetails(),
+      fetchCategoryDetails(),
+      fetchItemsData()
+    ]);
+
+    // Use the fetched data as needed in your application
+    return { productData, categoryData, itemsData };
+  } catch (err) {
+    console.error("Error in Promise.all:", err);
+    return { productData: null, categoryData: null, itemsData: null };
+  }
+}
+
+// Example of calling loadData function
+loadData('someProductId', 'somePageNumber').then(data => {
+  console.log(data);
+}).catch(error => {
+  console.error("Error loading data:", error);
+});
+
 
 const buildLink = ({ rewrite, id, name }: { rewrite: string; id: number, name: string }) =>
   name !== 'porady na temat zakupu styropianu' ? `/${rewrite}/${id}` : '/Styrofoarm-generate-table';
