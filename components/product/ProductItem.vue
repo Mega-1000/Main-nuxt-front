@@ -10,6 +10,7 @@ interface Props {
   setupModals: () => void;
   isStaff: boolean;
   showModal: boolean;
+  subPage: boolean | null;
 }
 
 const props = defineProps<Props>();
@@ -249,13 +250,13 @@ const decreaseFastAddToCartValue = () => {
                 {{ daysOfStockText }}
               </div>
             </div>
-<!--            <button-->
-<!--              class="bg-blue-500 text-lg text-white rounded px-4 py-2"-->
-<!--              data-modal-target="calculatorModal"-->
-<!--              @click="() => handleShowModal(item)"-->
-<!--            >-->
-<!--              Kalkulator cenowy-->
-<!--            </button>-->
+            <button
+              class="bg-blue-500 text-lg text-white rounded px-4 py-2"
+              data-modal-target="calculatorModal"
+              @click="() => handleShowModal(item)"
+            >
+              Kalkulator cenowy
+            </button>
 
             <div class="flex items-center mb-4">
               <div class="star-rating">
