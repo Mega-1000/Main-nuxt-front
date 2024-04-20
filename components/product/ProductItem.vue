@@ -173,7 +173,7 @@ const decreaseFastAddToCartValue = () => {
 </script>
 
 <template>
-  <div class="flex flex-col justify-center" v-tooltip.auto-start="props.item.variation_group == 'styropiany' ? ShipmentCostItemsLeftText : ''">
+  <NuxtLink class="flex flex-col justify-center" v-tooltip.auto-start="props.item.variation_group == 'styropiany' ? ShipmentCostItemsLeftText : ''" :href="`/singleProduct/${item.id}`">
     <div
         :class="{ 'cursor-not-allowed filter': props.item.blured }"
         data-modal-target="calculatorModal"
@@ -244,18 +244,18 @@ const decreaseFastAddToCartValue = () => {
             v-for="val in item.meta_price.split(`.`)"
           >
             {{ getPriceString(val) }}
-            <div class="mt-4 text-lg">
+            <div class="mt-4 text-lg" v-if="item.variation_group !== 'styropiany'">
               <div :class="daysOfStockColor">
                 {{ daysOfStockText }}
               </div>
             </div>
-            <button
-              class="bg-blue-500 text-lg text-white rounded px-4 py-2"
-              data-modal-target="calculatorModal"
-              @click="() => handleShowModal(item)"
-            >
-              Kalkulator cenowy
-            </button>
+<!--            <button-->
+<!--              class="bg-blue-500 text-lg text-white rounded px-4 py-2"-->
+<!--              data-modal-target="calculatorModal"-->
+<!--              @click="() => handleShowModal(item)"-->
+<!--            >-->
+<!--              Kalkulator cenowy-->
+<!--            </button>-->
 
             <div class="flex items-center mb-4">
               <div class="star-rating">
@@ -295,7 +295,7 @@ const decreaseFastAddToCartValue = () => {
         </div>
       </div>
     </div>
-  </div>
+  </NuxtLink>
 </template>
 
 <style scoped>

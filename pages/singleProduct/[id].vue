@@ -43,7 +43,7 @@ const handleCart = () => {
 </script>
 
 <template>
-  <div>
+  <div class="mt-12">
     <ProductItem
         :item="item"
         :modal="modal"
