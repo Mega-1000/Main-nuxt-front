@@ -113,7 +113,7 @@ const handleCart = () => {
     </div>
   </div>
 
-  <div class="mt-8" v-for="item in item.opinions">
+  <div class="mt-4 md:w-2/3 mx-auto" v-for="item in item.opinions">
     <figure class="max-w-screen-md">
       <div class="flex items-center mb-4">
         <div class="star-rating">
@@ -125,7 +125,7 @@ const handleCart = () => {
       </div>
 
       <blockquote>
-        <p class="text-2xl font-semibold text-gray-900 dark:text-white">"{{ item.text }}"</p>
+        <p class="text-2xl font-semibold text-gray-900">"{{ item.text }}"</p>
       </blockquote>
     </figure>
   </div>
