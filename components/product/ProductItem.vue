@@ -213,7 +213,7 @@ const decreaseFastAddToCartValue = () => {
             <textarea class="block h-[200px]" v-else @input="saveDescription" v-model="item.description">{{ item.description }}</textarea>
           </span>
 
-          <span class="text-lg">
+          <span class="text-lg" v-if="item.variation_group !== 'styropiany'">
             Ilość asortymentu wchodząca do jednej paczki: {{ item.assortment_quantity }}
           </span>
         </h3>
@@ -256,6 +256,15 @@ const decreaseFastAddToCartValue = () => {
             >
               Kalkulator cenowy
             </button>
+
+            <div class="flex items-center mb-4">
+              <div class="star-rating">
+                <span v-for="i in 5" :key="i" class="star" v-bind:class="{ active: i <= item.meanOpinion ?? 0 }">
+                  ★
+                </span>
+                <p>Ocena: {{ item.meanOpinion?.toFixed(1) ?? 0 }} / 5</p>
+              </div>
+            </div>
           </div>
         </div>
 

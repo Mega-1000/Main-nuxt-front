@@ -20,7 +20,7 @@
       ></textarea>
     </div>
 
-    <SubmitButton @click="submitForm">
+    <SubmitButton @click="submitForm" class="mb-16">
       Zapisz opinię
     </SubmitButton>
   </div>
