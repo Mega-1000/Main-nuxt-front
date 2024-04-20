@@ -19,6 +19,10 @@
           rows="4"
       ></textarea>
     </div>
+
+    <SubmitButton @click="submitForm">
+      Zapisz opinię
+    </SubmitButton>
   </div>
 </template>
 
