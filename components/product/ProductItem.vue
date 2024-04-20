@@ -254,6 +254,7 @@ const decreaseFastAddToCartValue = () => {
               class="bg-blue-500 text-lg text-white rounded px-4 py-2"
               data-modal-target="calculatorModal"
               @click="() => handleShowModal(item)"
+              v-if="subPage"
             >
               Kalkulator cenowy
             </button>
