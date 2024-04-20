@@ -396,180 +396,301 @@ const ShipmentCostItemsLeftText = (product: any) => {
 </script>
 
 <template>
-  <div class="flex flex-col md:flex-row">
-    <div class="md:w-1/4 lg:w-1/5 bg-gray-100 p-4">
-      <Sidebar :categories="categories" />
+  <div class="flex">
+    <div>
+      <Sidebar class="h-fit flex flex-col justify-center mt-30 w-fit" :categories="categories" />
     </div>
-    <div class="md:w-3/4 lg:w-4/5 p-4">
-      <div v-if="!productsCart?.products || productsCart?.products?.length === 0" class="text-center py-20">
-        <h2 class="text-2xl md:text-4xl font-bold mb-4">Your Cart is Empty</h2>
-        <p class="text-gray-600">Looks like you haven't added anything to your cart yet.</p>
-        <button class="bg-indigo-500 text-white py-2 px-4 rounded mt-4 hover:bg-indigo-600 transition-colors duration-300">
-          Start Shopping
+    <div class="mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="pb-15">
+        <div class="flex justify-center mt-7">
+          <h2 v-if="!productsCart?.products || productsCart?.products?.length === 0" class="text-xl md:text-3xl text-gray-700">
+            Brak produktów w koszyku
+          </h2>
+          <div v-else class="grid grid-cols-1 space-y-8">
+            <p class="mt-2 text-sm text-red-500" v-if="state?.errorText">
+              {{ state?.errorText }}
+            </p>
+            <template v-if="state?.cart_token">
+              <div
+                  class="flex p-4 mb-4 text-sm text-red-800 border border-red-300 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 dark:border-red-800"
+                  role="alert">
+                <svg aria-hidden="true" class="flex-shrink-0 inline w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20"
+                     xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd"
+                        d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1 a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                        clip-rule="evenodd"></path>
+                </svg>
+                <span class="sr-only">Info</span>
+                <div>
+                  <span class="font-medium">Uwaga! To jest edycja koszyka.</span>
+                </div>
+              </div>
+              <div class="flex items-center mb-4">
+                <input id="default-checkbox" type="checkbox" v-model="isNewOrder"
+                       class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2" />
+                <label for="default-checkbox" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Czy to
+                  jest nowe zamówienie?</label>
+              </div>
+            </template>
+            <button type="button" @click="productsCart.removeAllFromCart"
+                    class="w-40 text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 transition duration-150 ease-in-out">
+              Usuń wszystko
+            </button>
+
+            <div v-for="product in productsCart.products" class="max-w-[100vw]" v-tooltip.auto-start="ShipmentCostItemsLeftText(product)">
+              <div
+                  class="relative flex flex-col md:flex-row md:space-x-5 space-y-3 md:space-y-0 rounded-xl shadow-lg p-3 max-w-7xl mx-auto border border-gray-300 bg-white">
+                <div class="w-full md:w-1/3 bg-white grid place-items-start md:max-w-2xl">
+                  <img :src="buildImgRoute(product?.url_for_website)" alt="Photo" class="rounded-xl" />
+                  <div class="absolute bottom-0 right-0 md:right-auto">
+                    <button v-if="state?.cart_token" @click="
+                      () =>
+                        updateProduct(
+                          productsCart,
+                          product.product_id,
+                          product.amount,
+                          product.id
+                        )
+                    " type="button"
+                            class="focus:outline-none text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 transition duration-150 ease-in-out">
+                      Przelicz po cenie z CSV
+                    </button>
+                    <button @click="
+                      async () => {
+                        productsCart.removeFromCart(product.id);
+                        await handleDelete();
+                      }
+                    " type="button"
+                            class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 my-2 transition duration-150 ease-in-out">
+                      Usuń
+                    </button>
+                  </div>
+                </div>
+                <div class="w-full md:w-2/3 bg-white flex flex-col space-y-2 p-3 grid md:place-items-end">
+                  <h3 class="font-black text-gray-800 md:text-2xl text-xl">
+                    {{ product.name }}
+                  </h3>
+
+                  <CartPriceTable class="w-full pb-10" :product="product" :handle-product-amount="(val) => updateAmount(product.id, val)" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex justify-center py-10 px-5 w-full"
+             v-if="productsCart?.products && productsCart?.products?.length > 0">
+          <div
+              class="grid space-y-7 min-w-fit sm:max-w-3xl md:max-w-4xl lg:max-w-5xl w-full p-6 border border-gray-200 rounded-lg shadow bg-gray-100">
+            <h5 class="text-2xl font-bold tracking-tight text-gray-900">
+              Podsumowanie
+            </h5>
+            <hr />
+
+            <div class="relative overflow-x-auto sm:rounded-lg w-full">
+              <table class="max-w-md sm:max-w-xl md:max-w-2xl lg:max-w-3xl text-sm text-left text-gray-500 w-full">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                <tr>
+                  <th scope="col" class="px-6 py-3">Produkt</th>
+                  <th scope="col" class="px-6 py-3">Ilość</th>
+                  <th scope="col" class="px-6 py-3">Cena netto</th>
+                  <th scope="col" class="px-6 py-3">Cena brutto</th>
+                  <th scope="col" class="px-6 py-3">Wartość netto</th>
+                  <th scope="col" class="px-6 py-3">Wartość brutto</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="bg-white border-b" v-for="product in productsCart.products">
+                  <th scope="row" class="px-6 py-4 font-medium text-gray-900 max-w-sm md:max-w-lg">
+                    {{ product.name }}
+                  </th>
+                  <td class="px-6 py-4">
+                    {{ product.amount }} {{ product.unit_commercial }}
+                  </td>
+                  <td class="px-6 py-4">
+                    {{ product.net_selling_price_commercial_unit || 0 }}
+                    {{ product.currency || "PLN" }}
+                  </td>
+                  <td class="px-6 py-4">
+                    {{ product.gross_price_of_packing || 0 }}
+                    {{ product.currency || "PLN" }}
+                  </td
+                  <td class="px-6 py-4">
+                    {{
+                      (
+                          parseFloat(product.net_selling_price_commercial_unit) *
+                          product.amount
+                      ).toFixed(2) || 0
+                    }}
+                    {{ product.currency || "PLN" }}
+                  </td>
+                  <td class="px-6 py-4">
+                    {{
+                      (
+                          parseFloat(product.gross_price_of_packing) *
+                          product.amount
+                      ).toFixed(2) || 0
+                    }}
+                    {{ product.currency || "PLN" }}
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <hr />
+
+            <div class="flex justify-between">
+              <p class="text-2xl font-md">Łączne zamówienie</p>
+              <div>
+                <p class="text-md">Netto: {{ productsCart.nettoPrice() }} PLN</p>
+                <p class="text-md">Brutto: {{ productsCart.grossPrice() }} PLN</p>
+              </div>
+            </div>
+            <hr />
+            <div class="flex justify-between">
+              <p class="text-2xl font-md">Koszt transportu</p>
+              <p class="text-lg">{{ shipmentCostBrutto }} PLN</p>
+            </div>
+            <hr />
+            <div class="flex justify-between">
+              <p class="text-2xl font-md">
+                Łączna wartość zamówienia wraz z transportem
+              </p>
+
+              <p class="text-lg">
+                Brutto:
+                {{
+                  (
+                      parseFloat(productsCart.grossPrice()) + shipmentCostBrutto
+                  ).toFixed(2)
+                }}
+                PLN
+              </p>
+            </div>
+
+            <hr />
+            <div class="flex justify-between">
+              <p class="text-2xl font-md">Łączna waga</p>
+              <p class="text-lg">
+                {{ parseFloat(productsCart.totalWeight()).toFixed(2) }} kg
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex justify-center mb-60" v-if="
+          (productsCart?.products &&
+            productsCart?.products?.length > 0 &&
+            !state?.cart_token) ||
+          isNewOrder
+        ">
+          <div
+              class="w-screen max-w-sm md:max-w-md md:max-w-2xl xl:max-w-4xl p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8">
+            <form class="space-y-6" @submit.prevent="createChat">
+              <div>
+                <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Email</label>
+                <input type="email" name="email" id="email"
+                       class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                       required :disabled="loading" v-model="emailInput" />
+              </div>
+              <div>
+                <label for="phone" class="block mb-2 text-sm font-medium text-gray-900">Numer telefonu</label
+                <input type="phone" name="phone" id="phone"
+                       class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                       required :disabled="loading" v-model="phoneInput" />
+              </div>
+              <div class="flex items-start">
+                <div class="flex items-center h-5">
+                  <input id="abroad" type="checkbox" v-model="abroadInput"
+                         class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300" />
+                </div>
+                <label for="abroad" class="ml-2 text-sm font-medium text-gray-900">Wysyłka poza granice Polski</label>
+              </div>
+              <div>
+                <label for="postal-code" class="block mb-2 text-sm font-medium text-gray-900">Kod Pocztowy</label>
+                <input name="postal-code" id="postal-code"
+                       class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                       required :disabled="loading" v-model="postalCodeInput" />
+              </div>
+              <div>
+                <label for="city" class="block mb-2 text-sm font-medium text-gray-900">Miejscowość</label>
+                <input name="city" id="city"
+                       class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                       required :disabled="loading" v-model="cityInput" />
+              </div
+              <div>
+                <label for="additional-notices" class="block mb-2 text-sm font-medium text-gray-900">Opis i uwagi do
+                  zamówienia</label>
+                <textarea id="additional-notices" rows="4" v-model="additionalNoticesInput"
+                          class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"></textarea>
+              </div>
+              <div class="flex items-start">
+                <div class="flex items-center h-5">
+                  <input id="rules" type="checkbox" required v-model="rulesInput"
+                         class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300" />
+                </div>
+                <label for="rules" class="ml-2 text-sm font-medium text-gray-900">Zapoznałem się z regulaminem 1</label>
+              </div>
+              <div class="flex items-start">
+                <div class="flex items-center h-5">
+                  <input id="rules-2" type="checkbox" required v-model="rulesInput"
+                         class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300" />
+                </div
+                <label for="rules-1" class="ml-2 text-sm font-medium text-gray-900">Zapoznałem się z regulaminem 2</label>
+              </div>
+              <div class="flex items-start">
+                <div class="flex items-center h-5">
+                  <input id="rules-3" type="checkbox" required v-model="rulesInput"
+                         class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300" />
+                </div>
+                <label for="rules-3" class="ml-2 text-sm font-medium text-gray-900">Zapoznałem się z regulaminem 3</label>
+              </div
+              <p class="mt-2 text-sm text-red-600">
+                {{ errorText2 }}
+              </p>
+              <SubmitButton
+                  :disabled="loading" type="submit">
+                Zatwierdź
+              </SubmitButton>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div v-if="state?.cart_token && !isNewOrder" class="flex justify-center mb-10">
+        <button
+            class="w-60 text-white bg-cyan-400 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center transition duration-150 ease-in-out"
+            :disabled="loading" @click="handleSubmitWithToken">
+          Zapisz edycję
         </button>
       </div>
-      <div v-else>
-        <div v-if="state?.errorText" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4" role="alert">
-          {{ state?.errorText }}
-        </div>
-        <div v-if="state?.cart_token" class="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded mb-4" role="alert">
-          <p class="font-bold">Attention!</p>
-          <p>You are currently editing your cart.</p>
-          <div class="flex items-center mt-2">
-            <input id="new-order" type="checkbox" v-model="isNewOrder" class="form-checkbox h-5 w-5 text-indigo-600 transition duration-150 ease-in-out" />
-            <label for="new-order" class="ml-2 text-sm font-medium text-gray-700">Is this a new order?</label>
-          </div>
-        </div>
-        <button type="button" @click="productsCart.removeAllFromCart" class="bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600 transition-colors duration-300 mb-4">
-          Clear Cart
-        </button>
-        <div v-for="product in productsCart.products" class="bg-white shadow-md rounded-lg mb-4 overflow-hidden">
-          <div class="md:flex">
-            <div class="md:w-1/3 p-4">
-              <img :src="buildImgRoute(product?.url_for_website)" :alt="product.name" class="w-full rounded-lg" />
-            </div>
-            <div class="md:w-2/3 p-4">
-              <h3 class="text-xl font-bold mb-2">{{ product.name }}</h3>
-              <CartPriceTable :product="product" :handle-product-amount="(val) => updateAmount(product.id, val)" />
-              <div class="flex justify-end mt-4">
-                <button v-if="state?.cart_token" @click="updateProduct(productsCart, product.product_id, product.amount, product.id)" class="bg-indigo-500 text-white py-2 px-4 rounded mr-2 hover:bg-indigo-600 transition-colors duration-300">
-                  Recalculate Price
-                </button>
-                <button @click="async () => { productsCart.removeFromCart(product.id); await handleDelete(); }" class="bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600 transition-colors duration-300">
-                  Remove
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div v-if="productsCart?.products && productsCart?.products?.length > 0" class="bg-white shadow-md rounded-lg p-4">
-          <h2 class="text-2xl font-bold mb-4">Order Summary</h2>
-          <div class="overflow-x-auto">
-            <table class="w-full table-auto">
-              <thead>
-              <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
-                <th class="py-3 px-6 text-left">Product</th>
-                <th class="py-3 px-6 text-left">Quantity</th>
-                <th class="py-3 px-6 text-left">Net Price</th>
-                <th class="py-3 px-6 text-left">Gross Price</th>
-                <th class="py-3 px-6 text-left">Net Total</th>
-                <th class="py-3 px-6 text-left">Gross Total</th>
-              </tr>
-              </thead>
-              <tbody class="text-gray-600 text-sm font-light">
-              <tr v-for="product in productsCart.products" class="border-b border-gray-200 hover:bg-gray-100">
-                <td class="py-3 px-6 text-left whitespace-nowrap">{{ product.name }}</td>
-                <td class="py-3 px-6 text-left">{{ product.amount }} {{ product.unit_commercial }}</td>
-                <td class="py-3 px-6 text-left">{{ product.net_selling_price_commercial_unit || 0 }} {{ product.currency || "PLN" }}</td>
-                <td class="py-3 px-6 text-left">{{ product.gross_price_of_packing || 0 }} {{ product.currency || "PLN" }}</td>
-                <td class="py-3 px-6 text-left">{{ (parseFloat(product.net_selling_price_commercial_unit) * product.amount).toFixed(2) || 0 }} {{ product.currency || "PLN" }}</td>
-                <td class="py-3 px-6 text-left">{{ (parseFloat(product.gross_price_of_packing) * product.amount).toFixed(2) || 0 }} {{ product.currency || "PLN" }}</td>
-              </tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="flex justify-between items-center mt-4">
-            <p class="text-gray-600">Total Order:</p>
-            <div>
-              <p class="text-gray-600">Net: {{ productsCart.nettoPrice() }} PLN</p>
-              <p class="text-gray-600">Gross: {{ productsCart.grossPrice() }} PLN</p>
-            </div>
-          </div>
-          <div class="flex justify-between items-center mt-2">
-            <p class="text-gray-600">Shipping Cost:</p>
-            <p class="text-gray-600">{{ shipmentCostBrutto }} PLN</p>
-          </div>
-          <div class="flex justify-between items-center mt-2">
-            <p class="text-gray-600">Total Order (including shipping):</p>
-            <p class="text-gray-600">Gross: {{ (parseFloat(productsCart.grossPrice()) + shipmentCostBrutto).toFixed(2) }} PLN</p>
-          </div>
-          <div class="flex justify-between items-center mt-2">
-            <p class="text-gray-600">Total Weight:</p>
-            <p class="text-gray-600">{{ parseFloat(productsCart.totalWeight()).toFixed(2) }} kg</p>
-          </div>
-        </div>
-        <div v-if="(productsCart?.products && productsCart?.products?.length > 0 && !state?.cart_token) || isNewOrder" class="bg-white shadow-md rounded-lg p-4 mt-4">
-          <form @submit.prevent="createChat" class="space-y-6">
-            <div>
-              <label for="email" class="block text-sm font-medium text-gray-700             ">Email</label>
-              <input type="email" name="email" id="email" v-model="emailInput" required :disabled="loading"
-                     class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50" />
-            </div>
-            <div>
-              <label for="phone" class="block text-sm font-medium text-gray-700">Phone Number</label>
-              <input type="phone" name="phone" id="phone" v-model="phoneInput" required :disabled="loading"
-                     class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50" />
-            </div>
-            <div class="flex items-start">
-              <div class="flex items-center h-5">
-                <input id="abroad" type="checkbox" v-model="abroadInput"
-                       class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" />
-              </div>
-              <label for="abroad" class="ml-3 text-sm text-gray-600">Shipping outside Poland</label>
-            </div>
-            <div>
-              <label for="postal-code" class="block text-sm font-medium text-gray-700">Postal Code</label>
-              <input type="text" name="postal-code" id="postal-code" v-model="postalCodeInput" required :disabled="loading"
-                     class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50" />
-            </div>
-            <div>
-              <label for="city" class="block text-sm font-medium text-gray-700">City</label>
-              <input type="text" name="city" id="city" v-model="cityInput" required :disabled="loading"
-                     class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50" />
-            </div>
-            <div>
-              <label for="additional-notices" class="block text-sm font-medium text-gray-700">Additional Notes</label>
-              <textarea id="additional-notices" rows="4" v-model="additionalNoticesInput"
-                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"></textarea>
-            </div>
-            <div class="flex items-start">
-              <div class="flex items-center h-5">
-                <input id="rules" type="checkbox" v-model="rulesInput" required
-                       class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" />
-              </div>
-              <label for="rules" class="ml-3 text-sm text-gray-600">I have read and agreed to the terms and conditions</label>
-            </div>
-            <div class="flex items-start">
-              <div class="flex items-center h-5">
-                <input id="rules-2" type="checkbox" v-model="rulesInput" required
-                       class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" />
-              </div>
-              <label for="rules-2" class="ml-3 text-sm text-gray-600">I have read and agreed to the privacy policy</label>
-            </div>
-            <div class="flex items-start">
-              <div class="flex items-center h-5">
-                <input id="rules-3" type="checkbox" v-model="rulesInput" required
-                       class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo -500" />
-              </div>
-              <label for="rules-3" class="ml-3 text-sm text-gray-600">I have read and agreed to the return policy</label>
-            </div>
-            <p v-if="errorText2" class="text-red-500 text-sm">{{ errorText2 }}</p>
-            <button type="submit" :disabled="loading"
-                    class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-              Submit
-            </button>
-          </form>
-        </div>
-        <div v-if="state?.cart_token && !isNewOrder" class="flex justify-center mt-4">
-          <button @click="handleSubmitWithToken" :disabled="loading"
-                  class="py-2 px-4 bg-cyan-500 text-white rounded hover:bg-cyan-600 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2">
-            Save Changes
-          </button>
-        </div>
-        <div v-if="message" class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mt-4" role="alert">
-          <p class="font-bold">Success</p>
-          <p>{{ message }}</p>
+
+      <div v-if="message" class="flex justify-center">
+        <div class="bg-green-500 rounded p-2 text-white">
+          {{ message }}
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Loading spinner -->
-  <div v-if="loading" class="fixed inset-0 z-50 flex items-center justify-center bg-gray-500 bg-opacity-50">
-    <div class="lds-dual-ring"></div>
+  <!-- if loading variable show spinner -->
+  <div v-if="loading" class="fixed top-0 left-0 w-screen h-screen flex justify-center items-center bg-gray-500 bg-opacity-50">
+    <div class="bg-white rounded p-5">
+      <div class="flex justify-center items-center">
+        <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-gray-900" xmlns="http://www.w3.org/2000/svg"
+             fill="none" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10"
+                  stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z">
+          </path>
+        </svg>
+        <span class="text-gray-900 text-lg">Ładowanie...</span>
+      </div>
+    </div>
   </div>
 </template>
-
 
 <style>
 table {
