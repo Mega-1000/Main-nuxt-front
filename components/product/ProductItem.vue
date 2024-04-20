@@ -297,3 +297,13 @@ const decreaseFastAddToCartValue = () => {
     </div>
   </div>
 </template>
+
+<style scoped>
+.star {
+  color: #ccc; /* Gray by default */
+  font-size: 24px;
+}
+.star.active {
+  color: #f5d742; /* Gold for active stars */
+}
+</style>

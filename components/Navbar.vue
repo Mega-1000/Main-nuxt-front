@@ -210,4 +210,3 @@ onMounted(() => {
   color: #f5d742; /* Gold for active stars */
 }
 </style>
-
