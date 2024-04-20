@@ -113,5 +113,22 @@ const handleCart = () => {
     </div>
   </div>
 
+  <div class="mt-8" v-for="item in item.opinions">
+    <figure class="max-w-screen-md">
+      <div class="flex items-center mb-4">
+        <div class="star-rating">
+                <span v-for="i in 5" :key="i" class="star" v-bind:class="{ active: i <= item.rating ?? 0 }">
+                  ★
+                </span>
+          <p>Ocena: {{ item.rating?.toFixed(1) ?? 0 }} / 5</p>
+        </div>
+      </div>
+
+      <blockquote>
+        <p class="text-2xl font-semibold text-gray-900 dark:text-white">"{{ item.text }}"</p>
+      </blockquote>
+    </figure>
+  </div>
+
   <create-rating :productId="route.params.id" class="mt-6"></create-rating>
 </template>
