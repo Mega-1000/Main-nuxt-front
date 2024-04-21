@@ -380,12 +380,15 @@ const createChat = async (redirect: boolean) => {
 };
 
 const isOrderStyrofoam = computed(() => {
-  return false;
+  let isOrderStyrofoam = false;
+
   productsCart.value.products.forEach((product: any) => {
     if (product.variation_group === 'styropiany') {
-      return true;
+      isOrderStyrofoam = true;
     }
   });
+
+  return isOrderStyrofoam;
 });
 
 const ShipmentCostItemsLeftText = (product: any) => {
