@@ -75,32 +75,49 @@ const config = useRuntimeConfig().public;
     </div>
   </section>
 
-  <div class="bg-gradient-to-r from-blue-300 to-gray-600 font-[sans-serif] p-6">
-    <div class="container mx-auto flex flex-col justify-center items-center">
-      <h2 class="text-white text-3xl font-bold mb-4">Ponad 50 producentów styropianu</h2>
-      <p class="text-white text-base text-center mb-2">Gwarantujemy najniższą cenę w polsce z darmową dostawą po spełnieniu minimum logistycznego.</p>
-      <p class="font-bold text-red-500 mb-2">!! Teraz również z płatnością za pobraniem <nuxt-link href="/styropian-platnosc-za-pobraniem">Kliknij aby zobaczyć szczegóły tej usługi</nuxt-link> !!</p>
-      <NuxtLink href="/styropiany" class="bg-white text-sm text-blue-600 font-semibold py-2 px-6 rounded hover:bg-slate-100">
-        Kup styropian
-      </NuxtLink>
+  <div class="bg-gradient-to-r from-blue-500 to-indigo-600 text-white py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col items-center">
+        <h2 class="text-3xl font-bold mb-4">Ponad 50 producentów styropianu</h2>
+        <p class="text-center mb-2">
+          Gwarantujemy najniższą cenę w polsce z darmową dostawą po spełnieniu minimum logistycznego.
+        </p>
+        <p class="font-extrabold text-red-500 mb-2 text-xl">
+          !! Teraz również z płatnością za pobraniem
+          <nuxt-link to="/styropian-platnosc-za-pobraniem" class="underline">Kliknij aby zobaczyć szczegóły tej usługi</nuxt-link>
+          !!
+        </p>
+        <NuxtLink to="/styropiany" class="bg-white text-indigo-600 font-semibold py-2 px-6 rounded hover:bg-gray-100">
+          Kup styropian
+        </NuxtLink>
+      </div>
     </div>
   </div>
 
   <Slider />
 
-  <p v-if="pending" class="text-center text-xl text-gray-600">Loading...</p>
-  <div v-else class="flex justify-center">
-    <section class="pt-10 pb-20 w-full">
+  <div v-if="pending" class="flex justify-center py-12">
+    <div class="text-center text-xl text-gray-600">Loading...</div>
+  </div>
+  <div v-else class="bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="lg:flex justify-center">
-        <div class="px-10 w-full lg:w-1/4">
+        <div class="px-4 w-full lg:w-1/4">
           <Sidebar class="h-fit flex flex-col mt-10" :categories="categories" />
-          <nuxt-link class="bg-green-500 rounded px-4 py-2 text-white mt-4 hover:bg-green-600" to="/categories/create" v-if="isStaff">Dodaj kategorię</nuxt-link>
+          <nuxt-link
+              v-if="isStaff"
+              to="/categories/create"
+              class="bg-green-500 rounded px-4 py-2 text-white mt-4 hover:bg-green-600"
+          >
+            Dodaj kategorię
+          </nuxt-link>
         </div>
         <div class="w-full lg:w-3/4 flex justify-center">
           <div>
-            <div class="grid grid-cols-1 gap-6 p-6 sm:grid-cols-2 items-center lg:grid-cols-3">
+            <div class="grid grid-cols-1 gap-6 p-6 sm:grid-cols-2 lg:grid-cols-3">
               <article
                   v-for="category in categories"
+                  :key="category.id"
                   class="h-full w-full sm:w-auto rounded-lg bg-white p-3 shadow hover:shadow-xl transition-shadow duration-300"
               >
                 <div :class="category.blured ? 'blur-sm' : ''">
@@ -108,7 +125,7 @@ const config = useRuntimeConfig().public;
                     <div class="overflow-hidden rounded-xl">
                       <img
                           :src="buildImgRoute(category.img)"
-                          alt="Category Image"
+                          :alt="category.name"
                           @error="(e) => (e.target.src = defaultImgSrc)"
                           class="w-full h-auto transition-transform duration-300 hover:scale-105"
                       />
@@ -125,6 +142,6 @@ const config = useRuntimeConfig().public;
           </div>
         </div>
       </div>
-    </section>
+    </div>
   </div>
 </template>
