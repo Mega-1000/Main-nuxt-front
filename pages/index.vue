@@ -79,6 +79,7 @@ const config = useRuntimeConfig().public;
     <div class="container mx-auto flex flex-col justify-center items-center">
       <h2 class="text-white text-3xl font-bold mb-4">Ponad 50 producentów styropianu</h2>
       <p class="text-white text-base text-center mb-6">Gwarantujemy najniższą cenę w polsce z darmową dostawą po spełnieniu minimum logistycznego.</p>
+      <p class="font-bold text-red-500">!! Teraz również z płatnością za pobraniem <nuxt-link href="/styropian-platnosc-za-pobraniem">Kliknij aby zobaczyć szczegóły tej usługi</nuxt-link> !!</p>
       <NuxtLink href="/styropiany" class="bg-white text-sm text-blue-600 font-semibold py-2 px-6 rounded hover:bg-slate-100">
         Kup styropian
       </NuxtLink>

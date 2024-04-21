@@ -379,6 +379,15 @@ const createChat = async (redirect: boolean) => {
   await router.push(`/payment?token=${data.token}&total=${(parseFloat(productsCart.value.grossPrice()) + shipmentCostBrutto.value).toFixed(2)}`);
 };
 
+const isOrderStyrofoam = computed(() => {
+  return false;
+  productsCart.value.products.forEach((product: any) => {
+    if (product.variation_group === 'styropiany') {
+      return true;
+    }
+  });
+});
+
 const ShipmentCostItemsLeftText = (product: any) => {
   const itemPackageQuantity = product.assortment_quantity;
   const products = productsCart.value.products.filter((item: any) => item.delivery_type === product.delivery_type);
@@ -625,26 +634,21 @@ const ShipmentCostItemsLeftText = (product: any) => {
                 <textarea id="additional-notices" rows="4" v-model="additionalNoticesInput"
                   class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"></textarea>
               </div>
+              <div class="flex items-start" v-if="isOrderStyrofoam">
+                <div class="flex items-center h-5">
+                  <input id="pay-on-delivery" type="checkbox" required v-model="rulesInput"
+                         class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300" />
+                </div>
+                <label for="pay-on-delivery" class="ml-2 text-sm font-medium text-gray-900">
+                  Płatność za pobraniem (dodatkowa opłata 100zł) <nuxt-link href="/styropian-platnosc-za-pobraniem">Zobacz szczegóły tej usługi</nuxt-link>
+                </label>
+              </div>
               <div class="flex items-start">
                 <div class="flex items-center h-5">
                   <input id="rules" type="checkbox" required v-model="rulesInput"
                     class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300" />
                 </div>
-                <label for="rules" class="ml-2 text-sm font-medium text-gray-900">Zapoznałem się z regulaminem 1</label>
-              </div>
-              <div class="flex items-start">
-                <div class="flex items-center h-5">
-                  <input id="rules-2" type="checkbox" required v-model="rulesInput"
-                    class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300" />
-                </div>
-                <label for="rules-1" class="ml-2 text-sm font-medium text-gray-900">Zapoznałem się z regulaminem 2</label>
-              </div>
-              <div class="flex items-start">
-                <div class="flex items-center h-5">
-                  <input id="rules-3" type="checkbox" required v-model="rulesInput"
-                    class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300" />
-                </div>
-                <label for="rules-3" class="ml-2 text-sm font-medium text-gray-900">Zapoznałem się z regulaminem 3</label>
+                <label for="rules" class="ml-2 text-sm font-medium text-gray-900">Zapoznałem się z <nuxt-link class="text-blue-500" href="https://mega1000.pl/custom/5">regulaminem</nuxt-link></label>
               </div>
 <!--              <div>-->
 <!--                <FileBase64 multiple @onDone="handleFiles" />-->
