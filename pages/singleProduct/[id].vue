@@ -40,6 +40,10 @@ const handleCart = () => {
 
   emmiter.emit("cart:change");
 };
+
+const handleCloseModal = () => {
+  modal.close();
+}
 </script>
 
 <template>
