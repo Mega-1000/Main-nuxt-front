@@ -93,7 +93,7 @@ const config = useRuntimeConfig().public;
       </div>
     </div>
   </div>
-
+w
   <Slider />
 
   <div v-if="pending" class="flex justify-center py-12">
