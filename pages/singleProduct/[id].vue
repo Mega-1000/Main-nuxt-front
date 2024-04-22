@@ -42,7 +42,7 @@ const handleCart = () => {
 };
 
 const handleCloseModal = () => {
-  modal.close();
+  modal.value?.hide();
 }
 </script>
 
