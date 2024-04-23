@@ -32,7 +32,7 @@ onMounted(async () => {
   item.value = response;
 
   // Check if the page should reload and if it has not already been reloaded
-  if (item.value.variation_group === 'styropiany' && route.query.reload !== '1') {
+  if (item.value.variation_group !== 'styropiany' && route.query.reload !== '1') {
     // Redirect with a reload query parameter set to 1
     const newUrl = `${window.location.pathname}${window.location.search ? window.location.search + '&' : '?'}reload=1`;
     window.location.href = newUrl;
