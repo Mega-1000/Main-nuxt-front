@@ -174,7 +174,7 @@ const decreaseFastAddToCartValue = () => {
 </script>
 
 <template>
-  <NuxtLink class="flex flex-col justify-center" v-tooltip.auto-start="props.item.variation_group == 'styropiany' ? ShipmentCostItemsLeftText : ''" :href="`/singleProduct/${item.id}`">
+  <div>
     <div
         :class="{ 'cursor-not-allowed filter': props.item.blured }"
         data-modal-target="calculatorModal"
