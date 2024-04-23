@@ -409,7 +409,7 @@ const ShipmentCostItemsLeftText = (product: any) => {
 
 <template>
   <div class="flex flex-col md:flex-row mt-8">
-    <div class="md:w-3/4 lg:w-4/5 mx-auto">
+    <div class="md:w-3/4 lg:w-4/5 md:mx-auto">
       <div v-if="!productsCart?.products || productsCart?.products?.length === 0" class="text-center py-20">
         <h2 class="text-2xl md:text-4xl font-bold text-gray-600">Twój koszyk jest pusty</h2>
         <p class="mt-4 text-gray-500">Rozpocznij zakupy i dodaj produkty do koszyka.</p>
