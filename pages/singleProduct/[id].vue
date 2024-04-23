@@ -32,9 +32,10 @@ onMounted(async () => {
   item.value = response;
 
   // Check if the page should reload and if it has not already been reloaded
-  if (item.value.variation_group === 'styropiany' && !sessionStorage.getItem('reloaded')) {
-    sessionStorage.setItem('reloaded', 'true'); // Set a flag in sessionStorage
-    window.location.reload();
+  if (item.value.variation_group === 'styropiany' && route.query.reload !== '1') {
+    // Redirect with a reload query parameter set to 1
+    const newUrl = `${window.location.pathname}${window.location.search ? window.location.search + '&' : '?'}reload=1`;
+    window.location.href = newUrl;
   }
 });
 
@@ -49,6 +50,7 @@ const handleCloseModal = () => {
   modal.value?.hide();
 }
 </script>
+
 
 <template>
   <div class="mt-12">
