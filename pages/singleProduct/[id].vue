@@ -31,12 +31,16 @@ onMounted(async () => {
   const {data: response} = await shopApi.get(`api/get-product/${route.params.id}`);
 
   item.value = response;
+
+  if (item.variation_group === 'styropiany') {
+    window.location.reload();
+  }
 });
 
 
 const handleCart = () => {
   const { cart: _cart, ...product } = item.value;
-  productsCart.value.addToCart(currentItem.value, productAmount.value);
+  productsCart.value.addToCart(currentItem.value, pr  oductAmount.value);
   modal.value?.hide();
 
   emmiter.emit("cart:change");
