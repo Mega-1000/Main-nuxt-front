@@ -106,7 +106,7 @@ const setupModals = () => {
 onMounted(async () => {
   setupModals();
 
-  if (productId === '100' || productId === '49' || productId === '5' && !localStorage.getItem('zipCode')) {
+  if ((productId === '100' || productId === '49' || productId === '5') && !localStorage.getItem('zipCode')) {
     askUserForZipCode.value = true;
   }
 
