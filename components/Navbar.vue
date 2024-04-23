@@ -60,52 +60,45 @@ onMounted(() => {
   <nav class="bg-gray-200 border-b border-gray-200 shadow-lg">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-16">
+        <!-- Logo -->
         <div class="flex items-center">
           <div class="flex-shrink-0">
             <NuxtLink href="/">
               <img src="/logo.webp" alt="" class="w-[45px]">
             </NuxtLink>
           </div>
+
+          <!-- Desktop Navigation Links -->
           <div class="hidden md:ml-6 md:flex md:space-x-8">
-            <!-- Desktop navigation links -->
-            <NuxtLink v-if="!isVisibilityLimited" href="/info" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-900 hover:border-gray-300 focus:outline-none focus:border-gray-700 transition duration-150 ease-in-out">
-              Kontakt
-            </NuxtLink>
+            <NuxtLink v-if="!isVisibilityLimited" href="/" class="nav-link">Sklep</NuxtLink>
+            <NuxtLink v-if="!isVisibilityLimited" href="/info" class="nav-link">Kontakt</NuxtLink>
             <template v-for="page in customPages" v-if="!isVisibilityLimited">
-              <NuxtLink :href="buildCustomLink(page.id)" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-900 hover:border-gray-300 focus:outline-none focus:border-gray-700 transition duration-150 ease-in-out">
-                {{ page.title }}
-              </NuxtLink>
+              <NuxtLink :href="buildCustomLink(page.id)" class="nav-link">{{ page.title }}</NuxtLink>
             </template>
-            <NuxtLink v-if="userToken && !isVisibilityLimited" href="/account" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-900 hover:border-gray-300 focus:outline-none focus:border-gray-700 transition duration-150 ease-in-out">
-              Konto
-            </NuxtLink>
-            <NuxtLink href="/Complaint" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-900 hover:border-gray-300 focus:outline-none focus:border-gray-700 transition duration-150 ease-in-out">
-              Zgłoś reklamację
-            </NuxtLink>
-            <NuxtLink v-if="userToken && !isVisibilityLimited" href="/" @click.prevent="logOut" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-900 hover:border-gray-300 focus:outline-none focus:border-gray-700 transition duration-150 ease-in-out">
-              Wyloguj
-            </NuxtLink>
-            <NuxtLink v-else href="/login" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-900 hover:border-gray-300 focus:outline-none focus:border-gray-700 transition duration-150 ease-in-out">
-              Zaloguj
-            </NuxtLink>
-            <NuxtLink href="/faq" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-900 hover:border-gray-300 focus:outline-none focus:border-gray-700 transition duration-150 ease-in-out">
-              FAQ
-            </NuxtLink>
+            <NuxtLink v-if="userToken && !isVisibilityLimited" href="/account" class="nav-link">Konto</NuxtLink>
+            <NuxtLink href="/Complaint" class="nav-link">Zgłoś reklamację</NuxtLink>
+            <NuxtLink v-if="userToken && !isVisibilityLimited" href="/" @click.prevent="logOut" class="nav-link">Wyloguj</NuxtLink>
+            <NuxtLink v-else href="/login" class="nav-link">Zaloguj</NuxtLink>
+            <NuxtLink href="/faq" class="nav-link">FAQ</NuxtLink>
           </div>
         </div>
+
+        <!-- Search Bar and Cart -->
         <div class="flex items-center">
           <div class="relative md:mr-4">
-            <input type="search" v-model="searchQuery" @input="searchProduct()" class="block md:pl-4 md:pr-12 sm:text-sm sm:leading-5 border-gray-300 rounded-md p-2 w-full" placeholder="Wyszukaj produkt" />
+            <input type="search" v-model="searchQuery" @input="searchProduct()" class="search-input" placeholder="Wyszukaj produkt" />
           </div>
-          <NuxtLink href="/koszyk.html" class="relative inline-flex items-center text-sm font-medium leading-5 text-gray-900 hover:text-gray-700 focus:outline-none focus:text-gray-700 transition duration-150 ease-in-out">
+          <NuxtLink href="/koszyk.html" class="relative inline-flex items-center text-sm font-medium text-gray-900 hover:text-gray-700 focus:outline-none focus:text-gray-700 transition duration-150 ease-in-out">
             <Icon name="clarity:shopping-cart-solid" size="40" class="text-cyan-500" />
-            <span v-if="productsCart.products.length > 0" class="ml-2 bg-red-500 text-white rounded-full px-2 py-1 text-xs">
-            {{ productsCart.products.length > 9 ? '9+' : productsCart.products.length }}
-          </span>
+            <span v-if="productsCart.products.length > 0" class="cart-count">
+              {{ productsCart.products.length > 9 ? '9+' : productsCart.products.length }}
+            </span>
           </NuxtLink>
         </div>
+
+        <!-- Mobile Menu Toggle -->
         <div class="md:hidden flex items-center">
-          <button @click="showMenu = !showMenu" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
+          <button @click="showMenu = !showMenu" class="mobile-menu-toggle">
             <svg :class="{ 'hidden': showMenu, 'inline-flex': !showMenu }" class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
               <path class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
             </svg>
@@ -115,36 +108,25 @@ onMounted(() => {
           </button>
         </div>
       </div>
+
+      <!-- Mobile Menu -->
       <div :class="{ 'hidden': !showMenu, 'block': showMenu }" class="md:hidden">
         <div class="pt-2 pb-3">
-          <NuxtLink v-if="!isVisibilityLimited" href="/info" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
-            Kontakt
-          </NuxtLink>
+          <NuxtLink v-if="!isVisibilityLimited" href="/info" class="mobile-nav-link">Kontakt</NuxtLink>
           <template v-for="page in customPages" v-if="!isVisibilityLimited">
-            <NuxtLink :href="buildCustomLink(page.id)" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
-              {{ page.title }}
-            </NuxtLink>
+            <NuxtLink :href="buildCustomLink(page.id)" class="mobile-nav-link">{{ page.title }}</NuxtLink>
           </template>
-          <NuxtLink v-if="userToken && !isVisibilityLimited" href="/account" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
-            Konto
-          </NuxtLink>
-          <NuxtLink href="/Complaint" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
-            Zgłoś reklamację
-          </NuxtLink>
-          <NuxtLink v-if="userToken && !isVisibilityLimited" href="/" @click.prevent="logOut" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
-            Wyloguj
-          </NuxtLink>
-          <NuxtLink v-else href="/login" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
-            Zaloguj
-          </NuxtLink>
-          <NuxtLink href="/faq" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
-            FAQ
-          </NuxtLink>
+          <NuxtLink v-if="userToken && !isVisibilityLimited" href="/account" class="mobile-nav-link">Konto</NuxtLink>
+          <NuxtLink href="/Complaint" class="mobile-nav-link">Zgłoś reklamację</NuxtLink>
+          <NuxtLink v-if="userToken && !isVisibilityLimited" href="/" @click.prevent="logOut" class="mobile-nav-link">Wyloguj</NuxtLink>
+          <NuxtLink v-else href="/login" class="mobile-nav-link">Zaloguj</NuxtLink>
+          <NuxtLink href="/faq" class="mobile-nav-link">FAQ</NuxtLink>
         </div>
       </div>
     </div>
 
-    <div v-if="searchResults.length > 0" class="fixed inset-0 overflow-hidden z-100" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
+    <!-- Search Results Modal -->
+    <div v-if="searchResults.length > 0" class="search-results-modal" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
       <div class="absolute inset-0 overflow-hidden">
         <div class="absolute inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
         <div class="fixed inset-y-0 right-0 pl-10 max-w-full flex">
@@ -152,11 +134,9 @@ onMounted(() => {
             <div class="h-full flex flex-col py-6 bg-white shadow-xl overflow-y-scroll">
               <div class="px-4 sm:px-6">
                 <div class="flex items-start justify-between">
-                  <h2 class="text-lg font-medium text-gray-900" id="slide-over-title">
-                    Wyniki wyszukiwania
-                  </h2>
+                  <h2 class="text-lg font-medium text-gray-900" id="slide-over-title">Wyniki wyszukiwania</h2>
                   <div class="ml-3 h-7 flex items-center">
-                    <button @click="searchResults = []" class="bg-white rounded-md text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    <button @click="searchResults = []" class="close-button">
                       <span class="sr-only">Zamknij</span>
                       <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -174,14 +154,9 @@ onMounted(() => {
                       <div>
                         <p class="text-sm font-medium text-gray-900">{{ result.name }}</p>
                         <p class="text-sm text-gray-500">{{ result.price.gross_price_of_packing }} PLN</p>
-
-                        <div>
-                          <div class="star-rating">
-                            <span v-for="i in 5" :key="i" class="star" v-bind:class="{ active: i <= result.meanOpinion ?? 0 }">
-                              ★
-                            </span>
-                            <p>Ocena: {{ result.meanOpinion?.toFixed(1) ?? 0 }} / 5</p>
-                          </div>
+                        <div class="star-rating">
+                          <span v-for="i in 5" :key="i" class="star" :class="{ 'star-active': i <= result.meanOpinion ?? 0 }">★</span>
+                          <p>Ocena: {{ result.meanOpinion?.toFixed(1) ?? 0 }} / 5</p>
                         </div>
                       </div>
                     </NuxtLink>
@@ -198,15 +173,53 @@ onMounted(() => {
       <NavbarShipmentCostTable />
     </div>
   </nav>
-
 </template>
 
 <style scoped>
-.star {
-  color: #ccc; /* Gray by default */
-  font-size: 24px;
+/* Navigation Links */
+.nav-link {
+  @apply inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-900 hover:border-gray-300 focus:outline-none focus:border-gray-700 transition duration-150 ease-in-out;
 }
-.star.active {
-  color: #f5d742; /* Gold for active stars */
+
+/* Search Input */
+.search-input {
+  @apply block md:pl-4 md:pr-12 sm:text-sm sm:leading-5 border-gray-300 rounded-md p-2 w-full;
+}
+
+/* Cart Count */
+.cart-count {
+  @apply ml-2 bg-red-500 text-white rounded-full px-2 py-1 text-xs;
+}
+
+/* Mobile Menu Toggle */
+.mobile-menu-toggle {
+  @apply inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out;
+}
+
+/* Mobile Navigation Links */
+.mobile-nav-link {
+  @apply block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out;
+}
+
+/* Search Results Modal */
+.search-results-modal {
+  @apply fixed inset-0 overflow-hidden;
+  z-index: 10000;
+}
+
+/* Close Button */
+.close-button {
+  @apply bg-white rounded-md text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500;
+}
+
+/* Star Rating */
+.star {
+  @apply text-gray-300;
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+.star-active {
+  @apply text-yellow-400;
 }
 </style>

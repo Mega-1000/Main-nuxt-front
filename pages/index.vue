@@ -60,7 +60,7 @@ const config = useRuntimeConfig().public;
           <img src="/swisspor.webp" alt="Swisspor Logo" style="width: 70%">
         </a>
         <a href="#" class="flex justify-center items-center hover:scale-105 transition-transform duration-300">
-          <img src="/kubala.webp" alt="Kubala Logo" style="width: 70%">
+          <img src="/images (13).jpeg" alt="Termo organika Logo" style="width: 70%">
         </a>
         <a href="#" class="flex justify-center items-center hover:scale-105 transition-transform duration-300">
           <img src="/arsanit.webp" alt="Arsanit Logo" style="width: 70%">
@@ -93,7 +93,7 @@ const config = useRuntimeConfig().public;
       </div>
     </div>
   </div>
-w
+
   <Slider />
 
   <div v-if="pending" class="flex justify-center py-12">
