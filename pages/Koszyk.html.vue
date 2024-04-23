@@ -535,14 +535,14 @@ const ShipmentCostItemsLeftText = (product: any) => {
             <label for="additional-notices" class="block mb-2 text-sm font-medium text-gray-900">Opis i uwagi do zamówienia</label>
             <textarea id="additional-notices" rows="4" v-model="additionalNoticesInput" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"></textarea>
           </div>
-          <div class="flex items-start" v-if="isOrderStyrofoam">
-            <div class="flex items-center h-5">
-              <input id="pay-on-delivery" type="checkbox" v-model="rulesInput" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300" />
-            </div>
-            <label for="pay-on-delivery" class="ml-2 text-sm font-medium text-gray-900">
-              Płatność za pobraniem (dodatkowa opłata 100zł) <nuxt-link href="/styropian-platnosc-za-pobraniem">Zobacz szczegóły tej usługi</nuxt-link>
-            </label>
-          </div>
+<!--          <div class="flex items-start" v-if="isOrderStyrofoam">-->
+<!--            <div class="flex items-center h-5">-->
+<!--              <input id="pay-on-delivery" type="checkbox" v-model="rulesInput" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300" />-->
+<!--            </div>-->
+<!--            <label for="pay-on-delivery" class="ml-2 text-sm font-medium text-gray-900">-->
+<!--              Płatność za pobraniem (dodatkowa opłata 100zł) <nuxt-link href="/styropian-platnosc-za-pobraniem">Zobacz szczegóły tej usługi</nuxt-link>-->
+<!--            </label>-->
+<!--          </div>-->
           <div class="flex items-start">
             <div class="flex items-center h-5">
               <input id="rules" type="checkbox" required v-model="rulesInput" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300" />
