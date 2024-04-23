@@ -318,6 +318,7 @@ const goToPage = async (val: number) => {
               :setupModals="setupModals"
               class="w-full"
               :isStaff="isStaff"
+              :subPage="true"
             />
             <nav
               aria-label="Page navigation example"

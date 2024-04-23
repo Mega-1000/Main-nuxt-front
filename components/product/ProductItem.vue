@@ -78,8 +78,6 @@ const getSubProducts = async () => {
     },
   });
 
-  props.item.value = res.data;
-
   return res.data;
 };
 
