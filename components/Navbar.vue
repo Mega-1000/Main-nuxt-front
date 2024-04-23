@@ -146,6 +146,8 @@ onMounted(() => {
                 </div>
               </div>
 
+              <input type="search" v-model="searchQuery" @input="searchProduct()" >
+
               <div class="mt-6 relative flex-1 px-4 sm:px-6">
                 <ul>
                   <li v-for="result in searchResults" :key="result.id" class="py-4 border-b border-gray-200">
