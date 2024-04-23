@@ -1,6 +1,6 @@
 <script setup>
 import { Modal, ModalOptions } from "flowbite";
-import emmiter from "~/helpers/emitter";
+import emitter from "~/helpers/emitter";
 
 const item = ref({});
 const modal = ref(null);
@@ -29,21 +29,20 @@ onMounted(async () => {
   setupModals();
 
   const {data: response} = await shopApi.get(`api/get-product/${route.params.id}`);
-
   item.value = response;
 
-  if (item.variation_group === 'styropiany') {
+  // Check if the page should reload and if it has not already been reloaded
+  if (item.value.variation_group === 'styropiany' && !sessionStorage.getItem('reloaded')) {
+    sessionStorage.setItem('reloaded', 'true'); // Set a flag in sessionStorage
     window.location.reload();
   }
 });
 
-
 const handleCart = () => {
   const { cart: _cart, ...product } = item.value;
-  productsCart.value.addToCart(currentItem.value, pr  oductAmount.value);
+  productsCart.value.addToCart(currentItem.value, productAmount.value);
   modal.value?.hide();
-
-  emmiter.emit("cart:change");
+  emitter.emit("cart:change");
 };
 
 const handleCloseModal = () => {
