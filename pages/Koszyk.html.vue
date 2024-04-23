@@ -537,7 +537,7 @@ const ShipmentCostItemsLeftText = (product: any) => {
           </div>
           <div class="flex items-start" v-if="isOrderStyrofoam">
             <div class="flex items-center h-5">
-              <input id="pay-on-delivery" type="checkbox" required v-model="rulesInput" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300" />
+              <input id="pay-on-delivery" type="checkbox" v-model="rulesInput" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300" />
             </div>
             <label for="pay-on-delivery" class="ml-2 text-sm font-medium text-gray-900">
               Płatność za pobraniem (dodatkowa opłata 100zł) <nuxt-link href="/styropian-platnosc-za-pobraniem">Zobacz szczegóły tej usługi</nuxt-link>
