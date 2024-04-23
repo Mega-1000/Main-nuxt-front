@@ -79,7 +79,7 @@ const config = useRuntimeConfig().public;
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex flex-col items-center">
         <h2 class="text-3xl font-bold mb-4 text-gray-200">Ponad 50 producentów styropianu</h2>
-        <p class="text-center mb-2 text-gray-300">
+        <p class=" font-extrabold text-center mb-2 text-gray-300 text-xl">
           Gwarantujemy najniższą cenę w polsce z darmową dostawą po spełnieniu minimum logistycznego.
         </p>
         <p class="font-extrabold text-yellow-400 mb-2 text-xl">
