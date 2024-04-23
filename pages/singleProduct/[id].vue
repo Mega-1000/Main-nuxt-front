@@ -8,6 +8,7 @@ const route = useRoute();
 const { $shopApi: shopApi } = useNuxtApp();
 const productsCart = useProductsCart();
 const productAmount = useProductAmount();
+const currentItem = useCurrentItem();
 
 const setupModals = () => {
   // set the modal menu element
@@ -35,7 +36,7 @@ onMounted(async () => {
 
 const handleCart = () => {
   const { cart: _cart, ...product } = item.value;
-  productsCart.value.addToCart(product, productAmount.value);
+  productsCart.value.addToCart(currentItem.value, productAmount.value);
   modal.value?.hide();
 
   emmiter.emit("cart:change");
