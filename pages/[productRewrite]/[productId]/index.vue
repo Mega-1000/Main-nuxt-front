@@ -278,8 +278,7 @@ const goToPage = async (val: number) => {
           class="w-full h-full rounded-xl bg-white p-3 shadow-lg hover:shadow-xl hover:transform hover:scale-105 duration-300"
         >
           <div :class="product.blured ? 'blur-sm' : ''">
-            <NuxtLink
-              :href="buildLink(product)"
+            <div
               class="flex flex-col justify-between h-full"
             >
               <div class="overflow-hidden rounded-xl">
@@ -297,7 +296,7 @@ const goToPage = async (val: number) => {
                   {{ product.name }}
                 </h2>
               </div>
-            </NuxtLink>
+            </div>
           </div>
         </article>
       </div>
