@@ -2,6 +2,7 @@
 import { Modal, ModalOptions } from "flowbite";
 import RemindMeAboutOfferCalendarModal from "~/components/account/RemindMeAboutOfferCalendarModal.vue";
 import { dowloadInvoices } from "~/helpers/invoices";
+import Swal from "sweetalert2"
 
 interface Props {
   item: any;
@@ -119,9 +120,29 @@ const handleUploadProofOfPayment = async () => {
 };
 
 const markOfferAsInactive = async () => {
-  await shopApi.post(`api/orders/move-to-unactive/${props.item.id}`)
+  Swal.fire({
+    title: "Czy jesteś pewien?",
+    text: "Oferta zostanie przeniesiona do nie aktywnych.",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Tak",
+    cancelButtonText: "Anulluj"
+  }).then(async (result) => {
+    if (result.isConfirmed) {
+      await shopApi.post(`api/orders/move-to-unactive/${props.item.id}`)
 
-  router.go(0);
+      await Swal.fire({
+        title: "Przeniesiono oferę do nieaktywnych!",
+        text: "",
+        icon: "success"
+      });
+
+      router.go(0);
+    }
+  });
+
 };
 </script>
 
