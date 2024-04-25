@@ -123,6 +123,8 @@ const handleCloseModal = () => {
     </div>
   </div>
 
+  <RecomendationSlider :products="item.similarProducts"></RecomendationSlider>
+
   <div class="mt-4 md:w-2/3 mx-auto" v-for="item in item.opinions">
     <figure class="max-w-screen-md">
       <div class="flex items-center mb-4">
