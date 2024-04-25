@@ -7,65 +7,6 @@
           <p class="text-lg md:text-xl mb-10">
             Przeglądaj oferty od ponad 50 sprawdzonych producentów styropianu. Zapewniamy konkurencyjne ceny i wysoką jakość.
           </p>
-          <a href="#" class="bg-blue-500 hover:bg-blue-600 text-white font-medium py-4 px-10 rounded-full inline-block transition-colors duration-300">Odkryj Oferty</a>
-        </div>
-      </section>
-
-      <section class="py-20 px-4 bg-white">
-        <div class="container mx-auto">
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div
-                class="feature-card bg-gray-100 rounded-lg shadow-lg p-8 flex flex-col justify-center items-center space-y-4 transition-transform duration-300 hover:-translate-y-2"
-            >
-              <div class="bg-blue-500 rounded-full p-4 mb-4">
-                <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                      fill-rule="evenodd"
-                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v3.586L7.707 9.293a1 1 0 00-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 10.586V7z"
-                      clip-rule="evenodd"
-                  ></path>
-                </svg>
-              </div>
-              <h2 class="text-2xl font-bold">Innowacyjny System Przetargowy</h2>
-              <p class="text-gray-600">
-                Nasz zaawansowany system przetargowy umożliwia uzyskanie najlepszych ofert dopasowanych do Twoich potrzeb.
-              </p>
-            </div>
-            <div
-                class="feature-card bg-gray-100 rounded-lg shadow-lg p-8 flex flex-col justify-center items-center space-y-4 transition-transform duration-300 hover:-translate-y-2"
-            >
-              <div class="bg-blue-500 rounded-full p-4 mb-4">
-                <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                      fill-rule="evenodd"
-                      d="M10 2a4 4 0 00-4 4v1H5a1 1 0 00-.994.889l-1 12A1 1 0 004 21h12a1 1 0 00.994-1.111l-1-12A1 1 0 0015 7h-1V6a4 4 0 00-4-4zm2 6V6a2 2 0 10-4 0v2h4zm-6 8a1 1 0 112 0 1 1 0 01-2 0zm10 0a1 1 0 112 0 1 1 0 01-2 0z"
-                      clip-rule="evenodd"
-                  ></path>
-                </svg>
-              </div>
-              <h2 class="text-2xl font-bold">Konkurencyjne Ceny</h2>
-              <p class="text-gray-600">
-                Gwarantujemy atrakcyjne ceny dzięki współpracy z wieloma producentami. Znajdź idealne rozwiązanie w budżecie.
-              </p>
-            </div>
-            <div
-                class="feature-card bg-gray-100 rounded-lg shadow-lg p-8 flex flex-col justify-center items-center space-y-4 transition-transform duration-300 hover:-translate-y-2"
-            >
-              <div class="bg-blue-500 rounded-full p-4 mb-4">
-                <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                      fill-rule="evenodd"
-                      d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM9 15a1 1 0 011-1h6a1 1 0 110 2h-6a1 1 0 01-1-1z"
-                      clip-rule="evenodd"
-                  ></path>
-                </svg>
-              </div>
-              <h2 class="text-2xl font-bold">Szeroki Wybór Produków</h2>
-              <p class="text-gray-600">
-                Od styropianów elewacyjnych po fundamentowe – nasz asortyment obejmuje wszystkie typy styropianu, dostosowane do różnych potrzeb.
-              </p>
-            </div>
-          </div>
         </div>
       </section>
 
@@ -142,7 +83,7 @@
       <section class="py-20 px-4 bg-white">
         <div class="container mx-auto">
           <h2 class="text-4xl md:text-5xl font-bold mb-10 text-center">
-            Zapoznaj się z tabelą cen od ponad 50 producentów!
+            Zapoznaj się z tabelą cen od ponad 50 producentów! Kliknij w cenę aby wyświetlić szczegóły produktu.
           </h2>
           <iframe
               title="Tabelka cen styropianów"
