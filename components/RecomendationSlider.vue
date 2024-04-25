@@ -7,7 +7,7 @@
           <div class="product-slider flex space-x-6 animate-slideX" ref="slider">
             <!-- Product 1 -->
             <div v-for="product in products" :key="product.id" class="flex-shrink-0 bg-white shadow-md rounded-lg overflow-hidden">
-              <img :src="product.url_for_website" :alt="product.name" class="h-48 w-full object-cover">
+              <img :src="`https://admin.mega1000.pl${product.url_for_website}`" :alt="product.name" class="h-48 w-full object-cover">
               <div class="px-4 py-3">
                 <h3 class="text-lg font-semibold text-gray-900">{{ product.name }}</h3>
                 <p class="text-gray-500">{{ product.price }} ZŁ</p>
