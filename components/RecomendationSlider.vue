@@ -28,9 +28,6 @@
       </div>
     </div>
   </div>
-  <div>
-    {{ props.products }}
-  </div>
 </template>
 
 <script setup>
