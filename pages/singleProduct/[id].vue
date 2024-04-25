@@ -125,7 +125,7 @@ const handleCloseModal = () => {
 
   <RecomendationSlider
       v-if="item.similarProducts"
-      :products="[{'name': 'test', price: 11}, {'name': 'test', price: 11}, {'name': 'test', price: 11}]"
+      :products="item.similarProducts"
   />
 
   <div class="mt-4 md:w-2/3 mx-auto" v-for="item in item.opinions">
