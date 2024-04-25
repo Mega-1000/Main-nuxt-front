@@ -64,13 +64,13 @@ const getPriceString = (priceType, item) => {
   let price = false;
   let unit = false;
   if (priceType === "p") {
-    price = item.gross_selling_price_basic_unit;
+    price = item.price.gross_selling_price_basic_unit;
     unit = item.unit_basic;
   } else if (priceType === "h") {
-    price = item.gross_price_of_packing;
+    price = item.price.gross_price_of_packing;
     unit = item.unit_commercial;
   } else if (priceType === "o") {
-    price = item.gross_selling_price_calculated_unit;
+    price = item.price.gross_selling_price_calculated_unit;
     unit = item.calculation_unit;
   }
   if (Math.ceil(price) === 0 || !unit) {
