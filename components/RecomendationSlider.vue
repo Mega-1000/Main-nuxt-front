@@ -61,7 +61,7 @@ const prevSlide = () => {
 
 const getPriceString = (priceType, item) => {
   priceType = priceType.toString().toLowerCase();
-  let price: any = false;
+  let price = false;
   let unit = false;
   if (priceType === "p") {
     price = item.gross_selling_price_basic_unit;
