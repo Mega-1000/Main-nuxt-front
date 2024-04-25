@@ -6,13 +6,13 @@
         <div class="overflow-hidden">
           <div class="product-slider flex space-x-6 animate-slideX" ref="slider">
             <!-- Product 1 -->
-            <div v-for="product in products" :key="product.id" class="flex-shrink-0 bg-white shadow-md rounded-lg overflow-hidden">
+            <nuxt-link :href="`/singleProduct/${product.id}`" v-for="product in products" :key="product.id" class="flex-shrink-0 bg-white shadow-md rounded-lg overflow-hidden">
               <img :src="`https://admin.mega1000.pl${product.url_for_website}`" :alt="product.name" class="h-48 w-full object-cover">
               <div class="px-4 py-3">
                 <h3 class="text-lg font-semibold text-gray-900">{{ product.name }}</h3>
                 <p class="text-gray-500">{{ product.price }} ZŁ</p>
               </div>
-            </div>
+            </nuxt-link>
           </div>
         </div>
         <button class="absolute top-1/2 -translate-y-1/2 left-2 bg-white rounded-full p-2 shadow-md hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500" @click="prevSlide">
