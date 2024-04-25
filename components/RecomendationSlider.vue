@@ -10,7 +10,7 @@
               <img :src="`https://admin.mega1000.pl${product.url_for_website}`" :alt="product.name" class="h-48 w-full object-cover">
               <div class="px-4 py-3">
                 <h3 class="text-lg font-semibold text-gray-900">{{ product.name }}</h3>
-                <p class="text-gray-500">{{ product.price }} ZŁ</p>
+                <p class="text-gray-500">{{ getPriceString(product.meta_price, product.price) }} ZŁ</p>
               </div>
             </nuxt-link>
           </div>
@@ -58,6 +58,27 @@ const prevSlide = () => {
   }
   slider.value.style.transform = `translateX(-${currentSlide.value * 256}px)`;
 };
+
+const getPriceString = (priceType, item) => {
+  priceType = priceType.toString().toLowerCase();
+  let price: any = false;
+  let unit = false;
+  if (priceType === "p") {
+    price = item.gross_selling_price_basic_unit;
+    unit = item.unit_basic;
+  } else if (priceType === "h") {
+    price = item.gross_price_of_packing;
+    unit = item.unit_commercial;
+  } else if (priceType === "o") {
+    price = item.gross_selling_price_calculated_unit;
+    unit = item.calculation_unit;
+  }
+  if (Math.ceil(price) === 0 || !unit) {
+    return null;
+  }
+  return `${price} PLN / ${unit}`;
+};
+
 
 const handleResize = () => {
   sliderWidth.value = slider.value.offsetWidth;
