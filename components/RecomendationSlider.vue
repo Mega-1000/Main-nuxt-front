@@ -44,7 +44,7 @@ const props = defineProps({
   'products': Array
 })
 
-const products = ref(props.products);
+const products = props.products;
 
 const nextSlide = () => {
   currentSlide.value++;
