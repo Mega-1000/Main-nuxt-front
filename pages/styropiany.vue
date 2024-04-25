@@ -7,6 +7,18 @@
           <p class="text-lg md:text-xl mb-10">
             Przeglądaj oferty od ponad 50 sprawdzonych producentów styropianu. Zapewniamy konkurencyjne ceny i wysoką jakość.
           </p>
+
+          <div class="flex justify-between md:w-[60%] mx-auto font-bold">
+            <nuxt-link href="https://mega1000.pl/100styropiany-elewacyjne/101">
+              Styropian elewacyjny
+            </nuxt-link>
+            <nuxt-link href="https://mega1000.pl/10styropiany/49">
+              Styropian posadzkowy
+            </nuxt-link>
+            <nuxt-link href="https://mega1000.pl/----10styropiany-wodoodporne/5">
+              Styropian fundamentowy
+            </nuxt-link>
+          </div>
         </div>
       </section>
 
@@ -126,30 +138,25 @@
           <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div class="testimonial-card bg-gray-100 rounded-lg shadow-lg p-8">
               <blockquote class="text-gray-700 italic mb-4">
-                "Jakość produktów i obsługa klienta są na najwyższym poziomie. Polecam każdemu, kto szuka niezawodnych rozwiązań izolacyjnych."
+                "Firma oferuje produkty najwyższej jakości, a obsługa klienta jest wzorowa. Zakupy u nich to czysta przyjemność. Gorąco polecam!"
               </blockquote>
-              <cite class="text-gray-600 font-bold">– Jan Kowalski</cite>
+              <cite class="text-gray-600 font-bold">– Anna Nowak</cite>
             </div>
             <div class="testimonial-card bg-gray-100 rounded-lg shadow-lg p-8">
               <blockquote class="text-gray-700 italic mb-4">
-                "Jakość produktów i obsługa klienta są na najwyższym poziomie. Polecam każdemu, kto szuka niezawodnych rozwiązań izolacyjnych."
+                "Dzięki profesjonalnej poradzie zespołu udało mi się wybrać idealne rozwiązanie izolacyjne dla mojego domu. Jestem bardzo zadowolony z końcowego efektu."
               </blockquote>
-              <cite class="text-gray-600 font-bold">– Jan Kowalski</cite>
+              <cite class="text-gray-600 font-bold">– Piotr Wiśniewski</cite>
             </div>
             <div class="testimonial-card bg-gray-100 rounded-lg shadow-lg p-8">
               <blockquote class="text-gray-700 italic mb-4">
-                "Jakość produktów i obsługa klienta są na najwyższym poziomie. Polecam każdemu, kto szuka niezawodnych rozwiązań izolacyjnych."
+                "Korzystałem z usług tej firmy kilkakrotnie i za każdym razem byłem pod wrażeniem ich rzetelności i zaangażowania. Zdecydowanie zasługują na uznanie!"
               </blockquote>
-              <cite class="text-gray-600 font-bold">– Jan Kowalski</cite>
+              <cite class="text-gray-600 font-bold">– Tomasz Zieliński</cite>
             </div>
           </div>
         </div>
       </section>
     </main>
-
-      <footer class="footer py-6 bg-gray-800 text-white text-center">
-        <p>&copy; 2024 EPH Polska. Wszystkie prawa zastrzeżone.</p>
-        <p>Twój partner w zakresie efektywnych i ekonomicznych rozwiązań izolacyjnych.</p>
-      </footer>
   </div>
 </template>
