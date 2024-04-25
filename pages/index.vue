@@ -52,24 +52,37 @@ const config = useRuntimeConfig().public;
 
   <section>
     <div class="mx-auto max-w-screen-xl py-10">
-      <div class="grid grid-cols-2 gap-8 text-gray-400 sm:gap-12 md:grid-cols-3 lg:grid-cols-6">
-        <a href="#" class="flex justify-center items-center hover:scale-105 transition-transform duration-300">
-          <img src="/genderka.webp" alt="Genderka Logo" style="width: 70%">
+      <h1 class="font-bold text-xl mb-4 sm:text-lg sm:font-semibold"> Współpracujemy z: </h1>
+      <div class="md:grid flex md:gap-8 justify-between text-gray-400 grid-cols-10 gap-5 mx-1">
+        <a href="#" class="flex justify-center items-center hover:scale-105 transition-transform duration-300 hidden md:flex">
+          <img src="/genderka.webp" alt="Genderka Logo" class="md:w-[70%]">
+        </a>
+        <a href="#" class="flex justify-center items-center hover:scale-105 transition-transform duration-300 hidden md:flex">
+          <img src="/swisspor.webp" alt="Swisspor Logo" class="md:w-[70%]">
         </a>
         <a href="#" class="flex justify-center items-center hover:scale-105 transition-transform duration-300">
-          <img src="/swisspor.webp" alt="Swisspor Logo" style="width: 70%">
+          <img src="/images (13).jpeg" alt="Termo organika Logo" class="md:w-[70%]">
         </a>
         <a href="#" class="flex justify-center items-center hover:scale-105 transition-transform duration-300">
-          <img src="/images (13).jpeg" alt="Termo organika Logo" style="width: 70%">
+          <img src="/arsanit.webp" alt="Arsanit Logo" class="md:w-[70%]">
         </a>
         <a href="#" class="flex justify-center items-center hover:scale-105 transition-transform duration-300">
-          <img src="/arsanit.webp" alt="Arsanit Logo" style="width: 70%">
+          <img src="/austroterm.webp" alt="Austroterm Logo" class="md:w-[70%]">
         </a>
         <a href="#" class="flex justify-center items-center hover:scale-105 transition-transform duration-300">
-          <img src="/austroterm.webp" alt="Austroterm Logo" style="width: 70%">
+          <img src="/yetico.webp" alt="Yetico Logo" class="md:w-[70%]">
         </a>
         <a href="#" class="flex justify-center items-center hover:scale-105 transition-transform duration-300">
-          <img src="/yetico.webp" alt="Yetico Logo" style="width: 70%">
+          <img src="/images (4).png" alt="Yetico Logo" class="md:w-[70%]">
+        </a>
+        <a href="#" class="flex justify-center items-center hover:scale-105 transition-transform duration-300">
+          <img src="/unnamed.png" alt="Yetico Logo" class="md:w-[70%]">
+        </a>
+        <a href="#" class="flex justify-center items-center hover:scale-105 transition-transform duration-300">
+          <img src="/knauf.png" alt="Yetico Logo" class="md:w-[70%]">
+        </a>
+        <a href="#" class="flex justify-center items-center hover:scale-105 transition-transform duration-300 hidden md:flex">
+          <img src="/polstyr_logo_without_background.png" alt="Yetico Logo" class="md:w-[70%]">
         </a>
       </div>
     </div>
