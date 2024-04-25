@@ -10,7 +10,7 @@
               <img :src="`https://admin.mega1000.pl${product.url_for_website}`" :alt="product.name" class="h-48 w-full object-cover">
               <div class="px-4 py-3">
                 <h3 class="text-lg font-semibold text-gray-900">{{ product.name }}</h3>
-                <p class="text-gray-500">{{ product.price.gross_selling_price_calculated_unit }}</p>
+                <p class="text-gray-500">{{ product.price.gross_selling_price_calculated_unit }}PLN/M3</p>
               </div>
             </nuxt-link>
           </div>
