@@ -1,16 +1,16 @@
 <template>
   <div class="bg-gray-100 py-12">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-3xl font-extrabold text-gray-900 mb-8">You Might Also Like</h2>
+      <h2 class="text-3xl font-extrabold text-gray-900 mb-8">Zobacz także inne produkty z tej kategori</h2>
       <div class="relative">
         <div class="overflow-hidden">
           <div class="product-slider flex space-x-6 animate-slideX" ref="slider">
             <!-- Product 1 -->
             <div v-for="product in products" :key="product.id" class="flex-shrink-0 bg-white shadow-md rounded-lg overflow-hidden">
-              <img :src="product.image" :alt="product.name" class="h-48 w-full object-cover">
+              <img :src="product.url_for_website" :alt="product.name" class="h-48 w-full object-cover">
               <div class="px-4 py-3">
                 <h3 class="text-lg font-semibold text-gray-900">{{ product.name }}</h3>
-                <p class="text-gray-500">${{ product.price }}</p>
+                <p class="text-gray-500">{{ product.price }} ZŁ</p>
               </div>
             </div>
           </div>
