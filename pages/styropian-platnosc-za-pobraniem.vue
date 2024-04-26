@@ -1,5 +1,5 @@
 <template>
-  <div class="mx-6 md:w-2/3 mx-auto">
+  <div class="my-6 md:w-2/3 mx-auto">
     SPOSOBY PLATNOŚCI ZA STYROPIAN
     <p>
       1.Płatność przy odbiorze
@@ -11,7 +11,7 @@
       Dodatkowy koszt związany z taką obsługą to 49 zł
     </p>
 
-    <p class="mx-4">
+    <p class="my-4">
       2.Wpłata 100 zł jako zaliczki i resztę po potwierdzeniu przez fabrykę o dokonaniu dla Państwa awizacji.
       Dodatkowy koszt związany z taką obsługą to 49 zł
     </p>
