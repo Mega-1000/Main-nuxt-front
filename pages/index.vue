@@ -95,7 +95,7 @@ const config = useRuntimeConfig().public;
         <p class=" font-extrabold text-center mb-2 text-gray-300 text-xl">
           Gwarantujemy najniższą cenę w polsce z darmową dostawą po spełnieniu minimum logistycznego.
         </p>
-        <p class="font-extrabold text-yellow-400 mb-2 text-xl">
+        <p class="font-extrabold text-yellow-400 mb-2 text-xl text-center">
           !! Teraz również z płatnością za pobraniem
           <nuxt-link to="/styropian-platnosc-za-pobraniem" class="underline text-yellow-300 hover:text-yellow-200">Kliknij aby zobaczyć szczegóły tej usługi</nuxt-link>
           !!
