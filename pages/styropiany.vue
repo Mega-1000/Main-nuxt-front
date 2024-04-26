@@ -1,4 +1,9 @@
+<script setup>
+  const showZipCodeModal = !localStorage.getItem('zipCode');
+</script>
+
 <template>
+  <AskUserForZipCodeStyrofoarms v-if="showZipCodeModal" />
   <div>
     <main>
       <section class="hero-section py-24 px-4 bg-gradient-to-r from-blue-600 to-blue-800 text-white">
@@ -7,6 +12,10 @@
           <p class="text-lg md:text-xl mb-10">
             Przeglądaj oferty od ponad 50 sprawdzonych producentów styropianu. Zapewniamy konkurencyjne ceny i wysoką jakość.
           </p>
+
+          <div class="my-6 font-extrabold text-xl">
+            Kliknij aby przejść do konkretnej kategorii styropianu
+          </div>
 
           <div class="flex justify-between md:w-[60%] mx-auto font-bold">
             <nuxt-link href="https://mega1000.pl/100styropiany-elewacyjne/101">

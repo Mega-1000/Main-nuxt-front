@@ -17,7 +17,7 @@
 
 <template>
   <transition name="fade">
-    <div class="modal-backdrop" v-if="true"> <!-- Replace v-if condition with your actual condition for showing the modal -->
+    <div class="modal-backdrop" style="z-index: 100" v-if="true"> <!-- Replace v-if condition with your actual condition for showing the modal -->
       <div class="modal-content">
         <div class="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full" style="background-color: rgba(0, 0, 0, 0.50)">
           <div class="relative p-4 w-full max-w-2xl max-h-full mx-auto">
