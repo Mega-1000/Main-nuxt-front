@@ -80,11 +80,9 @@ const changeTab = (tabName) => {
   </div>
 
   <div class="max-w-7xl mx-auto my-4">
-    <div class="grid space-y-10">
-      <div class="flex justify-center" v-for="order in orders.active" :key="order.id">
-        <OrderItem :item="order" />
-      </div>
-    </div>
+    <nuxt-link href="/EditAccountInformations">
+      Edytuj adresy i dane powiązane z twoim kontem
+    </nuxt-link>
   </div>
 
   <div id="tabContentExample" class="pb-20">
