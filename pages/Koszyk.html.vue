@@ -10,11 +10,8 @@ import ShipmentCostCalculator from "~/helpers/PackageCalculator";
 import swal from "sweetalert2";
 
 const { query } = useRoute();
-
 const { $shopApi: shopApi, $buildImgRoute: buildImgRoute } = useNuxtApp();
-
 const productsCart = useProductsCart();
-
 const state = ref<any>();
 
 const { data: categories, pending } = await useAsyncData(async () => {
@@ -414,6 +411,18 @@ const ShipmentCostItemsLeftText = (product: any) => {
         <h2 class="text-2xl md:text-4xl font-bold text-gray-600">Twój koszyk jest pusty</h2>
         <p class="mt-4 text-gray-500">Rozpocznij zakupy i dodaj produkty do koszyka.</p>
       </div>
+
+      <div v-if="query.isEdition">
+        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+          <span class="block sm:inline">Edutujesz swoje zapytanie! Jeśli chcesz dodać produkt kliknij na sklep i dodaj produkt do koszyka.</span>
+          <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
+            <svg class="fill-current h-6 w-6 text-green-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+              <path d="M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z" />
+            </svg>
+          </span>
+        </div>
+      </div>
+
       <div v-else class="grid grid-cols-1 space-y-8">
         <p class="mt-2 text-sm text-red-600" v-if="state?.errorText">{{ state?.errorText }}</p>
         <template v-if="state?.cart_token">
@@ -425,6 +434,8 @@ const ShipmentCostItemsLeftText = (product: any) => {
               </svg>
             </span>
           </div>
+
+
           <div class="flex items-center mb-4">
             <input id="default-checkbox" type="checkbox" v-model="isNewOrder" class="h-4 w-4 text-indigo-600 bg-gray-100 border-gray-300 rounded focus:ring-indigo-500 focus:ring-2" />
             <label for="default-checkbox" class="ml-2 text-sm font-medium text-gray-900">Czy to jest nowe zamówienie?</label>

@@ -76,7 +76,7 @@ onMounted(() => {
               <NuxtLink :href="buildCustomLink(page.id)" class="nav-link">{{ page.title }}</NuxtLink>
             </template>
             <NuxtLink v-if="userToken && !isVisibilityLimited" href="/account" class="nav-link">Konto</NuxtLink>
-            <NuxtLink href="/Complaint" class="nav-link">Zgłoś reklamację</NuxtLink>
+            <NuxtLink href="/Complaint" v-if="userToken" class="nav-link">Zgłoś reklamację</NuxtLink>
             <NuxtLink v-if="userToken && !isVisibilityLimited" href="/" @click.prevent="logOut" class="nav-link">Wyloguj</NuxtLink>
             <NuxtLink v-else href="/login" class="nav-link">Zaloguj</NuxtLink>
             <NuxtLink href="/faq" class="nav-link">FAQ</NuxtLink>

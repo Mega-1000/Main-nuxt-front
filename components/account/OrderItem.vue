@@ -37,7 +37,7 @@ const editCart = (items: any[]) => {
     productsCart.value.addToCart(productFinal, productFinal.quantity);
   });
 
-  router.push("/koszyk.html");
+  router.push("/koszyk.html?isEdition=true");
 };
 
 const config = useRuntimeConfig().public;
