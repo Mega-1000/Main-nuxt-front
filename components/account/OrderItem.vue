@@ -224,8 +224,8 @@ const markOfferAsInactive = async () => {
         Faktura: {{ invoice.gt_invoice_number }}
       </button>
 
-      <accountActionButton type="link" target="_blank" :href="`${config.baseUrl}/chat-show-or-new/${item.id}/${item.customer_id}`" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-md transition-colors duration-300">
-        Dyskusja i zarządzanie datami
+      <accountActionButton type="link" target="_blank" :href="`${config.baseUrl}/chat-show-or-new/${item.id}/${item.customer_id}`" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-md transition-colors duration-300" :class="item.isThereUnansweredChat ? 'bg-red-600' : ''">
+        Dyskusja i zarządzanie datami {{ item.isThereUnansweredChat ? 'Masz nową wiadomoś!' : ''}}
       </accountActionButton>
 
       <accountActionButton type="link" :href="`/Complaint?offerId=${item.id}`" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-md transition-colors duration-300">
