@@ -1,7 +1,9 @@
 <script setup>
 import { Modal, ModalOptions } from "flowbite";
 import emitter from "~/helpers/emitter";
+import Swal from "sweetalert2";
 
+const router = useRouter();
 const item = ref({});
 const modal = ref(null);
 const route = useRoute();
@@ -44,6 +46,21 @@ const handleCart = () => {
   productsCart.value.addToCart(currentItem.value, productAmount.value);
   modal.value?.hide();
   emitter.emit("cart:change");
+
+  Swal.fire({
+    title: "Dodano produkt do koszyka!",
+    text: "Czy chcesz zakończyć składanie zapytania ofertowego, czy może wolisz kontynuować zakupy?",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Przejdź do koszyka",
+    cancelButtonText: "Kontynuuj zakupy"
+  }).then((result) => {
+    if (result.isConfirmed) {
+      router.push('/koszyk.html');
+    }
+  });
 };
 
 const handleCloseModal = () => {

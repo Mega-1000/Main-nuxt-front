@@ -193,7 +193,7 @@ const decreaseFastAddToCartValue = () => {
             alt="Photo"
             loading="lazy"
             class="rounded-xl"
-        />
+        />`
       </div>
       <div
         class="w-full md:w-[170%] bg-white flex flex-col space-y-2 p-3 grid md:place-items-end"
@@ -269,6 +269,10 @@ const decreaseFastAddToCartValue = () => {
             </div>
           </div>
         </div>
+
+        <SubmitButton>
+          Zobacz szczegóły i dodaj do koszyka
+        </SubmitButton>
 
         <div class="inline-flex rounded-md shadow-sm" role="group">
         </div>
