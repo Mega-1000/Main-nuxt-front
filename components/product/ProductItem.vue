@@ -250,14 +250,6 @@ const decreaseFastAddToCartValue = () => {
                 {{ daysOfStockText }}
               </div>
             </div>
-            <button
-              class="bg-blue-500 text-lg text-white rounded px-4 py-2"
-              data-modal-target="calculatorModal"
-              @click="() => handleShowModal(item)"
-              v-if="subPage"
-            >
-              Kalkulator cenowy
-            </button>
 
             <div class="flex items-center mb-4">
               <div class="star-rating">
@@ -271,7 +263,7 @@ const decreaseFastAddToCartValue = () => {
         </div>
 
         <SubmitButton>
-          Zobacz szczegóły i dodaj do koszyka
+          {{ props.subPage ? 'Kalkulator cenowy' : 'Zobacz szczegóły i dodaj do koszyka' }}
         </SubmitButton>
 
         <div class="inline-flex rounded-md shadow-sm" role="group">
