@@ -185,9 +185,21 @@ const markOfferAsInactive = async () => {
 
     <div v-if="item.isAuctionCreated" class="mt-8 bg-blue-100 p-4 rounded-lg">
       <p class="text-gray-700">Na to zamówienie jest aktywny przetarg!</p>
-      <p class="text-gray-700">Jeśli chcesz zmienić jego szczegóły kliknij przycisk przejdz do chatu.</p>
-      <a :href="`${config.baseUrl}/chat-show-or-new/${item.id}/${item.customer_id}`" target="_blank" class="mt-4 inline-block bg-blue-600 text-white rounded-md px-4 py-2 hover:bg-blue-700 transition-colors duration-300">
+      <p class="text-gray-700">Jeśli chcesz zmienić jego szczegóły kliknij przycisk przejdz do chatu. W tym module jest również możliwość zmiany dat logistycznych.</p>
+      <a
+          :href="`${config.baseUrl}/chat-show-or-new/${item.id}/${item.customer_id}`"
+          target="_blank"
+          class="mt-4 inline-block bg-blue-600 text-white rounded-md px-4 py-2 hover:bg-blue-700 transition-colors duration-300"
+      >
         Przejdź do chatu
+      </a>
+
+      <a
+          :href="`${config.baseUrl}/chat-show-or-new/${item.id}/${item.customer_id}`"
+          target="_blank"
+          class="ml-4 inline-block bg-yellow-600 text-white rounded-md px-4 py-2 hover:bg-blue-700 transition-colors duration-300"
+      >
+        Zmień daty logistyczne
       </a>
     </div>
 
