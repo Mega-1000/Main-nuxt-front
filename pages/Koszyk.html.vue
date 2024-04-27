@@ -379,6 +379,7 @@ const createChat = async (redirect: boolean) => {
   if (isOrderStyrofoam) {
     await Swal.fire('Zapytanie zostało stworzone pomyślnie!', 'Po kliknięciu "OK" Przeniesiemy cię do konta z możliwością zarządzania twoimi zamówieniami', 'info');
     await router.push('/account');
+    return;
   }
 
   await router.push(`/payment?token=${data.token}&total=${(parseFloat(productsCart.value.grossPrice()) + shipmentCostBrutto.value).toFixed(2)}`);
@@ -567,12 +568,15 @@ const ShipmentCostItemsLeftText = (product: any) => {
               <input id="rules" type="checkbox" required v-model="rulesInput" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300" />
             </div>
             <label for="rules" class="ml-2 text-sm font-medium text-gray-900">Zapoznałem się z <nuxt-link class="text-blue-500" href="https://mega1000.pl/custom/5">regulaminem</nuxt-link></label>
+          </div>
 
+          <div class="flex items-start">
             <div class="flex items-center h-5 mt-2">
               <input id="rules" type="checkbox" required v-model="auctionInput" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300" />
             </div>
             <label for="rules" class="ml-2 text-sm font-medium text-gray-900">Chcę wykonać przetyarg (Opcja tylko dla dużych zamówień - cena może być do 20zł/m3 niższa)</label>
           </div>
+
           <p class="mt-2 text-sm text-red-600">{{ errorText2 }}</p>
           <SubmitButton :disabled="loading" type="submit">Zatwierdź</SubmitButton>
         </form>
