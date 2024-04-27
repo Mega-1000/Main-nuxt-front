@@ -371,7 +371,7 @@ const handleBlur = (event: any) => {
               class="border border-gray-400 rounded-md px-2 py-1"
               name="selectedCommercial"
               v-model="state.selectedCommercial"
-              @input="handleChange; handleBlur"
+              @input="handleChange(event); handleBlur(event)"
           />
         </td>
         <td class="px-6 py-4" v-if="state?.calculation">
