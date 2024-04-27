@@ -372,7 +372,7 @@ const handleBlur = (event: any) => {
               name="selectedCommercial"
               :value="state?.selectedCommercial"
               :onBlur="handleBlur"
-              :onChange="handleChange"
+              :onInput="handleChange"
             />
           </td>
           <td class="px-6 py-4" v-if="state?.calculation">
@@ -381,7 +381,7 @@ const handleBlur = (event: any) => {
               name="selectedCalculation"
               :value="state?.selectedCalculation"
               :onBlur="handleBlur"
-              :onChange="handleChange"
+              :onInput="handleChange"
             />
           </td>
           <td class="px-6 py-4" v-if="state?.basicUnit">
@@ -390,7 +390,7 @@ const handleBlur = (event: any) => {
               name="selectedBasicUnit"
               :value="state?.selectedBasicUnit"
               :onBlur="handleBlur"
-              :onChange="handleChange"
+              :onInput="handleChange"
             />
           </td>
           <td class="px-6 py-4" v-if="state?.collective">
@@ -399,7 +399,7 @@ const handleBlur = (event: any) => {
               name="selectedCollective"
               :value="state?.selectedCollective"
               :onBlur="handleBlur"
-              :onChange="handleChange"
+              :onInput="handleChange"
             />
           </td>
           <td class="px-6 py-4" v-if="state?.unitBiggest">
@@ -408,7 +408,7 @@ const handleBlur = (event: any) => {
               name="selectedUnitBiggest"
               :value="state?.selectedUnitBiggest"
               :onBlur="handleBlur"
-              :onChange="handleChange"
+              :onInput="handleChange"
             />
           </td>
         </tr>
@@ -498,7 +498,7 @@ const handleBlur = (event: any) => {
               name="selectedConsumption"
               :value="state?.selectedConsumption"
               :onBlur="handleBlur"
-              :onChange="handleChange"
+              :onInput="handleChange"
             />
             {{ currentItem.unit_basic }}/{{ currentItem.calculation_unit }}
           </td>
