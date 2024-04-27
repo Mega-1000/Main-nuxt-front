@@ -34,6 +34,7 @@ let abroadInput = false;
 let rulesInput = false;
 let files: any[] = [];
 const message = ref("");
+const auctionInput = ref('');
 
 onBeforeMount(async () => {
   const cookies = new Cookies();
@@ -223,6 +224,7 @@ const handleSubmit = async (e: Event | null) => {
     hide_from_customer: hideFromCustomer,
     packages: ShipmentCostCalculator(productsCart.value.products),
     register_reffered_user_id: localStorage.getItem('registerRefferedUserId') || null,
+    createAuction: auctionInput.value,
   };
 
   try {
@@ -367,12 +369,18 @@ const createChat = async (redirect: boolean) => {
     }
   });
 
-  if (isOrderStyrofoam) {
+  if (isOrderStyrofoam && auctionInput.value) {
     const url = `${config.baseUrl}/chat-show-or-new/${data.id}/${data.customerId}?showAuctionInstructions=true`;
 
     window.location.href = url;
     return;
   }
+
+  if (isOrderStyrofoam) {
+    await Swal.fire('Zapytanie zostało stworzone pomyślnie!', 'Po kliknięciu "OK" Przeniesiemy cię do konta z możliwością zarządzania twoimi zamówieniami', 'info');
+    await router.push('/account');
+  }
+
   await router.push(`/payment?token=${data.token}&total=${(parseFloat(productsCart.value.grossPrice()) + shipmentCostBrutto.value).toFixed(2)}`);
 };
 
@@ -559,6 +567,11 @@ const ShipmentCostItemsLeftText = (product: any) => {
               <input id="rules" type="checkbox" required v-model="rulesInput" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300" />
             </div>
             <label for="rules" class="ml-2 text-sm font-medium text-gray-900">Zapoznałem się z <nuxt-link class="text-blue-500" href="https://mega1000.pl/custom/5">regulaminem</nuxt-link></label>
+
+            <div class="flex items-center h-5 mt-2">
+              <input id="rules" type="checkbox" required v-model="auctionInput" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300" />
+            </div>
+            <label for="rules" class="ml-2 text-sm font-medium text-gray-900">Chcę wykonać przetyarg (Opcja tylko dla dużych zamówień - cena może być do 20zł/m3 niższa)</label>
           </div>
           <p class="mt-2 text-sm text-red-600">{{ errorText2 }}</p>
           <SubmitButton :disabled="loading" type="submit">Zatwierdź</SubmitButton>
