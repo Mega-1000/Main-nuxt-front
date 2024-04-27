@@ -570,11 +570,11 @@ const ShipmentCostItemsLeftText = (product: any) => {
             <label for="rules" class="ml-2 text-sm font-medium text-gray-900">Zapoznałem się z <nuxt-link class="text-blue-500" href="https://mega1000.pl/custom/5">regulaminem</nuxt-link></label>
           </div>
 
-          <div class="flex items-start">
-            <div class="flex items-center h-5 mt-2">
+          <div class="flex items-start mt-2">
+            <div class="flex items-center h-5">
               <input id="rules" type="checkbox" required v-model="auctionInput" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300" />
             </div>
-            <label for="rules" class="ml-2 text-sm font-medium text-gray-900">Chcę wykonać przetyarg (Opcja tylko dla dużych zamówień - cena może być do 20zł/m3 niższa)</label>
+            <label for="rules" class="ml-2 text-sm font-medium text-gray-900">Chcę wykonać przetarg (Opcja tylko dla dużych zamówień - cena może być do 20zł/m3 niższa)</label>
           </div>
 
           <p class="mt-2 text-sm text-red-600">{{ errorText2 }}</p>
