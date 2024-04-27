@@ -510,7 +510,7 @@ const handleBlur = (event: any) => {
       </tbody>
     </table>
 
-    <SubmitButton class="mt-4">
+    <SubmitButton class="mt-4 hidden md:block">
       Przelicz ceny
     </SubmitButton>
   </div>
