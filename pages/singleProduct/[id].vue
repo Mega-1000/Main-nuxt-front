@@ -83,7 +83,7 @@ const handleCloseModal = () => {
     <div
         id="calculatorModal"
         tabindex="-1"
-        class="top-0 fixed z-50 w-auto hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full"
+        class="top-0 fixed z-50 w-auto hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal w-[65%] md:h-full"
     >
       <div
           class="relative w-full h-full max-w-xl sm:max-w-3xl md:max-w-5xl lg:max-w-7xl md:h-auto"
