@@ -336,7 +336,11 @@ const handleBlur = (event: any) => {
 </script>
 
 <template>
-  <div class="overflow-x-auto shadow-md sm:rounded-lg">
+  <div class="md:hidden mb-4">
+    Przesuwaj kalkulator w poziomie, przesuwając palcem lub kursorem w lewo i w prawo.
+  </div>
+
+  <div class="overflow-x-auto w-[65%] md:w-full shadow-md sm:rounded-lg">
     <table class="w-full text-sm text-left text-gray-500">
       <thead class="text-xs text-gray-700 uppercase bg-gray-50">
         <tr>
@@ -505,5 +509,9 @@ const handleBlur = (event: any) => {
         </tr>
       </tbody>
     </table>
+
+    <SubmitButton class="mt-4">
+      Przelicz ceny
+    </SubmitButton>
   </div>
 </template>
