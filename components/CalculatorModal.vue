@@ -285,210 +285,225 @@ const handleChange = (event: any) => {
 const productAmount = useProductAmount();
 
 const handleBlur = (event: any) => {
+  if (blurChange.value) {
+    return;
+  }
   const target = event.target;
   let value = target.value;
   const name = target.name;
-
   if (parseFloat(value) > parseFloat(target.max)) {
     return;
   }
-
   if (parseFloat(value) < 0) {
     value = 0;
   }
-
   dynamicCalculator.selectedCommercial = state.value.selectedCommercial;
   dynamicCalculator.selectedCalculation = state.value.selectedCalculation;
   dynamicCalculator.selectedConsumption = state.value.selectedConsumption;
-
   var resp = dynamicCalculator.updateCalculator(value, name);
-
   state.value.selectedCommercial = resp!.selectedCommercial.toFixed(0);
   state.value.selectedCalculation = resp!.selectedCalculation.toFixed(2);
   state.value.selectedBasicUnit = resp!.selectedBasicUnit.toFixed(2);
-  state.value.selectedCollective = parseFloat(resp!.selectedCollective).toFixed(2);
-  state.value.selectedUnitBiggest = parseFloat(resp!.selectedUnitBiggest).toFixed(2);
-  state.value.selectedConsumption = parseFloat(resp!.selectedConsumption).toFixed(2);
+  state.value.selectedCollective = parseFloat(resp!.selectedCollective).toFixed(
+    2
+  );
+  state.value.selectedUnitBiggest = parseFloat(
+    resp!.selectedUnitBiggest
+  ).toFixed(2);
+  state.value.selectedConsumption = parseFloat(
+    resp!.selectedConsumption
+  ).toFixed(2);
   productAmount.value = resp!.selectedCommercial;
 
-  var commercialLesser = state.value.selectedCommercial - 1 >= 0 ? state.value.selectedCommercial - 1 : 0;
-  var respLesser = dynamicCalculator.updateCalculator(commercialLesser, "selectedCommercial");
-
+  var commercialLesser =
+    state.value.selectedCommercial - 1 >= 0
+      ? state.value.selectedCommercial - 1
+      : 0;
+  var respLesser = dynamicCalculator.updateCalculator(
+    commercialLesser,
+    "selectedCommercial"
+  );
   state.value.lesserCommercial = respLesser!.selectedCommercial.toFixed(0);
   state.value.lesserCalculation = respLesser!.selectedCalculation.toFixed(2);
   state.value.lesserBasicUnit = respLesser!.selectedBasicUnit.toFixed(2);
-  state.value.lesserCollective = parseFloat(respLesser!.selectedCollective).toFixed(2);
-  state.value.lesserUnitBiggest = parseFloat(respLesser!.selectedUnitBiggest).toFixed(2);
+  state.value.lesserCollective = parseFloat(
+    respLesser!.selectedCollective
+  ).toFixed(2);
+  state.value.lesserUnitBiggest = parseFloat(
+    respLesser!.selectedUnitBiggest
+  ).toFixed(2);
 };
 </script>
 
 <template>
   <div class="overflow-x-auto shadow-md sm:rounded-lg">
-    <table class="w-full text-sm text-left text-gray-500 border border-gray-300">
-      <thead class="text-xs text-gray-700 uppercase bg-gray-100">
-      <tr>
-        <th />
-        <th scope="col" class="px-6 py-3" v-if="state?.commercial">
-          Handlowa [{{ state?.commercialName }}]
-        </th>
-        <th scope="col" class="px-6 py-3" v-if="state?.calculation">
-          Obliczeniowa [{{ state?.calculationName }}]
-        </th>
-        <th scope="col" class="px-6 py-3" v-if="state?.basicUnit">
-          Podstawowa [{{ state?.basicUnitName }}]
-        </th>
-        <th scope="col" class="px-6 py-3" v-if="state?.collective">
-          Zbiorcza [{{ state?.collectiveName }}]
-        </th>
-        <th scope="col" class="px-6 py-3" v-if="state?.unitBiggest">
-          Globalna [{{ state?.unitBiggestName }}]
-        </th>
-      </tr>
+    <table class="w-full text-sm text-left text-gray-500">
+      <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+        <tr>
+          <th />
+          <th scope="col" class="px-6 py-3" v-if="state?.commercial">
+            Handlowa [{{ state?.commercialName }}]
+          </th>
+          <th scope="col" class="px-6 py-3" v-if="state?.calculation">
+            Obliczeniowa [{{ state?.calculationName }}]
+          </th>
+          <th scope="col" class="px-6 py-3" v-if="state?.basicUnit">
+            Podstawowa [{{ state?.basicUnitName }}]
+          </th>
+          <th scope="col" class="px-6 py-3" v-if="state?.collective">
+            Zbiorcza [{{ state?.collectiveName }}]
+          </th>
+          <th scope="col" class="px-6 py-3" v-if="state?.unitBiggest">
+            Globalna [{{ state?.unitBiggestName }}]
+          </th>
+        </tr>
       </thead>
       <tbody>
-      <tr class="bg-white border-b">
-        <th
+        <tr class="bg-white border-b">
+          <th
             scope="row"
             class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
-        >
-          Ilość zamawianego towaru
-        </th>
-        <td class="px-6 py-4" v-if="state?.commercial">
-          <input
-              class="border border-gray-400 rounded-md px-2 py-1"
+          >
+            Ilość zamawianego towaru
+          </th>
+          <td class="px-6 py-4" v-if="state?.commercial">
+            <input
+              class="border border-gray-400"
               name="selectedCommercial"
-              v-model="state.selectedCommercial"
-              @input="handleChange(event); handleBlur(event)"
-          />
-        </td>
-        <td class="px-6 py-4" v-if="state?.calculation">
-          <input
-              class="border border-gray-400 rounded-md px-2 py-1"
+              :value="state?.selectedCommercial"
+              :onBlur="handleBlur"
+              :onChange="handleChange"
+            />
+          </td>
+          <td class="px-6 py-4" v-if="state?.calculation">
+            <input
+              class="border border-gray-400"
               name="selectedCalculation"
-              v-model="state.selectedCalculation"
-              @blur="handleBlur"
-              @input="handleChange"
-          />
-        </td>
-        <td class="px-6 py-4" v-if="state?.basicUnit">
-          <input
-              class="border border-gray-400 rounded-md px-2 py-1"
+              :value="state?.selectedCalculation"
+              :onBlur="handleBlur"
+              :onChange="handleChange"
+            />
+          </td>
+          <td class="px-6 py-4" v-if="state?.basicUnit">
+            <input
+              class="border border-gray-400"
               name="selectedBasicUnit"
-              v-model="state.selectedBasicUnit"
-              @blur="handleBlur"
-              @input="handleChange"
-          />
-        </td>
-        <td class="px-6 py-4" v-if="state?.collective">
-          <input
-              class="border border-gray-400 rounded-md px-2 py-1"
+              :value="state?.selectedBasicUnit"
+              :onBlur="handleBlur"
+              :onChange="handleChange"
+            />
+          </td>
+          <td class="px-6 py-4" v-if="state?.collective">
+            <input
+              class="border border-gray-400"
               name="selectedCollective"
-              v-model="state.selectedCollective"
-              @blur="handleBlur"
-              @input="handleChange"
-          />
-        </td>
-        <td class="px-6 py-4" v-if="state?.unitBiggest">
-          <input
-              class="border border-gray-400 rounded-md px-2 py-1"
+              :value="state?.selectedCollective"
+              :onBlur="handleBlur"
+              :onChange="handleChange"
+            />
+          </td>
+          <td class="px-6 py-4" v-if="state?.unitBiggest">
+            <input
+              class="border border-gray-400"
               name="selectedUnitBiggest"
-              v-model="state.selectedUnitBiggest"
-              @blur="handleBlur"
-              @input="handleChange"
-          />
-        </td>
-      </tr>
-      <tr class="bg-white border-b">
-        <th
+              :value="state?.selectedUnitBiggest"
+              :onBlur="handleBlur"
+              :onChange="handleChange"
+            />
+          </td>
+        </tr>
+        <tr class="bg-white border-b">
+          <th
             scope="row"
             class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
-        >
-          Ceny brutto sprzedaży [PLN]
-        </th>
-        <td class="px-6 py-4" v-if="state?.commercial">
-          {{ state?.commercialPrice }}
-        </td>
-        <td class="px-6 py-4" v-if="state?.calculation">
-          {{ state?.calculationPrice }}
-        </td>
-        <td class="px-6 py-4" v-if="state?.basicUnit">
-          {{ state?.basicPrice }}
-        </td>
-        <td class="px-6 py-4" v-if="state?.collective">
-          {{ state?.collectivePrice }}
-        </td>
-        <td class="px-6 py-4" v-if="state?.unitBiggest">
-          {{ state?.biggestPrice }}
-        </td>
-      </tr>
-      <tr class="bg-white border-b">
-        <th
+          >
+            Ceny brutto sprzedaży [PLN]
+          </th>
+          <td class="px-6 py-4" v-if="state?.commercial">
+            {{ state?.commercialPrice }}
+          </td>
+          <td class="px-6 py-4" v-if="state?.calculation">
+            {{ state?.calculationPrice }}
+          </td>
+          <td class="px-6 py-4" v-if="state?.basicUnit">
+            {{ state?.basicPrice }}
+          </td>
+          <td class="px-6 py-4" v-if="state?.collective">
+            {{ state?.collectivePrice }}
+          </td>
+          <td class="px-6 py-4" v-if="state?.unitBiggest">
+            {{ state?.biggestPrice }}
+          </td>
+        </tr>
+        <tr class="bg-white border-b">
+          <th
             scope="row"
             class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
-        >
-          Wartość brutto sprzedaży [PLN]
-        </th>
-        <td class="px-6 py-4" v-if="state?.commercial">
-          {{ commercialSaleValue }}
-        </td>
-      </tr>
-      <tr class="bg-white border-b">
-        <th
+          >
+            Wartość brutto sprzedaży [PLN]
+          </th>
+          <td class="px-6 py-4" v-if="state?.commercial">
+            {{
+              (state?.commercialPrice * state?.selectedCommercial).toFixed(2)
+            }}
+          </td>
+        </tr>
+        <tr class="bg-white border-b">
+          <th
             scope="row"
             class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
-        >
-          Ilość przy zamówieniu 1 <br />
-          opakowania handlowego mniej
-        </th>
-        <td class="px-6 py-4" v-if="state?.commercial">
-          {{ state?.lesserCommercial }}
-        </td>
-        <td class="px-6 py-4" v-if="state?.calculation">
-          {{ state?.lesserCalculation }}
-        </td>
-        <td class="px-6 py-4" v-if="state?.basicUnit">
-          {{ state?.lesserBasic }}
-        </td>
-        <td class="px-6 py-4" v-if="state?.collective">
-          {{ state?.lesserCollective }}
-        </td>
-        <td class="px-6 py-4" v-if="state?.unitBiggest">
-          {{ state?.lesserBiggest }}
-        </td>
-      </tr>
-      <tr class="bg-white">
-        <th
+          >
+            Ilość przy zamówieniu 1 <br />
+            opakowania handlowego mniej
+          </th>
+          <td class="px-6 py-4" v-if="state?.commercial">
+            {{ state?.lesserCommercial }}
+          </td>
+          <td class="px-6 py-4" v-if="state?.calculation">
+            {{ state?.lesserCalculation }}
+          </td>
+          <td class="px-6 py-4" v-if="state?.basicUnit">
+            {{ state?.lesserBasic }}
+          </td>
+          <td class="px-6 py-4" v-if="state?.collective">
+            {{ state?.lesserCollective }}
+          </td>
+          <td class="px-6 py-4" v-if="state?.unitBiggest">
+            {{ state?.lesserBiggest }}
+          </td>
+        </tr>
+        <tr class="bg-white">
+          <th
             scope="row"
             class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
-        >
-          Wartość brutto sprzedaży przy<br />
-          zamówieniu 1 opakowania<br />
-          handlowego mniej [PLN]
-        </th>
-        <td class="px-6 py-4" v-if="state?.commercial">
-          {{ lesserCommercialSaleValue }}
-        </td>
-      </tr>
-      <tr class="bg-white" v-if="state?.displayConsumption">
-        <th
+          >
+            Wartość brutto sprzedaży przy<br />
+            zamówieniu 1 opakowania<br />
+            handlowego mniej [PLN]
+          </th>
+          <td class="px-6 py-4" v-if="state?.commercial">
+            {{ (state?.commercialPrice * state?.lesserCommercial).toFixed(2) }}
+          </td>
+        </tr>
+        <tr class="bg-white" v-if="state?.displayConsumption">
+          <th
             scope="row"
             class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
-        >
-          Obliczenia dokonanu przy <br />założeniu zużycia
-        </th>
-        <td class="px-6 py-4">
-          <input
-              class="border border-gray-400 rounded-md px-2 py-1"
+          >
+            Obliczenia dokonanu przy <br />założeniu zużycia
+          </th>
+          <td class="px-6 py-4">
+            <input
+              class="border border-gray-400"
               name="selectedConsumption"
-              v-model="state.selectedConsumption"
-              @blur="handleBlur"
-              @input="handleChange"
-          />
-          {{ currentItem.unit_basic }}/{{ currentItem.calculation_unit }}
-        </td>
-      </tr>
+              :value="state?.selectedConsumption"
+              :onBlur="handleBlur"
+              :onChange="handleChange"
+            />
+            {{ currentItem.unit_basic }}/{{ currentItem.calculation_unit }}
+          </td>
+        </tr>
       </tbody>
     </table>
   </div>
 </template>
-
