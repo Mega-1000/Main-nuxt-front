@@ -103,8 +103,9 @@ const setupModals = () => {
   contactModal.value = new Modal($contactTargetEl, contactOptions);
 };
 
+onBeforeMount(() => setTimeout(() => loadingItems.value = false, 500));
+
 onMounted(async () => {
-  setTimeout(() => loadingItems.value = false, 500);
   setupModals();
 
   if ((productId === '100' || productId === '49' || productId === '5') && !localStorage.getItem('zipCode')) {
