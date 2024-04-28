@@ -8,6 +8,7 @@ import shipmentCostBruttoFn from "~/helpers/ShipmentCostCalculator";
 import emitter from "~/helpers/emitter";
 import ShipmentCostCalculator from "~/helpers/PackageCalculator";
 import swal from "sweetalert2";
+import cookies
 
 const { query } = useRoute();
 const { $shopApi: shopApi, $buildImgRoute: buildImgRoute } = useNuxtApp();
@@ -229,6 +230,8 @@ const handleSubmit = async (e: Event | null) => {
 
   try {
     const res = await shopApi.post("/api/new_order", params);
+    const cookies = new Cookies();
+    cookies.set("token", res.data.access_token);
     return res.data;
   } catch (err: any) {
     errorText2.value = err.response.data.error_message || "Wystąpił błąd";
@@ -253,7 +256,6 @@ const handleSubmitWithToken = async () => {
 
   try {
     const res = await shopApi.post("/api/new_order", params);
-    cookies.set("token", res.data.token);
 
     if (res.status === 200) {
       productsCart.value.removeAllFromCart();
