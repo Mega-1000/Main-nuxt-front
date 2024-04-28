@@ -79,11 +79,13 @@ const changeTab = (tabName) => {
     </ul>
   </div>
 
-  <SubmitButton class="max-w-7xl mx-auto my-4">
-    <nuxt-link href="/EditAccountInformations">
-      Edytuj adresy i dane powiązane z twoim kontem
-    </nuxt-link>
-  </SubmitButton>
+  <div class="max-w-7xl mx-auto">
+    <SubmitButton class="max-w-7xl mx-auto my-4">
+      <nuxt-link href="/EditAccountInformations">
+        Edytuj adresy i dane powiązane z twoim kontem
+      </nuxt-link>
+    </SubmitButton>
+  </div>
 
   <div id="tabContentExample" class="pb-20">
     <div v-if="currentTab === 'active'" id="active-content" role="tabpanel">
