@@ -209,7 +209,7 @@ const goToPage = async (val: number) => {
 </script>
 
 <template>
-  <LoaderComponent v-if="loading" />
+  <LoaderComponent v-if="loadingItems" />
   <ReferalBanner />
   <AskUserForZipCodeStyrofoarms v-if="askUserForZipCode" />
 
