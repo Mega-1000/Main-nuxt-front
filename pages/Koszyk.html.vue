@@ -341,9 +341,17 @@ const createChat = async (redirect: boolean) => {
     }
   }
 
+  let isOrderStyrofoam = false;
+  productsCart.value.products.forEach((product: any) => {
+    if (product.variation_group === 'styropiany') {
+      isOrderStyrofoam = true;
+    }
+  });
+
   loading.value = true;
   const data =  await handleSubmit(null);
-  loading.value = false;
+
+  loading.value  = !(isOrderStyrofoam && auctionInput.value) ? false : true;
 
   if (!getToken() && data.newAccount) {
     await Swal.fire('', `<span style="text-align: left; ">Informujemy że założyliśmy Państwu konto na naszej stronie na którym po zalogowaniu można :<br>
@@ -361,13 +369,6 @@ const createChat = async (redirect: boolean) => {
   }
 
   setTimeout(() =>  productsCart.value.removeAllFromCart(), 100)
-
-  let isOrderStyrofoam = false;
-  productsCart.value.products.forEach((product: any) => {
-    if (product.variation_group === 'styropiany') {
-      isOrderStyrofoam = true;
-    }
-  });
 
   if (isOrderStyrofoam && auctionInput.value) {
     const url = `${config.baseUrl}/chat-show-or-new/${data.id}/${data.customerId}?showAuctionInstructions=true`;
@@ -572,7 +573,7 @@ const ShipmentCostItemsLeftText = (product: any) => {
 
           <div class="flex items-start mt-2">
             <div class="flex items-center h-5">
-              <input id="auction" type="checkbox" required v-model="auctionInput" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300" />
+              <input id="auction" type="checkbox" v-model="auctionInput" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300" />
             </div>
             <label for="auction" class="ml-2 text-sm font-medium text-gray-900">Chcę wykonać przetarg (Opcja tylko dla dużych zamówień - cena może być do 20zł/m3 niższa)</label>
           </div>
