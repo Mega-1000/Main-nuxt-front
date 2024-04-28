@@ -104,7 +104,7 @@ const setupModals = () => {
 };
 
 onMounted(async () => {
-  setTimeout(() => loadingItems.value = true, 500);
+  setTimeout(() => loadingItems.value = false, 500);
   setupModals();
 
   if ((productId === '100' || productId === '49' || productId === '5') && !localStorage.getItem('zipCode')) {
