@@ -351,7 +351,7 @@ const createChat = async (redirect: boolean) => {
   loading.value = true;
   const data =  await handleSubmit(null);
 
-  loading.value  = !(isOrderStyrofoam && auctionInput.value) ? false : true;
+  loading.value  = isOrderStyrofoam && auctionInput.value;
 
   if (!getToken() && data.newAccount) {
     await Swal.fire('', `<span style="text-align: left; ">Informujemy że założyliśmy Państwu konto na naszej stronie na którym po zalogowaniu można :<br>
