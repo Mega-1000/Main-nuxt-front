@@ -263,13 +263,13 @@ const markOfferAsInactive = async () => {
       </div>
     </div>
 
-    <div v-if="!item.reminder_date" class="mt-8 bg-red-100 p-4 rounded-lg">
-      <p class="text-gray-700">Wskaż datę przypomnienia lub przenieś do ofert nieaktywnych bo w innym przypadku system będzie codziennie wysyłał powiadomienia na twojego emaila.</p>
-      <RemindMeAboutOfferCalendarModal :offer-id="item.id" />
-      <button class="mt-4 bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-md transition-colors duration-300" @click="markOfferAsInactive">
-        Przenieś tą ofertę do nieaktywnych
-      </button>
-    </div>
+<!--    <div v-if="!item.reminder_date" class="mt-8 bg-red-100 p-4 rounded-lg">-->
+<!--      <p class="text-gray-700">Wskaż datę przypomnienia lub przenieś do ofert nieaktywnych bo w innym przypadku system będzie codziennie wysyłał powiadomienia na twojego emaila.</p>-->
+<!--      <RemindMeAboutOfferCalendarModal :offer-id="item.id" />-->
+<!--      <button class="mt-4 bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-md transition-colors duration-300" @click="markOfferAsInactive">-->
+<!--        Przenieś tą ofertę do nieaktywnych-->
+<!--      </button>-->
+<!--    </div>-->
 
     <hr class="my-8 border-gray-300" />
 
