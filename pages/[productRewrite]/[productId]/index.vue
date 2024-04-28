@@ -6,11 +6,10 @@ import Cookies from "universal-cookie";
 import emmiter from "~/helpers/emitter";
 import AskUserForZipCodeStyrofoarms from "~/components/AskUserForZipCodeStyrofoarms.vue";
 import {integer} from "vscode-languageserver-types";
+import LoaderComponent from "~/components/LoaderComponent.vue";
 
 const { $shopApi: shopApi, $buildImgRoute: buildImgRoute } = useNuxtApp();
-
 const currentItem = useCurrentItem();
-
 const { params, query } = useRoute();
 const { productId } = params;
 const page = ref(parseInt((query.page as string) || "1"));
@@ -18,6 +17,7 @@ const isStaff = ref(false);
 const askUserForZipCode = ref(false);
 const categoryFirmId = ref<integer|null>(null);
 const isMainStyrofoamLobby = ref<bool>(false);
+const loadingItems = ref(true);
 
 const { data: currentProduct, pending: pending1 } = await useAsyncData(
   async () => {
@@ -104,6 +104,7 @@ const setupModals = () => {
 };
 
 onMounted(async () => {
+  setTimeout(() => loadingItems.value = true, 500);
   setupModals();
 
   if ((productId === '100' || productId === '49' || productId === '5') && !localStorage.getItem('zipCode')) {
@@ -208,6 +209,7 @@ const goToPage = async (val: number) => {
 </script>
 
 <template>
+  <LoaderComponent v-if="loading" />
   <ReferalBanner />
   <AskUserForZipCodeStyrofoarms v-if="askUserForZipCode" />
 
