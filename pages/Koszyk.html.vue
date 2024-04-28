@@ -350,7 +350,6 @@ const createChat = async (redirect: boolean) => {
 
   loading.value = true;
   const data =  await handleSubmit(null);
-
   loading.value  = isOrderStyrofoam && auctionInput.value;
 
   if (!getToken() && data.newAccount) {
