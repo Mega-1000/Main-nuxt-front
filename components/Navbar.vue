@@ -20,40 +20,65 @@
   })
 
 onMounted(() => {
-    const cookies = new Cookies();
-    userToken.value = cookies.get("token");
+  const cookies = new Cookies();
+  userToken.value = cookies.get("token");
 
-    isVisibilityLimited.value = localStorage.getItem('noAllegroVisibilityLimit') != 'true';
-  });
+  isVisibilityLimited.value = localStorage.getItem('noAllegroVisibilityLimit') != 'true';
 
-  const { data: customPages } = useAsyncData(async () => {
-    try {
-      return (await getPages(shopApi)).customPages[0].content;
-    } catch {}
-  });
+  const cart = new Cart();
+  cart.init();
+  productsCart.value = cart;
 
-  const buildCustomLink = (pageId: number) => `/custom/${pageId}`;
+  // Listen to a custom event or a typical window action that implies token change
+  window.addEventListener('token-refreshed', checkUserLoggedIn);
+});
 
-  const logOut = () => {
-    removeCookie();
-    userToken.value = getToken();
+onUnmounted(() => {
+  window.removeEventListener('token-refreshed', checkUserLoggedIn);
+});
 
-    router.go(0);
-  };
+const checkUserLoggedIn = () => {
+  const cookies = new Cookies();
+  userToken.value = cookies.get("token"); // Reload the token
 
-  onMounted(() => {
-    const cart = new Cart();
-    cart.init();
-    productsCart.value = cart;
-  });
-
-  const toggleMenu = () => {
-    showMenu.value = !showMenu.value;
+  // Assuming you might need to refresh user-specific data
+  if (userToken.value) {
+    // You could refresh user-specific data here, e.g., user profile or permissions
+    console.log("User logged in, token refreshed.");
+  } else {
+    console.log("User not logged in or session expired.");
   }
+}
 
-  const searchProduct = async () => {
-    searchResults.value = (await shopApi.get(`/api/searchProduct/${searchQuery.value}`)).data;
-  }
+
+const { data: customPages } = useAsyncData(async () => {
+  try {
+    return (await getPages(shopApi)).customPages[0].content;
+  } catch {}
+});
+
+const buildCustomLink = (pageId: number) => `/custom/${pageId}`;
+
+const logOut = () => {
+  removeCookie();
+  userToken.value = getToken();
+
+  router.go(0);
+};
+
+onMounted(() => {
+  const cart = new Cart();
+  cart.init();
+  productsCart.value = cart;
+});
+
+const toggleMenu = () => {
+  showMenu.value = !showMenu.value;
+}
+
+const searchProduct = async () => {
+  searchResults.value = (await shopApi.get(`/api/searchProduct/${searchQuery.value}`)).data;
+}
 </script>
 
 <template>

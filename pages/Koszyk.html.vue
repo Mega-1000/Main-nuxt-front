@@ -231,6 +231,8 @@ const handleSubmit = async (e: Event | null) => {
     const res = await shopApi.post("/api/new_order", params);
     const cookies = new Cookies();
     cookies.set("token", res.data.access_token);
+
+    window.dispatchEvent(new CustomEvent('token-refreshed'));
     return res.data;
   } catch (err: any) {
     errorText2.value = err.response.data.error_message || "Wystąpił błąd";
