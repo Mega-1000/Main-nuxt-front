@@ -42,7 +42,7 @@
 
     registering.value = false;
 
-    window.location.reload();
+    window.dispatchEvent(new CustomEvent('token-refreshed'));
   };
 
   const cancelRegistration = () => {

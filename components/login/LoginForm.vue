@@ -29,6 +29,7 @@ const handleSubmit = async (e: Event) => {
   try {
     const res = await shopApi.post("oauth/token", params);
     setCookie(res.data);
+    window.dispatchEvent(new CustomEvent('token-refreshed'));
 
     const redirect = router.currentRoute.value.query.redirect;
     await router.push(`${redirect ?? "/account"}`);
