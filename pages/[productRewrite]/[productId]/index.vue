@@ -103,8 +103,6 @@ const setupModals = () => {
   contactModal.value = new Modal($contactTargetEl, contactOptions);
 };
 
-onBeforeMount(() => setTimeout(() => loadingItems.value = false, 500));
-
 onMounted(async () => {
   setupModals();
 
@@ -210,7 +208,6 @@ const goToPage = async (val: number) => {
 </script>
 
 <template>
-  <LoaderComponent v-if="loadingItems" />
   <ReferalBanner />
   <AskUserForZipCodeStyrofoarms v-if="askUserForZipCode" />
 
