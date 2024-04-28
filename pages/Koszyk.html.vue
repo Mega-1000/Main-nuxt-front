@@ -418,13 +418,13 @@ const ShipmentCostItemsLeftText = (product: any) => {
 </script>
 
 <template>
+  <div v-if="!productsCart?.products || productsCart?.products?.length === 0" class="text-center py-20 animate-fade mx-auto w-fit">
+    <h2 class="text-2xl md:text-4xl font-bold text-gray-600">Twój koszyk jest pusty</h2>
+    <p class="mt-4 text-gray-500">Rozpocznij zakupy i dodaj produkty do koszyka.</p>
+  </div>
+
   <div class="md:flex md:flex-row md:mt-8 md:w-5/6 md:gap-4 md:mx-auto">
     <div>
-      <div v-if="!productsCart?.products || productsCart?.products?.length === 0" class="text-center py-20 animate-fade">
-        <h2 class="text-2xl md:text-4xl font-bold text-gray-600">Twój koszyk jest pusty</h2>
-        <p class="mt-4 text-gray-500">Rozpocznij zakupy i dodaj produkty do koszyka.</p>
-      </div>
-
       <div v-if="query.isEdition">
         <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative animate-slide-in-left" role="alert">
           <span class="block sm:inline">Edutujesz swoje zapytanie! Jeśli chcesz dodać produkt kliknij na sklep i dodaj produkt do koszyka.</span>
