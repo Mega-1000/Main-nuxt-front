@@ -253,7 +253,6 @@ const handleSubmitWithToken = async () => {
 
   try {
     const res = await shopApi.post("/api/new_order", params);
-
     cookies.set("token", res.data.token);
 
     if (res.status === 200) {
@@ -381,6 +380,7 @@ const createChat = async (redirect: boolean) => {
   if (isOrderStyrofoam) {
     await Swal.fire('Zapytanie zostało stworzone pomyślnie!', 'Po kliknięciu "OK" Przeniesiemy cię do konta z możliwością zarządzania twoimi zamówieniami', 'info');
     await router.push('/account');
+    await window.location.reload();
     return;
   }
 
