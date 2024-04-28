@@ -381,7 +381,6 @@ const createChat = async (redirect: boolean) => {
   if (isOrderStyrofoam) {
     await Swal.fire('Zapytanie zostało stworzone pomyślnie!', 'Po kliknięciu "OK" Przeniesiemy cię do konta z możliwością zarządzania twoimi zamówieniami', 'info');
     await router.push('/account');
-    await window.location.reload();
     return;
   }
 
