@@ -415,6 +415,7 @@ const ShipmentCostItemsLeftText = (product: any) => {
 
 <template>
   <div class="flex flex-row mt-8">
+    <div>
       <div v-if="!productsCart?.products || productsCart?.products?.length === 0" class="text-center py-20 animate-fade">
         <h2 class="text-2xl md:text-4xl font-bold text-gray-600">Twój koszyk jest pusty</h2>
         <p class="mt-4 text-gray-500">Rozpocznij zakupy i dodaj produkty do koszyka.</p>
@@ -523,6 +524,7 @@ const ShipmentCostItemsLeftText = (product: any) => {
           </div>
         </div>
       </div>
+    </div>
 
       <div class="md:flex md:flex-row md:justify-between md:items-start">
         <div v-if="(productsCart?.products && productsCart?.products?.length > 0 && !state?.cart_token) || isNewOrder" class="bg-white shadow-lg rounded-lg p-6 mt-8 md:w-1/2 animate-slide-in-left">
