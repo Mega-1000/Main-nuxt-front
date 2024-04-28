@@ -254,6 +254,8 @@ const handleSubmitWithToken = async () => {
   try {
     const res = await shopApi.post("/api/new_order", params);
 
+    cookies.set("token", res.data.token);
+
     if (res.status === 200) {
       productsCart.value.removeAllFromCart();
       cookies.remove("cart_token");
