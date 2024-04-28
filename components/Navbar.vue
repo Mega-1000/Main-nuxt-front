@@ -63,7 +63,7 @@ const logOut = () => {
   removeCookie();
   userToken.value = getToken();
 
-  router.go(0);
+  window.dispatchEvent(new CustomEvent('token-refreshed'));
 };
 
 onMounted(() => {
