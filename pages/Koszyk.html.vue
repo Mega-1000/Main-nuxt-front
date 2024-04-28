@@ -414,7 +414,7 @@ const ShipmentCostItemsLeftText = (product: any) => {
 </script>
 
 <template>
-  <div class="flex flex-row mt-8 w-4/6 gap-4 mx-auto">
+  <div class="flex flex-row mt-8 w-5/6 gap-4 mx-auto">
     <div>
       <div v-if="!productsCart?.products || productsCart?.products?.length === 0" class="text-center py-20 animate-fade">
         <h2 class="text-2xl md:text-4xl font-bold text-gray-600">Twój koszyk jest pusty</h2>
@@ -527,7 +527,7 @@ const ShipmentCostItemsLeftText = (product: any) => {
     </div>
 
       <div class="md:flex md:flex-row md:justify-between md:items-start">
-        <div v-if="(productsCart?.products && productsCart?.products?.length > 0 && !state?.cart_token) || isNewOrder" class="bg-white shadow-lg rounded-lg p-6 mt-8 md:w-1/2 animate-slide-in-left">
+        <div v-if="(productsCart?.products && productsCart?.products?.length > 0 && !state?.cart_token) || isNewOrder" class="bg-white shadow-lg rounded-lg p-6 mt-8  animate-slide-in-left">
           <form class="space-y-6" @submit.prevent="createChat">
             <div>
               <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Email</label>
