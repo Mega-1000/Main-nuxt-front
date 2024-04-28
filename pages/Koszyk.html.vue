@@ -415,7 +415,6 @@ const ShipmentCostItemsLeftText = (product: any) => {
 
 <template>
   <div class="flex flex-row mt-8">
-    <div class="md:w-3/4 lg:w-4/5 md:mx-auto">
       <div v-if="!productsCart?.products || productsCart?.products?.length === 0" class="text-center py-20 animate-fade">
         <h2 class="text-2xl md:text-4xl font-bold text-gray-600">Twój koszyk jest pusty</h2>
         <p class="mt-4 text-gray-500">Rozpocznij zakupy i dodaj produkty do koszyka.</p>
@@ -583,7 +582,6 @@ const ShipmentCostItemsLeftText = (product: any) => {
       <div v-if="message" class="flex justify-center animate-bounce">
         <div class="bg-green-500 rounded p-2 text-white">{{ message }}</div>
       </div>
-    </div>
     </div>
   <!-- if loading variable show spinner -->
   <div v-if="loading" class="fixed top-0 left-0 w-screen h-screen flex justify-centeritems-center bg-gray-500 bg-opacity-50">
