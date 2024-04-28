@@ -453,7 +453,7 @@ const ShipmentCostItemsLeftText = (product: any) => {
             <label for="default-checkbox" class="ml-2 text-sm font-medium text-gray-900">Czy to jest nowe zamówienie?</label>
           </div>
         </template>
-        <button type="button" @click="productsCart.removeAllFromCart" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded animate-bounce">
+        <button type="button" @click="productsCart.removeAllFromCart" v-if="!(!productsCart?.products || productsCart?.products?.length === 0)" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded animate-bounce">
           Usuń wszystko
         </button>
 
