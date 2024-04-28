@@ -414,7 +414,7 @@ const ShipmentCostItemsLeftText = (product: any) => {
 </script>
 
 <template>
-  <div class="flex flex-row mt-8 w-5/6 gap-4 mx-auto">
+  <div class="md:flex md:flex-row md:mt-8 md:w-5/6 md:gap-4 md:mx-auto">
     <div>
       <div v-if="!productsCart?.products || productsCart?.products?.length === 0" class="text-center py-20 animate-fade">
         <h2 class="text-2xl md:text-4xl font-bold text-gray-600">Twój koszyk jest pusty</h2>
