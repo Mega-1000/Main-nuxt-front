@@ -586,8 +586,8 @@ const ShipmentCostItemsLeftText = (product: any) => {
       </div>
     </div>
   <!-- if loading variable show spinner -->
-  <div v-if="loading" class="fixed top-0 left-0 w-screen h-screen flex justify-centeritems-center bg-gray-500 bg-opacity-50">
-    <div class="bg-white rounded p-5 animate-spin">
+  <div v-if="loading" class="fixed top-0 left-0 w-screen h-screen flex justify-center items-center bg-gray-500 bg-opacity-50">
+    <div class="bg-white rounded p-5">
       <div class="flex justify-center items-center">
         <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-gray-900" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
           <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
