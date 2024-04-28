@@ -8,7 +8,6 @@ import shipmentCostBruttoFn from "~/helpers/ShipmentCostCalculator";
 import emitter from "~/helpers/emitter";
 import ShipmentCostCalculator from "~/helpers/PackageCalculator";
 import swal from "sweetalert2";
-import cookies
 
 const { query } = useRoute();
 const { $shopApi: shopApi, $buildImgRoute: buildImgRoute } = useNuxtApp();
