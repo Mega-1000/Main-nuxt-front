@@ -414,7 +414,7 @@ const ShipmentCostItemsLeftText = (product: any) => {
 </script>
 
 <template>
-  <div class="flex flex-col md:flex-row mt-8">
+  <div class="flex flex-row mt-8">
     <div class="md:w-3/4 lg:w-4/5 md:mx-auto">
       <div v-if="!productsCart?.products || productsCart?.products?.length === 0" class="text-center py-20 animate-fade">
         <h2 class="text-2xl md:text-4xl font-bold text-gray-600">Twój koszyk jest pusty</h2>
@@ -495,14 +495,13 @@ const ShipmentCostItemsLeftText = (product: any) => {
               <th scope="row" class="px-6 py-4 font-medium text-gray-900 max-w-sm md:max-w-lg">{{ product.name }}</th>
               <td class="px-6 py-4">{{ product.amount }} {{ product.unit_commercial }}</td>
               <td class="px-6 py-4">{{ product.net_selling_price_commercial_unit || 0 }} {{ product.currency || "PLN" }}</td>
-              <td class="px-6 py-4">{{ product.gross_price_of_packing || 0 }} {{ product.currency || "PLN" }}</td>
+              <td class="px-6 py-4">{{ product.gross_price_of_packing || 0 }} {{ product.currency|| "PLN" }}</td>
               <td class="px-6 py-4">{{ (parseFloat(product.net_selling_price_commercial_unit) * product.amount).toFixed(2) || 0 }} {{ product.currency || "PLN" }}</td>
               <td class="px-6 py-4">{{ (parseFloat(product.gross_price_of_packing) * product.amount).toFixed(2) || 0 }} {{ product.currency || "PLN" }}</td>
             </tr>
             </tbody>
           </table>
         </div>
-
         <div class="mt-8 border-t pt-4">
           <div class="flex justify-between mb-4">
             <p class="text-lg font-medium">Łączne zamówienie</p>
@@ -526,7 +525,7 @@ const ShipmentCostItemsLeftText = (product: any) => {
         </div>
       </div>
 
-      <div class="md:flex md:justify-between md:items-start">
+      <div class="md:flex md:flex-row md:justify-between md:items-start">
         <div v-if="(productsCart?.products && productsCart?.products?.length > 0 && !state?.cart_token) || isNewOrder" class="bg-white shadow-lg rounded-lg p-6 mt-8 md:w-1/2 animate-slide-in-left">
           <form class="space-y-6" @submit.prevent="createChat">
             <div>
@@ -585,10 +584,9 @@ const ShipmentCostItemsLeftText = (product: any) => {
         <div class="bg-green-500 rounded p-2 text-white">{{ message }}</div>
       </div>
     </div>
-  </div>
-
+    </div>
   <!-- if loading variable show spinner -->
-  <div v-if="loading" class="fixed top-0 left-0 w-screen h-screen flex justify-center items-center bg-gray-500 bg-opacity-50">
+  <div v-if="loading" class="fixed top-0 left-0 w-screen h-screen flex justify-centeritems-center bg-gray-500 bg-opacity-50">
     <div class="bg-white rounded p-5 animate-spin">
       <div class="flex justify-center items-center">
         <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-gray-900" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
