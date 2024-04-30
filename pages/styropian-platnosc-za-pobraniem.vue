@@ -7,12 +7,15 @@
       <div class="font-bold text-xl">
         1.Płatność przy odbiorze
       </div>
-      Polega ona na płatności zaliczki w wysokości np. 10 procent wartości oferty.
+      Polega ona na płatności zaliczki w wysokości np. 10 procent wartości oferty. <br>
       Następnie resztę płatności dokonuje się przy dostawie błyskawicznym przelewem na konto tak aby dotarło ono do 15 minut od przyjazdu kierowcy.
+    <br>
       Prosimy pamiętać aby zarezerwować sobie możliwość awaryjnej zapłaty w razie losowego zdarzenia np. brak sieci internetowej itp.
-      Po otrzymaniu wpływu na nasze konto kierowca zostanie powiadomiony o możliwości wydania towaru.
+    <br>
+      Po otrzymaniu wpływu na nasze konto kierowca zostanie powiadomiony o możliwości wydania towaru. <br>
       W przypadku gdyby dopłata nie pojawiła się na naszym koncie to kierowca będzie zmuszony towar zawieźć z powrotem na magazyn wydający a koszty z tym związane obciążą Państwa konto.
-      Dodatkowy koszt związany z taką obsługą to 49 zł
+    <br>
+      Dodatkowy koszt związany z taką obsługą to 49 zł <br>
     </p>
 
     <p class="my-4">
