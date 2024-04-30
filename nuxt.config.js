@@ -1,7 +1,6 @@
 import {isProduction} from "std-env";
 
 export default defineNuxtConfig({
-  ssr: false,
   modules: ["@nuxtjs/tailwindcss", "nuxt-icon", "@nuxt/devtools"],
   devtools: {
     enabled: true,
@@ -20,7 +19,4 @@ export default defineNuxtConfig({
   useHead: {
     title: "EPH Polska - styropiany, systemy elewacyjne, ocieplenia"
   },
-  plugins: [
-    '~/plugins/tawkto.client.ts'
-  ]
 });
