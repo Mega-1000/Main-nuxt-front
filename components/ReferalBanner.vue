@@ -5,10 +5,10 @@
         <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
       </svg>
       <span class="sr-only">Info</span>
-      <h3 class="text-lg font-medium">Zgarnij 30 zł polecając nas znajomym!</h3>
+      <h3 class="text-lg font-medium">Zdobądź 30 zł za każde polecone zamówienie!</h3>
     </div>
     <div class="mt-2 mb-4 text-sm">
-      Mamy świetną wiadomość: zaproś do nas dowolną ilość znajomych, którzy jeszcze nie kupowali styropianów na naszej stronie, i odbierz 30 zł na każde zamówienie nowego użytkownika! Twoje bonusy automatycznie zamienią się na zniżki przy kolejnych zakupach. To proste!
+      Poleć nasze usługi znajomym i zgarniaj bonusy! Za każde pierwsze zamówienie nowego użytkownika otrzymasz 30 zł na przyszłe zakupy. Szczegóły akcji znajdziesz tutaj:
     </div>
     <div class="flex">
       <a target="_blank" href="/polec-znajomego" class="text-white bg-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-xs px-3 py-1.5 me-2 text-center inline-flex items-center">
@@ -18,5 +18,5 @@
         Dowiedz się więcej
       </a>
     </div>
-  </div>
+  </div>`
 </template>

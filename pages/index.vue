@@ -101,7 +101,7 @@ const config = useRuntimeConfig().public;
           !!
         </p>
         <NuxtLink to="/styropiany" class="bg-white text-indigo-700 font-semibold py-2 px-6 rounded hover:bg-gray-200 transition-colors duration-300">
-          Kup styropian
+           Kliknij aby kupić styropian
         </NuxtLink>
       </div>
     </div>
