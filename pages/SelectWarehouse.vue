@@ -20,7 +20,7 @@ onMounted(async () => {
 
 const submitForm = async () => {
   loading.value = true;
-  const {data: response} = await shopApi.post(`/api/set-warehouse/${selectedWarehouse}`)
+  await shopApi.post(`/api/set-warehouse/${selectedWarehouse.id}`)
   loading.value = false;
 
   await Swal.fire('Poymyślnie zapisano magazyn odbioru', 'Teraz możesz wykonać płatność', 'success');
