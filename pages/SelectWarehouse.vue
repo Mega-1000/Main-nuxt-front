@@ -36,7 +36,7 @@ const submitForm = async () => {
 
     <form @submit.prevent="submitForm">
       <div class="mt-3" v-for="warehouse in warehouses">
-        <input type="radio" :value="warehouse" v-model="selectedWarehouse"> {{ warehouse.symbol }}
+        <input type="radio" :value="warehouse" v-model="selectedWarehouse" :id="warehouse.id"> <label :for="warehouse.id"> {{ warehouse.symbol }} </label>
       </div>
 
       <submitButton class="mt-8" :disabled="loading.value">
