@@ -387,7 +387,7 @@ const createChat = async (redirect: boolean) => {
     }
   });
 
-  if (totalQuantity <= 33) {
+  if (totalQuantity <= 33 && isOrderStyrofoam) {
     await router.push(`/selectWarehouse?token=${data.token}&total=${(parseFloat(productsCart.value.grossPrice()) + shipmentCostBrutto.value).toFixed(2)}`);
   }
 

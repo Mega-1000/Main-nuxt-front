@@ -16,7 +16,7 @@ const { data: paymentData } = await useAsyncData(async () => {
       totalPrice: res.data.total_price,
       id: res.data.id,
     };
-  } catch (err: any) {
+  } catch (err) {
     console.log(err.getMessage);
   }
 });
