@@ -5,23 +5,20 @@ onMounted(() => {
   Swal.fire('Uwaga!', 'Ze względu na małą ilość styropianu w zamówieniu prosimy o wybranie punktu odbioru', 'info')
 });
 
-const { data: paymentData } = await useAsyncData(async () => {
-  try {
-    const res = await shopApi.get(
-        `api/orders/get-payments-for-order/${query.token}`
-    );
+const warehouses = ref([]);
+const { $shopApi: shopApi } = useNuxtApp();
+const route = useRoute();
 
-    return {
-      transportPrice: res.data.transport_price,
-      totalPrice: res.data.total_price,
-      id: res.data.id,
-    };
-  } catch (err) {
-    console.log(err.getMessage);
-  }
+onMounted(() => {
+  const {data: response} = shopApi.post(`/api/orders/get-warehouses-for-order/${route.query.token}`);
+  warehouses.value = response;
 });
 </script>
 
 <template>
-  {{ paymentData }}
+  <div class="mt-12"></div>
+
+  <div class="w-2/3 mx-auto mt-3" v-for="warehouse in warehouses">
+    <input type="checkbox"> {{ warehouse.symbol }}
+  </div>
 </template>
