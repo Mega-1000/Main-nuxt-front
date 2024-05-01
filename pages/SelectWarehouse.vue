@@ -37,6 +37,10 @@ const submitForm = async () => {
     <form @submit.prevent="submitForm">
       <div class="mt-3" v-for="warehouse in warehouses">
         <input type="radio" :value="warehouse" v-model="selectedWarehouse" :id="warehouse.id"> <label :for="warehouse.id"> {{ warehouse.symbol }} </label>
+
+        <a :href="`https://www.google.com/maps/search/?api=1&query=${adresString}`">
+          <span class="text-blue-500"></span>
+        </a>
       </div>
 
       <submitButton class="mt-8" :disabled="loading.value">
