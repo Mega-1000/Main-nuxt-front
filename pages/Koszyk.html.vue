@@ -380,6 +380,18 @@ const createChat = async (redirect: boolean) => {
     return;
   }
 
+  let totalQuantity = 0;
+  productsCart.value.products.forEach((item) => {
+    if (item.variation_group === 'styropiany') {
+      totalQuantity += item.amount;
+    }
+  });
+
+  if (totalQuantity <= 33) {
+    await router.push(`/selectWarehouse?token=${data.token}&total=${(parseFloat(productsCart.value.grossPrice()) + shipmentCostBrutto.value).toFixed(2)}`);
+  }
+
+
   if (isOrderStyrofoam) {
     await Swal.fire('Zapytanie zostało stworzone pomyślnie!', 'Po kliknięciu "OK" Przeniesiemy cię do konta z możliwością zarządzania twoimi zamówieniami', 'info');
     await router.push('/account');
