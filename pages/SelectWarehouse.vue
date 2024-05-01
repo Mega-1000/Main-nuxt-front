@@ -38,8 +38,8 @@ const submitForm = async () => {
       <div class="mt-3" v-for="warehouse in warehouses">
         <input type="radio" :value="warehouse" v-model="selectedWarehouse" :id="warehouse.id"> <label :for="warehouse.id"> {{ warehouse.symbol }} </label>
 
-        <a :href="`https://www.google.com/maps/search/?api=1&query=${adresString}`">
-          <span class="text-blue-500"></span>
+        <a :href="`https://www.google.com/maps/search/?api=1&query=${warehouse.adresString}`" target="_blank">
+          <span class="text-blue-500">Zobacz na mapie</span>
         </a>
       </div>
 
