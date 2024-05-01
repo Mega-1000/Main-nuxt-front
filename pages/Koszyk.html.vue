@@ -373,13 +373,6 @@ const createChat = async (redirect: boolean) => {
 
   setTimeout(() =>  productsCart.value.removeAllFromCart(), 100)
 
-  if (isOrderStyrofoam && auctionInput.value) {
-    const url = `${config.baseUrl}/chat-show-or-new/${data.id}/${data.customerId}?showAuctionInstructions=true`;
-
-    window.location.href = url;
-    return;
-  }
-
   let totalQuantity = 0;
   productsCart.value.products.forEach((item) => {
     if (item.variation_group === 'styropiany') {
@@ -389,8 +382,15 @@ const createChat = async (redirect: boolean) => {
 
   if (totalQuantity <= 33 && isOrderStyrofoam) {
     await router.push(`/selectWarehouse?token=${data.token}&total=${(parseFloat(productsCart.value.grossPrice()) + shipmentCostBrutto.value).toFixed(2)}`);
+    return;
   }
 
+  if (isOrderStyrofoam && auctionInput.value) {
+    const url = `${config.baseUrl}/chat-show-or-new/${data.id}/${data.customerId}?showAuctionInstructions=true`;
+
+    window.location.href = url;
+    return;
+  }
 
   if (isOrderStyrofoam) {
     await Swal.fire('Zapytanie zostało stworzone pomyślnie!', 'Po kliknięciu "OK" Przeniesiemy cię do konta z możliwością zarządzania twoimi zamówieniami', 'info');
