@@ -10,7 +10,7 @@ const { $shopApi: shopApi } = useNuxtApp();
 const route = useRoute();
 
 onMounted(() => {
-  const {data: response} = shopApi.post(`/api/orders/get-warehouses-for-order/${route.query.token}`);
+  const {data: response} = shopApi.get(`/api/orders/get-warehouses-for-order/${route.query.token}`);
   warehouses.value = response;
 });
 </script>
