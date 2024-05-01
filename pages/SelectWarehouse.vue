@@ -12,7 +12,7 @@ const selectedWarehouse = ref(null); // Define a reactive variable to store the 
 
 onMounted(async () => {
   const {data: response} = await shopApi.get(`/api/orders/get-warehouses-for-order/${route.query.token}`);
-  warehouses.value = response;
+  warehouses.value = response[0];
 });
 
 const submitForm = () => {
