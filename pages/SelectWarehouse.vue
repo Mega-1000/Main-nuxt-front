@@ -29,7 +29,7 @@ const submitForm = async () => {
 
   await Swal.fire('Poymyślnie zapisano magazyn odbioru', 'Teraz możesz wykonać płatność', 'success');
 
-  let total = route.query.isOrderSmall ? route.query.total + 50 : route.query.total;
+  let total = route.query.isOrderSmall === 'true' ? route.query.total + 50 : route.query.total;
 
   await router.push(`/payment?token=${route.query.token}&total=${total}`);
 }
@@ -43,7 +43,7 @@ const submitForm = async () => {
       <div class="mt-3" v-for="warehouse in warehouses">
         <input type="radio" :value="warehouse" v-model="selectedWarehouse" :id="warehouse.id"> <label :for="warehouse.id"> {{ warehouse.symbol }} </label>
 
-        <a :href="`https://www.google.com/maps/search/?api=1&query=${warehouse.adresString}`" target="_blank" class="ml-4">
+        <a :href="`https://www.google.com/maps/search/?api=1&query=${warehouse.adresString}`" target="_blank" class="ml-2">
           <span class="text-blue-500 ml-4">Zobacz punkt odbioru na mapie</span>
         </a>
       </div>
