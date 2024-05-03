@@ -23,8 +23,9 @@ onMounted(async () => {
 });
 
 const submitForm = async () => {
-  if (!selectedWarehouse.value.id) {
+  if (!selectedWarehouse.value?.id) {
     Swal.fire('Nie wybrano punktu odbioru zamówienia!', '', 'error')
+    return;
   }
 
   loading.value = true;
