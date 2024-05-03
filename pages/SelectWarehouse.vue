@@ -2,7 +2,11 @@
 import Swal from "sweetalert2";
 
 onMounted(() => {
-  Swal.fire('Uwaga!', 'Ze względu na małą ilość styropianu w zamówieniu prosimy o wybranie punktu odbioru', 'info')
+  Swal.fire(
+      'Uwaga!',
+      'Prosimy o wybranie punktu odbioru w którym odbierzecie Państwo swoje zamówienie.',
+      'info'
+  )
 });
 
 const warehouses = ref([]);

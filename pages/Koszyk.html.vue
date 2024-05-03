@@ -382,7 +382,7 @@ const createChat = async (redirect: boolean) => {
   });
 
   if ((totalQuantity <= 33 && isOrderStyrofoam) || selfPickup) {
-    await router.push(`/selectWarehouse?token=${data.token}&total=${(parseFloat(productsCart.value.grossPrice()) + shipmentCostBrutto.value).toFixed(2)}&isOrderSmall=${!selfPickup}`);
+    await router.push(`/selectWarehouse?token=${data.token}&total=${(parseFloat(productsCart.value.grossPrice()) + shipmentCostBrutto.value).toFixed(2)}&isOrderSmall=${(totalQuantity <= 33)}`);
     return;
   }
 
@@ -619,7 +619,7 @@ const ShipmentCostItemsLeftText = (product: any) => {
               <label for="rules" class="ml-2 text-sm font-medium text-gray-900">Zapoznałem się z <nuxt-link class="text-blue-500" href="https://mega1000.pl/custom/5">regulaminem</nuxt-link></label>
             </div>
 
-            <div class="flex items-start mt-2" v-if="canAuctionBeMade">
+            <div class="flex items-start mt-2" v-if="canAuctionBeMade && !selfPickup">
               <div class="flex items-center h-5">
                 <input id="auction" type="checkbox" v-model="auctionInput" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300" />
               </div>
