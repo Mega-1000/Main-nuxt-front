@@ -629,16 +629,16 @@ const ShipmentCostItemsLeftText = (product: any) => {
             <div v-if="!isOrderSmall">
               <div class="flex items-start mt-2" v-if="!auctionInput && !isOrderSmall">
                 <div class="flex items-center h-5">
-                  <input id="auction" type="checkbox" v-model="selfPickup" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300" />
+                  <input id="shipByMyself" type="checkbox" v-model="selfPickup" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300" />
                 </div>
-                <label for="auction" class="ml-2 text-sm font-medium text-gray-900">Chce odebrać te produkty osobiście w magazynie fabryki.</label>
+                <label for="shipByMyself" class="ml-2 text-sm font-medium text-gray-900">Chce odebrać te produkty osobiście w magazynie fabryki.</label>
               </div>
             </div>
 
             <p class="mt-2 text-sm text-red-600">{{ errorText2 }}</p>
             <SubmitButton :disabled="loading" type="submit">Zatwierdź</SubmitButton>
 
-            <div class="text-red font-bold" v-if="isOrderSmall">
+            <div class="text-red-600 font-bold" v-if="isOrderSmall">
               Z powodu że aktualne produkty z koszyka nie przekraczają 10m3 nie jest możliwa dostawa. Zostaniesz przekierowany do wyboru magazynu, w którym chcesz odebrać dane produkty.
             </div>
           </form>
