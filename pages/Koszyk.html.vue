@@ -413,6 +413,26 @@ const isOrderStyrofoam = computed(() => {
   return isOrderStyrofoam;
 });
 
+const canAuctionBeMade = computed(() => {
+  let isOrderStyrofoam = false;
+
+  productsCart.value.products.forEach((product: any) => {
+    if (product.variation_group === 'styropiany') {
+      isOrderStyrofoam = true;
+    }
+  });
+
+  let totalQuantity = 0;
+  productsCart.value.products.forEach((item) => {
+    if (item.variation_group === 'styropiany') {
+      totalQuantity += item.amount;
+    }
+  });
+
+  return isOrderStyrofoam && totalQuantity > 99;
+});
+
+
 const ShipmentCostItemsLeftText = (product: any) => {
   const itemPackageQuantity = product.assortment_quantity;
   const products = productsCart.value.products.filter((item: any) => item.delivery_type === product.delivery_type);
@@ -578,7 +598,7 @@ const ShipmentCostItemsLeftText = (product: any) => {
               <label for="rules" class="ml-2 text-sm font-medium text-gray-900">Zapoznałem się z <nuxt-link class="text-blue-500" href="https://mega1000.pl/custom/5">regulaminem</nuxt-link></label>
             </div>
 
-            <div class="flex items-start mt-2">
+            <div class="flex items-start mt-2" v-if="canAuctionBeMade">
               <div class="flex items-center h-5">
                 <input id="auction" type="checkbox" v-model="auctionInput" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300" />
               </div>
