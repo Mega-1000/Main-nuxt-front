@@ -13,6 +13,7 @@ const { query } = useRoute();
 const { $shopApi: shopApi, $buildImgRoute: buildImgRoute } = useNuxtApp();
 const productsCart = useProductsCart();
 const state = ref<any>();
+const selfPickup = ref(false);
 
 const { data: categories, pending } = await useAsyncData(async () => {
   try {
@@ -380,8 +381,8 @@ const createChat = async (redirect: boolean) => {
     }
   });
 
-  if (totalQuantity <= 33 && isOrderStyrofoam) {
-    await router.push(`/selectWarehouse?token=${data.token}&total=${(parseFloat(productsCart.value.grossPrice()) + shipmentCostBrutto.value).toFixed(2)}`);
+  if ((totalQuantity <= 33 && isOrderStyrofoam) || selfPickup) {
+    await router.push(`/selectWarehouse?token=${data.token}&total=${(parseFloat(productsCart.value.grossPrice()) + shipmentCostBrutto.value).toFixed(2)}&isOrderSmall=${!selfPickup}`);
     return;
   }
 
@@ -430,6 +431,26 @@ const canAuctionBeMade = computed(() => {
   });
 
   return isOrderStyrofoam && totalQuantity > 99;
+});
+
+
+const isOrderSmall = computed(() => {
+  let isOrderStyrofoam = false;
+
+  productsCart.value.products.forEach((product: any) => {
+    if (product.variation_group === 'styropiany') {
+      isOrderStyrofoam = true;
+    }
+  });
+
+  let totalQuantity = 0;
+  productsCart.value.products.forEach((item) => {
+    if (item.variation_group === 'styropiany') {
+      totalQuantity += item.amount;
+    }
+  });
+
+  return isOrderStyrofoam && totalQuantity <= 33;
 });
 
 
@@ -605,8 +626,21 @@ const ShipmentCostItemsLeftText = (product: any) => {
               <label for="auction" class="ml-2 text-sm font-medium text-gray-900">Chcę wykonać przetarg (Opcja tylko dla dużych zamówień - cena może być do 20zł/m3 niższa)</label>
             </div>
 
+            <div v-if="!isOrderSmall">
+              <div class="flex items-start mt-2" v-if="!auctionInput && !isOrderSmall">
+                <div class="flex items-center h-5">
+                  <input id="auction" type="checkbox" v-model="selfPickup" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300" />
+                </div>
+                <label for="auction" class="ml-2 text-sm font-medium text-gray-900">Chce odebrać te produkty osobiście w magazynie fabryki.</label>
+              </div>
+            </div>
+
             <p class="mt-2 text-sm text-red-600">{{ errorText2 }}</p>
             <SubmitButton :disabled="loading" type="submit">Zatwierdź</SubmitButton>
+
+            <div class="text-red font-bold" v-if="isOrderSmall">
+              Z powodu że aktualne produkty z koszyka nie przekraczają 10m3 nie jest możliwa dostawa. Zostaniesz przekierowany do wyboru magazynu, w którym chcesz odebrać dane produkty.
+            </div>
           </form>
         </div>
 
