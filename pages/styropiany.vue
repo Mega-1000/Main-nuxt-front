@@ -8,24 +8,23 @@
     <main>
       <section class="hero-section py-24 px-4 bg-gradient-to-r from-blue-600 to-blue-800 text-white">
         <div class="container mx-auto text-center">
-          <h1 class="text-5xl md:text-6xl font-bold mb-6">Znajdź Idealny Styropian u Nas</h1>
+          <h1 class="text-5xl md:text-6xl font-bold mb-6">Znajdź Najlepszy Styropian dla Twojego Projektu</h1>
           <p class="text-lg md:text-xl mb-10">
-            Przeglądaj oferty od ponad 50 sprawdzonych producentów styropianu. Zapewniamy konkurencyjne ceny i wysoką jakość.
+            Przeglądaj oferty od sprawdzonych producentów. Zapewniamy najniższe ceny na rynku i wysoką jakość obsługi.
           </p>
-
           <div class="my-6 font-extrabold text-xl">
-            Kliknij aby przejść do konkretnej kategorii styropianu
+            Wybierz kategorię styropianu
           </div>
 
           <div class="flex justify-between md:w-[60%] mx-auto font-bold">
             <nuxt-link href="https://mega1000.pl/100styropiany-elewacyjne/101">
-              Styropian elewacyjny
+              Elewacyjny
             </nuxt-link>
             <nuxt-link href="https://mega1000.pl/10styropiany/49">
-              Styropian posadzkowy
+              Posadzkowy
             </nuxt-link>
             <nuxt-link href="https://mega1000.pl/----10styropiany-wodoodporne/5">
-              Styropian fundamentowy
+              Fundamentowy
             </nuxt-link>
           </div>
         </div>
@@ -33,27 +32,14 @@
 
       <section class="py-20 px-4 bg-gray-100">
         <div class="container mx-auto text-center">
-          <h2 class="text-4xl md:text-5xl font-bold mb-10">Jak dokonać zakupu? </h2>
+          <h2 class="text-4xl md:text-5xl font-bold mb-10">Jak dokonać zakupu?</h2>
           <p class="text-lg md:text-xl mb-10 text-left">
-            Styropiany znajdują się w 3 działach <br>
-            160 - fundamentowy <br>
-            300 - posadzkowy <br>
-            320 - elewacyjny <br>
-            Przed zakupem warto przejrzeć sobie tabele wszystkich kilkudziesięciu producentów która znajduję się w każdym powyższych działów
-            <br>
-            Następnie za pomocą kalkulatorów znajdujących się przy każdym asortymencie w łatwy sposób można dokonać obliczeń potrzebnego styropianu w m2 m3 czy też w opakowaniach handlowych
-            <br>
-            Po dokonaniu obliczeń i wrzuceniu do koszyka odpowiedniego asortymentu na górze znajduje się ikona koszyka na którą trzeba kliknąć.
-            <br>
-            Po kliknięciu otrzymamy spis całości asortymentu który został dokonany w którym można jeszcze dokonać korekty pod względem ilościowym.
-            <br>
-            Na końcu prosimy uzupełnić niezbędne dane i wysłać nam do sprawdzenia poprawności. <br>
-            Bezzwłocznie po jego otrzymaniu sprawdzimy pod tym kątem po czym odeślemy informacje na e maila w przypadku gdy oferta zostanie już przygotowana.
-            <br>
-            Ofertę taką można będzie sprawdzić po zalogowaniu się na swoje konto na naszej stronie. <br>
-            Szczegóły transakcji omawiacie z przedstawicielem handlowym danej fabryki z którym kontakt będziecie mieć poprze chata lub telefon według uznania.
-            <br>
-            Istnieje możliwość płatności jako niewielka zaliczka i reszta płatność przy dostawie. <br>
+            1. Przeglądaj oferty producentów w działach: fundamentowy, posadzkowy i elewacyjny.<br>
+            2. Skorzystaj z kalkulatorów, aby obliczyć potrzebną ilość styropianu.<br>
+            3. Dodaj wybrane produkty do koszyka i przejdź do podsumowania.<br>
+            4. Uzupełnij dane i wyślij zamówienie do weryfikacji.<br>
+            5. Po zweryfikowaniu otrzymasz ofertę na swoim koncie.<br>
+            6. Skontaktuj się z przedstawicielem handlowym, aby omówić szczegóły transakcji.
           </p>
         </div>
       </section>
@@ -62,41 +48,24 @@
         <div class="container mx-auto text-center">
           <h2 class="text-4xl md:text-5xl font-bold mb-10">Jakiego producenta wybrać?</h2>
           <p class="text-lg md:text-xl mb-10 text-left">
-            W przypadku wyboru danego gatunku styropianu o identycznych danych technicznych, każda z fabryk może wyprodukować go pod względem jakości w różnym stopniu.
-            <br>
-            Niemal wszyscy sprzedawcy namawiają na zakup tego producenta, na którym mają największy zysk. <br>
-            Nasze podejście jest całkowicie odmienne i innowacyjne, ponieważ nie zarabiamy w ogóle na tym produkcie i jest nam całkowicie obojętne, którego producenta wybierzecie.
-            <br>
-            Zakup możecie dokonać bezpośrednio z fabryki lub przez przedstawiciela wskazanego przez fabrykę lub przez nasz system, wybór pozostawiamy Wam.
-            <br>
-            Samodzielny wybór jest bardzo trudny, którego producenta wybrać, ale poniżej podajemy na jakie opinie należy zwrócić uwagę:
-            <br>
-            - sprzedawców, którzy niemal zawsze sprzedają tych producentów, na których mają największy zysk, łatwo to zauważyć po tym, że mają u siebie tylko kilku wybranych, najbardziej dla siebie korzystnych producentów.
-            <br>
-            - opinie internetowe, które są bardzo często lobbowane i pisane na zlecenie firm produkcyjnych jako super zadowoleni klienci, czytanie ich wprowadza tylko w błąd.
-            <br>
-            - pseudoznawców, którzy nie mają wiedzy i doświadczenia lub mają korzyść z Państwa wyboru. <br>
-            Dlatego z naszej strony proponujemy, aby dowiedzieć się u kogoś mocno zaufanego, który nie będzie miał żadnej korzyści z Państwa wyboru, aczkolwiek będzie posiadał dużą wiedzę i doświadczenie.
-            <br>
-            Dla osób, które jednak chcą otrzymać jakąś informację na temat danego producenta, podajemy na samym dole nasze spostrzeżenia, ale prosimy pamiętać, że jest to nasza subiektywna opinia, i prosimy najlepiej skorzystać z opinii z innych zaufanych źródeł.
-            <br>
+            Wybór odpowiedniego producenta styropianu może być trudny. Oto kilka wskazówek:<br>
+            - Unikaj opinii sprzedawców, którzy promują tylko wybranych producentów.<br>
+            - Nie sugeruj się opiniami w internecie, które często są napisane na zlecenie firm.<br>
+            - Zamiast tego, skonsultuj się z zaufanym ekspertem, który ma doświadczenie i wiedzę w tej dziedzinie.<br>
+            Na końcu podaliśmy nasze subiektywne spostrzeżenia, ale zachęcamy do podjęcia własnej decyzji na podstawie opinii z wiarygodnych źródeł.
           </p>
         </div>
       </section>
 
       <section class="py-20 px-4 bg-gray-100">
         <div class="container mx-auto text-center">
-          <h2 class="text-4xl md:text-5xl font-bold mb-10">Gwarancja najniższej ceny - system przetargowy zakupu styropianu</h2>
+          <h2 class="text-4xl md:text-5xl font-bold mb-10">Gwarancja najniższej ceny</h2>
           <p class="text-lg md:text-xl mb-10 text-left">
-            W przypadku zakupu dużych ilości powyżej 100m3 najlepszą formą zakupu jest tak zwany przetarg. <br>
-            W tym przypadku proponujemy wybrać z tabeli wstępnie ulubionego producenta po czym wrzucić do koszyka wybrany asortyment i wysłać do systemu.
-            <br>
-            Następnie zalogować się na swoje konto na naszej stronie po czym dokonać za pomocą przycisku ROZPOCZNIJ PRZETARG
-            <br>
-            System przekaże informacje do przedstawicieli wszystkich fabryk którzy do zakończenia przetargu będą w nim uczestniczyć w formie jak na giełdzie czyli każdy będzie informowany o
-            <br>  pojawieniu się nowej korzystniejszej oferty cenowo niż była.
-            Gwarantuje to najniższa możliwą cenę ponieważ nawet w przypadkach z nimi wieloletniej współpracy z naszego doświadczenia wiemy że i tak zawyżają wam cenę ponieważ brak konkurencji która zmusza do jej obniżenia.
-            <br>
+            Przy zakupie powyżej 100m³ styropianu, najlepszą opcją jest system przetargowy:<br>
+            1. Wybierz wstępnie preferowanego producenta i dodaj produkty do koszyka.<br>
+            2. Zaloguj się na swoje konto i rozpocznij przetarg.<br>
+            3. Przedstawiciele fabryk będą składać oferty, konkurując cenami.<br>
+            4. System gwarantuje najniższą możliwą cenę dzięki mechanizmowi przetargowemu.
           </p>
         </div>
       </section>
@@ -104,7 +73,7 @@
       <section class="py-20 px-4 bg-white">
         <div class="container mx-auto">
           <h2 class="text-4xl md:text-5xl font-bold mb-10 text-center">
-            Zapoznaj się z tabelą cen od ponad 50 producentów! Kliknij w cenę aby wyświetlić szczegóły produktu.
+            Porównaj ceny ponad 50 producentów
           </h2>
           <iframe
               title="Tabelka cen styropianów"
@@ -120,7 +89,7 @@
         <div class="container mx-auto">
           <h2 class="text-4xl md:text-5xl font-bold mb-10 text-center">Zarabiaj przez polecanie!</h2>
           <p class="text-lg md:text-xl mb-10">
-            Mamy świetną wiadomość: zaproś do nas dowolną ilość znajomych, którzy jeszcze nie kupowali styropianów na naszej stronie, i odbierz 30 zł na każde zamówienie nowego użytkownika! Twoje bonusy automatycznie zamienią się na zniżki przy kolejnych zakupach. To proste!
+            Zaprosić znajomych, a otrzymasz 30 zł zniżki za każdego nowego użytkownika! To proste i przyjemne.
           </p>
           <a href="https://mega1000.pl/polec-znajomego" class="bg-blue-500 hover:bg-blue-700 text-white font-medium py-4 px-10 rounded-full inline-block transition-colors duration-300">Zobacz swój panel polecania</a>
         </div>
@@ -131,11 +100,11 @@
           <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div class="contact-card bg-white rounded-lg shadow-lg p-8">
               <h3 class="text-2xl font-bold mb-4">Kontakt Telefoniczny</h3>
-              <p class="text-gray-600">Zadzwoń do nas: <span class="font-bold">+48 507 925 963</span></p>
+              <p class="text-gray-600">Zadzwoń: <span class="font-bold">+48 507 925 963</span></p>
             </div>
             <div class="contact-card bg-white rounded-lg shadow-lg p-8">
               <h3 class="text-2xl font-bold mb-4">E-mail</h3>
-              <p class="text-gray-600">Skontaktuj się mailowo: <span class="font-bold">styropiany@ephpolska.pl</span></p>
+              <p class="text-gray-600">Napisz na: <span class="font-bold">styropiany@ephpolska.pl</span></p>
             </div>
           </div>
         </div>
@@ -144,22 +113,22 @@
       <section class="py-20 px-4 bg-white">
         <div class="container mx-auto">
           <h2 class="text-4xl md:text-5xl font-bold mb-10 text-center">Opinie Klientów</h2>
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div class="grid grid-cols-1md:grid-cols-3 gap-8">
             <div class="testimonial-card bg-gray-100 rounded-lg shadow-lg p-8">
               <blockquote class="text-gray-700 italic mb-4">
-                "Firma oferuje produkty najwyższej jakości, a obsługa klienta jest wzorowa. Zakupy u nich to czysta przyjemność. Gorąco polecam!"
+                "Firma oferuje produkty wysokiej jakości, a obsługa klienta jest wspaniała. Zakupy tutaj to czysta przyjemność!"
               </blockquote>
               <cite class="text-gray-600 font-bold">– Anna Nowak</cite>
             </div>
             <div class="testimonial-card bg-gray-100 rounded-lg shadow-lg p-8">
               <blockquote class="text-gray-700 italic mb-4">
-                "Dzięki profesjonalnej poradzie zespołu udało mi się wybrać idealne rozwiązanie izolacyjne dla mojego domu. Jestem bardzo zadowolony z końcowego efektu."
+                "Dzięki fachowej pomocy zespołu, wybrałem idealne rozwiązanie izolacyjne dla mojego domu. Jestem bardzo zadowolony z rezultatu."
               </blockquote>
               <cite class="text-gray-600 font-bold">– Piotr Wiśniewski</cite>
             </div>
             <div class="testimonial-card bg-gray-100 rounded-lg shadow-lg p-8">
               <blockquote class="text-gray-700 italic mb-4">
-                "Korzystałem z usług tej firmy kilkakrotnie i za każdym razem byłem pod wrażeniem ich rzetelności i zaangażowania. Zdecydowanie zasługują na uznanie!"
+                "Korzystałem z ich usług kilkukrotnie i za każdym razem byłem pod wrażeniem rzetelności i zaangażowania. Polecam z całego serca!"
               </blockquote>
               <cite class="text-gray-600 font-bold">– Tomasz Zieliński</cite>
             </div>
