@@ -23,13 +23,17 @@ onMounted(async () => {
 });
 
 const submitForm = async () => {
+  if (!selectedWarehouse.value.id) {
+    Swal.fire('Nie wybrano punktu odbioru zamówienia!', '', 'error')
+  }
+
   loading.value = true;
   await shopApi.post(`/api/set-warehouse/${selectedWarehouse.value.id}/${route.query.token}`)
   loading.value = false;
 
   await Swal.fire('Poymyślnie zapisano magazyn odbioru', 'Teraz możesz wykonać płatność', 'success');
 
-  let total = route.query.isOrderSmall === 'true' ? route.query.total + 50 : route.query.total;
+  let total = route.query.isOrderSmall === 'true' ? parseFloat(route.query.total) + 50 : route.query.total;
 
   await router.push(`/payment?token=${route.query.token}&total=${total}`);
 }
