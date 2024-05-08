@@ -381,7 +381,7 @@ const createChat = async (redirect: boolean) => {
     }
   });
 
-  if ((totalQuantity <= 33 && isOrderStyrofoam) || selfPickup) {
+  if ((totalQuantity <= 33 && isOrderStyrofoam) || selfPickup.value) {
     await router.push(`/selectWarehouse?token=${data.token}&total=${(parseFloat(productsCart.value.grossPrice()) + shipmentCostBrutto.value).toFixed(2)}&isOrderSmall=${(totalQuantity <= 33)}`);
     return;
   }
