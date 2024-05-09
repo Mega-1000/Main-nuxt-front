@@ -36,6 +36,8 @@ let rulesInput = false;
 let files: any[] = [];
 const message = ref("");
 const auctionInput = ref('');
+const deliveryStartDate = ref('');
+const deliveryEndDate = ref('');
 
 onBeforeMount(async () => {
   const cookies = new Cookies();
@@ -226,6 +228,8 @@ const handleSubmit = async (e: Event | null) => {
     packages: ShipmentCostCalculator(productsCart.value.products),
     register_reffered_user_id: localStorage.getItem('registerRefferedUserId') || null,
     createAuction: auctionInput.value,
+    delivery_start_date: deliveryStartDate.value,
+    delivery_end_date: deliveryEndDate.value,
   };
 
   try {
@@ -468,6 +472,18 @@ const ShipmentCostItemsLeftText = (product: any) => {
 
   return `Możesz dodać do przesyłki jeszcze ${itemsLeft} ${product.unit_commercial} tego produktu aby uzupełnić do pełna paczkę i nie ponosić dodatkowych kosztów transportu.`;
 };
+
+const getNextDayAt8AM = computed(() => {
+  const tomorrow = new Date(new Date().getTime() + 24 * 60 * 60 * 1000)
+  tomorrow.setHours(8, 0, 0, 0)
+  return tomorrow.toISOString().slice(0, 16)
+})
+
+const getNextDayAt24PM = computed(() => {
+  const tomorrow = new Date(new Date().getTime() + 24 * 60 * 60 * 1000)
+  tomorrow.setHours(24, 0, 0, 0)
+  return tomorrow.toISOString().slice(0, 16)
+})
 </script>
 
 <template>
@@ -612,6 +628,18 @@ const ShipmentCostItemsLeftText = (product: any) => {
               <label for="additional-notices" class="block mb-2 text-sm font-medium text-gray-900">Opis i uwagi do zamówienia</label>
               <textarea id="additional-notices" rows="4" v-model="additionalNoticesInput" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"></textarea>
             </div>
+
+            <div class="mt-4">
+              <label for="delivery-start-date" class="block mb-2 text-sm font-medium text-gray-900">Data dostawy/odbioru od</label>
+              <input type="datetime-local" id="delivery-start-date" v-model="deliveryStartDate" :min="getNextDayAt8AM()" class="block w-full px-3 py-2 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500">
+            </div>
+
+            <div class="mt-4">
+              <label for="delivery-end-date" class="block mb-2 text-sm font-medium text-gray-900">Data dostawy/odbioru do</label>
+              <input type="datetime-local" id="delivery-end-date" v-model="deliveryEndDate" :min="getNextDayAt8AM()" :max="getNextDayAt24PM()" class="block w-full px-3 py-2 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500">
+            </div>
+
+
             <div class="flex items-start">
               <div class="flex items-center h-5">
                 <input id="rules" type="checkbox" required v-model="rulesInput" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300" />
