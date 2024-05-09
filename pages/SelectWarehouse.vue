@@ -34,7 +34,7 @@ const submitForm = async () => {
 
   await Swal.fire('Poymyślnie zapisano magazyn odbioru', 'Teraz możesz wykonać płatność', 'success');
 
-  let total = route.query.isOrderSmall === 'true' ? parseFloat(route.query.total) + 50 : route.query.total;
+  let total = parseFloat(route.query.total) + 50;
 
   await router.push(`/payment?token=${route.query.token}&total=${total}`);
 }
