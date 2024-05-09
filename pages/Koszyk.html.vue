@@ -630,13 +630,15 @@ const nextDayAt24PM = computed(() => {
               <textarea id="additional-notices" rows="4" v-model="additionalNoticesInput" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"></textarea>
             </div>
 
+            Daty dostawy/odbioru
+
             <div class="mt-4">
-              <label for="delivery-start-date" class="block mb-2 text-sm font-medium text-gray-900">Data dostawy/odbioru od</label>
+              <label for="delivery-start-date" class="block mb-2 text-sm font-medium text-gray-900">od</label>
               <input type="datetime-local" id="delivery-start-date" v-model="deliveryStartDate"  class="block w-full px-3 py-2 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500">
             </div>
 
             <div class="mt-4">
-              <label for="delivery-end-date" class="block mb-2 text-sm font-medium text-gray-900">Data dostawy/odbioru do</label>
+              <label for="delivery-end-date" class="block mb-2 text-sm font-medium text-gray-900">do</label>
               <input type="datetime-local" id="delivery-end-date" v-model="deliveryEndDate" class="block w-full px-3 py-2 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500">
             </div>
 
