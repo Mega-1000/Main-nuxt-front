@@ -174,6 +174,7 @@ const decreaseFastAddToCartValue = () => {
 </script>
 
 <template>
+  <div   class="flex flex-row justify-between">
       <div v-if="props.item.blured" class="absolute inset-0 z-10 flex justify-center items-center bg-white bg-opacity-50">
         <span class="text-red-500 font-semibold">Produkt niedostępny dla podanego kodu pocztowego</span>
       </div>
@@ -277,7 +278,6 @@ const decreaseFastAddToCartValue = () => {
         class="py-4 cursor-pointer border-t border-md bg-slate-100 px-3"
       >
         <div
-          class="flex flex-row justify-between"
           @click="() => handleShowModal(subProduct, true)"
           data-modal-target="calculatorModal"
         >
@@ -294,6 +294,7 @@ const decreaseFastAddToCartValue = () => {
         </div>
       </div>
     </div>
+  </div>
 </template>
 
 <style scoped>
