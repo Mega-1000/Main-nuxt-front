@@ -66,11 +66,20 @@ const handleCart = () => {
 const handleCloseModal = () => {
   modal.value?.hide();
 }
+
+const goBack = () => {
+  window.history.back();
+};
+
 </script>
 
 
 <template>
   <div class="mt-12">
+    <SubmitButton class="mb-8" @click="goBack">
+      Kliknij aby wrócić do przeglądania w tej kategorii
+    </SubmitButton>
+
     <ProductItem
         :item="item"
         :modal="modal"
