@@ -30,9 +30,11 @@
             </nuxt-link>
           </div>
 
-          <a href="#instructions" class="mt-8">
-            Zobacz szczegółowe informacje na temat systemu
-          </a>
+          <div class="mt-8 font-extrabold text-2xl">
+            <a href="#instructions">
+              Zobacz szczegółowe informacje na temat systemu
+            </a>
+          </div>
         </div>
       </section>
 
