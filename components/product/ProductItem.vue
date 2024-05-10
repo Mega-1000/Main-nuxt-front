@@ -219,18 +219,18 @@ const decreaseFastAddToCartValue = () => {
           </span>
         </h3>
 
-        <div v-if="item.meta_price" class="flex w-full justify-between">
+        <div v-if="item.meta_price" class="flex w-full justify-between z-20">
           <form @submit.prevent="fastAddToCart" v-if="!item.hasChildren && item.variation_group !== 'styropiany'" class="text-lg">
             Szybkie dodawanie do koszyka:
             <br>
             <div class="flex w-fit items-center">
-                <span class="text-6xl px-3" @click="decreaseFastAddToCartValue">
+                <span class="text-6xl px-3" @click.prevent="decreaseFastAddToCartValue">
                   -
                 </span>
 
-              <input type="number" v-model="fastAddToCartValue" class="border mt-4 text-center w-[80%]">
+              <input type="number" @click.prevent="" v-model="fastAddToCartValue" class="border mt-4 text-center w-[80%]">
 
-              <span @click="fastAddToCartValue++" class="text-6xl px-3">
+              <span @click.prevent="fastAddToCartValue++" class="text-6xl px-3">
                   +
               </span>
 
