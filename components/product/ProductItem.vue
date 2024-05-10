@@ -174,7 +174,6 @@ const decreaseFastAddToCartValue = () => {
 </script>
 
 <template>
-  <NuxtLink class="flex flex-col justify-center" v-tooltip.auto-start="props.item.variation_group !== 'styropiany' ? ShipmentCostItemsLeftText : ''" :href="`/singleProduct/${item.id}`">
     <div
         :class="{ 'cursor-not-allowed filter': props.item.blured }"
         data-modal-target="calculatorModal"
@@ -220,26 +219,25 @@ const decreaseFastAddToCartValue = () => {
         </h3>
 
         <div v-if="item.meta_price" class="flex w-full justify-between">
-          <form @submit.prevent="fastAddToCart" v-if="!item.hasChildren && item.variation_group !== 'styropiany'" class="text-lg">
+          <form @submit.prevent="fastAddToCart" v-if="!item.hasChildren && item.variation_group !== 'styropiany'" class="text-lg" v-if="subPage">
             Szybkie dodawanie do koszyka:
             <br>
             <div class="flex w-fit items-center">
-              <span class="text-6xl px-3 cursor-pointer" @click="decreaseFastAddToCartValue">
-                -
-              </span>
+                <span class="text-6xl px-3" @click="decreaseFastAddToCartValue">
+                  -
+                </span>
 
               <input type="number" v-model="fastAddToCartValue" class="border mt-4 text-center w-[80%]">
 
-              <span @click="increaseFastAddToCartValue" class="text-6xl px-3 cursor-pointer">
-                +
+              <span @click="fastAddToCartValue++" class="text-6xl px-3">
+                  +
               </span>
 
-              <button type="submit" class="mt-1">
+              <SubmitButton class="mt-1">
                 Dodaj do koszyka
-              </button>
+              </SubmitButton>
             </div>
           </form>
-
 
           <div
             class="text-3xl font-bold"
@@ -263,9 +261,11 @@ const decreaseFastAddToCartValue = () => {
           </div>
         </div>
 
-        <SubmitButton>
-          {{ props.subPage ? 'Kalkulator cenowy' : 'Zobacz szczegóły i dodaj do koszyka' }}
-        </SubmitButton>
+        <NuxtLink class="flex flex-col justify-center" v-tooltip.auto-start="props.item.variation_group !== 'styropiany' ? ShipmentCostItemsLeftText : ''" :href="`/singleProduct/${item.id}`">
+          <SubmitButton>
+            {{ props.subPage ? 'Kalkulator cenowy' : 'Zobacz szczegóły i dodaj do koszyka' }}
+          </SubmitButton>
+        </NuxtLink>
 
         <div class="inline-flex rounded-md shadow-sm" role="group">
         </div>
@@ -294,7 +294,6 @@ const decreaseFastAddToCartValue = () => {
         </div>
       </div>
     </div>
-  </NuxtLink>
 </template>
 
 <style scoped>
