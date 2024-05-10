@@ -76,7 +76,7 @@ const goBack = () => {
 
 <template>
   <div class="mt-12">
-    <SubmitButton class="mb-8" @click="goBack">
+    <SubmitButton class="mb-8 md:w-2/3 mx-auto" @click="goBack">
       Kliknij aby wrócić do przeglądania w tej kategorii
     </SubmitButton>
 
