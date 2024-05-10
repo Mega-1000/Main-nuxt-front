@@ -29,6 +29,10 @@
               Fundamentowy
             </nuxt-link>
           </div>
+
+          <a href="#instructions" class="mt-8">
+            Zobacz szczegółowe informacje na temat systemu
+          </a>
         </div>
       </section>
 
@@ -57,7 +61,7 @@
       </section>
 
 
-      <section class="py-20 px-4 bg-gray-100">
+      <section class="py-20 px-4 bg-gray-100" id="instructions">
         <div class="container mx-auto text-center">
           <h2 class="text-4xl md:text-5xl font-bold mb-10">Jak dokonać zakupu?</h2>
           <p class="text-lg md:text-xl mb-10 text-left">
