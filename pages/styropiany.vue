@@ -156,3 +156,9 @@
     </main>
   </div>
 </template>
+
+<style>
+  body {
+    scroll-behavior: smooth;
+  }
+</style>
