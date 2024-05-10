@@ -174,7 +174,10 @@ const decreaseFastAddToCartValue = () => {
 </script>
 
 <template>
-  <div   class="flex flex-row justify-between">
+    <div
+        :class="{ 'cursor-not-allowed filter': props.item.blured }"
+        class="justify-between relative flex flex-col md:flex-row md:space-x-5 space-y-3 md:space-y-0 rounded-xl shadow-lg p-3 w-full mx-auto border border-white bg-white max-w-7xl"
+    >
       <div v-if="props.item.blured" class="absolute inset-0 z-10 flex justify-center items-center bg-white bg-opacity-50">
         <span class="text-red-500 font-semibold">Produkt niedostępny dla podanego kodu pocztowego</span>
       </div>
@@ -268,17 +271,17 @@ const decreaseFastAddToCartValue = () => {
             </SubmitButton>
           </NuxtLink>
         </div>
-
         <div class="inline-flex rounded-md shadow-sm" role="group">
         </div>
       </div>
-  </div>
+    </div>
     <div>
       <div
         v-for="subProduct in subProducts"
         class="py-4 cursor-pointer border-t border-md bg-slate-100 px-3"
       >
         <div
+          class="flex flex-row justify-between"
           @click="() => handleShowModal(subProduct, true)"
           data-modal-target="calculatorModal"
         >
