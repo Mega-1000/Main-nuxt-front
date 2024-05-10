@@ -272,6 +272,7 @@ const decreaseFastAddToCartValue = () => {
         <div class="inline-flex rounded-md shadow-sm" role="group">
         </div>
       </div>
+  </div>
     <div>
       <div
         v-for="subProduct in subProducts"
@@ -294,7 +295,6 @@ const decreaseFastAddToCartValue = () => {
         </div>
       </div>
     </div>
-  </div>
 </template>
 
 <style scoped>
