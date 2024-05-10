@@ -1,4 +1,6 @@
 <script setup>
+  import MagasinesMap from "~/components/MagasinesMap.vue";
+
   const showZipCodeModal = !localStorage.getItem('zipCode');
 </script>
 
@@ -29,6 +31,31 @@
           </div>
         </div>
       </section>
+
+      <section class="py-20 px-4 bg-gray-100">
+        <div class="container mx-auto">
+          <h2 class="text-4xl md:text-5xl font-bold mb-10 text-center">
+            Porównaj ceny ponad 50 producentów
+          </h2>
+          <iframe
+              title="Tabelka cen styropianów"
+              src="https://admin.mega1000.pl/auctions/display-prices-table?zip-code=66-400"
+              loading="lazy"
+              style="height: 650px"
+              class="w-full border-2 border-gray-200 rounded-lg shadow-lg"
+          ></iframe>
+        </div>
+      </section>
+
+      <section class="py-20 px-4 bg-white">
+        <div class="container mx-auto">
+          <h2 class="text-4xl md:text-5xl font-bold mb-10 text-center">
+            Zobacz mapę punktów odbioru w całej polsce
+          </h2>
+          <MagasinesMap />
+        </div>
+      </section>
+
 
       <section class="py-20 px-4 bg-gray-100">
         <div class="container mx-auto text-center">
@@ -67,21 +94,6 @@
             3. Przedstawiciele fabryk będą składać oferty, konkurując cenami.<br>
             4. System gwarantuje najniższą możliwą cenę dzięki mechanizmowi przetargowemu.
           </p>
-        </div>
-      </section>
-
-      <section class="py-20 px-4 bg-white">
-        <div class="container mx-auto">
-          <h2 class="text-4xl md:text-5xl font-bold mb-10 text-center">
-            Porównaj ceny ponad 50 producentów
-          </h2>
-          <iframe
-              title="Tabelka cen styropianów"
-              src="https://admin.mega1000.pl/auctions/display-prices-table?zip-code=66-400"
-              loading="lazy"
-              style="height: 650px"
-              class="w-full border-2 border-gray-200 rounded-lg shadow-lg"
-          ></iframe>
         </div>
       </section>
 
