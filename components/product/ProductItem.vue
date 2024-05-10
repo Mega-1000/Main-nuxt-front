@@ -270,7 +270,6 @@ const decreaseFastAddToCartValue = () => {
 
         <div class="inline-flex rounded-md shadow-sm" role="group">
         </div>
-      </div>
     </div>
     <div>
       <div
