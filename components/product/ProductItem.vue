@@ -174,12 +174,6 @@ const decreaseFastAddToCartValue = () => {
 </script>
 
 <template>
-    <div
-        :class="{ 'cursor-not-allowed filter': props.item.blured }"
-        data-modal-target="calculatorModal"
-        class="justify-between relative flex flex-col md:flex-row md:space-x-5 space-y-3 md:space-y-0 rounded-xl shadow-lg p-3 w-full mx-auto border border-white bg-white max-w-7xl"
-        @click="() => handleShowModal(item)"
-    >
       <div v-if="props.item.blured" class="absolute inset-0 z-10 flex justify-center items-center bg-white bg-opacity-50">
         <span class="text-red-500 font-semibold">Produkt niedostępny dla podanego kodu pocztowego</span>
       </div>
@@ -261,11 +255,18 @@ const decreaseFastAddToCartValue = () => {
           </div>
         </div>
 
-        <NuxtLink class="flex flex-col justify-center" v-tooltip.auto-start="props.item.variation_group !== 'styropiany' ? ShipmentCostItemsLeftText : ''" :href="`/singleProduct/${item.id}`">
-          <SubmitButton>
-            {{ props.subPage ? 'Kalkulator cenowy' : 'Zobacz szczegóły i dodaj do koszyka' }}
-          </SubmitButton>
-        </NuxtLink>
+        <div
+            :class="{ 'cursor-not-allowed filter': props.item.blured }"
+            data-modal-target="calculatorModal"
+            class="justify-between relative flex flex-col md:flex-row md:space-x-5 space-y-3 md:space-y-0 rounded-xl shadow-lg p-3 w-full mx-auto border border-white bg-white max-w-7xl"
+            @click="() => handleShowModal(item)"
+        >
+          <NuxtLink class="flex flex-col justify-center" v-tooltip.auto-start="props.item.variation_group !== 'styropiany' ? ShipmentCostItemsLeftText : ''" :href="`/singleProduct/${item.id}`">
+            <SubmitButton>
+              {{ props.subPage ? 'Kalkulator cenowy' : 'Zobacz szczegóły i dodaj do koszyka' }}
+            </SubmitButton>
+          </NuxtLink>
+        </div>
 
         <div class="inline-flex rounded-md shadow-sm" role="group">
         </div>
@@ -293,7 +294,6 @@ const decreaseFastAddToCartValue = () => {
           </submitButton>
         </div>
       </div>
-    </div>
 </template>
 
 <style scoped>
