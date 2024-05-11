@@ -9,12 +9,12 @@
         <a :href="`https://www.google.com/maps/search/?api=1&query=${warehouse.addressString}`" target="_blank" class="ml-2 text-blue-500">Zobacz punkt odbioru na mapie</a>
       </div>
 
-      <button class="mt-8 btn btn-primary" :disabled="loading">
+      <SubmitButton :disabled="loading">
         Zapisz punkt odbioru
-      </button>
+      </SubmitButton>
     </form>
 
-    <div v-if="loading" class="fixed top-0 left-0 w-screen h-screen flex justify-center items-center bg-gray-500 bg-opacity-50">
+    <div v-if="loading" class="fixed top-0 left-0 w-screen h-screen flex justify-center items-center bg-gray-500 bg-opacity-50 z-100">
       <div class="bg-white rounded p-5">
         <div class="flex justify-center items-center">
           <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-gray-900" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
