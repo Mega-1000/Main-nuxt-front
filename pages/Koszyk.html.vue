@@ -72,11 +72,11 @@ onBeforeMount(async () => {
   };
 
 
-  if (query && !query?.notReload) {
-    setTimeout(() => window.location.reload(), 1000);
-    const redirectString = cart_token ? `/koszyk.html?cart_token=${cart_token}&notReload=true` : "/koszyk.html?notReload=true";
-    router.push(redirectString);
-  }
+  // if (query && !query?.notReload) {
+  //   setTimeout(() => window.location.reload(), 1000);
+  //   const redirectString = cart_token ? `/koszyk.html?cart_token=${cart_token}&notReload=true` : "/koszyk.html?notReload=true";
+  //   router.push(redirectString);
+  // }
 });
 
 watch([userData], () => {

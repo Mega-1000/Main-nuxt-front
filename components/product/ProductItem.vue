@@ -274,7 +274,7 @@ const decreaseFastAddToCartValue = () => {
         </div>
       </div>
     </div>
-    <div>
+    <div class="md:w-2/3 md:mx-auto">
       <div
         v-for="subProduct in subProducts"
         class="py-4 cursor-pointer border-t border-md bg-slate-100 px-3"
