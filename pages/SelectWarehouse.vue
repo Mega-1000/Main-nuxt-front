@@ -57,7 +57,7 @@ onMounted(async () => {
   warehouses.value.forEach(warehouse => {
     const coordinates = JSON.parse(warehouse.cordinates);
     const marker = L.marker([coordinates.lat, coordinates.lng]).addTo(map);
-    marker.bindPopup(`<a href="mailto:${warehouse.warehouse_email}"><b>Magazyn odbioru: ${warehouse.symbol}</b></a>`);
+    marker.bindPopup(`<b>Magazyn odbioru: ${warehouse.symbol}</b>`);
 
     marker.on('click', () => {
       selectedWarehouse.value = warehouse;
