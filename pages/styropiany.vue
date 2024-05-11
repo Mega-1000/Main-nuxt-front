@@ -18,20 +18,20 @@
             Wybierz kategorię styropianu
           </div>
 
-          <div class="flex justify-between md:w-[60%] mx-auto font-bold">
-            <nuxt-link href="https://mega1000.pl/100styropiany-elewacyjne/101">
+          <div class="flex justify-between md:w-[40%] mx-auto font-bold">
+            <nuxt-link class="rounded bg-white px-4 py-2 text-black"  href="/100styropiany-elewacyjne/101">
               Elewacyjny
             </nuxt-link>
-            <nuxt-link href="https://mega1000.pl/10styropiany/49">
+            <nuxt-link class="rounded bg-white px-4 py-2 text-black"  href="/10styropiany/49">
               Posadzkowy
             </nuxt-link>
-            <nuxt-link href="https://mega1000.pl/----10styropiany-wodoodporne/5">
+            <nuxt-link class="rounded bg-white px-4 py-2 text-black" href="/----10styropiany-wodoodporne/5">
               Fundamentowy
             </nuxt-link>
           </div>
 
-          <div class="mt-8 font-extrabold text-2xl">
-            <a href="#instructions">
+          <div class="mt-28 font-extrabold text-2xl">
+            <a href="#instructions" class="rounded bg-white px-8 py-4 text-black">
               Zobacz szczegółowe informacje na temat systemu
             </a>
           </div>
@@ -158,7 +158,7 @@
 </template>
 
 <style>
-  body {
+  * {
     scroll-behavior: smooth;
   }
 </style>

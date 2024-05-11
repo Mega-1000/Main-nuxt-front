@@ -607,24 +607,29 @@ const nextDayAt24PM = computed(() => {
               <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Email</label>
               <input type="email" name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required :disabled="loading" v-model="emailInput" />
             </div>
+
             <div>
               <label for="phone" class="block mb-2 text-sm font-medium text-gray-900">Numer telefonu</label>
               <input type="phone" name="phone" id="phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required :disabled="loading" v-model="phoneInput" />
             </div>
+
             <div class="flex items-start">
               <div class="flex items-center h-5">
                 <input id="abroad" type="checkbox" v-model="abroadInput" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300" />
               </div>
               <label for="abroad" class="ml-2 text-sm font-medium text-gray-900">Wysyłka poza granice Polski</label>
             </div>
+
             <div>
               <label for="postal-code" class="block mb-2 text-sm font-medium text-gray-900">Kod Pocztowy</label>
               <input name="postal-code" id="postal-code" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required :disabled="loading" v-model="postalCodeInput" />
             </div>
+
             <div>
               <label for="city" class="block mb-2 text-sm font-medium text-gray-900">Miejscowość</label>
               <input name="city" id="city" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required :disabled="loading" v-model="cityInput" />
             </div>
+
             <div>
               <label for="additional-notices" class="block mb-2 text-sm font-medium text-gray-900">Opis i uwagi do zamówienia</label>
               <textarea id="additional-notices" rows="4" v-model="additionalNoticesInput" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"></textarea>

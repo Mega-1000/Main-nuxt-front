@@ -1,9 +1,5 @@
 <script setup>
 import Swal from "sweetalert2";
-import 'leaflet/dist/leaflet.css';
-import L from 'leaflet';
-import { onMounted, ref } from 'vue';
-import axios from 'axios';
 
 onMounted(() => {
   Swal.fire(
@@ -20,33 +16,21 @@ const selectedWarehouse = ref(null); // Define a reactive variable to store the 
 const loading = ref(false);
 const router = useRouter();
 const productsCart = useProductsCart();
-const mapContainer = ref(null);
-
+const pointsForMap = ref([]);
 
 onMounted(async () => {
-  const { data: response } = await shopApi.get(`/api/orders/get-warehouses-for-order/${route.query.token}`);
+  const {data: response} = await shopApi.get(`/api/orders/get-warehouses-for-order/${route.query.token}`);
   warehouses.value = response[0];
 
-  const map = L.map(mapContainer.value).setView([52.1, 19.4], 6);
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-  }).addTo(map);
-
-  try {
-    const response = await axios.get('https://admin.mega1000.pl/api/styro-warehouses');
-    const warehousesData = response.data;
-    warehousesData.forEach(warehouse => {
-      const coords = JSON.parse(warehouse.cordinates);
-      const marker = L.marker([coords.lat, coords.lng]).addTo(map);
-      marker.bindPopup(`
-        <a href="${warehouse.link}">
-          <b>Magazyn odbioru: ${warehouse.symbol} - Kliknij aby zobaczyć produkty dostępne w tym punkcie</b>
-        </a>
-      `);
-    });
-  } catch (error) {
-    console.error('Failed to load warehouse data:', error);
-  }
+  pointsForMap.value = response[0].map(item => {
+    const coordinates = JSON.parse(item.cordinates);
+    return {
+      lat: coordinates.lat,
+      lng: coordinates.lng,
+      symbol: item.symbol,
+      link: `mailto:${item.warehouse_email}`
+    };
+  });
 });
 
 const submitForm = async () => {
@@ -70,6 +54,8 @@ const submitForm = async () => {
 <template>
   <div class="w-2/3 mx-auto">
     <div class="mt-12"></div>
+
+    <Map :points="pointsForMap" />
 
     <form @submit.prevent="submitForm">
       <div class="mt-3" v-for="warehouse in warehouses" :key="warehouse.id">
