@@ -96,12 +96,10 @@ const config = useRuntimeConfig().public;
           Gwarantujemy najniższą cenę w polsce z darmową dostawą po spełnieniu minimum logistycznego.
         </p>
         <p class="font-extrabold text-yellow-400 mb-2 text-xl text-center">
-          !! Teraz również z płatnością za pobraniem
-          <nuxt-link to="/styropian-platnosc-za-pobraniem" class="underline text-yellow-300 hover:text-yellow-200">Kliknij aby zobaczyć szczegóły tej usługi</nuxt-link>
-          !!
+          !! Teraz również z płatnością za pobraniem !!
         </p>
         <NuxtLink to="/styropiany" class="bg-white text-indigo-700 font-semibold py-2 px-6 rounded hover:bg-gray-200 transition-colors duration-300">
-           Kliknij aby kupić styropian
+           Kliknij aby zobaczyć szczegóły
         </NuxtLink>
       </div>
     </div>
