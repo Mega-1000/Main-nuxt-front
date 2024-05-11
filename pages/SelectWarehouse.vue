@@ -1,89 +1,97 @@
-<script setup>
-import Swal from "sweetalert2";
-
-onMounted(() => {
-  Swal.fire(
-      'Uwaga!',
-      'Prosimy o wybranie punktu odbioru w którym odbierzecie Państwo swoje zamówienie.',
-      'info'
-  )
-});
-
-const warehouses = ref([]);
-const { $shopApi: shopApi } = useNuxtApp();
-const route = useRoute();
-const selectedWarehouse = ref(null); // Define a reactive variable to store the selected warehouse
-const loading = ref(false);
-const router = useRouter();
-const productsCart = useProductsCart();
-const pointsForMap = ref([]);
-
-onMounted(async () => {
-  const {data: response} = await shopApi.get(`/api/orders/get-warehouses-for-order/${route.query.token}`);
-  warehouses.value = response[0];
-
-  pointsForMap.value = response[0].map(item => {
-    const coordinates = JSON.parse(item.cordinates);
-    return {
-      lat: coordinates.lat,
-      lng: coordinates.lng,
-      symbol: item.symbol,
-      link: `mailto:${item.warehouse_email}`
-    };
-  });
-});
-
-const submitForm = async () => {
-  if (!selectedWarehouse.value?.id) {
-    Swal.fire('Nie wybrano punktu odbioru zamówienia!', '', 'error')
-    return;
-  }
-
-  loading.value = true;
-  await shopApi.post(`/api/set-warehouse/${selectedWarehouse.value.id}/${route.query.token}`)
-  loading.value = false;
-
-  await Swal.fire('Poymyślnie zapisano magazyn odbioru', 'Teraz możesz wykonać płatność', 'success');
-
-  let total = parseFloat(route.query.total) + 50;
-
-  await router.push(`/payment?token=${route.query.token}&total=${total}`);
-}
-</script>
-
 <template>
   <div class="w-2/3 mx-auto">
-    <div class="mt-12"></div>
-
-    <Map :points="pointsForMap" />
+    <div ref="mapContainer" class="map-container mt-10"></div>
 
     <form @submit.prevent="submitForm">
       <div class="mt-3" v-for="warehouse in warehouses" :key="warehouse.id">
         <input type="radio" :value="warehouse" v-model="selectedWarehouse" :id="warehouse.id">
-        <label :for="warehouse.id"> {{ warehouse.symbol }} </label>
-
-        <a :href="`https://www.google.com/maps/search/?api=1&query=${warehouse.adresString}`" target="_blank" class="ml-2">
-          <span class="text-blue-500 ml-4">Zobacz punkt odbioru na mapie</span>
-        </a>
+        <label :for="warehouse.id">{{ warehouse.symbol }}</label>
+        <a :href="`https://www.google.com/maps/search/?api=1&query=${warehouse.addressString}`" target="_blank" class="ml-2 text-blue-500">Zobacz punkt odbioru na mapie</a>
       </div>
 
-      <div ref="mapContainer" class="map-container mt-10"></div>
-
-      <submitButton class="mt-8" :disabled="loading.value">
+      <button class="mt-8 btn btn-primary" :disabled="loading">
         Zapisz punkt odbioru
-      </submitButton>
+      </button>
     </form>
-  </div>
 
-  <div v-if="loading" class="fixed top-0 left-0 w-screen h-screen flex justify-center items-center bg-gray-500 bg-opacity-50">
-    <div class="bg-white rounded p-5">
-      <div class="flex justify-center items-center">
-        <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-gray-900" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
-        </svg>
-        <span class="text-gray-900 text-lg">Ładowanie...</span>
+    <div v-if="loading" class="fixed top-0 left-0 w-screen h-screen flex justify-center items-center bg-gray-500 bg-opacity-50">
+      <div class="bg-white rounded p-5">
+        <div class="flex justify-center items-center">
+          <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-gray-900" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+          </svg>
+          <span class="text-gray-900 text-lg">Ładowanie...</span>
+        </div>
       </div>
     </div>
   </div>
 </template>
+
+<script setup>
+import L from 'leaflet'
+import 'leaflet/dist/leaflet.css'
+import Swal from 'sweetalert2'
+import { onMounted, ref, watch } from 'vue'
+import { useNuxtApp, useRouter, useRoute } from '#imports'
+
+const { $shopApi: shopApi } = useNuxtApp();
+const route = useRoute();
+const router = useRouter();
+const mapContainer = ref(null);
+const selectedWarehouse = ref(null);
+const warehouses = ref([]);
+const loading = ref(false);
+
+onMounted(async () => {
+  const map = L.map(mapContainer.value).setView([52.1, 19.4], 6);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+  }).addTo(map);
+
+  const { data: response } = await shopApi.get(`/api/orders/get-warehouses-for-order/${route.query.token}`);
+  warehouses.value = response[0];
+
+  warehouses.value.forEach(warehouse => {
+    const coordinates = JSON.parse(warehouse.coordinates);
+    const marker = L.marker([coordinates.lat, coordinates.lng]).addTo(map);
+    marker.bindPopup(`<a href="mailto:${warehouse.warehouse_email}"><b>Magazyn odbioru: ${warehouse.symbol}</b></a>`);
+
+    marker.on('click', () => {
+      selectedWarehouse.value = warehouse;
+    });
+  });
+
+  Swal.fire(
+      'Uwaga!',
+      'Prosimy o wybranie punktu odbioru w którym odbierzecie Państwo swoje zamówienie.',
+      'info'
+  );
+});
+
+watch(selectedWarehouse, (newVal) => {
+  if (!newVal) return;
+  // Handle changes if necessary, e.g., update UI or log
+});
+
+const submitForm = async () => {
+  if (!selectedWarehouse.value?.id) {
+    await Swal.fire('Nie wybrano punktu odbioru zamówienia!', '', 'error');
+    return;
+  }
+
+  loading.value = true;
+  await shopApi.post(`/api/set-warehouse/${selectedWarehouse.value.id}/${route.query.token}`);
+  loading.value = false;
+
+  await Swal.fire('Pomyślnie zapisano magazyn odbioru', 'Teraz możesz wykonać płatność', 'success');
+  let total = parseFloat(route.query.total) + 50; // Adjust total if necessary
+  await router.push(`/payment?token=${route.query.token}&total=${total}`);
+}
+</script>
+
+<style scoped>
+.map-container {
+  height: 500px;
+}
+</style>
