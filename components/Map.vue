@@ -29,7 +29,7 @@ onMounted(() => {
       const marker = L.marker([point.lat, point.lng]).addTo(map)
       marker.bindPopup(`
         <a href="${point.link}">
-            <b>Magazyn odbioru: ${point.symbol}</b>
+            <b>Magazyn odbioru: ${point.symbol} - Kliknij aby zobaczyć produkty dostępne w tym punkcie</b>
         </a>
       `)
     })

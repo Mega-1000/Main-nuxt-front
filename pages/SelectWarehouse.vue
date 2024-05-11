@@ -44,16 +44,18 @@ const warehouses = ref([]);
 const loading = ref(false);
 
 onMounted(async () => {
-  const map = L.map(mapContainer.value).setView([52.1, 19.4], 6);
+  const map = L.map(mapContainer.value).setView([52.1, 19.4], 6)
+
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-  }).addTo(map);
+    attribution:
+        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+  }).addTo(map)
 
   const { data: response } = await shopApi.get(`/api/orders/get-warehouses-for-order/${route.query.token}`);
   warehouses.value = response[0];
 
   warehouses.value.forEach(warehouse => {
-    const coordinates = JSON.parse(warehouse.coordinates);
+    const coordinates = JSON.parse(warehouse.cordinates);
     const marker = L.marker([coordinates.lat, coordinates.lng]).addTo(map);
     marker.bindPopup(`<a href="mailto:${warehouse.warehouse_email}"><b>Magazyn odbioru: ${warehouse.symbol}</b></a>`);
 
@@ -71,7 +73,6 @@ onMounted(async () => {
 
 watch(selectedWarehouse, (newVal) => {
   if (!newVal) return;
-  // Handle changes if necessary, e.g., update UI or log
 });
 
 const submitForm = async () => {
