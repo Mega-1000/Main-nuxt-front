@@ -249,6 +249,10 @@ const markOfferAsInactive = async () => {
       <accountActionButton type="button" target="_blank" @click="dowloadInvoices(item.id)" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-md transition-colors duration-300">
         Faktury
       </accountActionButton>
+
+      <accountActionButton type="button" target="_blank" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-md transition-colors duration-300" @click="markOfferAsInactive">
+        Przenieś tą ofertę do nieaktywnych
+      </accountActionButton>
     </div>
 
     <div v-for="buttonGroup in Object.keys(item.buttons)" class="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">

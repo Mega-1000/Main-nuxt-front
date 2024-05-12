@@ -686,7 +686,7 @@ const nextDayAt24PM = computed(() => {
               <br>
               Zostaniesz przekierowany do wyboru magazynu, w którym chcesz odebrać dane produkty.
               <br>
-
+              Zostanie również doliczona dodatkowa opłata 50zł
             </div>
           </form>
         </div>
