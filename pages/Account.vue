@@ -18,7 +18,7 @@ const fetchOrders = async (page) => {
     const res = await shopApi.get(`/api/orders/getAll?page=${page}`);
     totalPages.value = res.data.last_page;
     orders.active = res.data.data.filter(order => !inactiveStatusIds.includes(order.status.id) && order.is_hidden === 0);
-    orders.inactive = res.data.data.filter(order => inactiveStatusIds.includes(order.status.id));
+    orders.inactive = res.data.data.filter(order => inactiveStatusIds.includes(order.status.id) && order.is_hidden === 1);
     orders.all = res.data.data;
   } catch (e) {
     console.error(e);
