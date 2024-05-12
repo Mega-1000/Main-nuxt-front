@@ -662,7 +662,7 @@ const nextDayAt24PM = computed(() => {
               <div class="flex items-center h-5">
                 <input id="auction" type="checkbox" v-model="auctionInput" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300" />
               </div>
-              <label for="auction" class="ml-2 text-sm font-medium text-gray-900">Chcę wykonać przetarg (Opcja tylko dla dużych zamówień - cena może być do 20zł/m3 niższa)</label>
+              <label for="auction" class="ml-2 text-sm font-medium text-gray-900">Chcę wykonać przetarg (cena może być do 20zł/m3 niższa)</label>
             </div>
 
             <div v-if="!isOrderSmall">
@@ -678,7 +678,9 @@ const nextDayAt24PM = computed(() => {
             <SubmitButton :disabled="loading" type="submit">Zatwierdź</SubmitButton>
 
             <div class="text-red-600 font-bold" v-if="isOrderSmall">
-              Z powodu że aktualne produkty z koszyka nie przekraczają 10m3 nie jest możliwa dostawa. Zostaniesz przekierowany do wyboru magazynu, w którym chcesz odebrać dane produkty.
+              Z powodu że aktualne produkty z koszyka nie przekraczają 10m3 nie jest możliwa dostawa.
+              <br>
+              Zostaniesz przekierowany do wyboru magazynu, w którym chcesz odebrać dane produkty.
             </div>
           </form>
         </div>
