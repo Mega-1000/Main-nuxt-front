@@ -41,7 +41,7 @@ const deliveryEndDate = ref('');
 
 onBeforeMount(async () => {
   const timeOut = query.isEdition ? 10 : 0;
-  setTimeout(() => {
+  setTimeout(async () => {
     const cookies = new Cookies();
     let cart_token;
     if (query && query.user_code) {
