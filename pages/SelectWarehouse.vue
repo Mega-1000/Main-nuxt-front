@@ -6,7 +6,7 @@
       <div class="mt-3" v-for="warehouse in warehouses" :key="warehouse.id">
         <input type="radio" :value="warehouse" v-model="selectedWarehouse" :id="warehouse.id">
         <label :for="warehouse.id">{{ warehouse.symbol }}</label>
-        <a :href="`https://www.google.com/maps/search/?api=1&query=${warehouse.addressString}`" target="_blank" class="ml-2 text-blue-500">Zobacz punkt odbioru na mapie</a>
+        <a :href="`https://www.google.com/maps/search/?api=1&query=${warehouse.adresString}`" target="_blank" class="ml-2 text-blue-500">Zobacz punkt odbioru na mapie</a>
       </div>
 
       <SubmitButton :disabled="loading" class="mt-4">
