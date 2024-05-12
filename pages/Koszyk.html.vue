@@ -506,7 +506,7 @@ const nextDayAt24PM = computed(() => {
 
   <div class="md:flex md:flex-row md:mt-8 md:w-5/6 md:gap-4 md:mx-auto">
     <div>
-      <div v-else class="grid grid-cols-1 space-y-8">
+      <div class="grid grid-cols-1 space-y-8">
         <p class="mt-2 text-sm text-red-600" v-if="state?.errorText">{{ state?.errorText }}</p>
         <template v-if="state?.cart_token">
           <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative animate-slide-in-right" role="alert">
