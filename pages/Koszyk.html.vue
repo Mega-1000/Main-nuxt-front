@@ -40,44 +40,48 @@ const deliveryStartDate = ref('');
 const deliveryEndDate = ref('');
 
 onBeforeMount(async () => {
-  const cookies = new Cookies();
-  let cart_token;
-  if (query && query.user_code) {
-    try {
-      const res = await shopApi.post(`api/auth/code/${query.user_code}`);
-      setCookie(res.data);
-      userToken.value = getToken();
-    } catch (error) {
-      console.log(error);
+  const timeOut = query.isEdition ? 10 : 0;
+  setTimeout(() => {
+    const cookies = new Cookies();
+    let cart_token;
+    if (query && query.user_code) {
+      try {
+        const res = await shopApi.post(`api/auth/code/${query.user_code}`);
+        setCookie(res.data);
+        userToken.value = getToken();
+      } catch (error) {
+        console.log(error);
+      }
     }
-  }
-  if (query && query?.cart_token) {
-    cart_token = query.cart_token;
-    cookies.set("cart_token", cart_token);
-  } else {
-    cart_token = cookies.get("cart_token");
-  }
+    if (query && query?.cart_token) {
+      cart_token = query.cart_token;
+      cookies.set("cart_token", cart_token);
+    } else {
+      cart_token = cookies.get("cart_token");
+    }
 
-  const res = await shopApi.get("api/user");
-  if (res.status === 200 && res.data) {
-    userData.value =
-      res.data.addresses.filter(
-        (address: any) => address.type === "STANDARD_ADDRESS"
-      )[0] || {};
-  }
+    const res = await shopApi.get("api/user");
+    if (res.status === 200 && res.data) {
+      userData.value =
+          res.data.addresses.filter(
+              (address: any) => address.type === "STANDARD_ADDRESS"
+          )[0] || {};
+    }
 
-  state.value = {
-    ...state.value,
-    cart_token: cart_token,
-  };
+    state.value = {
+      ...state.value,
+      cart_token: cart_token,
+    };
 
-
-  // if (query && !query?.notReload) {
-  //   setTimeout(() => window.location.reload(), 1000);
-  //   const redirectString = cart_token ? `/koszyk.html?cart_token=${cart_token}&notReload=true` : "/koszyk.html?notReload=true";
-  //   router.push(redirectString);
-  // }
+    // if (query && !query?.notReload) {
+    //   setTimeout(() => window.location.reload(), 1000);
+    //   const redirectString = cart_token ? `/koszyk.html?cart_token=${cart_token}&notReload=true` : "/koszyk.html?notReload=true";
+    //   router.push(redirectString);
+    // }
+  }, timeOut);
 });
+
+
 
 watch([userData], () => {
   emailInput.value = userData?.value?.email || "";
@@ -489,13 +493,13 @@ const nextDayAt24PM = computed(() => {
 
 <template>
   <div v-if="query.isEdition">
-    <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative animate-slide-in-left" role="alert">
+    <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative animate-slide-in-left mx-auto w-2/3" role="alert">
       <span class="block sm:inline">Edutujesz swoje zapytanie! Jeśli chcesz dodać produkt kliknij na sklep i dodaj produkt do koszyka.</span>
       <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
-            <svg class="fill-current h-6 w-6 text-green-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-              <path d="M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z" />
-            </svg>
-          </span>
+          <svg class="fill-current h-6 w-6 text-green-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+            <path d="M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z" />
+          </svg>
+      </span>
     </div>
   </div>
 
