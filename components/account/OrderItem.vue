@@ -155,7 +155,7 @@ const markOfferAsInactive = async () => {
         <p v-if="item.master_order_id" class="text-sm font-medium text-gray-500">Nr zamówienia głównego:</p>
         <p v-if="item.master_order_id" class="text-lg font-semibold">{{ item.master_order_id }}</p>
         <p class="text-sm font-medium text-gray-500">Data stworzenia:</p>
-        <p class="text-lg font-semibold">{{ (datetime.strptime(item.created_at, '%Y-%m-%d %H:%M:%S') + timedelta(hours=2)).strftime('%Y-%m-%d %H:%M:%S')}}</p>
+        <p class="text-lg font-semibold">{{ item.created_at.replace('T', ' ').split('.')[0] }}</p>
         <p class="text-sm font-medium text-gray-500">Status:</p>
         <p class="text-lg font-semibold">{{ item.status.name }}</p>
       </div>
