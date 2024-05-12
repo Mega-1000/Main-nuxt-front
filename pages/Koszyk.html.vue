@@ -488,6 +488,17 @@ const nextDayAt24PM = computed(() => {
 </script>
 
 <template>
+  <div v-if="query.isEdition">
+    <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative animate-slide-in-left" role="alert">
+      <span class="block sm:inline">Edutujesz swoje zapytanie! Jeśli chcesz dodać produkt kliknij na sklep i dodaj produkt do koszyka.</span>
+      <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
+            <svg class="fill-current h-6 w-6 text-green-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+              <path d="M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z" />
+            </svg>
+          </span>
+    </div>
+  </div>
+
   <div v-if="!productsCart?.products || productsCart?.products?.length === 0" class="text-center py-20 animate-fade mx-auto w-fit">
     <h2 class="text-2xl md:text-4xl font-bold text-gray-600">Twój koszyk jest pusty</h2>
     <p class="mt-4 text-gray-500">Rozpocznij zakupy i dodaj produkty do koszyka.</p>
@@ -495,17 +506,6 @@ const nextDayAt24PM = computed(() => {
 
   <div class="md:flex md:flex-row md:mt-8 md:w-5/6 md:gap-4 md:mx-auto">
     <div>
-      <div v-if="query.isEdition">
-        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative animate-slide-in-left" role="alert">
-          <span class="block sm:inline">Edutujesz swoje zapytanie! Jeśli chcesz dodać produkt kliknij na sklep i dodaj produkt do koszyka.</span>
-          <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
-            <svg class="fill-current h-6 w-6 text-green-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-              <path d="M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z" />
-            </svg>
-          </span>
-        </div>
-      </div>
-
       <div v-else class="grid grid-cols-1 space-y-8">
         <p class="mt-2 text-sm text-red-600" v-if="state?.errorText">{{ state?.errorText }}</p>
         <template v-if="state?.cart_token">
@@ -681,6 +681,8 @@ const nextDayAt24PM = computed(() => {
               Z powodu że aktualne produkty z koszyka nie przekraczają 10m3 nie jest możliwa dostawa.
               <br>
               Zostaniesz przekierowany do wyboru magazynu, w którym chcesz odebrać dane produkty.
+              <br>
+
             </div>
           </form>
         </div>
