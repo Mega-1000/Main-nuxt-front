@@ -53,6 +53,9 @@ const handleSubmit = async (e: Event) => {
       <h5 class="text-xl xl:text-2xl font-medium text-gray-900">
         Zaloguj się na swoje konto
       </h5>
+      <p>
+        Uwaga! Jeżeli złożyłeś już zamówienie, możesz zalogować się na swoje konto. Jako hasło użyj numeru telefonu podanego przy składaniu zamówienia
+      </p>
       <div>
         <label
           for="email"
