@@ -9,8 +9,8 @@
         <a :href="`https://www.google.com/maps/search/?api=1&query=${warehouse.addressString}`" target="_blank" class="ml-2 text-blue-500">Zobacz punkt odbioru na mapie</a>
       </div>
 
-      <SubmitButton :disabled="loading">
-        Zapisz punkt odbioru
+      <SubmitButton :disabled="loading" class="mt-4">
+        Zapisz punkt odbioru i przejdź do następnego kroku
       </SubmitButton>
     </form>
 

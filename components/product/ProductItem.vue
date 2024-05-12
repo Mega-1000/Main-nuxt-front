@@ -52,6 +52,10 @@ onMounted(() => {
   });
 });
 const handleShowModal = async (item: any, isSubProduct = false) => {
+  if (!props.subPage) {
+    return;
+  }
+
   if (!isSubProduct) {
     if (subProducts.value.length > 0) {
       subProducts.value = [];
