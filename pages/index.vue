@@ -51,7 +51,7 @@ const config = useRuntimeConfig().public;
   <ReferalBanner />
 
   <section>
-    <div class="mx-auto max-w-screen-xl py-10">
+    <div class="mx-auto max-w-screen-xl">
       <h1 class="font-bold text-xl mb-4 sm:text-lg sm:font-semibold"> Współpracujemy z: </h1>
       <div class="md:grid flex md:gap-8 justify-between text-gray-400 grid-cols-10 gap-5 mx-1">
         <a href="#" class="flex justify-center items-center hover:scale-105 transition-transform duration-300 hidden md:flex">
