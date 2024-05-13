@@ -134,6 +134,8 @@ onMounted(async () => {
   if (query?.cart_token && !cart.getEditedCart() || query?.reloadCart) await prepareCartEdition(cart, query?.cart_token);
   await getPackagesNumber(cart);
 
+  window.dispatchEvent(new CustomEvent('token-refreshed'));
+
   productsCart.value = cart;
 });
 
