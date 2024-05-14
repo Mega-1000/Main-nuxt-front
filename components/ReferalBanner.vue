@@ -8,7 +8,7 @@
       <h3 class="text-lg font-medium">Zdobądź 30 zł za każde polecone zamówienie!</h3>
     </div>
     <div class="mt-2 mb-4 text-sm">
-      Poleć nasze usługi znajomym i zgarniaj bonusy! Za każde pierwsze zamówienie nowego użytkownika otrzymasz 30 zł na przyszłe zakupy. Szczegóły akcji znajdziesz tutaj:
+      Poleć nasze usługi znajomym i zgarniaj bonusy! Za każde pierwsze zamówienie nowego użytkownika otrzymasz 30 zł.
     </div>
     <div class="flex">
       <a target="_blank" href="/polec-znajomego" class="text-white bg-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-xs px-3 py-1.5 me-2 text-center inline-flex items-center">
