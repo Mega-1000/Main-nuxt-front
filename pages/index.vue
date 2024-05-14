@@ -53,7 +53,7 @@ const config = useRuntimeConfig().public;
   <section>
     <div class="mx-auto max-w-screen-xl pb-10">
       <h1 class="font-bold text-xl mb-4 sm:text-lg sm:font-semibold"> Współpracujemy z: </h1>
-      <NuxtLink class="md:grid flex md:gap-8 justify-between text-gray-400 grid-cols-10 gap-5 mx-1" href="/styropian">
+      <NuxtLink class="md:grid flex md:gap-8 justify-between text-gray-400 grid-cols-10 gap-5 mx-1" href="/styropiany">
         <div class="flex justify-center items-center hover:scale-105 transition-transform duration-300 hidden md:flex">
           <img src="/genderka.webp" alt="Genderka Logo" class="md:w-[70%]">
         </div>
