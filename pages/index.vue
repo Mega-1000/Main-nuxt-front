@@ -98,8 +98,8 @@ const config = useRuntimeConfig().public;
         <p class="font-extrabold text-yellow-400 mb-2 text-xl text-center">
           !! Teraz również z płatnością za pobraniem !!
         </p>
-        <NuxtLink to="/styropiany" class="bg-white text-indigo-700 font-semibold py-2 px-6 rounded hover:bg-gray-200 transition-colors duration-300">
-           Kliknij aby zobaczyć szczegóły
+        <NuxtLink to="/styropiany" class="bg-white text-indigo-700 font-semibold text-2xl py-2 px-6 rounded hover:bg-gray-200 transition-colors duration-300">
+           Kliknij aby zobaczyć tabelkę cen podstawowych i mapę magazynów odbioru
         </NuxtLink>
       </div>
     </div>
