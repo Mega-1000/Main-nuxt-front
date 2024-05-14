@@ -91,16 +91,19 @@ const config = useRuntimeConfig().public;
   <div class="bg-gradient-to-r from-blue-800 to-indigo-900 text-white py-12">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex flex-col items-center">
-        <h2 class="text-3xl font-bold mb-4 text-gray-200">Ponad 50 producentów styropianu oraz 100 punktów odbioru w całej polski</h2>
-        <p class=" font-extrabold text-center mb-2 text-gray-300 text-xl">
-          Gwarantujemy najniższą cenę w polsce z darmową dostawą po spełnieniu minimum logistycznego.
+        <h2 class="text-3xl md:text-4xl font-bold mb-4 text-gray-200 text-center">Ponad 50 producentów styropianu oraz 100 punktów odbioru w całej polsce</h2>
+        <p class="font-extrabold text-center mb-2 text-gray-300 text-lg md:text-xl">
+          Gwarantujemy najniższą cenę w Polsce z darmową dostawą po spełnieniu minimum logistycznego.
         </p>
-        <p class="font-extrabold text-yellow-400 mb-2 text-xl text-center">
+        <p class="font-extrabold text-yellow-400 mb-4 text-lg md:text-xl text-center">
           !! Teraz również z płatnością za pobraniem !!
         </p>
-        <NuxtLink to="/styropiany" class="bg-white text-indigo-700 font-semibold text-2xl py-2 px-6 rounded hover:bg-gray-200 transition-colors duration-300">
-           Kliknij aby zobaczyć tabelkę cen podstawowych i mapę magazynów odbioru
-        </NuxtLink>
+        <a href="/styropiany" class="bg-white text-indigo-700 font-semibold text-lg md:text-2xl py-2 px-6 rounded hover:bg-gray-200 transition-colors duration-300 flex items-center justify-center">
+          <span>Kliknij aby zobaczyć tabelkę cen podstawowych i mapę magazynów odbioru</span>
+          <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          </svg>
+        </a>
       </div>
     </div>
   </div>
