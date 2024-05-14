@@ -8,30 +8,30 @@
   <AskUserForZipCodeStyrofoarms v-if="showZipCodeModal" />
   <div>
     <main>
-      <section class="hero-section py-24 px-4 bg-gradient-to-r from-blue-600 to-blue-800 text-white">
+      <section class="hero py-16 md:py-24 px-4 bg-gradient-to-r from-blue-600 to-blue-800 text-white">
         <div class="container mx-auto text-center">
-          <h1 class="text-5xl md:text-6xl font-bold mb-6">Znajdź Najlepszy Styropian dla Twojego Projektu</h1>
-          <p class="text-lg md:text-xl mb-10">
+          <h1 class="text-4xl md:text-6xl font-bold mb-4 md:mb-6">Znajdź Najlepszy Styropian dla Twojego Projektu</h1>
+          <p class="text-base md:text-xl mb-8 md:mb-10">
             Przeglądaj oferty od sprawdzonych producentów. Zapewniamy najniższe ceny na rynku i wysoką jakość obsługi.
           </p>
           <div class="my-6 font-extrabold text-xl">
             Wybierz kategorię styropianu
           </div>
 
-          <div class="flex justify-between md:w-[40%] mx-auto font-bold">
-            <nuxt-link class="rounded bg-white px-4 py-2 text-black"  href="/100styropiany-elewacyjne/101">
+          <nav class="flex justify-center gap-4 md:gap-6 md:w-2/3 mx-auto font-bold">
+            <a class="rounded bg-white px-4 py-2 text-black hover:bg-gray-100 transition-colors duration-300" href="/100styropiany-elewacyjne/101">
               Elewacyjny
-            </nuxt-link>
-            <nuxt-link class="rounded bg-white px-4 py-2 text-black"  href="/10styropiany/49">
+            </a>
+            <a class="rounded bg-white px-4 py-2 text-black hover:bg-gray-100 transition-colors duration-300" href="/10styropiany/49">
               Posadzkowy
-            </nuxt-link>
-            <nuxt-link class="rounded bg-white px-4 py-2 text-black" href="/----10styropiany-wodoodporne/5">
+            </a>
+            <a class="rounded bg-white px-4 py-2 text-black hover:bg-gray-100 transition-colors duration-300" href="/----10styropiany-wodoodporne/5">
               Fundamentowy
-            </nuxt-link>
-          </div>
+            </a>
+          </nav>
 
-          <div class="mt-28 font-extrabold text-2xl">
-            <a href="#instructions" class="rounded bg-white px-8 py-4 text-black">
+          <div class="mt-16 md:mt-28 font-extrabold text-2xl">
+            <a href="#instructions" class="rounded bg-white px-8 py-4 text-black hover:bg-gray-100 transition-colors duration-300">
               Zobacz szczegółowe informacje na temat systemu
             </a>
           </div>
