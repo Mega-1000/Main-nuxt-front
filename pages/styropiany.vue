@@ -15,11 +15,11 @@
   <AskUserForZipCodeStyrofoarms v-if="showZipCodeModal" />
   <div>
     <main>
-      <section class="hero py-16 md:py-24 px-4 bg-gradient-to-r from-blue-600 to-blue-800 text-white">
+      <section class="hero py-4 md:py-24 px-4 bg-gradient-to-r from-blue-600 to-blue-800 text-white">
         <div class="container mx-auto text-center">
-          <h1 class="text-4xl md:text-6xl font-bold mb-4 md:mb-6">Wszystkie informacje o styropianie w jednym miejscu</h1>
+          <h1 class="text-2xl md:text-6xl font-bold mb-1 md:mb-6">Wszystkie informacje o styropianie w jednym miejscu</h1>
 
-          <div class="mt-16 md:mt-28 font-extrabold text-2xl">
+          <div class="mt-16 md:mt-28 text-lg">
             <a href="#instructions" class="rounded bg-white px-8 py-4 text-black hover:bg-gray-100 transition-colors duration-300">
               Nie wiesz jak działa nasza platforma? Kliknij tutaj
             </a>
