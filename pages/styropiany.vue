@@ -17,29 +17,11 @@
     <main>
       <section class="hero py-16 md:py-24 px-4 bg-gradient-to-r from-blue-600 to-blue-800 text-white">
         <div class="container mx-auto text-center">
-          <h1 class="text-4xl md:text-6xl font-bold mb-4 md:mb-6">Znajdź Najlepszy Styropian dla Twojego Projektu</h1>
-          <p class="text-base md:text-xl mb-8 md:mb-10">
-            Przeglądaj oferty od sprawdzonych producentów. Zapewniamy najniższe ceny na rynku i wysoką jakość obsługi.
-          </p>
-          <div class="my-6 font-extrabold text-xl">
-            Wybierz kategorię styropianu
-          </div>
-
-          <nav class="flex justify-center gap-4 md:gap-6 md:w-2/3 mx-auto font-bold">
-            <a class="rounded bg-white px-4 py-2 text-black hover:bg-gray-100 transition-colors duration-300" href="/100styropiany-elewacyjne/101">
-              Elewacyjny
-            </a>
-            <a class="rounded bg-white px-4 py-2 text-black hover:bg-gray-100 transition-colors duration-300" href="/10styropiany/49">
-              Posadzkowy
-            </a>
-            <a class="rounded bg-white px-4 py-2 text-black hover:bg-gray-100 transition-colors duration-300" href="/----10styropiany-wodoodporne/5">
-              Fundamentowy
-            </a>
-          </nav>
+          <h1 class="text-4xl md:text-6xl font-bold mb-4 md:mb-6">Wszystkie informacje o styropianie w jednym miejscu</h1>
 
           <div class="mt-16 md:mt-28 font-extrabold text-2xl">
             <a href="#instructions" class="rounded bg-white px-8 py-4 text-black hover:bg-gray-100 transition-colors duration-300">
-              Zobacz szczegółowe informacje na temat systemu
+              Nie wiesz jak działa nasza platforma? Kliknij tutaj
             </a>
           </div>
         </div>
