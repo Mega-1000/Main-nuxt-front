@@ -31,6 +31,15 @@ onMounted(async () => {
 
     <!-- IFrame with the load event listener -->
     <iframe :src="`https://admin.mega1000.pl/auctions/display-prices-table?zip-code=${currentZipCode}`" style="width: 100%; height: 100%;" @load="onIframeLoad"></iframe>
+
+    <section class="py-20 px-4 bg-white">
+      <div class="container mx-auto">
+        <h2 class="text-4xl md:text-5xl font-bold mb-10 text-center">
+          Zobacz mapę punktów odbioru w całej polsce
+        </h2>
+        <MagasinesMap />
+      </div>
+    </section>
   </div>
 
     <div id="porady" class="mt-4" v-html="description"></div>
