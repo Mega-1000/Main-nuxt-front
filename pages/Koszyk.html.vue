@@ -14,6 +14,7 @@ const { $shopApi: shopApi, $buildImgRoute: buildImgRoute } = useNuxtApp();
 const productsCart = useProductsCart();
 const state = ref<any>();
 const selfPickup = ref(false);
+const userName = ref('');
 
 const { data: categories, pending } = await useAsyncData(async () => {
   try {
@@ -236,6 +237,7 @@ const handleSubmit = async (e: Event | null) => {
     createAuction: auctionInput.value,
     delivery_start_date: deliveryStartDate.value,
     delivery_end_date: deliveryEndDate.value,
+    user_name: userName.value,
   };
 
   try {
@@ -617,6 +619,11 @@ const nextDayAt24PM = computed(() => {
             <div>
               <label for="phone" class="block mb-2 text-sm font-medium text-gray-900">Numer telefonu</label>
               <input type="phone" name="phone" id="phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required :disabled="loading" v-model="phoneInput" />
+            </div>
+
+            <div>
+              <label for="name" class="block mb-2 text-sm font-medium text-gray-900">Imię i nazwisko</label>
+              <input type="name" name="phone" id="phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required :disabled="loading" v-model="userName" />
             </div>
 
             <div class="flex items-start">
