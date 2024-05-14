@@ -2,6 +2,13 @@
   import MagasinesMap from "~/components/MagasinesMap.vue";
 
   const showZipCodeModal = !localStorage.getItem('zipCode');
+  const { $shopApi: shopApi } = useNuxtApp();
+  const description = ref('');
+
+  onMounted(async () => {
+    const data = await shopApi.get(`https://admin.mega1000.pl/api/categories/details/search?category=102`);
+    description.value = data.data.description;
+  });
 </script>
 
 <template>
@@ -56,50 +63,16 @@
       <section class="py-20 px-4 bg-white">
         <div class="container mx-auto">
           <h2 class="text-4xl md:text-5xl font-bold mb-10 text-center">
-            Zobacz mapę punktów odbioru w całej polsce
+            Zobacz mapę punktów odbioru osobistego w całej polsce
           </h2>
           <MagasinesMap />
         </div>
       </section>
 
 
-      <section class="py-20 px-4 bg-gray-100" id="instructions">
+      <section class="py-20 px-4 bg-gray-100"  >
         <div class="container mx-auto text-center">
-          <h2 class="text-4xl md:text-5xl font-bold mb-10">Jak dokonać zakupu?</h2>
-          <p class="text-lg md:text-xl mb-10 text-left">
-            1. Przeglądaj oferty producentów w działach: fundamentowy, posadzkowy i elewacyjny.<br>
-            2. Skorzystaj z kalkulatorów, aby obliczyć potrzebną ilość styropianu.<br>
-            3. Dodaj wybrane produkty do koszyka i przejdź do podsumowania.<br>
-            4. Uzupełnij dane i wyślij zamówienie do weryfikacji.<br>
-            5. Po zweryfikowaniu otrzymasz ofertę na swoim koncie.<br>
-            6. Skontaktuj się z przedstawicielem handlowym, aby omówić szczegóły transakcji.
-          </p>
-        </div>
-      </section>
-
-      <section class="py-20 px-4 bg-white">
-        <div class="container mx-auto text-center">
-          <h2 class="text-4xl md:text-5xl font-bold mb-10">Jakiego producenta wybrać?</h2>
-          <p class="text-lg md:text-xl mb-10 text-left">
-            Wybór odpowiedniego producenta styropianu może być trudny. Oto kilka wskazówek:<br>
-            - Unikaj opinii sprzedawców, którzy promują tylko wybranych producentów.<br>
-            - Nie sugeruj się opiniami w internecie, które często są napisane na zlecenie firm.<br>
-            - Zamiast tego, skonsultuj się z zaufanym ekspertem, który ma doświadczenie i wiedzę w tej dziedzinie.<br>
-            Na końcu podaliśmy nasze subiektywne spostrzeżenia, ale zachęcamy do podjęcia własnej decyzji na podstawie opinii z wiarygodnych źródeł.
-          </p>
-        </div>
-      </section>
-
-      <section class="py-20 px-4 bg-gray-100">
-        <div class="container mx-auto text-center">
-          <h2 class="text-4xl md:text-5xl font-bold mb-10">Gwarancja najniższej ceny</h2>
-          <p class="text-lg md:text-xl mb-10 text-left">
-            Przy zakupie powyżej 100m³ styropianu, najlepszą opcją jest system przetargowy:<br>
-            1. Wybierz wstępnie preferowanego producenta i dodaj produkty do koszyka.<br>
-            2. Zaloguj się na swoje konto i rozpocznij przetarg.<br>
-            3. Przedstawiciele fabryk będą składać oferty, konkurując cenami.<br>
-            4. System gwarantuje najniższą możliwą cenę dzięki mechanizmowi przetargowemu.
-          </p>
+          <div v-html="description"></div>
         </div>
       </section>
 
