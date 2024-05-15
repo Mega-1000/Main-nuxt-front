@@ -2,8 +2,11 @@
 import { Tabs } from "flowbite";
 import type { TabsOptions, TabsInterface, TabItem } from "flowbite";
 import OrderItem from "~~/components/account/OrderItem.vue";
+import { useRoute, useRouter } from 'vue-router';
 
 const { $shopApi: shopApi } = useNuxtApp();
+const route = useRoute();
+const router = useRouter();
 
 // Fetch orders function with pagination
 const currentPage = ref(1);
@@ -56,6 +59,27 @@ function setupTabs() {
 const changeTab = (tabName) => {
   currentTab.value = tabName;
 };
+
+// Modal state and handling
+const showModal = ref(false);
+const orderIdToOpen = ref(null);
+
+const openModal = (orderId) => {
+  showModal.value = true;
+  orderIdToOpen.value = orderId;
+  // Additional logic to fetch the order data or handle the modal content
+};
+
+const closeModal = () => {
+  showModal.value = false;
+  orderIdToOpen.value = null;
+};
+
+// Check for `attach-transfer-confirmation` query param and open modal if present
+const queryOrderId = route.query['attach-transfer-confirmation'];
+if (queryOrderId) {
+  openModal(queryOrderId);
+}
 </script>
 
 <template>
