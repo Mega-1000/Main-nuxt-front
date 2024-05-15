@@ -76,7 +76,7 @@ onMounted(() => {
 
   modal.value = new Modal($targetEl, options);
 
-  if (route.query.attachtransferconfirmation === props.item.id) {
+  if (route.query.attachtransferconfirmation == props.item.id) {
     modal.value.show();
   }
 });
