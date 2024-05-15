@@ -52,7 +52,7 @@
       </section>
 
 
-      <section class="py-20 px-4 bg-gray-100"  >
+      <section class="py-20 px-4 bg-gray-100" id="instructions">
         <div class="container mx-auto text-center">
           <div v-html="description"></div>
         </div>
@@ -67,6 +67,7 @@
           <a href="https://mega1000.pl/polec-znajomego" class="bg-blue-500 hover:bg-blue-700 text-white font-medium py-4 px-10 rounded-full inline-block transition-colors duration-300">Zobacz swój panel polecania</a>
         </div>
       </section>
+
       <section class="py-20 px-4 bg-gray-100">
         <div class="container mx-auto">
           <h2 class="text-4xl md:text-5xl font-bold mb-10 text-center">Skontaktuj się z Nami</h2>
