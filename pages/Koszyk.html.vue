@@ -683,7 +683,7 @@ const nextDayAt24PM = computed(() => {
             </div>
 
             <p class="mt-2 text-sm text-red-600">{{ errorText2 }}</p>
-            <SubmitButton :disabled="loading" type="submit">Zatwierdź</SubmitButton>
+            <SubmitButton :disabled="loading" type="submit">Wyślij zapytanie ofertowe</SubmitButton>
 
             <div class="text-red-600 font-bold" v-if="isOrderSmall">
               Z powodu że aktualne produkty z koszyka nie przekraczają 10m3 nie jest możliwa dostawa.
