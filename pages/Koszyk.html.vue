@@ -621,11 +621,6 @@ const nextDayAt24PM = computed(() => {
               <input type="phone" name="phone" id="phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required :disabled="loading" v-model="phoneInput" />
             </div>
 
-            <div>
-              <label for="name" class="block mb-2 text-sm font-medium text-gray-900">Imię i nazwisko</label>
-              <input type="name" name="phone" id="phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required :disabled="loading" v-model="userName" />
-            </div>
-
             <div class="flex items-start">
               <div class="flex items-center h-5">
                 <input id="abroad" type="checkbox" v-model="abroadInput" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300" />
