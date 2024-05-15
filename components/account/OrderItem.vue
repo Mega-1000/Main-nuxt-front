@@ -14,6 +14,7 @@ const props = defineProps<Props>();
 const emit = defineEmits(["refresh"]);
 const isVisiblitityLimited = ref(false);
 const defaultError = "Wystąpil błąd. Spróbuj ponownie później";
+const route = useRoute();
 
 const editCart = (items: any[]) => {
   productsCart.value.removeAllFromCart();
@@ -74,6 +75,10 @@ onMounted(() => {
   };
 
   modal.value = new Modal($targetEl, options);
+
+  if (route.query.['attach-transfer-confirmation']) {
+    modal.value.show();
+  }
 });
 
 const onFileChange = (e: any) => {
