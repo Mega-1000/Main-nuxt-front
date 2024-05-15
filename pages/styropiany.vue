@@ -36,7 +36,7 @@
               title="Tabelka cen styropianów"
               src="https://admin.mega1000.pl/auctions/display-prices-table?zip-code=66-400"
               loading="lazy"
-              style="height: 650px"
+              style="height: 800px"
               class="w-full border-2 border-gray-200 rounded-lg shadow-lg"
           ></iframe>
         </div>
