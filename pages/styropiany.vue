@@ -29,7 +29,7 @@
           <h1 class="text-2xl md:text-6xl font-bold mb-1 md:mb-6">Wszystkie informacje o styropianie w jednym miejscu</h1>
 
           <div class="mt-4 md:mt-10 text-md font-bold md:text-lg">
-            <a href="#instructions" class="rounded bg-white px-4 py-3 text-black hover:bg-gray-100 transition-colors duration-300 block text-center w-full md:w-auto md:inline-block">
+            <a href="#instructions" class="rounded bg-white px-4 py-3 text-black hover:bg-gray-100 transition-colors duration-300 block text-center w-full md:w-auto md:inline-block text-md">
               Nie wiesz jak działa nasza platforma? Kliknij tutaj
             </a>
           </div>
