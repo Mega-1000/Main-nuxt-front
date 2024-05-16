@@ -52,7 +52,7 @@
       </section>
 
 
-      <section class="py-20 px-4 bg-gray-100" id="instructions">
+      <section class="py-10 px-4 bg-gray-100" id="instructions">
         <div class="container mx-auto text-center">
           <div v-html="description"></div>
         </div>
@@ -60,15 +60,15 @@
 
       <section class="py-10 px-4 bg-gray-100" id="instructions">
         <div class="container mx-auto text-center flex gap-4 mx-auto w-fit">
-          <NuxtLink href="/100styropiany-elewacyjne/101" class="bg-blue-500 rounded px-4 py-2 text-white">
+          <NuxtLink href="/100styropiany-elewacyjne/101" class="bg-blue-500 rounded px-4 py-2 text-white font-semibold">
             Styropiany elewacyjne
           </NuxtLink>
 
-          <NuxtLink href="/10styropiany/49" class="bg-blue-500 rounded px-4 py-2 text-white">
+          <NuxtLink href="/10styropiany/49" class="bg-blue-500 rounded px-4 py-2 text-white font-semibold">
             Styropiany posadzkowe
           </NuxtLink>
 
-          <NuxtLink href="/--30termoizolacja-fundamentow/4" class="bg-blue-500 rounded px-4 py-2 text-white">
+          <NuxtLink href="/--30termoizolacja-fundamentow/4" class="bg-blue-500 rounded px-4 py-2 text-white font-semibold">
             Styropiany fundamentowe
           </NuxtLink>
         </div>
