@@ -9,6 +9,15 @@
     const data = await shopApi.get(`https://admin.mega1000.pl/api/categories/details/search?category=102`);
     description.value = data.data.description;
   });
+
+  const redirectToKoszyk = (iframe) => {
+    const redirectUrl = 'https://mega1000.pl/koszyk.html';
+    const iframeWindow = iframe.contentWindow;
+
+    if (iframeWindow.location.href === redirectUrl) {
+      window.top.location.href = '/';
+    }
+  }
 </script>
 
 <template>
@@ -38,6 +47,8 @@
               loading="lazy"
               style="height: 800px"
               class="w-full border-2 border-gray-200 rounded-lg shadow-lg"
+              sandbox="allow-scripts allow-same-origin"
+              onload="redirectToKoszyk(this)"
           ></iframe>
         </div>
       </section>
