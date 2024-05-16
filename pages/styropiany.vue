@@ -58,6 +58,24 @@
         </div>
       </section>
 
+      <section class="py-20 px-4 bg-gray-100" id="instructions">
+        <div class="container mx-auto text-center flex gap-4 mx-auto w-fit">
+          <NuxtLink href="/100styropiany-elewacyjne/101" class="bg-blue-500 rounded px-4 py-2">
+            Styropiany elewacyjne
+          </NuxtLink>
+
+          <NuxtLink href="/10styropiany/49" class="bg-blue-500 rounded px-4 py-2">
+            Styropiany posadzkowe
+          </NuxtLink>
+
+          <NuxtLink href="/--30termoizolacja-fundamentow/4" class="bg-blue-500 rounded px-4 py-2">
+            Styropiany fundamentowe
+          </NuxtLink>
+        </div>
+      </section>
+
+
+
       <section class="py-20 px-4 bg-blue-600 text-white">
         <div class="container mx-auto">
           <h2 class="text-4xl md:text-5xl font-bold mb-10 text-center">Zarabiaj przez polecanie!</h2>
