@@ -110,7 +110,7 @@
               <blockquote class="text-gray-700 italic mb-4">
                 "Firma oferuje produkty wysokiej jakości, a obsługa klienta jest wspaniała. Zakupy tutaj to czysta przyjemność!"
               </blockquote>
-              <cite class="text-gray-600 font-bold">– Anna Nowak</cite>
+              <cite class="text-gray-600 font-bold">– Anna Kamińska</cite>
             </div>
             <div class="testimonial-card bg-gray-100 rounded-lg shadow-lg p-8">
               <blockquote class="text-gray-700 italic mb-4">
