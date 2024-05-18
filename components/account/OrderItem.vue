@@ -181,7 +181,7 @@ const markOfferAsInactive = async () => {
     </div>
 
     <div v-if="item.auctionCanBeCreated" class="mt-8 bg-green-100 p-4 rounded-lg">
-      <p class="text-gray-700">To jest zamówienie na styropian!</p>
+      <p class="text-gray-700">To jest zapytanie na styropian!</p>
       <p class="text-gray-700">Możesz stworzyć przetarg a my zapytamy firmy obsługujące twój kod pocztowy o indywidualną wycenę!</p>
       <a :href="`https://admin.mega1000.pl/auctions/${item.chat.id}/create`" target="_blank" class="mt-4 inline-block bg-green-600 text-white rounded-md px-4 py-2 hover:bg-green-700 transition-colors duration-300">
         Rozpocznij przetarg
@@ -189,7 +189,7 @@ const markOfferAsInactive = async () => {
     </div>
 
     <div v-if="item.isAuctionCreated" class="mt-8 bg-blue-100 p-4 rounded-lg">
-      <p class="text-gray-700">Na to zamówienie jest aktywny przetarg!</p>
+      <p class="text-gray-700">Na to zapytanie jest aktywny przetarg!</p>
       <p class="text-gray-700">Jeśli chcesz zmienić jego szczegóły kliknij przycisk przejdz do chatu. W tym module jest również możliwość zmiany dat logistycznych.</p>
       <a
           :href="`${config.baseUrl}/chat-show-or-new/${item.id}/${item.customer_id}`"
