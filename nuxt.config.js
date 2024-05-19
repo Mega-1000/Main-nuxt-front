@@ -1,5 +1,3 @@
-import {isProduction} from "std-env";
-
 export default defineNuxtConfig({
   modules: ["@nuxtjs/tailwindcss", "nuxt-icon", "@nuxt/devtools"],
   devtools: {
@@ -13,7 +11,6 @@ export default defineNuxtConfig({
       baseUrl: process.env.APP_STORAGE,
       nuxtNewFront: process.env.NEW_NUXT_SERVER,
       google_analytics_id: process.env.google_analytics_id,
-      production_mode: isProduction,
     },
   },
   useHead: {
