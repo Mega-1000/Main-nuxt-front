@@ -1,6 +1,5 @@
 <script setup lang="ts">
   import { getToken, removeCookie } from "~~/helpers/authenticator";
-  import { getPages } from "~~/helpers/customPages";
   import Cart from "~~/utils/Cart";
   import Cookies from "universal-cookie";
 
@@ -19,7 +18,7 @@
     description: 'systemy ociepleniowe z gwarancją najniższej ceny',
   })
 
-onMounted(() => {
+onMounted(async () => {
   const cookies = new Cookies();
   userToken.value = cookies.get("token");
 
@@ -50,13 +49,6 @@ const checkUserLoggedIn = () => {
   }
 }
 
-
-const { data: customPages } = useAsyncData(async () => {
-  try {
-    return (await getPages(shopApi)).customPages[0].content;
-  } catch {}
-});
-
 const buildCustomLink = (pageId: number) => `/custom/${pageId}`;
 
 const logOut = () => {
@@ -65,12 +57,6 @@ const logOut = () => {
 
   window.dispatchEvent(new CustomEvent('token-refreshed'));
 };
-
-onMounted(() => {
-  const cart = new Cart();
-  cart.init();
-  productsCart.value = cart;
-});
 
 const toggleMenu = () => {
   showMenu.value = !showMenu.value;
@@ -97,9 +83,6 @@ const searchProduct = async () => {
           <div class="hidden md:ml-6 md:flex md:space-x-8">
             <NuxtLink v-if="!isVisibilityLimited" href="/" class="nav-link">Sklep</NuxtLink>
             <NuxtLink v-if="!isVisibilityLimited" href="/info" class="nav-link">Kontakt</NuxtLink>
-            <template v-for="page in customPages" v-if="!isVisibilityLimited">
-              <NuxtLink :href="buildCustomLink(page.id)" class="nav-link">{{ page.title }}</NuxtLink>
-            </template>
             <NuxtLink v-if="userToken && !isVisibilityLimited" href="/account" class="nav-link">Konto</NuxtLink>
             <NuxtLink href="/Complaint" v-if="userToken" class="nav-link">Zgłoś reklamację</NuxtLink>
             <NuxtLink v-if="userToken && !isVisibilityLimited" href="/" @click.prevent="logOut" class="nav-link">Wyloguj</NuxtLink>
