@@ -1,23 +1,27 @@
 <script setup>
-  import MagasinesMap from "~/components/MagasinesMap.vue";
+import { ref, onMounted } from 'vue';
+import Loader from '~/components/Loader.vue';
+import MagasinesMap from '~/components/MagasinesMap.vue';
 
-  const showZipCodeModal = !localStorage.getItem('zipCode');
-  const { $shopApi: shopApi } = useNuxtApp();
-  const description = ref('');
+const showZipCodeModal = !localStorage.getItem('zipCode');
+const { $shopApi: shopApi } = useNuxtApp();
+const description = ref('');
+const isLoading = ref(true);
+const iframeSrc = 'https://admin.mega1000.pl/auctions/display-prices-table?zip-code=66-400';
 
-  onMounted(async () => {
-    const data = await shopApi.get(`https://admin.mega1000.pl/api/categories/details/search?category=102`);
-    description.value = data.data.description;
-  });
+onMounted(async () => {
+  const data = await shopApi.get(`https://admin.mega1000.pl/api/categories/details/search?category=102`);
+  description.value = data.data.description;
+});
 
-  const redirectToKoszyk = (iframe) => {
-    const redirectUrl = 'https://mega1000.pl/koszyk.html';
-    const iframeWindow = iframe.contentWindow;
+const onIframeLoad = () => {
+  isLoading.value = false;
+};
 
-    if (iframeWindow.location.href === redirectUrl) {
-      window.top.location.href = '/';
-    }
-  }
+const onIframeError = () => {
+  isLoading.value = false;
+  alert('Failed to load the iframe content.');
+};
 </script>
 
 <template>
@@ -27,7 +31,6 @@
       <section class="hero py-4 md:py-24 px-4 bg-gradient-to-r from-blue-600 to-blue-800 text-white">
         <div class="container mx-auto text-center">
           <h1 class="text-2xl md:text-6xl font-bold mb-1 md:mb-6">Wszystkie informacje o styropianie w jednym miejscu</h1>
-
           <div class="mt-4 md:mt-10 text-md font-bold md:text-lg">
             <a href="#instructions" class="rounded bg-white px-4 py-3 text-black hover:bg-gray-100 transition-colors duration-300 block text-center w-full md:w-auto md:inline-block text-md">
               Nie wiesz jak działa nasza platforma? Kliknij tutaj
@@ -37,18 +40,19 @@
       </section>
 
       <section class="py-20 px-4 bg-gray-100">
-        <div class="container mx-auto">
-          <h2 class="text-4xl md:text-5xl font-bold mb-10 text-center">
-            Porównaj ceny ponad 50 producentów
-          </h2>
+        <div class="container mx-auto relative">
+          <h2 class="text-4xl md:text-5xl font-bold mb-10 text-center">Porównaj ceny ponad 50 producentów</h2>
+          <Loader :showLoader="isLoading" />
           <iframe
+              ref="priceTable"
               title="Tabelka cen styropianów"
-              src="https://admin.mega1000.pl/auctions/display-prices-table?zip-code=66-400"
+              :src="iframeSrc"
               loading="lazy"
               style="height: 800px"
               class="w-full border-2 border-gray-200 rounded-lg shadow-lg"
               sandbox="allow-scripts allow-same-origin"
-              onload="redirectToKoszyk(this)"
+              @load="onIframeLoad"
+              @error="onIframeError"
           ></iframe>
         </div>
       </section>
