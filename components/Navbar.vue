@@ -88,7 +88,7 @@ const searchProduct = async () => {
             <NuxtLink v-if="userToken && !isVisibilityLimited" href="/" @click.prevent="logOut" class="nav-link">Wyloguj</NuxtLink>
             <NuxtLink v-else href="/login" class="nav-link">Zaloguj</NuxtLink>
             <NuxtLink href="/faq" class="nav-link">FAQ</NuxtLink>
-            <a href="tel:507 925 963" class="nav-link font-bold text-red">Pomoc techniczna 7/24 507 925 963</a>
+            <a href="tel:507 925 963" class="nav-link" style="font-weight: bold; color: red">Pomoc techniczna 7/24 507 925 963</a>
           </div>
         </div>
 
