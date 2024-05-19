@@ -23,13 +23,18 @@ onMounted(async () => {
     const warehouses = response.data
 
     warehouses.forEach(warehouse => {
-      const coords = JSON.parse(warehouse.cordinates)
-      const marker = L.marker([coords.lat, coords.lng]).addTo(map)
-      marker.bindPopup(`
-        <a href="${warehouse.link}">
-            <b>Magazyn odbioru: ${warehouse.symbol} - Kliknij aby zobaczyć produkty dostępne w tym punkcie</b>
-        </a>
-    `)
+      try {
+        const coords = JSON.parse(warehouse.cordinates)
+        const marker = L.marker([coords.lat, coords.lng]).addTo(map)
+        marker.bindPopup(`
+            <a href="${warehouse.link}">
+                <b>Magazyn odbioru: ${warehouse.symbol} - Kliknij aby zobaczyć produkty dostępne w tym punkcie</b>
+            </a>
+        `)
+
+      } catch (error) {
+        console.error('Failed to load warehouse data:', error)
+      }
     })
   } catch (error) {
     console.error('Failed to load warehouse data:', error)
