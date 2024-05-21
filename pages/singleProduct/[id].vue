@@ -85,7 +85,7 @@ const goBack = () => {
     </div>
 
     <ProductItem
-        v-if="item.id"
+        v-if="item?.id"
         :item="item"
         :modal="modal"
         :setupModals="setupModals"
