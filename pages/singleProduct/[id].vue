@@ -85,14 +85,13 @@ const goBack = () => {
     </div>
 
     <ProductItem
-        v-if="item"
+        v-if="item.id"
         :item="item"
         :modal="modal"
         :setupModals="setupModals"
         class="w-full md:w-2/3 mx-auto"
         :isStaff="false"
         :sub-page="true"
-        :styro="item.variation_group !== 'styropiany'"
     />
 
     <div
