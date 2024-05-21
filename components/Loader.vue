@@ -1,5 +1,8 @@
 <template>
-  <div class="loader" v-if="showLoader"></div>
+  <div>
+    <div class="loader" v-if="showLoader"></div>
+    <div class="mt-3">Ładowanie tabeli cen prosimy poczekać...</div>
+  </div>
 </template>
 
 <script setup>
