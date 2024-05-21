@@ -91,7 +91,7 @@ const goBack = () => {
         class="w-full md:w-2/3 mx-auto"
         :isStaff="false"
         :sub-page="true"
-        :styro="item.value.variation_group !== 'styropiany'"
+        :styro="item.variation_group !== 'styropiany'"
     />
 
     <div
