@@ -42,6 +42,10 @@ const deliveryEndDate = ref('');
 const route = useRoute();
 
 onBeforeMount(async () => {
+  await init();
+});
+
+const init = async () => {
   const timeOut = query.isEdition ? 10 : 0;
   setTimeout(async () => {
     const cookies = new Cookies();
@@ -74,16 +78,8 @@ onBeforeMount(async () => {
       ...state.value,
       cart_token: cart_token,
     };
-
-    // if (query && !query?.notReload) {
-    //   setTimeout(() => window.location.reload(), 1000);
-    //   const redirectString = cart_token ? `/koszyk.html?cart_token=${cart_token}&notReload=true` : "/koszyk.html?notReload=true";
-    //   router.push(redirectString);
-    // }
   }, timeOut);
-});
-
-
+}
 
 watch([userData], () => {
   emailInput.value = userData?.value?.email || "";
@@ -151,6 +147,8 @@ const handleDelete = async () => {
   await getPackagesNumber(productsCart.value);
 
   emitter.emit("cart:change");
+
+  await init();
 };
 const updateAmount = (productId: number, value: string | number) => {
   const idx = productsCart.value.getIdxByProductId(productId);
