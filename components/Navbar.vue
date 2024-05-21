@@ -15,7 +15,7 @@
   useSeoMeta({
     title: 'EPH polska - styropiany, systemy elewacyjne, ocieplenia',
     ogTitle: 'EPH polska - styropiany, systemy elewacyjne, ocieplenia',
-    description: 'systemy ociepleniowe z gwarancją najniższej ceny',
+    description: 'systemy ociepleniowe z gwarancją najniższej ceny hurtownia styropianu ephpolska',
   })
 
 onMounted(async () => {

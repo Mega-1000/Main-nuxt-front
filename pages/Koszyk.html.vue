@@ -39,6 +39,7 @@ const message = ref("");
 const auctionInput = ref('');
 const deliveryStartDate = ref('');
 const deliveryEndDate = ref('');
+const route = useRoute();
 
 onBeforeMount(async () => {
   const timeOut = query.isEdition ? 10 : 0;
@@ -134,6 +135,11 @@ onMounted(async () => {
 
   if (query?.cart_token && !cart.getEditedCart() || query?.reloadCart) await prepareCartEdition(cart, query?.cart_token);
   await getPackagesNumber(cart);
+
+  if (route.query.cart_token) {
+    window.location.href = 'https://mega1000.pl/koszyk.html';
+    return
+  }
 
   window.dispatchEvent(new CustomEvent('token-refreshed'));
 
@@ -544,7 +550,7 @@ const nextDayAt24PM = computed(() => {
               <div class="flex justify-between items-center mb-4">
                 <h3 class="text-xl font-bold text-gray-800">{{ product.name }}</h3>
                 <div class="flex space-x-2">
-                  <button v-if="state?.cart_token" @click="() => updateProduct(productsCart, product.product_id, product.amount, product.id)" type="button" class="bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded animate-pulse">
+                  <button v-if="state?.cart_token" @click="() => updateProduct(productsCart, product.product_id, product.amount, product.id)" type="button" class="bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded">
                     Przelicz po cenie z CSV
                   </button>
                   <button @click="async () => { productsCart.removeFromCart(product.id); await handleDelete(); }" type="button" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded animate-bounce">
