@@ -148,7 +148,7 @@ const handleDelete = async () => {
 
   emitter.emit("cart:change");
 
-  await init();
+  window.location.reload();
 };
 const updateAmount = (productId: number, value: string | number) => {
   const idx = productsCart.value.getIdxByProductId(productId);
