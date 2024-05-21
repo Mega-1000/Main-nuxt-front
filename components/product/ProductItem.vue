@@ -52,7 +52,7 @@ onMounted(() => {
     items.value = cart.products.filter((item: any) => item.delivery_type === props.item.delivery_type);
   });
 
-  if (props.item.variation_gorup == 'styropiany') {
+  if (props.item.variation_group == 'styropiany') {
     handleShowModal(props.item);
   }
 });
