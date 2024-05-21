@@ -11,6 +11,7 @@ interface Props {
   isStaff: boolean;
   showModal: boolean;
   subPage: boolean | null;
+  styro: boolean | null;
 }
 
 const props = defineProps<Props>();
@@ -50,6 +51,10 @@ onMounted(() => {
     cart.init();
     items.value = cart.products.filter((item: any) => item.delivery_type === props.item.delivery_type);
   });
+
+  if (props.styro) {
+    handleShowModal(props.item);
+  }
 });
 const handleShowModal = async (item: any, isSubProduct = false) => {
   if (!props.subPage) {

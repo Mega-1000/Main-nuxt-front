@@ -38,6 +38,8 @@ onMounted(async () => {
     // Redirect with a reload query parameter set to 1
     const newUrl = `${window.location.pathname}${window.location.search ? window.location.search + '&' : '?'}reload=1`;
     window.location.href = newUrl;
+  } else {
+
   }
 });
 
@@ -89,6 +91,7 @@ const goBack = () => {
         class="w-full md:w-2/3 mx-auto"
         :isStaff="false"
         :sub-page="true"
+        :styro="item.value.variation_group !== 'styropiany'"
     />
 
     <div
