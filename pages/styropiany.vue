@@ -31,7 +31,7 @@ const onIframeError = () => {
       <section class="hero py-4 md:py-24 px-4 bg-gradient-to-r from-blue-600 to-blue-800 text-white">
         <div class="container mx-auto text-center">
           <h1 class="text-2xl md:text-6xl font-bold mb-1 md:mb-6">Wszystkie informacje o styropianie w jednym miejscu</h1>
-          <h5 class="text-lg md:text-2xl font-bold mb-1 md:mb-6 text-red">Teraz zapłacisz również za pobraniem!</h5>
+          <h5 class="text-lg md:text-2xl font-bold mb-1 md:mb-6" style="color: #ff4545;">Teraz zapłacisz również za pobraniem!</h5>
           <div class="mt-4 md:mt-10 text-md font-bold md:text-lg">
             <a href="#instructions" class="rounded bg-white px-4 py-3 text-black hover:bg-gray-100 transition-colors duration-300 block text-center w-full md:w-auto md:inline-block text-md">
               Nie wiesz jak działa nasza platforma? Kliknij tutaj
