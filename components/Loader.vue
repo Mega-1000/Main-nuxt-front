@@ -1,7 +1,7 @@
 <template>
-  <div>
-    <div class="loader" v-if="showLoader"></div>
-    <div class="mt-3">Ładowanie tabeli cen prosimy poczekać...</div>
+  <div v-if="showLoader" class="loader-container">
+    <div class="loader"></div>
+    <div class="loader-text">Ładowanie tabeli cen, prosimy poczekać...</div>
   </div>
 </template>
 
@@ -15,22 +15,35 @@ const props = defineProps({
 </script>
 
 <style>
+.loader-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  position: relative;
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
 .loader {
-  border: 16px solid #f3f3f3;
-  border-top: 16px solid #3498db;
+  border: 8px solid #f3f3f3;
+  border-top: 8px solid #3498db;
   border-radius: 50%;
-  width: 120px;
-  height: 120px;
-  animation: spin 2s linear infinite;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 10;
+  width: 80px;
+  height: 80px;
+  animation: spin 1.5s linear infinite;
+  margin-bottom: 20px;
 }
 
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+.loader-text {
+  font-size: 1.2em;
+  color: #333;
+  text-align: center;
+  max-width: 80%;
 }
 </style>
