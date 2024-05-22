@@ -271,7 +271,7 @@ const goToPage = async (val: number) => {
 
       <div
         v-if="
-          currentCategoriesToDisplay.length > 0 &&
+          currentCategoriesToDisplay > 0 &&
           (!itemsData.data || !(itemsData.data.length > 0))
         "
         class="grid max-w-8xl grid-cols-1 gap-6 px-6 pt-6 pb-40 sm:grid-cols-2 xl:grid-cols-3 mb-30"
