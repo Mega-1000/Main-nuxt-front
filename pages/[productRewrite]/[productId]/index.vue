@@ -18,6 +18,9 @@ const askUserForZipCode = ref(false);
 const categoryFirmId = ref<integer|null>(null);
 const isMainStyrofoamLobby = ref<bool>(false);
 const loadingItems = ref(true);
+const itemsData = ref([]);
+const pending = ref(true);
+const route = useRoute();
 
 const { data: currentProduct, pending: pending1 } = await useAsyncData(
   async () => {
@@ -51,23 +54,23 @@ const { data: categoryData, pending: pending2 } = await useAsyncData(
   }
 );
 
-const { data: itemsData, pending: pending3 } = await useAsyncData(
-  async () => {
-    try {
-      const currentPage = query?.page as string ?? 1;
-      const zipCode = localStorage.getItem('zipCode');
+const fetchData = async () => {
+  try {
+    const currentPage = route.query.page ?? 1;
+    const zipCode = localStorage.getItem('zipCode');
 
-      const res = await shopApi.get(
-        `/api/products/categories/get?page=${currentPage}&per_page=10&category_id=${productId}&zipCode=${zipCode}`
-      );
-      return res.data;
-    } catch (e) {
-      console.log(e);
-      return [];
-    }
-  },
-  { watch: [page] }
-);
+    const res = await shopApi.get(
+        `/api/products/categories/get?page=${currentPage}&per_page=10&category_id=${route.params.productId}&zipCode=${zipCode}`
+    );
+    itemsData.value = res.data;
+  } catch (e) {
+    console.log(e);
+    itemsData.value = [];
+  } finally {
+    pending.value = false;
+  }
+};
+
 
 const buildLink = ({ rewrite, id, name }: { rewrite: string; id: number, name: string }) =>
   name !== 'porady na temat zakupu styropianu' ? `/${rewrite}/${id}` : '/Styrofoarm-generate-table';
@@ -105,6 +108,7 @@ const setupModals = () => {
 
 onMounted(async () => {
   setupModals();
+  await fetchData();
 
   if ((productId === '100' || productId === '49' || productId === '5') && !localStorage.getItem('zipCode')) {
     askUserForZipCode.value = true;
@@ -116,6 +120,9 @@ onMounted(async () => {
       (productId >= 4 && productId <= 10)
   ) {
     isMainStyrofoamLobby.value = true;
+
+    const c = await shopApi.get(`/api/get-blurred-categories/101?zip-code=${localStorage.getItem('zipCode')}`);
+    itemsData.value = c;
   }
 
 
