@@ -121,8 +121,8 @@ onMounted(async () => {
   ) {
     isMainStyrofoamLobby.value = true;
 
-    const c = await shopApi.get(`/api/get-blurred-categories/101?zip-code=${localStorage.getItem('zipCode')}`);
-    itemsData.value = c;
+    // const c = await shopApi.get(`/api/get-blurred-categories/101?zip-code=${localStorage.getItem('zipCode')}`);
+    // itemsData.value = c
   }
 
 
