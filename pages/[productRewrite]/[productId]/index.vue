@@ -55,7 +55,7 @@ const fetchData = async () => {
   try {
     const zipCode = localStorage.getItem('zipCode');
     const res = await shopApi.get(`/api/products/categories?zip-code=${zipCode}`);
-    const productId = 'someProductId'; // Replace with actual productId logic
+    const productId = findActiveMenu(res.data, params.productId as string); // Replace with actual productId logic
     const activeProduct = findActiveMenu(res.data, productId);
 
     let product = { ...activeProduct };
