@@ -17,31 +17,14 @@ const isStaff = ref(false);
 const askUserForZipCode = ref(false);
 const categoryFirmId = ref<integer|null>(null);
 const isMainStyrofoamLobby = ref<bool>(false);
-const loadingItems = ref(true);
 const itemsData = ref([]);
 const pending = ref(true);
 const route = useRoute();
+const currentProduct = ref(null);
+const categories = ref([]);
+const categoryTree = ref([]);
+const pending = ref(true);
 
-const { data: currentProduct, pending: pending1 } = await useAsyncData(
-  async () => {
-    try {
-      const res = await shopApi.get(`/api/products/categories?zip-code=${localStorage.getItem('zipCode')}`);
-      const currentProduct = findActiveMenu(res.data, productId as string);
-      let product = { ...currentProduct };
-      let categoryTree = [currentProduct];
-      while (product.parent_id && parseInt(product.parent_id) !== 0) {
-        product = findActiveMenu(res.data, product.parent_id);
-        categoryTree = [product, ...categoryTree];
-      }
-
-      return {
-        currentProduct,
-        categories: res.data,
-        categoryTree,
-      };
-    } catch (err) {}
-  }
-);
 
 const { data: categoryData, pending: pending2 } = await useAsyncData(
   async () => {
@@ -66,6 +49,29 @@ const fetchData = async () => {
   } catch (e) {
     console.log(e);
     itemsData.value = [];
+  } finally {
+    pending.value = false;
+  }
+
+  try {
+    const zipCode = localStorage.getItem('zipCode');
+    const res = await shopApi.get(`/api/products/categories?zip-code=${zipCode}`);
+    const productId = 'someProductId'; // Replace with actual productId logic
+    const activeProduct = findActiveMenu(res.data, productId);
+
+    let product = { ...activeProduct };
+    let tree = [activeProduct];
+
+    while (product.parent_id && parseInt(product.parent_id) !== 0) {
+      product = findActiveMenu(res.data, product.parent_id);
+      tree = [product, ...tree];
+    }
+
+    currentProduct.value = activeProduct;
+    categories.value = res.data;
+    categoryTree.value = tree;
+  } catch (err) {
+    console.error(err);
   } finally {
     pending.value = false;
   }
@@ -122,7 +128,7 @@ onMounted(async () => {
     isMainStyrofoamLobby.value = true;
 
     const c = await shopApi.get(`/api/get-blurred-categories/101?zip-code=${localStorage.getItem('zipCode')}`);
-    currentProduct.value = c.data
+    currentProduct.value?.currentProduct.children = c.data
   }
 
 
