@@ -17,13 +17,29 @@ const isStaff = ref(false);
 const askUserForZipCode = ref(false);
 const categoryFirmId = ref<integer|null>(null);
 const isMainStyrofoamLobby = ref<bool>(false);
-const itemsData = ref([]);
-const route = useRoute();
-const currentProduct = ref(null);
-const categories = ref([]);
-const categoryTree = ref([]);
-const pending = ref(true);
+const loadingItems = ref(true);
+const currentCategoriesToDisplay = ref();
 
+const { data: currentProduct, pending: pending1 } = await useAsyncData(
+  async () => {
+    try {
+      const res = await shopApi.get(`/api/products/categories?zip-code=${localStorage.getItem('zipCode')}`);
+      const currentProduct = findActiveMenu(res.data, productId as string);
+      let product = { ...currentProduct };
+      let categoryTree = [currentProduct];
+      while (product.parent_id && parseInt(product.parent_id) !== 0) {
+        product = findActiveMenu(res.data, product.parent_id);
+        categoryTree = [product, ...categoryTree];
+      }
+
+      return {
+        currentProduct,
+        categories: res.data,
+        categoryTree,
+      };
+    } catch (err) {}
+  }
+);
 
 const { data: categoryData, pending: pending2 } = await useAsyncData(
   async () => {
@@ -36,45 +52,23 @@ const { data: categoryData, pending: pending2 } = await useAsyncData(
   }
 );
 
-const fetchData = async () => {
-  try {
-    const currentPage = route.query.page ?? 1;
-    const zipCode = localStorage.getItem('zipCode');
+const { data: itemsData, pending: pending3 } = await useAsyncData(
+  async () => {
+    try {
+      const currentPage = query?.page as string ?? 1;
+      const zipCode = localStorage.getItem('zipCode');
 
-    const res = await shopApi.get(
-        `/api/products/categories/get?page=${currentPage}&per_page=10&category_id=${route.params.productId}&zipCode=${zipCode}`
-    );
-    itemsData.value = res.data;
-  } catch (e) {
-    console.log(e);
-    itemsData.value = [];
-  } finally {
-    pending.value = false;
-  }
-
-  try {
-    const zipCode = localStorage.getItem('zipCode');
-    const res = await shopApi.get(`/api/products/categories?zip-code=${zipCode}`);
-    const activeProduct = findActiveMenu(res.data, params.productId as string);
-
-    let product = { ...activeProduct };
-    let tree = [activeProduct];
-
-    while (product.parent_id && parseInt(product.parent_id) !== 0) {
-      product = findActiveMenu(res.data, product.parent_id);
-      tree = [product, ...tree];
+      const res = await shopApi.get(
+        `/api/products/categories/get?page=${currentPage}&per_page=10&category_id=${productId}&zipCode=${zipCode}`
+      );
+      return res.data;
+    } catch (e) {
+      console.log(e);
+      return [];
     }
-
-    currentProduct.value = activeProduct;
-    categories.value = res.data;
-    categoryTree.value = tree;
-  } catch (err) {
-    console.error(err);
-  } finally {
-    pending.value = false;
-  }
-};
-
+  },
+  { watch: [page] }
+);
 
 const buildLink = ({ rewrite, id, name }: { rewrite: string; id: number, name: string }) =>
   name !== 'porady na temat zakupu styropianu' ? `/${rewrite}/${id}` : '/Styrofoarm-generate-table';
@@ -112,7 +106,6 @@ const setupModals = () => {
 
 onMounted(async () => {
   setupModals();
-  await fetchData();
 
   if ((productId === '100' || productId === '49' || productId === '5') && !localStorage.getItem('zipCode')) {
     askUserForZipCode.value = true;
@@ -125,8 +118,8 @@ onMounted(async () => {
   ) {
     isMainStyrofoamLobby.value = true;
 
-    // const c = await shopApi.get(`/api/get-blurred-categories/101?zip-code=${localStorage.getItem('zipCode')}`);
-    // currentProduct.value.currentProduct.children = c.data
+    const c = await shopApi.get(`/api/get-blurred-categories/101?zip-code=${localStorage.getItem('zipCode')}`);
+    currentCategoriesToDisplay.value = c.data
   }
 
 
@@ -285,7 +278,7 @@ const goToPage = async (val: number) => {
         class="grid max-w-8xl grid-cols-1 gap-6 px-6 pt-6 pb-40 sm:grid-cols-2 xl:grid-cols-3 mb-30"
       >
         <article
-          v-for="product in currentProduct.currentProduct.children"
+          v-for="product in currentCategoriesToDisplay"
           class="w-full h-full rounded-xl bg-white p-3 shadow-lg hover:shadow-xl hover:transform hover:scale-105 duration-300"
         >
           <div :class="product.blured ? 'blur-sm' : ''">
