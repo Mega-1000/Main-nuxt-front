@@ -302,7 +302,7 @@ const goToPage = async (val: number) => {
       </div>
 
       <div
-        v-else-if="
+        v-if="
           !categoryData?.chimney_attributes ||
           !(categoryData?.chimney_attributes.length > 0)
         "
