@@ -121,7 +121,10 @@ onMounted(async () => {
     const c = await shopApi.get(`/api/get-blurred-categories/101?zip-code=${localStorage.getItem('zipCode')}`);
     currentCategoriesToDisplay.value = c.data
     console.log(currentCategoriesToDisplay.value)
+  } else {
+    currentCategoriesToDisplay.value = currentProduct?.value.currentProduct?.children;
   }
+  console.log(currentProduct.value)
 
 
   const data:any = await shopApi.get('/api/staff/isStaff');
