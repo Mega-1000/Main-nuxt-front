@@ -269,6 +269,7 @@ const goToPage = async (val: number) => {
         </a>
       </div>
 
+      {{ currentCategoriesToDisplay }}
       <div
         class="grid max-w-8xl grid-cols-1 gap-6 px-6 pt-6 pb-40 sm:grid-cols-2 xl:grid-cols-3 mb-30"
       >
