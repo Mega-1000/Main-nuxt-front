@@ -18,7 +18,6 @@ const askUserForZipCode = ref(false);
 const categoryFirmId = ref<integer|null>(null);
 const isMainStyrofoamLobby = ref<bool>(false);
 const itemsData = ref([]);
-const pending = ref(true);
 const route = useRoute();
 const currentProduct = ref(null);
 const categories = ref([]);
@@ -128,7 +127,7 @@ onMounted(async () => {
     isMainStyrofoamLobby.value = true;
 
     const c = await shopApi.get(`/api/get-blurred-categories/101?zip-code=${localStorage.getItem('zipCode')}`);
-    // currentProduct.value?.currentProduct.children = c.data
+    currentProduct.value?.currentProduct.children = c.data
   }
 
 
