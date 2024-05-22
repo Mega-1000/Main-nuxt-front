@@ -111,6 +111,8 @@ onMounted(async () => {
     askUserForZipCode.value = true;
   }
 
+  currentCategoriesToDisplay.value = currentProduct?.value.currentProduct?.children;
+
   if (
       (productId >= 101 && productId <= 142) ||
       (productId >= 49 && productId <= 90) ||
@@ -119,13 +121,11 @@ onMounted(async () => {
     isMainStyrofoamLobby.value = true;
 
     const c = await shopApi.get(`/api/get-blurred-categories/101?zip-code=${localStorage.getItem('zipCode')}`);
-    currentCategoriesToDisplay.value = c.data
-    console.log(currentCategoriesToDisplay.value)
-  } else {
-    currentCategoriesToDisplay.value = currentProduct?.value.currentProduct?.children;
-  }
-  console.log(currentProduct.value)
 
+    currentCategoriesToDisplay.value = c.data.slice().sort((a: any, b: any) => {
+      return a.blured === b.blured ? 0 : a.blured ? 1 : -1;
+    });
+  }
 
   const data:any = await shopApi.get('/api/staff/isStaff');
   if (data.data) {
