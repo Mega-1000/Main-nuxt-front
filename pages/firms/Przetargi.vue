@@ -35,97 +35,77 @@ const showOfferTable = (auction: any) => {
   auction.offerTableShown = true;
 };
 </script>
-
 <template>
-  <div class="mx-auto w-1/2">
-    <div class="text-center my-4 font-bold">
-      Aktualnie jesteś zalogowany jako: {{ currentFirm?.name }}
+  <div class="container mx-auto px-4 py-8">
+    <div class="text-center mb-8">
+      <h1 class="text-3xl font-bold">Aktualnie jesteś zalogowany jako: {{ currentFirm?.name }}</h1>
     </div>
 
-    <SubmitButton>
-      <a :href="`https://new.mega1000.pl/magazyn/aktualizacja-cen/${currentFirm?.id}/zaktualizuj`" target="__blank" class="mt-4">
-        Zaktualizuj ceny podstawowe styropianów - po których klienci będą otrzymywać oferty w przypadku gdy nie weźmiesz udziału w przetargu.
+    <SubmitButton class="mb-8">
+      <a
+          :href="`https://new.mega1000.pl/magazyn/aktualizacja-cen/${currentFirm?.id}/zaktualizuj`"
+          target="__blank"
+          class="block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+      >
+        Zaktualizuj ceny podstawowe styropianów
       </a>
     </SubmitButton>
 
-    <div v-for="auction in auctions" class="border p-3 mt-12 text-lg">
-      <div class=" flex justify-between">
-        <div>
-          Numer przetargu: {{ auction.id }}
-          <br>Koniec przetargu {{ auction.end_of_auction }}
-          <br>Wstępna data dostawy wskazana przez klienta {{ auction.date_of_delivery }}
-          <br>Procentowy udział ceny {{ auction.price }}
-          <br>Procentowy udział jakości {{ auction.quality }}
-          <br>Data rozpoczęcia przetargu
-          {{ auction?.created_at?.split('T')[0] }}
-          {{ auction?.created_at?.split('T')[1].split('.')[0] }}
-          <br>Ostatnia data aktualizacji danych przetargu
-          {{ auction?.updated_at?.split('T')[0] }}
-          {{ auction?.updated_at?.split('T')[1].split('.')[0] }}
+    <div v-for="auction in auctions" class="border rounded-lg p-6 mb-8 shadow-md">
+      <div class="flex flex-col md:flex-row justify-between items-center mb-4">
+        <div class="flex-grow">
+          <h2 class="text-2xl font-bold mb-2">Numer przetargu: {{ auction.id }}</h2>
+          <p class="mb-2">Koniec przetargu: {{ auction.end_of_auction }}</p>
+          <p class="mb-2">Wstępna data dostawy wskazana przez klienta: {{ auction.date_of_delivery }}</p>
+          <p class="mb-2">Procentowy udział ceny: {{ auction.price }}</p>
+          <p class="mb-2">Procentowy udział jakości: {{ auction.quality }}</p>
+          <p class="mb-2">Data rozpoczęcia przetargu: {{ auction?.created_at?.split('T')[0] }} {{ auction?.created_at?.split('T')[1].split('.')[0] }}</p>
+          <p class="mb-2">Ostatnia data aktualizacji danych przetargu: {{ auction?.updated_at?.split('T')[0] }} {{ auction?.updated_at?.split('T')[1].split('.')[0] }}</p>
         </div>
-
-        <div>
-          <a :href="auction.editPricesLink" target="__blank">
-            <SubmitButton>
+        <div class="flex flex-col md:flex-row items-center">
+          <a :href="auction.editPricesLink" target="__blank" class="mb-4 md:mb-0 md:mr-4">
+            <SubmitButton class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
               Zmień swoje ceny w tym przetargu
             </SubmitButton>
           </a>
-
-          <br>
-
-  <!--        Oferty:-->
-  <!--        <div v-for="offer in auction.activeOffers" class="tooltip">-->
-  <!--            ID: {{ offer.id }} Firma: {{ offer.firm.symbol }} Cena: {{ offer.basic_price_net }}-->
-  <!--            <span class="tooltip-text">-->
-  <!--              Cena za opakowanie handlowe: {{ offer.commercial_price_net }}<br>-->
-  <!--              Cena za m3: {{ offer.basic_price_net }}<br>-->
-  <!--              cena za m2: {{ offer.calculated_price_net }}<br>-->
-  <!--            </span>-->
-  <!--        </div>-->
-
-  <!--        <SubmitButton @click="auction.offersExpanded === false ? expandOffers(auction) : collapseOffers(auction)">-->
-  <!--          <span v-if="auction.offersExpanded === false">-->
-  <!--            Wyświetl wszystkie oferty-->
-  <!--          </span>-->
-  <!--          <span v-else>-->
-  <!--            Ogranicz oferty-->
-  <!--          </span>-->
-  <!--        </SubmitButton>-->
-
-<!--          <button @click="showOfferTable(auction)" class="bg-green-500 mt-4 block px-4 py-2 rounded text-sm">-->
-<!--            Zobacz tabelę ofert-->
-<!--          </button>-->
+          <button @click="showOfferTable(auction)" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            Zobacz tabelę ofert
+          </button>
         </div>
       </div>
 
-      <div class="mt-4">
-        <table>
-          <tr>
-            <th>Produkt</th>
-            <th>Ilość opakowań</th>
-            <th>Ilość M3</th>
-            <th>Twoja cena</th>
-            <th>Najniższa cena na ten moment</th>
+      <div v-if="auction.offerTableShown" class="mt-4">
+        <table class="w-full border-collapse">
+          <thead>
+          <tr class="bg-gray-200">
+            <th class="px-4 py-2 text-left">Produkt</th>
+            <th class="px-4 py-2 text-left">Ilość opakowań</th>
+            <th class="px-4 py-2 text-left">Ilość M3</th>
+            <th class="px-4 py-2 text-left">Twoja cena</th>
+            <th class="px-4 py-2 text-left">Najniższa cena na ten moment</th>
           </tr>
-
-          <tr v-for="item in auction?.chat?.order?.items" class="mt-4">
-            <td>{{ item.product.name.substr(item.product.name.indexOf(" ") + 1) }}</td>
-            <td>{{ item.quantity }}</td>
-            <td>{{  Math.round(item.quantity * item.product.packing.numbers_of_basic_commercial_units_in_pack * 100) / 100 }} {{ item.product.unit_basic }}</td>
-            <td :class="{ 'text-red-700': (lowestPrice = Math.min(...auction.offers.filter((offer) => offer.order_item_id === item.id).map((offer) => offer.basic_price_net))) > yourPrice }">
+          </thead>
+          <tbody>
+          <tr v-for="item in auction?.chat?.order?.items" class="border-b">
+            <td class="px-4 py-2">{{ item.product.name.substr(item.product.name.indexOf(" ") + 1) }}</td>
+            <td class="px-4 py-2">{{ item.quantity }}</td>
+            <td class="px-4 py-2">{{ Math.round(item.quantity * item.product.packing.numbers_of_basic_commercial_units_in_pack * 100) / 100 }} {{ item.product.unit_basic }}</td>
+            <td
+                :class="{ 'text-red-700': (lowestPrice = Math.min(...auction.offers.filter((offer) => offer.order_item_id === item.id).map((offer) => offer.basic_price_net))) > yourPrice }"
+                class="px-4 py-2"
+            >
               {{ yourPrice = auction.offers.filter((offer) => offer.firm_id === currentFirm.id && offer.order_item_id === item.id).sort((a, b) => a.basic_price_net - b.basic_price_net)[0]?.basic_price_net }}
-
-              <span v-if="lowestPrice < yourPrice" class="alert-text"> - Uwaga: Twoja oferta nie jest najniższa</span>
+              <span v-if="lowestPrice < yourPrice" class="text-red-700"> - Uwaga: Twoja oferta nie jest najniższa</span>
             </td>
-            <td>
-              {{ lowestPrice }}
-            </td>
+            <td class="px-4 py-2">{{ lowestPrice }}</td>
           </tr>
+          </tbody>
         </table>
       </div>
     </div>
   </div>
 </template>
+
 
 <style scoped>
 .tooltip {
