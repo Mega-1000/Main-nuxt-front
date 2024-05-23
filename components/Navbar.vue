@@ -121,6 +121,7 @@ const searchProduct = async () => {
       <!-- Mobile Menu -->
       <div :class="{ 'hidden': !showMenu, 'block': showMenu }" class="md:hidden">
         <div class="pt-2 pb-3">
+          <NuxtLink v-if="!isVisibilityLimited" href="/" class="mobile-nav-link">Sklep</NuxtLink>
           <NuxtLink v-if="!isVisibilityLimited" href="/info" class="mobile-nav-link">Kontakt</NuxtLink>
           <template v-for="page in customPages" v-if="!isVisibilityLimited">
             <NuxtLink :href="buildCustomLink(page.id)" class="mobile-nav-link">{{ page.title }}</NuxtLink>
