@@ -91,7 +91,7 @@ const showOfferTable = (auction: any) => {
                 :class="{ 'text-red-700': (lowestPrice = Math.min(...auction.offers.filter((offer) => offer.order_item_id === item.id).map((offer) => offer.basic_price_net))) > yourPrice }"
                 class="px-4 py-2"
             >
-              {{ yourPrice = auction.offers.filter((offer) => offer.firm_id === currentFirm.id && offer.order_item_id === item.id).sort((a, b) => a.basic_price_net - b.basic_price_net)[0]?.basic_price_net }}
+              {{ yourPrice = auction.offers.filter((offer) => offer.firm_id === currentFirm.id && offer.product_id === item.product.id).sort((a, b) => a.basic_price_net - b.basic_price_net)[0]?.basic_price_net }}
               <span v-if="lowestPrice < yourPrice" class="text-red-700"> - Uwaga: Twoja oferta nie jest najniższa</span>
             </td>
             <td class="px-4 py-2">{{ lowestPrice }}</td>
