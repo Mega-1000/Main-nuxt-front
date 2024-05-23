@@ -43,9 +43,9 @@ const showOfferTable = (auction: any) => {
 
     <div class="mb-8">
       <a
-          :href="`https://new.mega1000.pl/magazyn/aktualizacja-cen/${currentFirm?.id}/zaktualizuj`"
+          :href="`https://new.mega1000.pl/magazyn/aktualizacja-cen/${currentFirm?.id}/zaktualizuj?isByFirm=true`"
           target="__blank"
-          class="block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          class="block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-fit"
       >
         Zaktualizuj ceny podstawowe styropianów
       </a>
