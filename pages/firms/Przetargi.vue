@@ -74,8 +74,8 @@ const showOfferTable = (auction: any) => {
         </div>
       </div>
 
-      <div v-if="auction.offerTableShown" class="mt-4">
-        <table class="w-full border-collapse">
+      <div class="mt-4">
+        <table class="w-full border-collapse overflow-x-auto">
           <thead>
           <tr class="bg-gray-200">
             <th class="px-4 py-2 text-left">Produkt</th>
