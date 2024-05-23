@@ -95,7 +95,7 @@ const config = useRuntimeConfig().public;
           Gwarantujemy najniższą cenę w Polsce z darmową dostawą po spełnieniu minimum logistycznego.
         </p>
         <p class="font-extrabold text-yellow-400 mb-4 text-lg md:text-xl text-center">
-          !! Teraz również z płatnością za pobraniem !!
+          !! Teraz również z płatnością przy odbiorze !!
         </p>
         <NuxtLink href="/styropiany" class="bg-white text-indigo-700 font-semibold text-lg md:text-2xl py-2 px-6 rounded hover:bg-gray-200 transition-colors duration-300 flex items-center justify-center">
           <span>Kliknij aby zobaczyć tabelkę cen podstawowych i mapę magazynów odbioru</span>
