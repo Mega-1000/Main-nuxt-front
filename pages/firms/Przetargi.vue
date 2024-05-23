@@ -41,7 +41,7 @@ const showOfferTable = (auction: any) => {
       <h1 class="text-3xl font-bold">Aktualnie jesteś zalogowany jako: {{ currentFirm?.name }}</h1>
     </div>
 
-    <SubmitButton class="mb-8">
+    <div class="mb-8">
       <a
           :href="`https://new.mega1000.pl/magazyn/aktualizacja-cen/${currentFirm?.id}/zaktualizuj`"
           target="__blank"
@@ -49,7 +49,7 @@ const showOfferTable = (auction: any) => {
       >
         Zaktualizuj ceny podstawowe styropianów
       </a>
-    </SubmitButton>
+    </div>
 
     <div v-for="auction in auctions" class="border rounded-lg p-6 mb-8 shadow-md">
       <div class="flex flex-col md:flex-row justify-between items-center mb-4">
@@ -68,9 +68,6 @@ const showOfferTable = (auction: any) => {
               Zmień swoje ceny w tym przetargu
             </SubmitButton>
           </a>
-          <button @click="showOfferTable(auction)" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-            Zobacz tabelę ofert
-          </button>
         </div>
       </div>
 
@@ -133,5 +130,13 @@ const showOfferTable = (auction: any) => {
 
 .alert-text {
   color: red;
+}
+
+@media (max-width: 767px) {
+  .mt-4 table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
 }
 </style>
