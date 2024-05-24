@@ -3,6 +3,7 @@ const auctions = ref<any>([]);
 const { $shopApi: shopApi } = useNuxtApp();
 const route = useRoute();
 const currentFirm = ref<any>(null);
+const haveToFillPrices = ref<boolean>(false);
 
 onMounted(() => {
   fetchAuctions();
@@ -14,6 +15,7 @@ const fetchAuctions = async () => {
 
   currentFirm.value = response[0];
   auctions.value = response[1];
+  haveToFillPrices.value = response[2].haveToFillPrices;
 
   auctions.value.forEach((auction: any) => {
     auction.offersExpanded = true;
@@ -46,6 +48,7 @@ const showOfferTable = (auction: any) => {
           :href="`https://new.mega1000.pl/magazyn/aktualizacja-cen/${currentFirm?.id}/zaktualizuj?isByFirm=true`"
           target="__blank"
           class="block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-fit"
+          :class="haveToFillPrices ? 'bg-red-500' : ''"
       >
         Zaktualizuj ceny podstawowe styropianów
       </a>
@@ -88,7 +91,7 @@ const showOfferTable = (auction: any) => {
             <td class="px-4 py-2">{{ item.quantity }}</td>
             <td class="px-4 py-2">{{ Math.round(item.quantity * item.product.packing.numbers_of_basic_commercial_units_in_pack * 100) / 100 }} {{ item.product.unit_basic }}</td>
             <td
-                :class="{ 'text-red-700': (lowestPrice = Math.min(...auction.offers.filter((offer) => offer.order_item_id === item.id).map((offer) => offer.basic_price_net))) > yourPrice }"
+                :class="{ 'text-red-700': (lowestPrice = Math.min(...auction.offers.filter((offer) => offer.product_id === item.id).map((offer) => offer.basic_price_net))) > yourPrice }"
                 class="px-4 py-2"
             >
               {{ yourPrice = auction.offers.filter((offer) => offer.firm_id === currentFirm.id && offer.product_id === item.product.id).sort((a, b) => a.basic_price_net - b.basic_price_net)[0]?.basic_price_net }}
