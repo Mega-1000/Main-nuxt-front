@@ -28,21 +28,26 @@ const onIframeError = () => {
   <AskUserForZipCodeStyrofoarms v-if="showZipCodeModal" />
   <div>
     <main>
-      <section class="hero py-4 md:py-24 px-4 bg-gradient-to-r from-blue-600 to-blue-800 text-white">
+      <section class="hero py-4 md:py-1 px-4 bg-gradient-to-r from-blue-600 to-blue-800 text-white">
         <div class="container mx-auto text-center">
-          <h1 class="text-2xl md:text-6xl font-bold mb-1 md:mb-6">Wszystkie informacje o styropianie w jednym miejscu</h1>
-          <h5 class="text-lg md:text-3xl font-extrabold mb-1 md:mb-6" style="color: #ff4545;">Teraz zapłacisz również przy odbiorze!</h5>
+<!--          <h1 class="text-2xl md:text-6xl font-bold mb-1 md:mb-6">Wszystkie informacje o styropianie w jednym miejscu</h1>-->
+          <h5 class="text-lg md:text-6xl font-extrabold mb-1 mt-6 md:mb-6">Teraz zapłacisz również przy odbiorze!</h5>
           <div class="mt-4 md:mt-10 text-md font-bold md:text-lg">
-            <a href="#instructions" class="rounded bg-white px-4 py-3 text-black hover:bg-gray-100 transition-colors duration-300 block text-center w-full md:w-auto md:inline-block text-md">
-              Nie wiesz jak działa nasza platforma? Kliknij tutaj
-            </a>
+<!--            <a href="#instructions" class="rounded bg-white px-4 py-3 text-black hover:bg-gray-100 transition-colors duration-300 block text-center w-full md:w-auto md:inline-block text-md">-->
+<!--              Nie wiesz jak działa nasza platforma? Kliknij tutaj-->
+<!--            </a>-->
           </div>
         </div>
       </section>
 
-      <section class="py-20 px-4 bg-gray-100">
+      <section class="py-10 px-4 bg-gray-100">
         <div class="container mx-auto relative">
-          <h2 class="text-4xl md:text-5xl font-bold mb-10 text-center">Porównaj ceny ponad 50 producentów</h2>
+          <h2 class="text-2xl md:text-3xl font-extrabold mb-10 text-center text-blue-500">
+            Wybierz rodzaj styropianu z tabeli dla wybranego producenta i kliknij cenę aby dodać koszyka. <br>
+            <div class="text-lg text-black mt-2">
+              Oprócz znalezienia najtańszej hurtowni w Polsce  która która dostarczy ci ten styropian wraz z gratisowym transportem dokonamy także przetargu dla wszystkich pozostałych 50 producentów dla porównania.
+            </div>
+          </h2>
           <Loader :showLoader="isLoading" />
           <iframe
               ref="priceTable"
@@ -75,16 +80,16 @@ const onIframeError = () => {
       </section>
 
       <section class="py-10 px-4 bg-gray-100" id="instructions">
-        <div class="container mx-auto text-center flex gap-4 mx-auto w-fit">
-          <NuxtLink href="/100styropiany-elewacyjne/101" class="bg-blue-500 rounded px-4 py-2 text-white font-semibold">
+        <div class="container mx-auto text-center flex gap-2 md:gap-4 mx-auto w-fit">
+          <NuxtLink href="/100styropiany-elewacyjne/101" class="bg-blue-500 rounded px-2 md:px-4 py-2 text-white font-semibold">
             Styropiany elewacyjne
           </NuxtLink>
 
-          <NuxtLink href="/10styropiany/49" class="bg-blue-500 rounded px-4 py-2 text-white font-semibold">
+          <NuxtLink href="/10styropiany/49" class="bg-blue-500 rounded px-2 md:px-4 py-2 text-white font-semibold">
             Styropiany posadzkowe
           </NuxtLink>
 
-          <NuxtLink href="/--30termoizolacja-fundamentow/4" class="bg-blue-500 rounded px-4 py-2 text-white font-semibold">
+          <NuxtLink href="/--30termoizolacja-fundamentow/4" class="bg-blue-500 rounded px-2 md:px-4 py-2 text-white font-semibold">
             Styropiany fundamentowe
           </NuxtLink>
         </div>

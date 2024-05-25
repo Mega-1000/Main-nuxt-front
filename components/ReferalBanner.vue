@@ -8,14 +8,14 @@
       <h3 class="text-lg font-medium">Zdobądź 30 zł za każde polecone zamówienie!</h3>
     </div>
     <div class="mt-2 mb-4 text-sm">
-      Poleć nasze usługi znajomym i zgarniaj bonusy! Za każde pierwsze zamówienie nowego użytkownika otrzymasz 30 zł.
+      Wpisz tylko numer telefonu lub e maila znajomego a w przypadku dokonania przez niego zakupu styropianu otrzymasz za każdego 30 zł na swoje konto.
     </div>
     <div class="flex">
       <a target="_blank" href="/polec-znajomego" class="text-white bg-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-xs px-3 py-1.5 me-2 text-center inline-flex items-center">
         <svg class="me-2 h-3 w-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 14">
           <path d="M10 0C4.612 0 0 5.336 0 7c0 1.742 3.546 7 10 7 6.454 0 10-5.258 10-7 0-1.664-4.612-7-10-7Zm0 10a3 3 0 1 1 0-6 3 3 0 0 1 0 6Z"/>
         </svg>
-        Dowiedz się więcej
+        Dokonaj wpisu polecenia
       </a>
     </div>
   </div>`

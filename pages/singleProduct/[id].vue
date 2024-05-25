@@ -80,7 +80,7 @@ const goBack = () => {
   <div class="mt-12">
     <div class="mb-8 md:w-2/3 mx-auto md:space-x-5 space-y-3 md:space-y-0">
       <SubmitButton @click="goBack">
-        Kliknij aby wrócić do przeglądania w tej kategorii
+        Kliknij aby wrócić do przeglądania w poprzedniej stronie
       </SubmitButton>
     </div>
 
