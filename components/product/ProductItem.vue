@@ -273,7 +273,7 @@ const decreaseFastAddToCartValue = () => {
             data-modal-target="calculatorModal"
             @click="() => handleShowModal(item)"
         >
-          <NuxtLink v-if="!subPage && props.item.variation_group !== 'styropiany'" class="flex flex-col justify-center" v-tooltip.auto-start="props.item.variation_group !== 'styropiany' ? ShipmentCostItemsLeftText : ''" :href="`/singleProduct/${item.id}`">
+          <NuxtLink v-if="!subPage" class="flex flex-col justify-center" v-tooltip.auto-start="props.item.variation_group !== 'styropiany' ? ShipmentCostItemsLeftText : ''" :href="`/singleProduct/${item.id}`">
             <SubmitButton>
               {{ props.subPage ? 'Kalkulator cenowy' : 'Zobacz szczegóły i dodaj do koszyka' }}
             </SubmitButton>
