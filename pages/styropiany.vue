@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, onUnmounted } from 'vue';
 import Loader from '~/components/Loader.vue';
 import MagasinesMap from '~/components/MagasinesMap.vue';
 
@@ -12,7 +12,19 @@ const iframeSrc = 'https://admin.mega1000.pl/auctions/display-prices-table?zip-c
 onMounted(async () => {
   const data = await shopApi.get(`https://admin.mega1000.pl/api/categories/details/search?category=102`);
   description.value = data.data.description;
+
+  window.addEventListener('message', handleIframeMessage);
 });
+
+onUnmounted(() => {
+  window.removeEventListener('message', handleIframeMessage);
+});
+
+const handleIframeMessage = (event) => {
+  if (event.data && event.data.url) {
+    window.location.href = event.data.url;
+  }
+};
 
 const onIframeLoad = () => {
   isLoading.value = false;
