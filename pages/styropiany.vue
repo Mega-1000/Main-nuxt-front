@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, nextTick } from 'vue';
+import { ref, onMounted } from 'vue';
 import Loader from '~/components/Loader.vue';
 import MagasinesMap from '~/components/MagasinesMap.vue';
 
@@ -12,34 +12,15 @@ const iframeSrc = 'https://admin.mega1000.pl/auctions/display-prices-table?zip-c
 onMounted(async () => {
   const data = await shopApi.get(`https://admin.mega1000.pl/api/categories/details/search?category=102`);
   description.value = data.data.description;
-  attachLinkClickListener();
 });
 
-const onIframeLoad = async () => {
+const onIframeLoad = () => {
   isLoading.value = false;
-  await nextTick();
-  attachLinkClickListener();
 };
 
 const onIframeError = () => {
   isLoading.value = false;
   alert('Failed to load the iframe content.');
-};
-
-const attachLinkClickListener = () => {
-  const iframe = document.querySelector('iframe');
-  if (iframe && iframe.contentWindow) {
-    iframe.contentWindow.document.body.addEventListener('click', handleLinkClick);
-  }
-};
-
-const handleLinkClick = (event) => {
-  alert('okej')
-  if (event.target.tagName === 'A') {
-    event.preventDefault(); // Zatrzymuje domyślną akcję linku
-    const url = event.target.href;
-    window.location.href = url; // Przenosi użytkownika do nowego URL-a
-  }
 };
 </script>
 
