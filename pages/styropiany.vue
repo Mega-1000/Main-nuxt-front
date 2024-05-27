@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, nextTick } from 'vue';
 import Loader from '~/components/Loader.vue';
 import MagasinesMap from '~/components/MagasinesMap.vue';
 
@@ -12,15 +12,33 @@ const iframeSrc = 'https://admin.mega1000.pl/auctions/display-prices-table?zip-c
 onMounted(async () => {
   const data = await shopApi.get(`https://admin.mega1000.pl/api/categories/details/search?category=102`);
   description.value = data.data.description;
+  attachLinkClickListener();
 });
 
-const onIframeLoad = () => {
+const onIframeLoad = async () => {
   isLoading.value = false;
+  await nextTick();
+  attachLinkClickListener();
 };
 
 const onIframeError = () => {
   isLoading.value = false;
   alert('Failed to load the iframe content.');
+};
+
+const attachLinkClickListener = () => {
+  const iframe = document.querySelector('iframe');
+  if (iframe && iframe.contentWindow) {
+    iframe.contentWindow.document.body.addEventListener('click', handleLinkClick);
+  }
+};
+
+const handleLinkClick = (event) => {
+  if (event.target.tagName === 'A') {
+    event.preventDefault(); // Zatrzymuje domyślną akcję linku
+    const url = event.target.href;
+    window.location.href = url; // Przenosi użytkownika do nowego URL-a
+  }
 };
 </script>
 
@@ -30,13 +48,7 @@ const onIframeError = () => {
     <main>
       <section class="hero py-4 md:py-1 px-4 bg-gradient-to-r from-blue-600 to-blue-800 text-white">
         <div class="container mx-auto text-center">
-<!--          <h1 class="text-2xl md:text-6xl font-bold mb-1 md:mb-6">Wszystkie informacje o styropianie w jednym miejscu</h1>-->
           <h5 class="text-lg md:text-6xl font-extrabold mb-1 mt-6 md:mb-6">Teraz zapłacisz również przy odbiorze!</h5>
-          <div class="mt-4 md:mt-10 text-md font-bold md:text-lg">
-<!--            <a href="#instructions" class="rounded bg-white px-4 py-3 text-black hover:bg-gray-100 transition-colors duration-300 block text-center w-full md:w-auto md:inline-block text-md">-->
-<!--              Nie wiesz jak działa nasza platforma? Kliknij tutaj-->
-<!--            </a>-->
-          </div>
         </div>
       </section>
 
@@ -45,7 +57,7 @@ const onIframeError = () => {
           <h2 class="text-2xl md:text-3xl font-extrabold mb-10 text-center text-blue-500">
             Wybierz rodzaj styropianu z tabeli dla wybranego producenta i kliknij cenę aby dodać koszyka. <br>
             <div class="text-lg text-black mt-2">
-              Oprócz znalezienia najtańszej hurtowni w Polsce  która która dostarczy ci ten styropian wraz z gratisowym transportem dokonamy także przetargu dla wszystkich pozostałych 50 producentów dla porównania.
+              Oprócz znalezienia najtańszej hurtowni w Polsce  która dostarczy ci ten styropian wraz z gratisowym transportem dokonamy także przetargu dla wszystkich pozostałych 50 producentów dla porównania.
             </div>
           </h2>
           <Loader :showLoader="isLoading" />
@@ -66,12 +78,11 @@ const onIframeError = () => {
       <section class="py-20 px-4 bg-white">
         <div class="container mx-auto">
           <h2 class="text-4xl md:text-5xl font-bold mb-10 text-center">
-            Zobacz mapę punktów odbioru osobistego w całej polsce
+            Zobacz mapę punktów odbioru osobistego w całej Polsce
           </h2>
           <MagasinesMap />
         </div>
       </section>
-
 
       <section class="py-10 px-4 bg-gray-100" id="instructions">
         <div class="container mx-auto">
@@ -84,18 +95,14 @@ const onIframeError = () => {
           <NuxtLink href="/100styropiany-elewacyjne/101" class="bg-blue-500 rounded px-2 md:px-4 py-2 text-white font-semibold">
             Styropiany elewacyjne
           </NuxtLink>
-
           <NuxtLink href="/10styropiany/49" class="bg-blue-500 rounded px-2 md:px-4 py-2 text-white font-semibold">
             Styropiany posadzkowe
           </NuxtLink>
-
           <NuxtLink href="/--30termoizolacja-fundamentow/4" class="bg-blue-500 rounded px-2 md:px-4 py-2 text-white font-semibold">
             Styropiany fundamentowe
           </NuxtLink>
         </div>
       </section>
-
-
 
       <section class="py-20 px-4 bg-blue-600 text-white">
         <div class="container mx-auto">
@@ -153,7 +160,7 @@ const onIframeError = () => {
 </template>
 
 <style>
-  * {
-    scroll-behavior: smooth;
-  }
+* {
+  scroll-behavior: smooth;
+}
 </style>
