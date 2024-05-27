@@ -34,6 +34,7 @@ const attachLinkClickListener = () => {
 };
 
 const handleLinkClick = (event) => {
+  alert('okej')
   if (event.target.tagName === 'A') {
     event.preventDefault(); // Zatrzymuje domyślną akcję linku
     const url = event.target.href;
