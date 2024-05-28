@@ -104,8 +104,8 @@ const prepareCartEdition = async (cart: Cart, token: any) => {
 const getPackagesNumber = async (cart: Cart) => {
   try {
     const response = await shopApi.post(
-        "api/packages/count",
-        cart.idsWithQuantity()
+      "api/packages/count",
+      cart.idsWithQuantity()
     );
 
     state.value = {
@@ -117,10 +117,10 @@ const getPackagesNumber = async (cart: Cart) => {
     state.value = {
       ...state.value,
       errorText:
-          (error.response &&
-              error.response.data &&
-              error.response.data.error_message) ||
-          "Wystąpił błąd, proszę spróbować później",
+        (error.response &&
+          error.response.data &&
+          error.response.data.error_message) ||
+        "Wystąpił błąd, proszę spróbować później",
     };
   }
 };
@@ -278,8 +278,7 @@ const handleSubmitWithToken = async () => {
     if (res.status === 200) {
       productsCart.value.removeAllFromCart();
       cookies.remove("cart_token");
-      message.value = "Oferta została nadpisana na starą ofertę ale prosimy pamiętać że jest to niebezpieczne ponieważ klient po dostawie może się kłócić ze dostał nie to co  miał w ofercie i na dowód pokazać starą a upierać się że o nowej nic nie wie. Można sporadycznie tak robić bo ułatwia to temat gdy już jakieś zostały np dokonane wpłaty lub towar wyjechał na listach i jest dużo roboty aby dokonać zmiany do nowej oferty ale musimy być pewnie że klient nie będzie miał podstaw do reklamacji";
-      router.push("/success");
+      message.value = "Oferta została nadpisana na starą ofertę ale prosimy pamiętać że jest to niebezpieczne ponieważ klient po dostawie może się kłócić ze dostał nie to co  miał w ofercie i na dowód pokazać starą a upierać się że o nowej nic nie wie. Można sporadycznie tak robić bo ułatwia to temat gdy już jakieś zostały np dokonane wpłaty lub towar wyjechał na listach i jest dużo roboty aby dokonać zmiany do nowej oferty ale musimy być pewnie że klient nie będzie się upierał ze on chciał starą oferte."
     }
   } catch (err: any) {
     errorText2.value = err.response.data.error_message || "Wystąpił błąd";
@@ -287,6 +286,184 @@ const handleSubmitWithToken = async () => {
     loading.value = false;
   }
 };
+
+const shipmentCostBrutto = computed(() => {
+  return shipmentCostBruttoFn(productsCart.value.products)
+});
+
+const isNewOrder = ref(false);
+
+const updateProduct = async (
+  cart: Cart,
+  productId: number,
+  amount: number,
+  prodId: number
+) => {
+  await cart.removeFromCart(prodId);
+
+  setTimeout(async () => {
+    try {
+      const response = await shopApi.get(`/api/products/${productId}`);
+      let product = response.data;
+      product.recalculate = 1;
+      await cart.addToCart(product, amount);
+    } catch (err) { }
+
+    window.location.reload();
+  }, 300)
+};
+
+const createChat = async (redirect: boolean) => {
+  let deliveryTypesErrors: any[] = [];
+  await productsCart.value.products.forEach((product) => {
+    if (!product.delivery_type) {
+      deliveryTypesErrors.push(product);
+    }
+  });
+
+  if (deliveryTypesErrors.length != 0) {
+    const alertText = 'Brak możliwości wyceny transportu produktów poniżej i jeżeli chcesz dokonać od razu zakupu to usuń je z koszyka.\n' +
+        'W przypadku gdy chcesz poznać wycenę wraz z transportem to wyślij a skontaktujemy się z tobą.';
+
+    const listOfProducts = deliveryTypesErrors.map((product) => {
+      return `<br>${product.name} - ${product.amount} szt.`
+    });
+
+
+    const confirmation = await swal.fire({
+      title: '',
+      html: `${alertText}<br />${listOfProducts}`,
+      icon: 'warning',
+      showCancelButton: true,
+      cancelButtonText: 'Wróć do koszyka i dokonaj usunięcia',
+      confirmButtonText: 'Wyślij do sprawdzenia kosztów transportu',
+    });
+
+    if (!confirmation.isConfirmed) {
+      return;
+    } else {
+      loading.value = true;
+      const data =  await handleSubmit(null);
+      loading.value = false;
+
+      swal.fire({
+        title: '',
+        html: 'Dziękujemy za wysłanie zapytania ofertowego. Wkrótce skontaktujemy się z Tobą.',
+        icon: 'success',
+        confirmButtonText: 'OK',
+      });
+
+      return;
+    }
+  }
+
+  let isOrderStyrofoam = false;
+  productsCart.value.products.forEach((product: any) => {
+    if (product.variation_group === 'styropiany') {
+      isOrderStyrofoam = true;
+    }
+  });
+
+  loading.value = true;
+  const data =  await handleSubmit(null);
+  loading.value  = isOrderStyrofoam && auctionInput.value;
+
+  if (!getToken() && data.newAccount) {
+    await Swal.fire('', `<span style="text-align: left; ">Informujemy że założyliśmy Państwu konto na naszej stronie na którym po zalogowaniu można :<br>
+        <br>
+        <br>- zapoznać się z ofertą i pobrać fakturę proformę\n
+        <br>- skorygować wysłane zapytanie ofertowe\n
+        <br>- uzupełnić dane do dostawy i faktury i wskazać datę nadania przesyłki\n
+        <br>- podpiąć potwierdzenie przelewu które przyspiesza realizacje\n
+        <br>- rozpocząć dyskusje/chata z konsultantem\n
+        <br>- oraz sprawdzać statusy ofert i listów przewozowych.\n
+        <br>
+        <br>Z pozdrowieniami<br>
+        <br>
+    </span>`, 'info');
+  }
+
+  setTimeout(() =>  productsCart.value.removeAllFromCart(), 100)
+
+  let totalQuantity = 0;
+  productsCart.value.products.forEach((item) => {
+    if (item.variation_group === 'styropiany') {
+      totalQuantity += item.amount;
+    }
+  });
+
+  if ((totalQuantity <= 33 && isOrderStyrofoam) || selfPickup.value) {
+    await router.push(`/selectWarehouse?token=${data.token}&total=${(parseFloat(productsCart.value.grossPrice()) + shipmentCostBrutto.value).toFixed(2)}&isOrderSmall=${(totalQuantity <= 33)}`);
+    return;
+  }
+
+  if (isOrderStyrofoam && auctionInput.value) {
+    const url = `${config.baseUrl}/chat-show-or-new/${data.id}/${data.customerId}?showAuctionInstructions=true`;
+
+    window.location.href = url;
+    return;
+  }
+
+  if (isOrderStyrofoam) {
+    await Swal.fire('Zapytanie zostało stworzone pomyślnie!', 'Po kliknięciu "OK" Przeniesiemy cię do konta z możliwością zarządzania twoimi zamówieniami', 'info');
+    await router.push('/account');
+    return;
+  }
+
+  await router.push(`/payment?token=${data.token}&total=${(parseFloat(productsCart.value.grossPrice()) + shipmentCostBrutto.value).toFixed(2)}`);
+};
+
+const isOrderStyrofoam = computed(() => {
+  let isOrderStyrofoam = false;
+
+  productsCart.value.products.forEach((product: any) => {
+    if (product.variation_group === 'styropiany') {
+      isOrderStyrofoam = true;
+    }
+  });
+
+  return isOrderStyrofoam;
+});
+
+const canAuctionBeMade = computed(() => {
+  let isOrderStyrofoam = false;
+
+  productsCart.value.products.forEach((product: any) => {
+    if (product.variation_group === 'styropiany') {
+      isOrderStyrofoam = true;
+    }
+  });
+
+  let totalQuantity = 0;
+  productsCart.value.products.forEach((item) => {
+    if (item.variation_group === 'styropiany') {
+      totalQuantity += item.amount;
+    }
+  });
+
+  return isOrderStyrofoam && totalQuantity > 99;
+});
+
+
+const isOrderSmall = computed(() => {
+  let isOrderStyrofoam = false;
+
+  productsCart.value.products.forEach((product: any) => {
+    if (product.variation_group === 'styropiany') {
+      isOrderStyrofoam = true;
+    }
+  });
+
+  let totalQuantity = 0;
+  productsCart.value.products.forEach((item) => {
+    if (item.variation_group === 'styropiany') {
+      totalQuantity += item.amount;
+    }
+  });
+
+  return isOrderStyrofoam && totalQuantity <= 33;
+});
+
 
 const ShipmentCostItemsLeftText = (product: any) => {
   const itemPackageQuantity = product.assortment_quantity;
@@ -406,72 +583,135 @@ const ShipmentCostItemsLeftText = (product: any) => {
             <p class="text-md">{{ shipmentCostBrutto }} PLN</p>
           </div>
           <div class="flex justify-between mb-4">
-            <p class="text-lg font-medium">Łączny koszt zamówienia z transportem</p>
-            <p class="text-md">{{ (parseFloat(productsCart.grossPrice()) + shipmentCostBrutto.value).toFixed(2) }} PLN</p>
+            <p class="text-lg font-medium">Łączna wartość oferty wraz z transportem</p>
+            <p class="text-md">Brutto: {{ (parseFloat(productsCart.grossPrice()) + shipmentCostBrutto).toFixed(2) }} PLN</p>
           </div>
-        </div>
-        <div class="flex flex-col md:flex-row justify-between items-center">
-          <button
-              type="button"
-              @click="createChat(false)"
-              class="bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded mt-4 w-full md:w-auto">
-            Wyślij zapytanie ofertowe
-          </button>
-          <button
-              type="button"
-              @click="handleSubmitWithToken"
-              v-if="state?.cart_token && isNewOrder"
-              class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded mt-4 w-full md:w-auto">
-            Złóż nowe zamówienie
-          </button>
+          <div class="flex justify-between mb-4">
+            <p class="text-lg font-medium">Łączna waga</p>
+            <p class="text-md">{{ parseFloat(productsCart.totalWeight()).toFixed(2) }} kg</p>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <div class="mt-10 md:w-5/6 mx-auto animate-fade">
-    <h2 class="text-2xl font-bold text-gray-800">Dane kontaktowe</h2>
-    <form @submit.prevent="handleSubmit">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-        <div class="flex flex-col">
-          <label for="userName" class="text-sm text-gray-600">Imię i Nazwisko</label>
-          <input type="text" id="userName" v-model="userName" class="mt-1 px-4 py-2 border border-gray-300 rounded-md" />
+      <div class="md:flex md:flex-row md:justify-between md:items-start">
+        <div v-if="(productsCart?.products && productsCart?.products?.length > 0 && !state?.cart_token) || isNewOrder" class="bg-white shadow-lg rounded-lg p-6 mt-8  animate-slide-in-left">
+          <form class="space-y-6" @submit.prevent="createChat">
+            <div>
+              <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Email</label>
+              <input type="email" name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required :disabled="loading" v-model="emailInput" />
+            </div>
+
+            <div>
+              <label for="phone" class="block mb-2 text-sm font-medium text-gray-900">Numer telefonu</label>
+              <input type="phone" name="phone" id="phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required :disabled="loading" v-model="phoneInput" />
+            </div>
+
+            <div class="flex items-start">
+              <div class="flex items-center h-5">
+                <input id="abroad" type="checkbox" v-model="abroadInput" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300" />
+              </div>
+              <label for="abroad" class="ml-2 text-sm font-medium text-gray-900">Wysyłka poza granice Polski</label>
+            </div>
+
+            <div class="flex items-start">
+              <div class="flex items-center h-5">
+                <input id="abroad" type="checkbox" v-model="abroadInput" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300" />
+              </div>
+              <label for="abroad" class="ml-2 text-sm font-medium text-gray-900">Wysyłka poza granice Polski</label>
+            </div>
+
+            <div>
+              <label for="postal-code" class="block mb-2 text-sm font-medium text-gray-900">Kod Pocztowy</label>
+              <input name="postal-code" id="postal-code" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                     required
+                     :disabled="loading"
+                     v-model="postalCodeInput"
+                     @input="validatePostalCode"
+                     :class="{'border-red-500': !isPostalCodeValid}"
+              />
+              <p v-if="!isPostalCodeValid" class="text-red-500 text-sm">Kod pocztowy musi mieć format XX-XXX</p>
+            </div>
+
+            <div>
+              <label for="additional-notices" class="block mb-2 text-sm font-medium text-gray-900">Opis i uwagi do zamówienia</label>
+              <textarea id="additional-notices" rows="4" v-model="additionalNoticesInput" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"></textarea>
+            </div>
+
+
+            <div v-if="isOrderStyrofoam" class="mt-4">
+              Przybliżone daty dostawy/odbioru
+
+              <div>
+                <label for="delivery-start-date" class="block mb-2 text-sm font-medium text-gray-900">od</label>
+                <input type="date" id="delivery-start-date" v-model="deliveryStartDate" class="block w-full px-3 py-2 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" required>
+              </div>
+
+              <div class="mt-4">
+                <label for="delivery-end-date" class="block mb-2 text-sm font-medium text-gray-900">do</label>
+                <input type="date" id="delivery-end-date" v-model="deliveryEndDate" class="block w-full px-3 py-2 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" required>
+              </div>
+
+            </div>
+
+            <div class="flex items-start">
+              <div class="flex items-center h-5">
+                <input id="rules" type="checkbox" required v-model="rulesInput" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300" />
+              </div>
+              <label for="rules" class="ml-2 text-sm font-medium text-gray-900">Zapoznałem się z <nuxt-link class="text-blue-500" href="https://mega1000.pl/custom/5">regulaminem</nuxt-link></label>
+            </div>
+
+            <div class="flex items-start mt-2" v-if="canAuctionBeMade && !selfPickup">
+              <div class="flex items-center h-5">
+                <input id="auction" type="checkbox" v-model="auctionInput" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300" />
+              </div>
+              <label for="auction" class="ml-2 text-sm font-medium text-gray-900">Chcę wykonać przetarg (cena może być do 20zł/m3 niższa)</label>
+            </div>
+
+            <div v-if="!isOrderSmall">
+              <div class="flex items-start mt-2" v-if="!auctionInput && !isOrderSmall">
+                <div class="flex items-center h-5">
+                  <input id="shipByMyself" type="checkbox" v-model="selfPickup" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300" />
+                </div>
+                <label for="shipByMyself" class="ml-2 text-sm font-medium text-gray-900">Chce odebrać te produkty osobiście w magazynie fabryki.</label>
+              </div>
+            </div>
+
+            <p class="mt-2 text-sm text-red-600">{{ errorText2 }}</p>
+            <SubmitButton :disabled="loading" type="submit">Wyślij zapytanie ofertowe</SubmitButton>
+
+            <div class="text-red-600 font-bold" v-if="isOrderSmall">
+              Z powodu że aktualne produkty z koszyka nie przekraczają 10m3 nie jest możliwa dostawa.
+              <br>
+              Zostaniesz przekierowany do wyboru magazynu, w którym chcesz odebrać dane produkty.
+              <br>
+              Zostanie również doliczona dodatkowa opłata 50zł
+            </div>
+          </form>
         </div>
-        <div class="flex flex-col">
-          <label for="email" class="text-sm text-gray-600">Email</label>
-          <input type="email" id="email" v-model="emailInput" class="mt-1 px-4 py-2 border border-gray-300 rounded-md" />
-        </div>
-        <div class="flex flex-col">
-          <label for="phone" class="text-sm text-gray-600">Telefon</label>
-          <input type="text" id="phone" v-model="phoneInput" class="mt-1 px-4 py-2 border border-gray-300 rounded-md" />
-        </div>
-        <div class="flex flex-col">
-          <label for="postalCode" class="text-sm text-gray-600">Kod Pocztowy</label>
-          <input type="text" id="postalCode" v-model="postalCodeInput" class="mt-1 px-4 py-2 border border-gray-300 rounded-md" />
-        </div>
-        <div class="flex flex-col">
-          <label for="city" class="text-sm text-gray-600">Miasto</label>
-          <input type="text" id="city" v-model="cityInput" class="mt-1 px-4 py-2 border border-gray-300 rounded-md" />
-        </div>
-        <div class="flex flex-col">
-          <label for="additionalNotices" class="text-sm text-gray-600">Dodatkowe Uwagi</label>
-          <textarea id="additionalNotices" v-model="additionalNoticesInput" class="mt-1 px-4 py-2 border border-gray-300 rounded-md"></textarea>
+
+        <div v-if="state?.cart_token && !isNewOrder" class="flex justify-center mb-10 md:w-1/2 animate-slide-in-right">
+          <button class="w-60 text-white bg-cyan-400 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center" :disabled="loading" @click="handleSubmitWithToken">
+            Zapisz edycję
+          </button>
         </div>
       </div>
-      <div class="mt-4 flex items-center">
-        <input type="checkbox" id="abroad" v-model="abroadInput" class="h-4 w-4 text-indigo-600 bg-gray-100 border-gray-300 rounded focus:ring-indigo-500 focus:ring-2" />
-        <label for="abroad" class="ml-2 text-sm text-gray-900">Dostawa za granicę</label>
+
+      <div v-if="message" class="flex justify-center animate-bounce">
+        <div class="bg-green-500 rounded p-2 text-white">{{ message }}</div>
       </div>
-      <div class="mt-4 flex items-center">
-        <input type="checkbox" id="rules" v-model="rulesInput" class="h-4 w-4 text-indigo-600 bg-gray-100 border-gray-300 rounded focus:ring-indigo-500 focus:ring-2" />
-        <label for="rules" class="ml-2 text-sm text-gray-900">Akceptuję regulamin</label>
+    </div>
+  <!-- if loading variable show spinner -->
+  <div v-if="loading" class="fixed top-0 left-0 w-screen h-screen flex justify-center items-center bg-gray-500 bg-opacity-50">
+    <div class="bg-white rounded p-5">
+      <div class="flex justify-center items-center">
+        <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-gray-900" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+        </svg>
+        <span class="text-gray-900 text-lg">Ładowanie...</span>
       </div>
-      <div class="mt-6">
-        <button type="submit" :disabled="loading" class="bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded">
-          {{ loading ? 'Przetwarzanie...' : 'Złóż zamówienie' }}
-        </button>
-      </div>
-    </form>
+    </div>
   </div>
 </template>
 
