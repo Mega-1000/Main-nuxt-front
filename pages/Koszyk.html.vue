@@ -15,6 +15,7 @@ const productsCart = useProductsCart();
 const state = ref<any>();
 const selfPickup = ref(false);
 const userName = ref('');
+let isPostalCodeValid = ref(true);
 
 const { data: categories, pending } = await useAsyncData(async () => {
   try {
@@ -32,7 +33,7 @@ let phoneInput = ref(userData?.value?.phone || "");
 let postalCodeInput = userData?.value?.postal_code || "";
 let cityInput = userData?.value?.city || "";
 let additionalNoticesInput = "";
-let abroadInput = false;
+let abroadInput = ref(false);
 let rulesInput = false;
 let files: any[] = [];
 const message = ref("");
@@ -228,7 +229,7 @@ const handleSubmit = async (e: Event | null) => {
       city: cityInput,
       postal_code: postalCodeInput,
     },
-    shipping_abroad: abroadInput,
+    shipping_abroad: abroadInput.value,
     is_standard: true,
     files,
     order_items: productsCart.value.idsWithQuantity(),
@@ -444,6 +445,14 @@ const canAuctionBeMade = computed(() => {
   return isOrderStyrofoam && totalQuantity > 99;
 });
 
+const validatePostalCode = () => {
+  const polishPostalCodePattern = /^\d{2}-\d{3}$/;
+  isPostalCodeValid.value = abroadInput.value || polishPostalCodePattern.test(postalCodeInput);
+};
+
+watch(abroadInput, () => {
+  validatePostalCode();
+});
 
 const isOrderSmall = computed(() => {
   let isOrderStyrofoam = false;
@@ -627,6 +636,7 @@ const ShipmentCostItemsLeftText = (product: any) => {
                      required
                      :disabled="loading"
                      v-model="postalCodeInput"
+                     :pattern="abroadInput ? '.*' : '\\d{2}-\\d{3}'"
                      @input="validatePostalCode"
                      :class="{'border-red-500': !isPostalCodeValid}"
               />
