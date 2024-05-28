@@ -16,18 +16,8 @@ const state = ref<any>();
 const selfPickup = ref(false);
 const userName = ref('');
 let isPostalCodeValid = ref(true);
-
-const { data: categories, pending } = await useAsyncData(async () => {
-  try {
-    const res = await shopApi.get("/api/products/categories");
-    return res.data;
-  } catch (e: any) { }
-});
-
 const userToken = useUserToken();
-
 const userData = ref<any>();
-
 let emailInput = ref(userData?.value?.email || "");
 let phoneInput = ref(userData?.value?.phone || "");
 let postalCodeInput = userData?.value?.postal_code || "";
@@ -41,6 +31,13 @@ const auctionInput = ref('');
 const deliveryStartDate = ref('');
 const deliveryEndDate = ref('');
 const route = useRoute();
+
+const { data: categories, pending } = await useAsyncData(async () => {
+  try {
+    const res = await shopApi.get("/api/products/categories");
+    return res.data;
+  } catch (e: any) { }
+});
 
 onBeforeMount(async () => {
   await init();
@@ -160,50 +157,9 @@ const updateAmount = (productId: number, value: string | number) => {
   getPackagesNumber(productsCart.value);
 };
 
-const prepareSpecialProducts = (item: any) => {
-  let products: any[] = [];
-  item.packagesList.forEach((item: any) => {
-    products = products.concat(item.productList);
-  });
-  products = products.reduce((prev, current) => {
-    const existingElement = prev.find((el: any) => el.id === current.id);
-    if (existingElement) {
-      existingElement.quantity += current.quantity;
-    } else {
-      prev.push(current);
-    }
-    return prev;
-  }, []);
-  return products;
-};
-
-const loading = ref(false);
-const errorText2 = ref<string | null>(null);
-
-const handleFiles = (filesInput: any[]) => {
-  files = filesInput;
-};
-
-const areFilesValid = (files: any[]) => {
-  const availableFileExtensions = ["png", "jpg", "jpeg", "pdf", "tif", "gif"];
-
-  for (let i = 0; i < files.length; i++) {
-    const ext = files[i].name.substring(files[i].name.lastIndexOf(".") + 1);
-    if (!availableFileExtensions.includes(ext)) return false;
-  }
-
-  return true;
-};
-
 const handleSubmit = async (e: Event | null) => {
   e ? e.preventDefault() : null;
   loading.value = true;
-
-  if (files.length > 0 && !areFilesValid(files)) {
-    errorText2.value = "Nieprawidłowe pliki";
-    loading.value = false;
-    return;
-  }
   let hideFromCustomer = false;
 
   if (localStorage.getItem('isAdmin') == 'true') {
@@ -473,7 +429,6 @@ const isOrderSmall = computed(() => {
   return isOrderStyrofoam && totalQuantity <= 33;
 });
 
-
 const ShipmentCostItemsLeftText = (product: any) => {
   const itemPackageQuantity = product.assortment_quantity;
   const products = productsCart.value.products.filter((item: any) => item.delivery_type === product.delivery_type);
@@ -595,10 +550,6 @@ const ShipmentCostItemsLeftText = (product: any) => {
             <p class="text-lg font-medium">Łączna wartość oferty wraz z transportem</p>
             <p class="text-md">Brutto: {{ (parseFloat(productsCart.grossPrice()) + shipmentCostBrutto).toFixed(2) }} PLN</p>
           </div>
-          <div class="flex justify-between mb-4">
-            <p class="text-lg font-medium">Łączna waga</p>
-            <p class="text-md">{{ parseFloat(productsCart.totalWeight()).toFixed(2) }} kg</p>
-          </div>
         </div>
       </div>
     </div>
@@ -614,13 +565,6 @@ const ShipmentCostItemsLeftText = (product: any) => {
             <div>
               <label for="phone" class="block mb-2 text-sm font-medium text-gray-900">Numer telefonu</label>
               <input type="phone" name="phone" id="phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required :disabled="loading" v-model="phoneInput" />
-            </div>
-
-            <div class="flex items-start">
-              <div class="flex items-center h-5">
-                <input id="abroad" type="checkbox" v-model="abroadInput" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300" />
-              </div>
-              <label for="abroad" class="ml-2 text-sm font-medium text-gray-900">Wysyłka poza granice Polski</label>
             </div>
 
             <div class="flex items-start">

@@ -72,8 +72,11 @@ const onIframeError = () => {
       <section class="py-20 px-4 bg-white">
         <div class="container mx-auto">
           <h2 class="text-4xl md:text-5xl font-bold mb-10 text-center">
-            Zobacz mapę punktów odbioru osobistego w całej Polsce
+            Odbierz swoje zamówienie w jednym z 100 punktów odbioru
           </h2>
+          <h5 class="text-blue-500">
+            Kliknij na punkt aby wyślwietlić dostępne w nim styropiany
+          </h5>
           <MagasinesMap />
         </div>
       </section>
