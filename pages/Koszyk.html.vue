@@ -287,6 +287,21 @@ const handleSubmitWithToken = async () => {
     loading.value = false;
   }
 };
+
+const ShipmentCostItemsLeftText = (product: any) => {
+  const itemPackageQuantity = product.assortment_quantity;
+  const products = productsCart.value.products.filter((item: any) => item.delivery_type === product.delivery_type);
+  let itemsLeft;
+
+  if (products.length > 0) {
+    const itemsQuantity = Math.round((products.reduce((acc: any, item: any) => acc + item.amount / item.assortment_quantity, 0) % 1) * 100) / 100;
+    itemsLeft = Math.floor((1 - itemsQuantity) / (1 / itemPackageQuantity));
+  } else {
+    itemsLeft = itemPackageQuantity;
+  }
+
+  return `Możesz dodać do przesyłki jeszcze ${itemsLeft} ${product.unit_commercial} tego produktu aby uzupełnić do pełna paczkę i nie ponosić dodatkowych kosztów transportu.`;
+};
 </script>
 
 <template>
