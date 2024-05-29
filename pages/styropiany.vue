@@ -7,7 +7,7 @@ const showZipCodeModal = !localStorage.getItem('zipCode');
 const { $shopApi: shopApi } = useNuxtApp();
 const description = ref('');
 const isLoading = ref(true);
-const iframeSrc = 'https://admin.mega1000.pl/auctions/display-prices-table?zip-code=66-400';
+const iframeSrc = 'https://admin.mega1000.pl/auctions/display-prices-table?zip-code=' + localStorage.getItem('zipCode');
 
 onMounted(async () => {
   const data = await shopApi.get(`https://admin.mega1000.pl/api/categories/details/search?category=102`);
@@ -70,13 +70,13 @@ const onIframeError = () => {
       </section>
 
       <section class="py-20 px-4 bg-white">
-        <div class="container mx-auto">
-          <h2 class="text-4xl md:text-5xl font-bold mb-10 text-center">
+        <div class="container mx-auto text-center">
+          <h2 class="text-4xl md:text-5xl font-bold mb-10">
             Odbierz swoje zamówienie w jednym z 100 punktów odbioru
           </h2>
-          <h5 class="text-blue-500">
+          <h4 class="text-blue-500">
             Kliknij na punkt aby wyślwietlić dostępne w nim styropiany
-          </h5>
+          </h4>
           <MagasinesMap />
         </div>
       </section>

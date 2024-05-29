@@ -55,7 +55,7 @@ const handleCart = () => {
     icon: "warning",
     showCancelButton: true,
     confirmButtonColor: "#3085d6",
-    cancelButtonColor: "#d33",
+    cancelButtonColor: "#808080", // Change this line
     confirmButtonText: "Przejdź do koszyka",
     cancelButtonText: "Kontynuuj zakupy"
   }).then((result) => {
