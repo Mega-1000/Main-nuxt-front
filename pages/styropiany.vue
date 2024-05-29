@@ -58,11 +58,9 @@ const onIframeError = () => {
             <Loader :showLoader="isLoading" />
           </div>
           <iframe
-              v-show="!isLoading"
               ref="priceTable"
               title="Tabelka cen styropianów"
               :src="iframeSrc"
-              loading="lazy"
               :style="isLoading ? 'height: 800px' : 'height: 1px'"
               class="w-full border-2 border-gray-200 rounded-lg shadow-lg"
               sandbox="allow-scripts allow-same-origin"
