@@ -10,7 +10,7 @@ const isLoading = ref(true);
 const iframeSrc = 'https://admin.mega1000.pl/auctions/display-prices-table?zip-code=' + localStorage.getItem('zipCode');
 
 onMounted(async () => {
-  const data = await shopApi.get(`https://admin.mega1000.pl/api/categories/details/search?category=102`);
+  const data = await shopApi.get('https://admin.mega1000.pl/api/categories/details/search?category=102');
   description.value = data.data.description;
 
   window.addEventListener('message', handleIframeMessage);
@@ -37,7 +37,7 @@ const onIframeError = () => {
 </script>
 
 <template>
-  <AskUserForZipCodeStyrofoarms v-if="showZipCodeModal" />
+  <AskUserForZipCodeStyrofoams v-if="showZipCodeModal" />
   <div>
     <main>
       <section class="hero py-4 md:py-1 px-4 bg-gradient-to-r from-blue-600 to-blue-800 text-white">
@@ -54,8 +54,11 @@ const onIframeError = () => {
               Oprócz znalezienia najtańszej hurtowni w Polsce  która dostarczy ci ten styropian wraz z gratisowym transportem dokonamy także przetargu dla wszystkich pozostałych 50 producentów dla porównania.
             </div>
           </h2>
-          <Loader :showLoader="isLoading" />
+          <div class="loader-container" v-if="isLoading">
+            <Loader :showLoader="isLoading" />
+          </div>
           <iframe
+              v-show="!isLoading"
               ref="priceTable"
               title="Tabelka cen styropianów"
               :src="iframeSrc"
@@ -130,7 +133,7 @@ const onIframeError = () => {
       <section class="py-20 px-4 bg-white">
         <div class="container mx-auto">
           <h2 class="text-4xl md:text-5xl font-bold mb-10 text-center">Opinie Klientów</h2>
-          <div class="grid grid-cols-1md:grid-cols-3 gap-8">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div class="testimonial-card bg-gray-100 rounded-lg shadow-lg p-8">
               <blockquote class="text-gray-700 italic mb-4">
                 "Firma oferuje produkty wysokiej jakości, a obsługa klienta jest wspaniała. Zakupy tutaj to czysta przyjemność!"
@@ -159,5 +162,12 @@ const onIframeError = () => {
 <style>
 * {
   scroll-behavior: smooth;
+}
+
+.loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 800px; /* Same height as iframe to avoid content shifting */
 }
 </style>
