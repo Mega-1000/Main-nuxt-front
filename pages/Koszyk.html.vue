@@ -31,6 +31,7 @@ const auctionInput = ref('');
 const deliveryStartDate = ref('');
 const deliveryEndDate = ref('');
 const route = useRoute();
+const loading = ref(false);
 
 const { data: categories, pending } = await useAsyncData(async () => {
   try {
