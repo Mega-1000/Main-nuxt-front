@@ -83,7 +83,7 @@ alert('Failed to load the iframe content.');
           <h2 class="text-4xl md:text-5xl font-bold mb-10">
             Odbiór w jednym z 100 punktów
           </h2>
-          <h4 class="text-emerald-500">
+          <h4 class="text-emerald-500 font-bold text-lg">
             Kliknij na punkt aby sprawdzić dostępne w nim produkty
           </h4>
           <MagasinesMap />
