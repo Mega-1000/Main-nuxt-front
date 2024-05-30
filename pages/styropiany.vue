@@ -10,6 +10,15 @@ const isLoading = ref(true);
 const iframeSrc = 'https://admin.mega1000.pl/auctions/display-prices-table?zip-code=' + localStorage.getItem('zipCode');
 
 onMounted(async () => {
+  if (typeof window !== 'undefined' && window.gtag) {
+    window.gtag('event', 'page_view', {
+      page_path: window.location.pathname,
+      page_title: 'Important Page',
+      event_category: 'Important',
+      event_label: 'User entered an important page',
+    });
+  }
+
 const data = await shopApi.get('https://admin.mega1000.pl/api/categories/details/search?category=102');
 description.value = data.data.description;
 

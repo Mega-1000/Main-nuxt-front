@@ -8,6 +8,7 @@ import shipmentCostBruttoFn from "~/helpers/ShipmentCostCalculator";
 import emitter from "~/helpers/emitter";
 import ShipmentCostCalculator from "~/helpers/PackageCalculator";
 import swal from "sweetalert2";
+import {trackEvent} from "~/utils/trackEvent";
 
 const { query } = useRoute();
 const { $shopApi: shopApi, $buildImgRoute: buildImgRoute } = useNuxtApp();
@@ -351,11 +352,15 @@ const createChat = async (redirect: boolean) => {
   });
 
   if ((totalQuantity <= 33 && isOrderStyrofoam) || selfPickup.value) {
+    trackEvent('purchase', 'styropian', 'zakup z odbiorem osobistym', parseFloat(productsCart.value.grossPrice()) + shipmentCostBrutto.value);
+
     await router.push(`/selectWarehouse?token=${data.token}&total=${(parseFloat(productsCart.value.grossPrice()) + shipmentCostBrutto.value).toFixed(2)}&isOrderSmall=${(totalQuantity <= 33)}`);
     return;
   }
 
   if (isOrderStyrofoam && auctionInput.value) {
+    trackEvent('purchase', 'styropian', 'zakup przetargowy', parseFloat(productsCart.value.grossPrice()) + shipmentCostBrutto.value);
+
     const url = `${config.baseUrl}/chat-show-or-new/${data.id}/${data.customerId}?showAuctionInstructions=true`;
 
     window.location.href = url;

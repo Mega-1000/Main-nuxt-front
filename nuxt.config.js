@@ -1,9 +1,12 @@
 export default defineNuxtConfig({
   ssr: false,
-  modules: ["@nuxtjs/tailwindcss", "nuxt-icon", "@nuxt/devtools"],
+  modules: ["@nuxtjs/tailwindcss", "nuxt-icon", "@nuxt/devtools", "nuxt-gtag"],
+  gtag: {
+    id: 'G-24K8JMGMKW'
+  },
   devtools: {
     enabled: true,
-    vscode: {},
+    vscode: {}
   },
   runtimeConfig: {
     public: {
@@ -11,10 +14,10 @@ export default defineNuxtConfig({
       AUTH_CLIENT_SECRET: process.env.AUTH_CLIENT_SECRET,
       baseUrl: process.env.APP_STORAGE,
       nuxtNewFront: process.env.NEW_NUXT_SERVER,
-      google_analytics_id: process.env.google_analytics_id,
-    },
+      google_analytics_id: process.env.google_analytics_id
+    }
   },
   useHead: {
     title: "EPH Polska - styropiany, systemy elewacyjne, ocieplenia"
-  },
+  }
 });
