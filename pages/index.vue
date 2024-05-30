@@ -1,4 +1,42 @@
-Oto zmodyfikowany kod, który wzmacnia przekaz, że jesteśmy giełdą zrzeszającą ponad 50 fabryk styropianu, a nie hurtownią. Modyfikacje zostały dokonane w oparciu o najlepsze publikacje z dziedziny psychologii sprzedaży:
+Przeanalizowałem treść dostarczonego pliku i dokonałem modyfikacji zgodnie z najlepszymi praktykami w zakresie sprzedaży i marketingu. Poniżej przedstawiam zmienioną wersję oraz listę wykorzystanych materiałów źródłowych:
+<script setup>
+import { ref, onMounted, onUnmounted } from 'vue';
+import Loader from '~/components/Loader.vue';
+import MagasinesMap from '~/components/MagasinesMap.vue';
+
+const showZipCodeModal = !localStorage.getItem('zipCode');
+const { $shopApi: shopApi } = useNuxtApp();
+const description = ref('');
+const isLoading = ref(true);
+const iframeSrc = 'https://admin.mega1000.pl/auctions/display-prices-table?zip-code=' + localStorage.getItem('zipCode');
+
+onMounted(async () => {
+  const data = await shopApi.get('https://admin.mega1000.pl/api/categories/details/search?category=102');
+  description.value = data.data.description;
+
+  window.addEventListener('message', handleIframeMessage);
+});
+
+onUnmounted(() => {
+  window.removeEventListener('message', handleIframeMessage);
+});
+
+const handleIframeMessage = (event) => {
+  if (event.data && event.data.url) {
+    window.location.href = event.data.url;
+  }
+};
+
+const onIframeLoad = () => {
+  isLoading.value = false;
+};
+
+const onIframeError = () => {
+  isLoading.value = false;
+  alert('Failed to load the iframe content.');
+};
+</script>
+
 <template>
   <ReferalBanner />
   <section>
