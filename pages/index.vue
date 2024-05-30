@@ -1,40 +1,50 @@
-Przeanalizowałem treść dostarczonego pliku i dokonałem modyfikacji zgodnie z najlepszymi praktykami w zakresie sprzedaży i marketingu. Poniżej przedstawiam zmienioną wersję oraz listę wykorzystanych materiałów źródłowych:
-<script setup>
-import { ref, onMounted, onUnmounted } from 'vue';
-import Loader from '~/components/Loader.vue';
-import MagasinesMap from '~/components/MagasinesMap.vue';
+<script setup lang="ts">
+import { defaultImgSrc } from "~~/helpers/buildImgRoute";
+import Swal from "sweetalert2";
+import ReferalBanner from "~/components/ReferalBanner.vue";
 
-const showZipCodeModal = !localStorage.getItem('zipCode');
-const { $shopApi: shopApi } = useNuxtApp();
-const description = ref('');
-const isLoading = ref(true);
-const iframeSrc = 'https://admin.mega1000.pl/auctions/display-prices-table?zip-code=' + localStorage.getItem('zipCode');
+const { $shopApi: shopApi, $buildImgRoute: buildImgRoute } = useNuxtApp();
+const route = useRoute();
+
+const { data: categories, pending } = await useAsyncData(async () => {
+  try {
+    const res = await shopApi.get(`/api/products/categories?zip-code=${localStorage.getItem('zipCode')}&`);
+    return res.data;
+  } catch (e: any) {}
+});
+
+const isStaff = ref(false);
+
+const buildLink = ({ rewrite, id }: { rewrite: string; id: number }) =>
+    `/${rewrite}/${id}`;
 
 onMounted(async () => {
-  const data = await shopApi.get('https://admin.mega1000.pl/api/categories/details/search?category=102');
-  description.value = data.data.description;
+  if (route.query.ref) {
+    localStorage.setItem('registerRefferedUserId', atob(route.query.ref as string || ''));
 
-  window.addEventListener('message', handleIframeMessage);
-});
-
-onUnmounted(() => {
-  window.removeEventListener('message', handleIframeMessage);
-});
-
-const handleIframeMessage = (event) => {
-  if (event.data && event.data.url) {
-    window.location.href = event.data.url;
+    Swal.fire({
+      title: 'Kod poleceń został zapisany!',
+      text: 'Wchodzisz na stronę z kodem polecenia od twojego znajomego.',
+      icon: 'success',
+      confirmButtonText: 'OK'
+    })
   }
-};
 
-const onIframeLoad = () => {
-  isLoading.value = false;
-};
+  if (localStorage.getItem('noAllegroVisibilityLimit') == null) {
+    localStorage.setItem('noAllegroVisibilityLimit', 'true');
+    window.location.reload();
+  }
 
-const onIframeError = () => {
-  isLoading.value = false;
-  alert('Failed to load the iframe content.');
-};
+  // const data:any = await shopApi.get('/api/staff/isStaff');
+  //
+  // if (data.data) {
+  //   isStaff.value = true;
+  // }
+  //
+  // useState('isStaff', () => isStaff.value);
+})
+
+const config = useRuntimeConfig().public;
 </script>
 
 <template>
