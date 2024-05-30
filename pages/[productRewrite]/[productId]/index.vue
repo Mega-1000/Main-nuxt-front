@@ -251,20 +251,6 @@ const goToPage = async (val: number) => {
         </p>
       </a>
 
-<!--      <div class="rounded bg-red-500 p-8 text-white my-5 font-bold mx-6" v-if="isMainStyrofoamLobby">-->
-<!--        <div class="font-bold text-3xl">-->
-<!--          Chcesz zapłacić mniej?-->
-<!--        </div>-->
-<!---->
-<!--        <p class="mt-2">-->
-<!--          Sprawdź nasz system przetargowy. Pozwoli Ci uzyskać specjalne oferty cenowe bezpośrednio od producentów na podstawie Twojego zapytania.-->
-<!--          <nuxt-link href="/przetargi-styropianów">-->
-<!--            Kliknij tutaj-->
-<!--          </nuxt-link>-->
-<!--        </p>-->
-<!--      </div>-->
-
-
       <div v-if="isStaff && categoryFirmId">
         <a :href="`https://new.mega1000.pl/magazyn/aktualizacja-cen/${categoryFirmId}/zaktualizuj`" target="__blank">
           <SubmitButton>
@@ -275,6 +261,7 @@ const goToPage = async (val: number) => {
 
       <div
         class="grid max-w-8xl grid-cols-1 gap-6 px-6 pt-6 pb-40 sm:grid-cols-2 xl:grid-cols-3 mb-30"
+        v-if="currentCategoriesToDisplay.length !== 0"
       >
         <article
           v-for="product in currentCategoriesToDisplay"
