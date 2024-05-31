@@ -1,5 +1,4 @@
 export default defineNuxtConfig({
-  ssr: false,
   modules: ["@nuxtjs/tailwindcss", "nuxt-icon", "@nuxt/devtools", "nuxt-gtag"],
   gtag: {
     id: 'G-24K8JMGMKW'
