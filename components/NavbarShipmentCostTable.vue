@@ -1,11 +1,18 @@
 <script lang="ts" setup>
-  import ShipmentCostCalculatorFn from "~/helpers/ShipmentCostCalculator";
-  import PackageCalculator from "~/helpers/PackageCalculator";
+import { ref, onMounted, watch } from 'vue';
+import ShipmentCostCalculatorFn from "~/helpers/ShipmentCostCalculator";
+import PackageCalculator from "~/helpers/PackageCalculator";
 
-  const cart = ref();
-  const table = ref({});
-  const total = ref(0);
-  const showBox = ref(localStorage.getItem('showBox') === 'true');
+const isClient = typeof window !== 'undefined';
+
+const cart = ref(null);
+const table = ref({});
+const total = ref(0);
+const showBox = ref(false);
+
+// Client-side initialization
+if (isClient) {
+  showBox.value = localStorage.getItem('showBox') === 'true';
 
   onMounted(() => {
     if (localStorage.getItem('showBox') === null) {
@@ -13,26 +20,30 @@
     }
 
     init();
-    window.addEventListener('cart:change', () => init());
+    window.addEventListener('cart:change', init);
   });
 
   watch(showBox, (val) => {
     localStorage.setItem('showBox', val.toString());
   });
+}
 
-  const init = () => {
-    cart.value = new Cart();
-    cart.value.init();
+const init = () => {
+  const cartInstance = new Cart();
+  cartInstance.init();
+  cart.value = {
+    products: cartInstance.products
+  };
 
-    const { GLSks, GLSkd, DPDd } = PackageCalculator(cart.value.products);
+  const { GLSks, GLSkd, DPDd } = PackageCalculator(cart.value.products);
 
-    total.value = ShipmentCostCalculatorFn(cart.value.products)
-    table.value = {
-      GLS: GLSks,
-      GLs: GLSkd,
-      DPD: DPDd,
-    };
-  }
+  total.value = ShipmentCostCalculatorFn(cart.value.products);
+  table.value = {
+    GLS: GLSks,
+    GLs: GLSkd,
+    DPD: DPDd,
+  };
+};
 </script>
 
 <template>

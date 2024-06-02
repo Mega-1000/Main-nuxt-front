@@ -13,9 +13,9 @@
   const searchResults = ref([]);
 
   useSeoMeta({
-    title: 'EPH polska - styropiany, systemy elewacyjne, ocieplenia',
-    ogTitle: 'EPH polska - styropiany, systemy elewacyjne, ocieplenia',
-    description: 'systemy ociepleniowe z gwarancją najniższej ceny hurtownia styropianu ephpolska',
+    title: 'EPH Polska - Hurtownia Styropianu, Systemy Elewacyjne, Ocieplenia | Gwarancja Najniższej Ceny',
+    ogTitle: 'EPH Polska - Hurtownia Styropianu, Systemy Elewacyjne, Ocieplenia | Gwarancja Najniższej Ceny',
+    description: 'EPH Polska - hurtownia styropianu oferująca systemy ociepleniowe i elewacyjne z gwarancją najniższej ceny. Sprawdź naszą ofertę już dziś!',
   })
 
 onMounted(async () => {
