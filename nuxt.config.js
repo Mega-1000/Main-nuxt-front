@@ -2,7 +2,14 @@ export default defineNuxtConfig({
   ssr: false,
   modules: ["@nuxtjs/tailwindcss", "nuxt-icon", "@nuxt/devtools", "nuxt-gtag"],
   gtag: {
-    id: 'G-24K8JMGMKW'
+    tags: [
+      {
+        id: 'G-24K8JMGMKW'
+      },
+      {
+        id: 'AW-16473353139'
+      }
+    ]
   },
   devtools: {
     enabled: true,
