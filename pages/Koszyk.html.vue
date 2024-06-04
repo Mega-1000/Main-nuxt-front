@@ -372,7 +372,6 @@ const createChat = async (redirect: boolean) => {
     await router.push('/account');
     return;
   }
-
   await router.push(`/payment?token=${data.token}&total=${(parseFloat(productsCart.value.grossPrice()) + shipmentCostBrutto.value).toFixed(2)}`);
 };
 
