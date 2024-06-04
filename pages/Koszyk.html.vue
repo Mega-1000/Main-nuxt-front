@@ -404,7 +404,7 @@ const canAuctionBeMade = computed(() => {
     }
   });
 
-  return isOrderStyrofoam && totalQuantity > 99;
+  return isOrderStyrofoam && totalQuantity > 66;
 });
 
 const validatePostalCode = () => {
@@ -432,7 +432,7 @@ const isOrderSmall = computed(() => {
     }
   });
 
-  return isOrderStyrofoam && totalQuantity <= 33;
+  return isOrderStyrofoam && totalQuantity <= 49.5;
 });
 
 const ShipmentCostItemsLeftText = (product: any) => {
