@@ -73,6 +73,9 @@ const changeTab = (tabName) => {
 
 
 const showTutorial = () => {
+  if (localStorage.getItem('tutorialEnded')) {
+    return;
+  }
   tutorialActive.value = true;
 
   switch (tutorialStep.value) {
@@ -111,6 +114,7 @@ const showTutorial = () => {
       tutorialNextButtonText.value = 'Zakończ';
       break;
     case 4:
+      localStorage.setItem('tutorialEnded', true);
       tutorialActive.value = false;
   }
 };
