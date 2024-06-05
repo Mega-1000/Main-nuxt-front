@@ -123,7 +123,7 @@ const nextTutorialStep = () => {
 </script>
 
 <template>
-  <div class="mb-5 border-b border-gray-200 mt-5 flex justify-center" ref="navLinks">
+  <div class="mb-5 border-b border-gray-200 mt-5 flex justify-center" ref="navigationLink">
     <ul class="flex flex-wrap -mb-px text-sm font-medium text-center text-black" id="tabExample" role="tablist">
       <li class="mr-2" role="presentation">
         <button @click="changeTab('active')" :class="{'border-b-2 border-blue-500': currentTab === 'active'}" class="inline-block p-4 rounded-t-lg hover:text-gray-600 hover:border-gray-300" role="tab">
