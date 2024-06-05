@@ -234,3 +234,97 @@ const nextTutorialStep = () => {
   </div>
 
 </template>
+
+
+<style scoped>
+/* Styles for the user dashboard */
+.user-dashboard {
+  display: flex;
+}
+
+.sidebar {
+  width: 200px;
+  background-color: #f1f1f1;
+  padding: 20px;
+}
+
+.logo {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+nav ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+nav a {
+  display: block;
+  padding: 10px;
+  text-decoration: none;
+  color: #333;
+}
+
+.main-content {
+  flex: 1;
+  padding: 20px;
+}
+
+/* Styles for the tutorial modals */
+.tutorial-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.tutorial-modal {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  max-width: 500px;
+  text-align: center;
+  position: relative;
+}
+
+.tutorial-content {
+  position: relative;
+}
+
+.tutorial-highlight {
+  position: absolute;
+  background-color: rgba(255, 255, 0, 0.2);
+  border-radius: 4px;
+}
+
+.tutorial-highlight::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  border: 2px dashed #ff0;
+  border-radius: 6px;
+  animation: highlight 1s infinite;
+}
+
+@keyframes highlight {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 255, 0, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(255,255, 0, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 255, 0, 0.5);
+  }
+}
+</style>
