@@ -218,7 +218,7 @@ const nextTutorialStep = () => {
     </ul>
   </nav>
 
-  <div class="tutorial-highlight" style="position: fixed" :style="tutorialHighlightStyle" v-if="tutorialActive">
+  <div class="tutorial-highlight" style="position: fixed" :style="tutorialHighlightStyle" v-if="tutorialActive" style="z-index: 888">
     <slot name="tutorial-highlight"></slot>
   </div>
 
