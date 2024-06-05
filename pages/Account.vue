@@ -105,7 +105,7 @@ const showTutorial = () => {
       break;
     case 3:
       tutorialTitle.value = 'Zarządzanie zamówieniami i faktura proforma';
-      tutorialDescription.value = 'Customize your preferences and settings ';
+      tutorialDescription.value = 'W tym module możesz zarządzać swoimi ofertami. Możesz dodać potwierdzenie przelewu, edytować ofertę, pobrać fakturę proformę i wiele więcej!';
       const settingsLinkRect = settingsLink.value.getBoundingClientRect();
       tutorialHighlightStyle.top = settingsLinkRect.top + window.pageYOffset + 'px';
       tutorialHighlightStyle.left = settingsLinkRect.left + window.pageXOffset + 'px';
@@ -218,15 +218,17 @@ const nextTutorialStep = () => {
     </ul>
   </nav>
 
-  <div v-if="tutorialActive" class="tutorial-overlay" style="z-index: 1000">
-    <div class="tutorial-modal">
-      <div class="tutorial-content">
-        <h3>{{ tutorialTitle }}</h3>
-        <p>{{ tutorialDescription }}</p>
-        <div class="tutorial-highlight" style="position: fixed" :style="tutorialHighlightStyle">
-          <slot name="tutorial-highlight"></slot>
+  <div v-if="tutorialActive">
+    <div class="tutorial-overlay">
+      <div class="tutorial-modal-container">
+        <div class="tutorial-modal">
+          <div class="tutorial-content">
+            <!-- Modal content -->
+            <div class="tutorial-highlight" style="position: relative" :style="tutorialHighlightStyle">
+              <slot name="tutorial-highlight"></slot>
+            </div>
+          </div>
         </div>
-        <SubmitButton @click="nextTutorialStep">{{ tutorialNextButtonText }}</SubmitButton>
       </div>
     </div>
   </div>
@@ -292,7 +294,7 @@ nav a {
   position: relative;
 }
 
-.tutorial-content {
+.tutorial-modal-container {
   position: relative;
 }
 
