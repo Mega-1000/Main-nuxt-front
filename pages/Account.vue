@@ -89,6 +89,7 @@ const showTutorial = () => {
       tutorialHighlightStyle.left = navigationLinkRect.left + window.pageXOffset + 'px';
       tutorialHighlightStyle.width = navigationLinkRect.width + 'px';
       tutorialHighlightStyle.height = navigationLinkRect.height + 'px';
+      tutorialNextButtonText.value = 'Następny krok';
       break;
     case 2:
       tutorialTitle.value = 'Edycja danych powiązanych z kontem';
@@ -107,7 +108,10 @@ const showTutorial = () => {
       tutorialHighlightStyle.left = settingsLinkRect.left + window.pageXOffset + 'px';
       tutorialHighlightStyle.width = settingsLinkRect.width + 'px';
       tutorialHighlightStyle.height = settingsLinkRect.height + 'px';
+      tutorialNextButtonText.value = 'Zakończ';
       break;
+    case 4:
+      tutorialActive.value = false;
   }
 };
 
@@ -144,18 +148,22 @@ const nextTutorialStep = () => {
   </div>
 
   <div class="max-w-7xl mx-auto">
-    <SubmitButton class="max-w-7xl mx-auto my-4" ref="profileLink">
-      <nuxt-link href="/EditAccountInformations">
-        Edytuj adresy i dane powiązane z twoim kontem
-      </nuxt-link>
-    </SubmitButton>
+    <span ref="profileLink">
+      <SubmitButton class="max-w-7xl mx-auto my-4">
+        <nuxt-link href="/EditAccountInformations">
+          Edytuj adresy i dane powiązane z twoim kontem
+        </nuxt-link>
+      </SubmitButton>
+    </span>
   </div>
 
   <div id="tabContentExample" class="pb-20">
     <div v-if="currentTab === 'active'" id="active-content" role="tabpanel">
       <div class="grid space-y-10">
         <div class="flex justify-center" v-for="(order, index) in orders.active" :key="order.id">
-          <OrderItem :item="order" :ref="index === 0 ? settingsLink : null" />
+          <div :ref="index === 0 ? settingsLink : null">
+            <OrderItem :item="order" />
+          </div>
         </div>
       </div>
     </div>
