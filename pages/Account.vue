@@ -218,17 +218,15 @@ const nextTutorialStep = () => {
     </ul>
   </nav>
 
-  <div v-if="tutorialActive">
-    <div class="tutorial-overlay">
-      <div class="tutorial-modal-container">
-        <div class="tutorial-modal">
-          <div class="tutorial-content">
-            <!-- Modal content -->
-            <div class="tutorial-highlight" style="position: relative" :style="tutorialHighlightStyle">
-              <slot name="tutorial-highlight"></slot>
-            </div>
-          </div>
+  <div v-if="tutorialActive" class="tutorial-overlay">
+    <div class="tutorial-modal" style="z-index: 999">
+      <div class="tutorial-content">
+        <h3 class="text-2xl font-bold">{{ tutorialTitle }}</h3>
+        <p>{{ tutorialDescription }}</p>
+        <div class="tutorial-highlight" style="position: fixed" :style="tutorialHighlightStyle">
+          <slot name="tutorial-highlight"></slot>
         </div>
+        <SubmitButton @click="nextTutorialStep" class="mt-4">{{ tutorialNextButtonText }}</SubmitButton>
       </div>
     </div>
   </div>
@@ -281,7 +279,7 @@ nav a {
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 999;
+  z-index: 888;
 }
 
 .tutorial-modal {
