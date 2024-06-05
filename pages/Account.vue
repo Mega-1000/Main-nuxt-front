@@ -46,6 +46,7 @@ watch(currentPage, (newPage) => {
 // Initial fetch moved to onMounted to ensure it runs once component is mounted
 onMounted(() => {
   fetchOrders(currentPage.value);
+  showTutorial();
   // Other setup tasks
 });
 
