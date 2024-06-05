@@ -214,7 +214,7 @@ const nextTutorialStep = () => {
     </ul>
   </nav>
 
-  <div v-if="tutorialActive" class="tutorial-overlay">
+  <div v-if="tutorialActive" class="tutorial-overlay" style="z-index: 1000">
     <div class="tutorial-modal">
       <div class="tutorial-content">
         <h3>{{ tutorialTitle }}</h3>
