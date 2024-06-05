@@ -218,11 +218,13 @@ const nextTutorialStep = () => {
     </ul>
   </nav>
 
-  <div class="tutorial-highlight" style="position: fixed;z-index: 888" :style="tutorialHighlightStyle" v-if="tutorialActive">
-    <slot name="tutorial-highlight"></slot>
+  <div v-if="tutorialActive">
+    <div class="tutorial-highlight" style="position: fixed;z-index: 888" :style="tutorialHighlightStyle">
+      <slot name="tutorial-highlight"></slot>
+    </div>
   </div>
 
-  <div v-if="tutorialActive" class="tutorial-overlay">
+  <div v-if="tutorialActive">
     <div class="tutorial-modal" style="z-index: 999">
       <div class="tutorial-content">
         <h3 class="text-2xl font-bold">{{ tutorialTitle }}</h3>
