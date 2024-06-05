@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
 import { Tabs } from "flowbite";
 import type { TabsOptions, TabsInterface, TabItem } from "flowbite";
 import OrderItem from "~~/components/account/OrderItem.vue";
@@ -10,6 +10,20 @@ const currentPage = ref(1);
 const totalPages = ref(0);
 const currentTab = ref('active');
 let orders = reactive({ active: [], inactive: [], all: [] });
+
+const navigationLink = ref(null);
+const profileLink = ref(null);
+const settingsLink = ref(null);
+const logoutLink = ref(null);
+const navLinks = ref(null);
+
+const tutorialActive = ref(false);
+const tutorialTitle = ref('');
+const tutorialDescription = ref('');
+const tutorialHighlightStyle = reactive({});
+const tutorialNextButtonText = ref('Next');
+const tutorialStep = ref(0);
+
 
 // Adjusted fetchOrders to directly update the orders ref
 const fetchOrders = async (page) => {
@@ -56,6 +70,70 @@ function setupTabs() {
 const changeTab = (tabName) => {
   currentTab.value = tabName;
 };
+
+
+const showTutorial = () => {
+  tutorialActive.value = true;
+
+  switch (tutorialStep.value) {
+    case 0:
+      tutorialTitle.value = 'Welcome';
+      tutorialDescription.value = 'This tutorial will guide you through the user dashboard.';
+      tutorialHighlightStyle.top = navLinks.value.offsetTop + 'px';
+      tutorialHighlightStyle.left = navLinks.value.offsetLeft + 'px';
+      tutorialHighlightStyle.width = navLinks.value.offsetWidth + 'px';
+      tutorialHighlightStyle.height = navLinks.value.offsetHeight + 'px';
+      tutorialNextButtonText.value = 'Start';
+      break;
+    case 1:
+      tutorialTitle.value = 'Navigation';
+      tutorialDescription.value = 'This is your navigation menu. Click on the items to access different sections.';
+      const navigationLinkRect = navigationLink.value.getBoundingClientRect();
+      tutorialHighlightStyle.top = navigationLinkRect.top + window.pageYOffset + 'px';
+      tutorialHighlightStyle.left = navigationLinkRect.left + window.pageXOffset + 'px';
+      tutorialHighlightStyle.width = navigationLinkRect.width + 'px';
+      tutorialHighlightStyle.height = navigationLinkRect.height + 'px';
+      break;
+    case 2:
+      tutorialTitle.value = 'Profile';
+      tutorialDescription.value = 'Click here to view and update your profile information.';
+      const profileLinkRect = profileLink.value.getBoundingClientRect();
+      tutorialHighlightStyle.top = profileLinkRect.top + window.pageYOffset + 'px';
+      tutorialHighlightStyle.left = profileLinkRect.left + window.pageXOffset + 'px';
+      tutorialHighlightStyle.width = profileLinkRect.width + 'px';
+      tutorialHighlightStyle.height = profileLinkRect.height + 'px';
+      break;
+    case 3:
+      tutorialTitle.value = 'Settings';
+      tutorialDescription.value = 'Customize your preferences and settings from here.';
+      const settingsLinkRect = settingsLink.value.getBoundingClientRect();
+      tutorialHighlightStyle.top = settingsLinkRect.top + window.pageYOffset + 'px';
+      tutorialHighlightStyle.left = settingsLinkRect.left + window.pageXOffset + 'px';
+      tutorialHighlightStyle.width = settingsLinkRect.width + 'px';
+      tutorialHighlightStyle.height = settingsLinkRect.height + 'px';
+      break;
+    case 4:
+      tutorialTitle.value = 'Logout';
+      tutorialDescription.value = 'Click here to logout from your account.';
+      const logoutLinkRect = logoutLink.value.getBoundingClientRect();
+      tutorialHighlightStyle.top = logoutLinkRect.top + window.pageYOffset + 'px';
+      tutorialHighlightStyle.left = logoutLinkRect.left + window.pageXOffset + 'px';
+      tutorialHighlightStyle.width = logoutLinkRect.width + 'px';
+      tutorialHighlightStyle.height = logoutLinkRect.height + 'px';
+      tutorialNextButtonText.value = 'Finish';
+      break;
+  }
+};
+
+const nextTutorialStep = () => {
+  if (tutorialStep.value === 4) {
+    tutorialActive.value = false;
+  } else {
+    tutorialStep.value++;
+    showTutorial();
+  }
+};
+
 </script>
 
 <template>
@@ -80,7 +158,7 @@ const changeTab = (tabName) => {
   </div>
 
   <div class="max-w-7xl mx-auto">
-    <SubmitButton class="max-w-7xl mx-auto my-4">
+    <SubmitButton class="max-w-7xl mx-auto my-4" :ref="profileLink">
       <nuxt-link href="/EditAccountInformations">
         Edytuj adresy i dane powiązane z twoim kontem
       </nuxt-link>
@@ -141,5 +219,18 @@ const changeTab = (tabName) => {
       </li>
     </ul>
   </nav>
+
+  <div v-if="tutorialActive" class="tutorial-overlay">
+    <div class="tutorial-modal">
+      <div class="tutorial-content">
+        <h3>{{ tutorialTitle }}</h3>
+        <p>{{ tutorialDescription }}</p>
+        <div class="tutorial-highlight" style="position: fixed" :style="tutorialHighlightStyle">
+          <slot name="tutorial-highlight"></slot>
+        </div>
+        <button @click="nextTutorialStep">{{ tutorialNextButtonText }}</button>
+      </div>
+    </div>
+  </div>
 
 </template>
