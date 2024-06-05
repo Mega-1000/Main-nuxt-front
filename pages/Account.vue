@@ -144,7 +144,7 @@ const nextTutorialStep = () => {
   </div>
 
   <div class="max-w-7xl mx-auto">
-    <SubmitButton class="max-w-7xl mx-auto my-4" :ref="profileLink">
+    <SubmitButton class="max-w-7xl mx-auto my-4" ref="profileLink">
       <nuxt-link href="/EditAccountInformations">
         Edytuj adresy i dane powiązane z twoim kontem
       </nuxt-link>
