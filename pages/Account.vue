@@ -105,6 +105,8 @@ const showTutorial = () => {
       break;
     case 3:
       document.querySelector('.tutorial-modal').style.top = 0;
+      document.querySelector('.tutorial-modal').style.position = 'fixed';
+
       tutorialTitle.value = 'Zarządzanie zamówieniami i faktura proforma';
       tutorialDescription.value = 'W tym module możesz zarządzać swoimi ofertami. Możesz dodać potwierdzenie przelewu, edytować ofertę, pobrać fakturę proformę i wiele więcej!';
       const settingsLinkRect = settingsLink.value.getBoundingClientRect();
