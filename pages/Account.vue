@@ -99,15 +99,14 @@ const showTutorial = () => {
       tutorialHighlightStyle.width = profileLinkRect.width + 'px';
       tutorialHighlightStyle.height = profileLinkRect.height + 'px';
       break;
-    case 4:
-      tutorialTitle.value = 'Logout';
-      tutorialDescription.value = 'Click here to logout from your account.';
-      const logoutLinkRect = logoutLink.value.getBoundingClientRect();
-      tutorialHighlightStyle.top = logoutLinkRect.top + window.pageYOffset + 'px';
-      tutorialHighlightStyle.left = logoutLinkRect.left + window.pageXOffset + 'px';
-      tutorialHighlightStyle.width = logoutLinkRect.width + 'px';
-      tutorialHighlightStyle.height = logoutLinkRect.height + 'px';
-      tutorialNextButtonText.value = 'Zakończ tutorial';
+    case 3:
+      tutorialTitle.value = 'Zarządzanie zamówieniami i faktura proforma';
+      tutorialDescription.value = 'Customize your preferences and settings ';
+      const settingsLinkRect = settingsLink.value.getBoundingClientRect();
+      tutorialHighlightStyle.top = settingsLinkRect.top + window.pageYOffset + 'px';
+      tutorialHighlightStyle.left = settingsLinkRect.left + window.pageXOffset + 'px';
+      tutorialHighlightStyle.width = settingsLinkRect.width + 'px';
+      tutorialHighlightStyle.height = settingsLinkRect.height + 'px';
       break;
   }
 };
@@ -155,8 +154,8 @@ const nextTutorialStep = () => {
   <div id="tabContentExample" class="pb-20">
     <div v-if="currentTab === 'active'" id="active-content" role="tabpanel">
       <div class="grid space-y-10">
-        <div class="flex justify-center" v-for="order in orders.active" :key="order.id">
-          <OrderItem :item="order" />
+        <div class="flex justify-center" v-for="(order, index) in orders.active" :key="order.id">
+          <OrderItem :item="order" :ref="index === 0 ? settingsLink : null" />
         </div>
       </div>
     </div>
