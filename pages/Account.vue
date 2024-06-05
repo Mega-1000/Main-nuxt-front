@@ -44,8 +44,8 @@ watch(currentPage, (newPage) => {
 });
 
 // Initial fetch moved to onMounted to ensure it runs once component is mounted
-onMounted(() => {
-  fetchOrders(currentPage.value);
+onMounted(async () => {
+  await fetchOrders(currentPage.value);
   showTutorial();
   // Other setup tasks
 });
@@ -161,7 +161,7 @@ const nextTutorialStep = () => {
     <div v-if="currentTab === 'active'" id="active-content" role="tabpanel">
       <div class="grid space-y-10">
         <div class="flex justify-center" v-for="(order, index) in orders.active" :key="order.id">
-          <div ref="settingsLink" >
+          <div ref="settingsLink">
             <OrderItem :item="order" />
           </div>
         </div>
