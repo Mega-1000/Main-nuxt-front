@@ -218,14 +218,15 @@ const nextTutorialStep = () => {
     </ul>
   </nav>
 
+  <div class="tutorial-highlight" style="position: fixed" :style="tutorialHighlightStyle">
+    <slot name="tutorial-highlight"></slot>
+  </div>
+
   <div v-if="tutorialActive" class="tutorial-overlay">
     <div class="tutorial-modal" style="z-index: 999">
       <div class="tutorial-content">
         <h3 class="text-2xl font-bold">{{ tutorialTitle }}</h3>
         <p>{{ tutorialDescription }}</p>
-        <div class="tutorial-highlight" style="position: fixed" :style="tutorialHighlightStyle">
-          <slot name="tutorial-highlight"></slot>
-        </div>
         <SubmitButton @click="nextTutorialStep" class="mt-4">{{ tutorialNextButtonText }}</SubmitButton>
       </div>
     </div>
