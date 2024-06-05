@@ -77,17 +77,13 @@ const showTutorial = () => {
 
   switch (tutorialStep.value) {
     case 0:
-      tutorialTitle.value = 'Welcome';
-      tutorialDescription.value = 'This tutorial will guide you through the user dashboard.';
-      tutorialHighlightStyle.top = navLinks.value.offsetTop + 'px';
-      tutorialHighlightStyle.left = navLinks.value.offsetLeft + 'px';
-      tutorialHighlightStyle.width = navLinks.value.offsetWidth + 'px';
-      tutorialHighlightStyle.height = navLinks.value.offsetHeight + 'px';
+      tutorialTitle.value = 'Witamy w panelu użytkownika!';
+      tutorialDescription.value = 'W tym tutorialu pokażemy ci jak kożystać z twojego konta w portalu EPH Polska.';
       tutorialNextButtonText.value = 'Start';
       break;
     case 1:
-      tutorialTitle.value = 'Navigation';
-      tutorialDescription.value = 'This is your navigation menu. Click on the items to access different sections.';
+      tutorialTitle.value = 'Grupy zamówień';
+      tutorialDescription.value = 'W tej sekcji możesz wybrać grupę zamówień. Domyślnie jest to "Aktywne".';
       const navigationLinkRect = navigationLink.value.getBoundingClientRect();
       tutorialHighlightStyle.top = navigationLinkRect.top + window.pageYOffset + 'px';
       tutorialHighlightStyle.left = navigationLinkRect.left + window.pageXOffset + 'px';
@@ -95,22 +91,13 @@ const showTutorial = () => {
       tutorialHighlightStyle.height = navigationLinkRect.height + 'px';
       break;
     case 2:
-      tutorialTitle.value = 'Profile';
-      tutorialDescription.value = 'Click here to view and update your profile information.';
+      tutorialTitle.value = 'Edycja danych powiązanych z kontem';
+      tutorialDescription.value = 'Kliknij tutaj aby edytować adresy i zarządzać danymi powiązanymi z twoim kontem.';
       const profileLinkRect = profileLink.value.getBoundingClientRect();
       tutorialHighlightStyle.top = profileLinkRect.top + window.pageYOffset + 'px';
       tutorialHighlightStyle.left = profileLinkRect.left + window.pageXOffset + 'px';
       tutorialHighlightStyle.width = profileLinkRect.width + 'px';
       tutorialHighlightStyle.height = profileLinkRect.height + 'px';
-      break;
-    case 3:
-      tutorialTitle.value = 'Settings';
-      tutorialDescription.value = 'Customize your preferences and settings from here.';
-      const settingsLinkRect = settingsLink.value.getBoundingClientRect();
-      tutorialHighlightStyle.top = settingsLinkRect.top + window.pageYOffset + 'px';
-      tutorialHighlightStyle.left = settingsLinkRect.left + window.pageXOffset + 'px';
-      tutorialHighlightStyle.width = settingsLinkRect.width + 'px';
-      tutorialHighlightStyle.height = settingsLinkRect.height + 'px';
       break;
     case 4:
       tutorialTitle.value = 'Logout';
@@ -120,7 +107,7 @@ const showTutorial = () => {
       tutorialHighlightStyle.left = logoutLinkRect.left + window.pageXOffset + 'px';
       tutorialHighlightStyle.width = logoutLinkRect.width + 'px';
       tutorialHighlightStyle.height = logoutLinkRect.height + 'px';
-      tutorialNextButtonText.value = 'Finish';
+      tutorialNextButtonText.value = 'Zakończ tutorial';
       break;
   }
 };
@@ -228,7 +215,7 @@ const nextTutorialStep = () => {
         <div class="tutorial-highlight" style="position: fixed" :style="tutorialHighlightStyle">
           <slot name="tutorial-highlight"></slot>
         </div>
-        <button @click="nextTutorialStep">{{ tutorialNextButtonText }}</button>
+        <SubmitButton @click="nextTutorialStep">{{ tutorialNextButtonText }}</SubmitButton>
       </div>
     </div>
   </div>
