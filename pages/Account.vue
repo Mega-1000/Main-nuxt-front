@@ -104,6 +104,7 @@ const showTutorial = () => {
       tutorialHighlightStyle.height = profileLinkRect.height + 'px';
       break;
     case 3:
+      document.querySelector('.tutorial-modal').
       tutorialTitle.value = 'Zarządzanie zamówieniami i faktura proforma';
       tutorialDescription.value = 'W tym module możesz zarządzać swoimi ofertami. Możesz dodać potwierdzenie przelewu, edytować ofertę, pobrać fakturę proformę i wiele więcej!';
       const settingsLinkRect = settingsLink.value.getBoundingClientRect();
@@ -218,12 +219,12 @@ const nextTutorialStep = () => {
     </ul>
   </nav>
 
-  <div class="tutorial-highlight" style="position: fixed;z-index: 888" :style="tutorialHighlightStyle" v-if="tutorialActive">
+  <div class="tutorial-highlight" style="position: fixed; z-index: 888" :style="tutorialHighlightStyle" v-if="tutorialActive">
     <slot name="tutorial-highlight"></slot>
   </div>
 
   <div v-if="tutorialActive" class="tutorial-overlay">
-    <div class="tutorial-modal" style="z-index: 999">
+    <div class="tutorial-modal">
       <div class="tutorial-content">
         <h3 class="text-2xl font-bold">{{ tutorialTitle }}</h3>
         <p>{{ tutorialDescription }}</p>
@@ -291,6 +292,7 @@ nav a {
   max-width: 500px;
   text-align: center;
   position: relative;
+  z-index: 900; /* Add a higher z-index value */
 }
 
 .tutorial-modal-container {
