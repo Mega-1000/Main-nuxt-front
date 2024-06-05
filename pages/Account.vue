@@ -157,11 +157,11 @@ const nextTutorialStep = () => {
     </span>
   </div>
 
-  <div id="tabContentExample" class="pb-20">
+  <div id="tabContentExample" class="pb-20" ref="settingsLink">
     <div v-if="currentTab === 'active'" id="active-content" role="tabpanel">
       <div class="grid space-y-10">
         <div class="flex justify-center" v-for="(order, index) in orders.active" :key="order.id">
-          <div ref="settingsLink">
+          <div>
             <OrderItem :item="order" />
           </div>
         </div>
