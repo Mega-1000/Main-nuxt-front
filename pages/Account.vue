@@ -1,6 +1,5 @@
 <script setup>
 import { Tabs } from "flowbite";
-import type { TabsOptions, TabsInterface, TabItem } from "flowbite";
 import OrderItem from "~~/components/account/OrderItem.vue";
 
 const { $shopApi: shopApi } = useNuxtApp();
@@ -57,13 +56,13 @@ const goToPage = (page) => {
 
 // Setup tabs - assuming this logic is needed for your component
 function setupTabs() {
-  const tabElements: TabItem[] = [
+  const tabElements = [
     // Define your tab elements here
   ];
-  const tabsOptions: TabsOptions = {
+  const tabsOptions = {
     // Define your tabs options here
   };
-  const tabs: TabsInterface = new Tabs(tabElements, tabsOptions);
+  const tabs = new Tabs(tabElements, tabsOptions);
   tabs.show("active");
 }
 
