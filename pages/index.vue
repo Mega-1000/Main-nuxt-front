@@ -49,6 +49,26 @@ const config = useRuntimeConfig().public;
 
 <template>
   <ReferalBanner />
+  <div class="bg-gradient-to-r from-emerald-800 to-teal-900 text-white py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col items-center">
+        <h2 class="text-3xl md:text-5xl font-bold mb-4 text-white text-center">Kup styropian w najniższych cenach bezpośrednio od producentów!</h2>
+        <p class="font-bold text-center mb-2 text-white text-lg md:text-2xl">
+          Uzyskaj bezpośrednie wyceny od ponad 50 producentów lub odbierz styropian w jednym z 100 magazynów
+        </p>
+        <p class="font-bold text-yellow-300 mb-4 text-lg md:text-2xl text-center">
+          Nowość! Płatność przy odbiorze!
+        </p>
+        <NuxtLink href="/styropiany" class="bg-yellow-400 text-emerald-800 font-semibold text-lg md:text-2xl py-2 px-6 rounded hover:bg-yellow-500 transition-colors duration-300 flex items-center justify-center">
+          <span>Chce otrzymać wyceny bezpośrednio od producentów</span>
+          <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          </svg>
+        </NuxtLink>
+      </div>
+    </div>
+  </div>
+
   <section>
     <div class="mx-auto max-w-screen-xl pb-10">
       <NuxtLink class="md:grid flex md:gap-8 justify-between text-gray-400 grid-cols-10 gap-5 mx-1" href="/styropiany">
@@ -85,25 +105,7 @@ const config = useRuntimeConfig().public;
       </NuxtLink>
     </div>
   </section>
-  <div class="bg-gradient-to-r from-emerald-800 to-teal-900 text-white py-12">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex flex-col items-center">
-        <h2 class="text-3xl md:text-5xl font-bold mb-4 text-white text-center">Kup styropian w najniższych cenach bezpośrednio od producentów!</h2>
-        <p class="font-bold text-center mb-2 text-white text-lg md:text-2xl">
-          Uzyskaj bezpośrednie wyceny od ponad 50 producentów lub odbierz styropian w jednym z 100 magazynów
-        </p>
-        <p class="font-bold text-yellow-300 mb-4 text-lg md:text-2xl text-center">
-          Nowość! Płatność przy odbiorze!
-        </p>
-        <NuxtLink href="/styropiany" class="bg-yellow-400 text-emerald-800 font-semibold text-lg md:text-2xl py-2 px-6 rounded hover:bg-yellow-500 transition-colors duration-300 flex items-center justify-center">
-          <span>Chce otrzymać wyceny bezpośrednio od producentów</span>
-          <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-          </svg>
-        </NuxtLink>
-      </div>
-    </div>
-  </div>
+
   <Slider />
   <div v-if="pending" class="flex justify-center py-12">
     <div class="text-center text-xl text-gray-600">Ładowanie...</div>
