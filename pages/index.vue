@@ -70,7 +70,7 @@ const config = useRuntimeConfig().public;
   </div>
 
   <section>
-    <div class="mx-auto max-w-screen-xl pb-10">
+    <div class="mx-auto max-w-screen-xl py-10">
       <NuxtLink class="md:grid flex md:gap-8 justify-between text-gray-400 grid-cols-10 gap-5 mx-1" href="/styropiany">
         <div class="flex justify-center items-center hover:scale-105 transition-transform duration-300 hidden md:flex">
           <img src="/genderka.webp" alt="Genderka - Lider rynku" class="md:w-[70%]">
