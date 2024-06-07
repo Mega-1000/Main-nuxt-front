@@ -40,7 +40,7 @@ onMounted(async () => {
 });
 
 const handleCart = () => {
-  const { cart: _cart, ...product } = item.value;
+  const { cart: _cart, ...product} = item.value;
   productsCart.value.addToCart(currentItem.value, productAmount.value);
   modal.value?.hide();
   emitter.emit("cart:change");
