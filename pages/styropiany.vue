@@ -43,9 +43,37 @@ const onIframeError = () => {
 isLoading.value = false;
 alert('Failed to load the iframe content.');
 };
+
+const products = [
+  {
+    id: 88674,
+    name: 'izoterm fazada',
+    gross_selling_price_calculated_unit: 234.23,
+    url_for_website: 'https://admin.mega1000.pl/storage/products/izoterm_fasada_EPS70_040_1.jpg',
+  },
+  {
+    id: 88674,
+    name: 'izoterm fazada',
+    gross_selling_price_calculated_unit: 234.23,
+    url_for_website: 'https://admin.mega1000.pl/storage/products/izoterm_fasada_EPS70_040_1.jpg',
+  },
+  {
+    id: 88674,
+    name: 'izoterm fazada',
+    gross_selling_price_calculated_unit: 234.23,
+    url_for_website: 'https://admin.mega1000.pl/storage/products/izoterm_fasada_EPS70_040_1.jpg',
+  },
+  {
+    id: 88674,
+    name: 'izoterm fazada',
+    gross_selling_price_calculated_unit: 234.23,
+    url_for_website: 'https://admin.mega1000.pl/storage/products/izoterm_fasada_EPS70_040_1.jpg',
+  }
+]
 </script>
 <template>
   <AskUserForZipCodeStyrofoams v-if="showZipCodeModal" />
+
   <div>
     <main>
       <section class="hero py-4 md:py-1 px-4 bg-gradient-to-r from-emerald-600 to-emerald-800 text-white">
@@ -53,6 +81,22 @@ alert('Failed to load the iframe content.');
           <h5 class="text-lg md:text-6xl font-extrabold mb-1 mt-6 md:mb-6">Płać wygodnie przy odbiorze!</h5>
         </div>
       </section>
+
+      <div class="mx-auto w-[60%] my-6">
+        <span class="font-extrabold text-2xl">
+          Najpopularniejsze produkty w najlepszych cenach cenach 🔥
+        </span>
+        <div class="flex justify-between mt-4">
+          <nuxt-link :href="`/singleProduct/${product.id}`" v-for="product in products" :key="product.id" class="flex-shrink-0 bg-white shadow-md rounded-lg overflow-hidden">
+            <img :src="`https://admin.mega1000.pl${product.url_for_website}`" :alt="product.name" class="h-48 w-full object-cover">
+            <div class="px-4 py-3">
+              <h3 class="text-lg font-semibold text-gray-900">{{ product.name }}</h3>
+              <p class="text-gray-500">{{ product.gross_selling_price_calculated_unit }}PLN/M3</p>
+            </div>
+          </nuxt-link>
+        </div>
+      </div>
+
       <section class="py-10 px-4 bg-gray-100">
         <div class="container mx-auto relative">
           <h2 class="text-2xl md:text-3xl font-extrabold mb-10 text-center text-emerald-500">
