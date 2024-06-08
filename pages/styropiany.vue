@@ -76,32 +76,46 @@ const products = [
 
   <div>
     <main>
-      <section class="hero py-4 md:py-1 px-4 bg-gradient-to-r from-emerald-600 to-emerald-800 text-white">
+      <section class="hero py-2 px-2 md:py-4 md:px-4 bg-gradient-to-r from-emerald-600 to-emerald-800 text-white">
         <div class="container mx-auto text-center">
-          <h5 class="text-lg md:text-6xl font-extrabold mb-1 mt-6 md:mb-6">Płać wygodnie przy odbiorze!</h5>
+          <h1 class="text-2xl md:text-6xl font-extrabold mb-1 mt-2 md:mb-6">Płać wygodnie przy odbiorze!</h1>
+          <div class="mb-4 mx-auto w-full md:w-fit">
+            <iframe class="w-full md:w-[500px] h-[200px] md:h-[250px]" src="https://www.youtube.com/embed/jXvGNRFHukU?si=iRerNLoGElIHfoq2" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          </div>
         </div>
       </section>
 
-      <div class="mx-auto w-[70%] my-6">
-        <span class="font-extrabold text-2xl">
-          Najpopularniejsze produkty w najlepszych cenach cenach 🔥
-        </span>
-        <div class="flex justify-between mt-4">
-          <nuxt-link :href="`/singleProduct/${product.id}`" v-for="product in products" :key="product.id" class="flex-shrink-0 bg-white shadow-md rounded-lg overflow-hidden">
+      <div class="mx-auto w-full md:w-[70%] my-8">
+        <div class="font-extrabold text-xl md:text-2xl my-4 md:my-8">
+          Najpopularniejsze produkty w najlepszych cenach 🔥
+        </div>
+        <div class="flex flex-wrap justify-center md:justify-between mt-4">
+          <nuxt-link v-for="product in products" :key="product.id" :href="`/singleProduct/${product.id}`" class="flex-shrink-0 bg-white shadow-md rounded-lg overflow-hidden mb-4 md:mb-0 w-full md:w-auto">
             <img :src="`https://admin.mega1000.pl${product.url_for_website}`" :alt="product.name" class="h-48 w-full object-cover">
             <div class="px-4 py-3">
-              <h3 class="text-lg font-semibold text-gray-900 ">{{ product.name }}🔥</h3>
-              <p class="text-red-500 font-extrabold text-2xl">{{ product.gross_selling_price_calculated_unit }}PLN/M3</p>
+              <h3 class="text-lg font-semibold text-gray-900">{{ product.name }}🔥</h3>
+              <p class="text-red-500 font-extrabold text-xl md:text-2xl">{{ product.gross_selling_price_calculated_unit }}PLN/M3</p>
             </div>
           </nuxt-link>
         </div>
+
+        <a class="text-center mt-8 text-lg md:text-xl w-fit mx-auto flex gap-2 align-center" href="#price-table">
+          <div>
+            Zobacz tabelę cen
+          </div>
+          <div>
+            <svg xmlns="http://www.w3.org/2000/svg" style="font-weight: bolder; float: right" width="20" height="20" md:width="26" md:height="26" fill="currentColor" class="bi bi-arrow-down" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1"/>
+            </svg>
+          </div>
+        </a>
       </div>
 
-      <section class="py-10 px-4 bg-gray-100">
+      <section class="py-6 px-2 md:py-10 md:px-4 bg-gray-100" id="price-table">
         <div class="container mx-auto relative">
-          <h2 class="text-2xl md:text-3xl font-extrabold mb-10 text-center text-emerald-500">
+          <h2 class="text-xl md:text-3xl font-extrabold mb-6 md:mb-10 text-center text-emerald-500">
             Wybierz styropian z tabeli, kliknij cenę - dodasz do koszyka.<br>
-            <div class="text-lg text-black mt-2">
+            <div class="text-sm md:text-lg text-black mt-2">
               Oprócz znalezienia najtańszej hurtowni w Polsce która dostarczy ci ten styropian wraz z gratisowym transportem dokonamy także przetargu dla wszystkich pozostałych 50 producentów dla porównania.
             </div>
           </h2>
@@ -113,7 +127,7 @@ const products = [
               title="Tabelka cen styropianów"
               :src="iframeSrc"
               loading="lazy"
-              :style="!isLoading ? 'height: 800px' : 'height: 1px'"
+              :style="!isLoading ? 'height: 600px' : 'height: 1px'"
               class="w-full border-2 border-gray-200 rounded-lg shadow-lg"
               sandbox="allow-scripts allow-same-origin"
               @load="onIframeLoad"
@@ -122,26 +136,33 @@ const products = [
         </div>
       </section>
 
-      <section class="py-20 px-4 bg-white">
+      <section class="py-10 px-2 md:py-20 md:px-4 bg-white">
         <div class="container mx-auto text-center">
-          <h2 class="text-4xl md:text-5xl font-bold mb-10">
+          <h2 class="text-2xl md:text-4xl md:text-5xl font-bold mb-4 md:mb-10">
             Odbiór w jednym z 100 punktów
           </h2>
-          <h4 class="text-emerald-500 font-bold text-lg">
+          <h4 class="text-emerald-500 font-bold text-sm md:text-lg">
             Kliknij na punkt aby sprawdzić dostępne w nim produkty
           </h4>
           <MagasinesMap />
         </div>
       </section>
 
-      <section class="py-10 px-4 bg-gray-100" id="instructions">
-        <div class="container mx-auto">
+      <section class="py-6 px-2 md:py-10 md:px-4 bg-gray-100" id="videos">
+        <div class="container w-full md:w-[70%] mx-auto">
+          <span class="text-xl w-fit font-bold">
+            Obejżyj filmy poradnikowe przygotowane dla ciebie 📽
+          </span>
+          <div class="flex flex-wrap justify-center gap-4 md:gap-10">
+            <iframe class="w-full md:w-[500px] h-[200px] md:h-[315px]" src="https://www.youtube.com/embed/jXvGNRFHukU?si=iRerNLoGElIHfoq2" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <iframe class="w-full md:w-[500px] h-[200px] md:h-[315px]" src="https://www.youtube.com/embed/jXvGNRFHukU?si=iRerNLoGElIHfoq2" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          </div>
           <div v-html="description"></div>
         </div>
       </section>
 
-      <section class="py-10 px-4 bg-gray-100" id="instructions">
-        <div class="container mx-auto text-center flex gap-2 md:gap-4 mx-auto w-fit">
+      <section class="py-6 px-2 md:py-10 md:px-4 bg-gray-100" id="instructions">
+        <div class="container mx-auto text-center flex flex-wrap justify-center gap-2 md:gap-4">
           <NuxtLink href="/100styropiany-elewacyjne/101" class="bg-emerald-500 rounded px-2 md:px-4 py-2 text-white font-semibold">
             Styropiany elewacyjne
           </NuxtLink>
@@ -154,50 +175,50 @@ const products = [
         </div>
       </section>
 
-      <section class="py-20 px-4 bg-emerald-600 text-white">
-        <div class="container mx-auto">
-          <h2 class="text-4xl md:text-5xl font-bold mb-10 text-center">Polecaj i oszczędzaj!</h2>
-          <p class="text-lg md:text-xl mb-10">
+      <section class="py-10 px-2 md:py-20 md:px-4 bg-emerald-600 text-white">
+        <div class="container mx-auto text-center">
+          <h2 class="text-2xl md:text-4xl md:text-5xl font-bold mb-4 md:mb-10">Polecaj i oszczędzaj!</h2>
+          <p class="text-sm md:text-lg mb-4 md:mb-10">
             Zaproś znajomych, a otrzymasz 30 zł zniżki za każdego nowego użytkownika! Proste i korzystne.
           </p>
-          <a href="https://mega1000.pl/polec-znajomego" class="bg-emerald-500 hover:bg-emerald-700 text-white font-medium py-4 px-10 rounded-full inline-block transition-colors duration-300">Sprawdź swój panel poleceń</a>
+          <a href="https://mega1000.pl/polec-znajomego" class="bg-emerald-500 hover:bg-emerald-700 text-white font-medium py-2 md:py-4 px-4 md:px-10 rounded-full inline-block transition-colors duration-300">Sprawdź swój panel poleceń</a>
         </div>
       </section>
 
-      <section class="py-20 px-4 bg-gray-100">
+      <section class="py-10 px-2 md:py-20 md:px-4 bg-gray-100">
         <div class="container mx-auto">
-          <h2 class="text-4xl md:text-5xl font-bold mb-10 text-center">Skontaktuj się z nami</h2>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div class="contact-card bg-white rounded-lg shadow-lg p-8">
-              <h3 class="text-2xl font-bold mb-4">Zadzwoń</h3>
+          <h2 class="text-2xl md:text-4xl md:text-5xl font-bold mb-4 md:mb-10 text-center">Skontaktuj się z nami</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
+            <div class="contact-card bg-white rounded-lg shadow-lg p-4 md:p-8">
+              <h3 class="text-xl md:text-2xl font-bold mb-2 md:mb-4">Zadzwoń</h3>
               <p class="text-gray-600">Telefon: <span class="font-bold">+48 507 925 963</span></p>
             </div>
-            <div class="contact-card bg-white rounded-lg shadow-lg p-8">
-              <h3 class="text-2xl font-bold mb-4">Napisz</h3>
+            <div class="contact-card bg-white rounded-lg shadow-lg p-4 md:p-8">
+              <h3 class="text-xl md:text-2xl font-bold mb-2 md:mb-4">Napisz</h3>
               <p class="text-gray-600">E-mail: <span class="font-bold">styropiany@ephpolska.pl</span></p>
             </div>
           </div>
         </div>
       </section>
 
-      <section class="py-20 px-4 bg-white">
+      <section class="py-10 px-2 md:py-20 md:px-4 bg-white">
         <div class="container mx-auto">
-          <h2 class="text-4xl md:text-5xl font-bold mb-10 text-center">Co mówią klienci?</h2>
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div class="testimonial-card bg-gray-100 rounded-lg shadow-lg p-8">
-              <blockquote class="text-gray-700 italic mb-4">
+          <h2 class="text-2xl md:text-4xl md:text-5xl font-bold mb-4 md:mb-10 text-center">Co mówią klienci?</h2>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8">
+            <div class="testimonial-card bg-gray-100 rounded-lg shadow-lg p-4 md:p-8">
+              <blockquote class="text-gray-700 italic mb-2 md:mb-4">
                 "Najwyższa jakość produktów i obsługa na medal! Zakupy tutaj to czysta przyjemność."
               </blockquote>
               <cite class="text-gray-600 font-bold">– Anna K.</cite>
             </div>
-            <div class="testimonial-card bg-gray-100 rounded-lg shadow-lg p-8">
-              <blockquote class="text-gray-700 italic mb-4">
+            <div class="testimonial-card bg-gray-100 rounded-lg shadow-lg p-4 md:p-8">
+              <blockquote class="text-gray-700 italic mb-2 md:mb-4">
                 "Dzięki profesjonalnemu doradztwu wybrałem idealne rozwiązanie izolacyjne. Jestem bardzo zadowolony."
               </blockquote>
               <cite class="text-gray-600 font-bold">– Piotr W.</cite>
             </div>
-            <div class="testimonial-card bg-gray-100 rounded-lg shadow-lg p-8">
-              <blockquote class="text-gray-700 italic mb-4">
+            <div class="testimonial-card bg-gray-100 rounded-lg shadow-lg p-4 md:p-8">
+              <blockquote class="text-gray-700 italic mb-2 md:mb-4">
                 "Korzystam wielokrotnie i za każdym razem doświadczam rzetelności i pełnego zaangażowania. Gorąco polecam!"
               </blockquote>
               <cite class="text-gray-600 font-bold">– Tomasz Z.</cite>
