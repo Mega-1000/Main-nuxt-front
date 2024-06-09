@@ -11,6 +11,13 @@ export default defineNuxtConfig({
       }
     ]
   },
+  scripts: {
+    registry: {
+      hotjar: {
+        id: '5017434'
+      }
+    }
+  },
   devtools: {
     enabled: true,
     vscode: {}
