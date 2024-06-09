@@ -127,6 +127,23 @@ const config = useRuntimeConfig().public;
           <div>
             <div class="grid grid-cols-1 gap-6 p-6 sm:grid-cols-2 lg:grid-cols-3">
               <article
+                  class="h-full w-full sm:w-auto rounded-lg bg-white p-3 shadow hover:shadow-xl transition-shadow duration-300"
+              >
+                  <NuxtLink to="styropiany">
+                    <div class="overflow-hidden rounded-xl">
+                      <img
+                          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJZ06hGXAWHAg824Q5nCFxGD7FN16hK4S7PA&s"
+                          class="w-full h-auto transition-transform duration-300 hover:scale-105"
+                      />
+                    </div>
+                    <div class="mt-2 p-2">
+                      <h2 class="text-gray-900 font-medium text-lg">
+                         Styropiany
+                      </h2>
+                    </div>
+                  </NuxtLink>
+              </article>
+              <article
                   v-for="category in categories"
                   :key="category.id"
                   class="h-full w-full sm:w-auto rounded-lg bg-white p-3 shadow hover:shadow-xl transition-shadow duration-300"
