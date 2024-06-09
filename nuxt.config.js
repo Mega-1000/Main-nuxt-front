@@ -1,6 +1,6 @@
 export default defineNuxtConfig({
   ssr: false,
-  modules: ["@nuxtjs/tailwindcss", "nuxt-icon", "@nuxt/devtools", "nuxt-gtag"],
+  modules: ["@nuxtjs/tailwindcss", "nuxt-icon", "@nuxt/devtools", "nuxt-gtag", 'nuxt-module-hotjar'],
   gtag: {
     tags: [
       {
@@ -11,12 +11,12 @@ export default defineNuxtConfig({
       }
     ]
   },
-  scripts: {
-    registry: {
-      hotjar: {
-        id: '5017434'
-      }
-    }
+  hotjar: {
+    hotjarId: 1234567,
+    scriptVersion: 6,
+
+    // optionally you can turn on debug mode for development
+    debug: true
   },
   devtools: {
     enabled: true,

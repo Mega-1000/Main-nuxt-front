@@ -395,6 +395,11 @@
   "resolved" "https://registry.npmjs.org/@formkit/auto-animate/-/auto-animate-0.7.0.tgz"
   "version" "0.7.0"
 
+"@hotjar/browser@^1.0.9":
+  "integrity" "sha512-n9akDMod8BLGpYEQCrHwlYWWd63c1HlhUSXNIDfClZtKYXbUjIUOFlNZNNcUxgHTCsi4l2i+SWKsGsO0t93S8w=="
+  "resolved" "https://registry.npmjs.org/@hotjar/browser/-/browser-1.0.9.tgz"
+  "version" "1.0.9"
+
 "@iconify/types@^2.0.0":
   "integrity" "sha512-+wluvCrRhXrhyOmRDJ3q8mux9JkKy5SJ/v8ol2tu4FVjyYvtEzkc/3pK15ET6RKg4b4w4BmTk1+gsCUhf21Ykg=="
   "resolved" "https://registry.npmjs.org/@iconify/types/-/types-2.0.0.tgz"
@@ -5491,6 +5496,14 @@
     "@iconify/vue" "^4.0.2"
     "@nuxt/kit" "^3.1.0"
     "nuxt-config-schema" "^0.4.4"
+
+"nuxt-module-hotjar@^1.2.6":
+  "integrity" "sha512-OF1vFxUlyZX10FfWIWSxBNp6Lkl9p7ufPFQqFwwLMUhXzFEqaa1cG65G/92Ona+W36nM8l24PaZHT+zHXXMqig=="
+  "resolved" "https://registry.npmjs.org/nuxt-module-hotjar/-/nuxt-module-hotjar-1.2.6.tgz"
+  "version" "1.2.6"
+  dependencies:
+    "@hotjar/browser" "^1.0.9"
+    "@nuxt/kit" "^3.11.2"
 
 "nuxt@^3.1.0", "nuxt@^3.2.2":
   "integrity" "sha512-IznN+nogCvDuI3IpjXSphdcGBTEeAdpG1iv01inXMWUAeViXhx6FpfPJ2BjQ1WBuahwcUkV2xmMhB3gsv3SLhw=="
