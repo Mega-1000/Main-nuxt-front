@@ -9,6 +9,8 @@ const description = ref('');
 const isLoading = ref(true);
 const iframeSrc = 'https://admin.mega1000.pl/auctions/display-prices-table?zip-code=' + localStorage.getItem('zipCode');
 const tutorialVideo = ref(null);
+const productCarousel = ref(null)
+let carouselInterval = null
 
 onMounted(async () => {
   if (typeof window !== 'undefined' && window.gtag) {
@@ -25,6 +27,15 @@ onMounted(async () => {
 
   window.addEventListener('message', handleIframeMessage);
   window.addEventListener('navbar-tutorial-ended', playTutorialVideo);
+
+  if (productCarousel.value && window.innerWidth < 768) {
+    carouselInterval = setInterval(() => {
+      productCarousel.value.scrollBy({
+        left: 300,
+        behavior: 'smooth',
+      })
+    }, 3000)
+  }
 });
 
 onUnmounted(() => {
@@ -99,16 +110,24 @@ const products = [
         <div class="font-extrabold text-xl md:text-2xl my-4 md:my-8">
           Najpopularniejsze produkty w najlepszych cenach 🔥
         </div>
-        <div class="flex flex-wrap justify-center md:justify-between mt-4">
-          <nuxt-link v-for="product in products" :key="product.id" :href="`/singleProduct/${product.id}`" class="flex-shrink-0 bg-white shadow-md rounded-lg overflow-hidden mb-4 md:mb-0 w-full md:w-auto">
-            <img :src="`https://admin.mega1000.pl${product.url_for_website}`" :alt="product.name" class="h-48 w-full object-cover">
+        <div class="flex overflow-auto scrolling-wrapper md:justify-between mt-4" ref="productCarousel">
+          <nuxt-link
+              v-for="product in products"
+              :key="product.id"
+              :href="`/singleProduct/${product.id}`"
+              class="flex-shrink-0 bg-white shadow-md rounded-lg overflow-hidden mb-4 md:mb-0 w-fit md:w-auto mx-2"
+          >
+            <img
+                :src="`https://admin.mega1000.pl${product.url_for_website}`"
+                :alt="product.name"
+                class="h-48 object-cover"
+            />
             <div class="px-4 py-3">
               <h3 class="text-lg font-semibold text-gray-900">{{ product.name }}🔥</h3>
               <p class="text-red-500 font-extrabold text-xl md:text-2xl">{{ product.gross_selling_price_calculated_unit }}PLN/M3</p>
             </div>
           </nuxt-link>
         </div>
-
         <a class="text-center mt-8 text-lg md:text-xl w-fit mx-auto flex gap-2 align-center" href="#price-table">
           <div>
             Zobacz tabelę cen
