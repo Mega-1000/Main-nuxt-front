@@ -78,9 +78,9 @@ const products = [
     <main>
       <section class="hero py-2 px-2 md:py-4 md:px-4 bg-gradient-to-r from-emerald-600 to-emerald-800 text-white">
         <div class="container mx-auto text-center">
-          <h1 class="text-2xl md:text-6xl font-extrabold mb-1 mt-2 md:mb-6">Płać wygodnie przy odbiorze!</h1>
+          <h1 class="text-2xl md:text-6xl font-extrabold mb-1 mt-2 md:mb-6">Dowiedz się jak działa nasza plaforma !</h1>
           <div class="mb-4 mx-auto w-full md:w-fit">
-            <iframe class="w-full md:w-[500px] h-[200px] md:h-[250px]" src="https://www.youtube.com/embed/jXvGNRFHukU?si=iRerNLoGElIHfoq2" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/wWe4qP8W_b0?si=4Llrhh1aspu4Q73Q" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
           </div>
         </div>
       </section>

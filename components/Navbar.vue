@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
   import { getToken, removeCookie } from "~~/helpers/authenticator";
   import Cart from "~~/utils/Cart";
   import Cookies from "universal-cookie";
@@ -12,6 +12,19 @@
   const searchQuery = ref('');
   const searchResults = ref([]);
 
+  const navigationLink = ref(null);
+  const profileLink = ref(null);
+  const settingsLink = ref(null);
+  const logoutLink = ref(null);
+  const navLinks = ref(null);
+
+  const tutorialActive = ref(false);
+  const tutorialTitle = ref('');
+  const tutorialDescription = ref('');
+  const tutorialHighlightStyle = reactive({});
+  const tutorialNextButtonText = ref('Next');
+  const tutorialStep = ref(0);
+
   useSeoMeta({
     title: 'EPH Polska - Hurtownia Styropianu, Systemy Elewacyjne, Ocieplenia | Gwarancja Najniższej Ceny',
     ogTitle: 'EPH Polska - Hurtownia Styropianu, Systemy Elewacyjne, Ocieplenia | Gwarancja Najniższej Ceny',
@@ -19,6 +32,7 @@
   })
 
 onMounted(async () => {
+  showTutorial();
   const cookies = new Cookies();
   userToken.value = cookies.get("token");
 
@@ -49,7 +63,7 @@ const checkUserLoggedIn = () => {
   }
 }
 
-const buildCustomLink = (pageId: number) => `/custom/${pageId}`;
+const buildCustomLink = (pageId) => `/custom/${pageId}`;
 
 const logOut = () => {
   removeCookie();
@@ -65,6 +79,62 @@ const toggleMenu = () => {
 const searchProduct = async () => {
   searchResults.value = (await shopApi.get(`/api/searchProduct/${searchQuery.value}`)).data;
 }
+
+  const showTutorial = () => {
+    if (localStorage.getItem('navbarTutorialEnded')) {
+      return;
+    }
+    tutorialActive.value = true;
+
+    switch (tutorialStep.value) {
+      case 0:
+        tutorialTitle.value = 'Witamy w EPH Polska!';
+        tutorialDescription.value = 'W tym tutorialu pokażemy ci kilka funkcji naszego portalu.';
+        tutorialNextButtonText.value = 'Chce dowiedzieć się jak działacie!';
+        break;
+      case 1:
+        tutorialTitle.value = 'Wyszukiwanie';
+        tutorialDescription.value = 'Jeśli poszukujesz konktetnego produktu wpisz to tutaj a my pokażemy ci wyniki.';
+        const navigationLinkRect = navigationLink.value.getBoundingClientRect();
+        tutorialHighlightStyle.top = navigationLinkRect.top + window.pageYOffset + 'px';
+        tutorialHighlightStyle.left = navigationLinkRect.left + window.pageXOffset + 'px';
+        tutorialHighlightStyle.width = navigationLinkRect.width + 'px';
+        tutorialHighlightStyle.height = navigationLinkRect.height + 'px';
+        tutorialNextButtonText.value = 'Następny krok';
+        break;
+      case 2:
+        tutorialTitle.value = 'Koszyk';
+        tutorialDescription.value = 'W tym miejscu możesz wejść do koszyka i wysłać zapytanie ofertowe.';
+        const profileLinkRect = profileLink.value.getBoundingClientRect();
+        tutorialHighlightStyle.top = profileLinkRect.top + window.pageYOffset + 'px';
+        tutorialHighlightStyle.left = profileLinkRect.left + window.pageXOffset + 'px';
+        tutorialHighlightStyle.width = profileLinkRect.width + 'px';
+        tutorialHighlightStyle.height = profileLinkRect.height + 'px';
+        break;
+      case 3:
+        tutorialTitle.value = 'Sklep';
+        tutorialDescription.value = 'Jeśli chcesz wrócić do sklepu i dodać inne produkty wejdź tutaj!';
+        const settingsLinkRect = settingsLink.value.getBoundingClientRect();
+        tutorialHighlightStyle.top = settingsLinkRect.top + window.pageYOffset + 'px';
+        tutorialHighlightStyle.left = settingsLinkRect.left + window.pageXOffset + 'px';
+        tutorialHighlightStyle.width = settingsLinkRect.width + 'px';
+        tutorialHighlightStyle.height = settingsLinkRect.height + 'px';
+        tutorialNextButtonText.value = 'Wszystko jasne przechodzę do strony.';
+        break;
+      case 4:
+        localStorage.setItem('navbarTutorialEnded', true);
+        tutorialActive.value = false;
+    }
+  };
+
+  const nextTutorialStep = () => {
+    if (tutorialStep.value === 4) {
+      tutorialActive.value = false;
+    } else {
+      tutorialStep.value++;
+      showTutorial();
+    }
+  };
 </script>
 
 <template>
@@ -81,7 +151,9 @@ const searchProduct = async () => {
 
           <!-- Desktop Navigation Links -->
           <div class="hidden md:ml-6 md:flex md:space-x-8">
-            <NuxtLink v-if="!isVisibilityLimited" href="/" class="nav-link">Sklep</NuxtLink>
+            <span ref="settingsLink">
+              <NuxtLink v-if="!isVisibilityLimited" href="/" class="nav-link">Sklep</NuxtLink>
+            </span>
             <NuxtLink v-if="!isVisibilityLimited" href="/info" class="nav-link">Kontakt</NuxtLink>
             <NuxtLink v-if="userToken && !isVisibilityLimited" href="/account" class="nav-link">Konto</NuxtLink>
             <NuxtLink href="/Complaint" v-if="userToken" class="nav-link">Zgłoś reklamację</NuxtLink>
@@ -94,15 +166,18 @@ const searchProduct = async () => {
 
         <!-- Search Bar and Cart -->
         <div class="flex items-center">
-          <div class="relative md:mr-4">
+          <div class="relative md:mr-4" ref="navigationLink">
             <input type="search" v-model="searchQuery" @input="searchProduct()" class="search-input" placeholder="Wyszukaj produkt" />
           </div>
-          <NuxtLink href="/koszyk.html" class="relative inline-flex items-center text-sm font-medium text-gray-900 hover:text-gray-700 focus:outline-none focus:text-gray-700 transition duration-150 ease-in-out">
-            <Icon name="clarity:shopping-cart-solid" size="40" class="text-cyan-500" />
-            <span v-if="productsCart.products.length > 0" class="cart-count">
-              {{ productsCart.products.length > 9 ? '9+' : productsCart.products.length }}
-            </span>
-          </NuxtLink>
+
+          <div ref="profileLink">
+            <NuxtLink href="/koszyk.html" class="relative inline-flex items-center text-sm font-medium text-gray-900 hover:text-gray-700 focus:outline-none focus:text-gray-700 transition duration-150 ease-in-out">
+              <Icon name="clarity:shopping-cart-solid" size="40" class="text-cyan-500" />
+              <span v-if="productsCart.products.length > 0" class="cart-count">
+                {{ productsCart.products.length > 9 ? '9+' : productsCart.products.length }}
+              </span>
+            </NuxtLink>
+          </div>
         </div>
 
         <!-- Mobile Menu Toggle -->
@@ -185,6 +260,27 @@ const searchProduct = async () => {
     <div class="ml-4 flex-shrink-0">
       <NavbarShipmentCostTable />
     </div>
+
+
+    <div class="tutorial-highlight" style="position: fixed; z-index: 888" :style="tutorialHighlightStyle" v-if="tutorialActive">
+      <slot name="tutorial-highlight"></slot>
+    </div>
+
+    <div v-if="tutorialActive" class="tutorial-overlay">
+      <div class="tutorial-modal">
+        <div class="tutorial-content">
+          <h3 class="text-2xl font-bold">{{ tutorialTitle }}</h3>
+          <p>{{ tutorialDescription }}</p>
+          <SubmitButton @click="nextTutorialStep" class="mt-4">{{ tutorialNextButtonText }}</SubmitButton>
+          <button v-if="tutorialStep === 0" @click="tutorialActive = false" class="text-white bg-red-700 hover:bg-red-800 mt-2 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center disabled:bg-gray-500">
+            Dzięki, ogarnę portal sam
+          </button>
+          <button v-if="tutorialStep === 3" @click="tutorialStep = 0; nextTutorialStep()" class="text-white bg-red-700 hover:bg-red-800 mt-2 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center disabled:bg-gray-500">
+            Chce zobaczyć poradnik jeszcze raz
+          </button>
+        </div>
+      </div>
+    </div>
   </nav>
 </template>
 
@@ -234,5 +330,95 @@ const searchProduct = async () => {
 
 .star-active {
   @apply text-yellow-400;
+}
+ .user-dashboard {
+   display: flex;
+ }
+
+.sidebar {
+  width: 200px;
+  background-color: #f1f1f1;
+  padding: 20px;
+}
+
+.logo {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+nav ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+nav a {
+  display: block;
+  padding: 10px;
+  text-decoration: none;
+  color: #333;
+}
+
+.main-content {
+  flex: 1;
+  padding: 20px;
+}
+
+/* Styles for the tutorial modals */
+.tutorial-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 887;
+}
+
+.tutorial-modal {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  max-width: 500px;
+  text-align: center;
+  position: relative;
+  z-index: 900; /* Add a higher z-index value */
+}
+
+.tutorial-modal-container {
+  position: relative;
+}
+
+.tutorial-highlight {
+  position: absolute;
+  background-color: rgba(255, 255, 0, 0.2);
+  border-radius: 4px;
+}
+
+.tutorial-highlight::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  border: 2px dashed #ff0;
+  border-radius: 6px;
+  animation: highlight 1s infinite;
+}
+
+@keyframes highlight {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 255, 0, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(255,255, 0, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 255, 0, 0.5);
+  }
 }
 </style>
