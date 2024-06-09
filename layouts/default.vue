@@ -11,8 +11,6 @@ onMounted(() => {
 });
 </script>
 
-
-
 <template>
   <Navbar v-if="!isNoLayout" />
   <NuxtPage class="mb-40" />

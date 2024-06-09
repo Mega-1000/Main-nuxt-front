@@ -67,29 +67,24 @@ alert('Failed to load the iframe content.');
 
 const products = [
   {
-    id: 88674,
-    name: 'izoterm fasada EPS70 038 ',
-    gross_selling_price_calculated_unit: 205.41,
-    url_for_website: '/storage/products/izoterm_fasada_EPS70_038_1.jpg',
+    id: 99546,
+    name: 'Neotherm fasada 033',
+    gross_selling_price_calculated_unit: 190,
+    url_for_website: '/storage/products/neotherm_fasada_033_1.jpg',
+  },
+
+  {
+    id: 99546,
+    name: 'Justyr fasada 038',
+    gross_selling_price_calculated_unit: 186,
+    url_for_website: '/images/products/1My1BsmA51',
   },
   {
-    id: 88674,
-    name: 'izoterm fazada',
-    gross_selling_price_calculated_unit: 234.23,
-    url_for_website: '/storage/products/izoterm_fasada_EPS70_040_1.jpg',
+    id: 99546,
+    name: 'Neotherm EPS 100',
+    gross_selling_price_calculated_unit: 188,
+    url_for_website: '/storage/products/neotherm_fasada_033_1.jpg',
   },
-  {
-    id: 88674,
-    name: 'izoterm fasada 045',
-    gross_selling_price_calculated_unit: 172.23,
-    url_for_website: '/storage/products/izoterm_fasada_045_1.jpg',
-  },
-  {
-    id: 88674,
-    name: 'izoterm fasada 032',
-    gross_selling_price_calculated_unit: 222.23,
-    url_for_website: '/storage/products/izoterm_fasada_032_1.jpg',
-  }
 ]
 </script>
 <template>
@@ -123,8 +118,10 @@ const products = [
                 class="h-48 object-cover"
             />
             <div class="px-4 py-3">
-              <h3 class="text-lg font-semibold text-gray-900">{{ product.name }}🔥</h3>
-              <p class="text-red-500 font-extrabold text-xl md:text-2xl">{{ product.gross_selling_price_calculated_unit }}PLN/M3</p>
+              <h3 class="text-lg font-semibold text-gray-900">{{ product.name }}</h3>
+              <p class="text-red-500 font-extrabold text-xl md:text-2xl" style=" text-shadow: -0.5px 0 black, 0 1px black, 1px 0 black, 0 -0.5px black;">
+                {{ product.gross_selling_price_calculated_unit }}PLN/M3
+              </p>
             </div>
           </nuxt-link>
         </div>
