@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { Modal, ModalOptions } from "flowbite";
-import RemindMeAboutOfferCalendarModal from "~/components/account/RemindMeAboutOfferCalendarModal.vue";
 import { dowloadInvoices } from "~/helpers/invoices";
 import Swal from "sweetalert2"
 
