@@ -8,6 +8,7 @@ const { $shopApi: shopApi } = useNuxtApp();
 const description = ref('');
 const isLoading = ref(true);
 const iframeSrc = 'https://admin.mega1000.pl/auctions/display-prices-table?zip-code=' + localStorage.getItem('zipCode');
+const tutorialVideo = ref(null);
 
 onMounted(async () => {
   if (typeof window !== 'undefined' && window.gtag) {
@@ -19,24 +20,33 @@ onMounted(async () => {
     });
   }
 
-const data = await shopApi.get('https://admin.mega1000.pl/api/categories/details/search?category=102');
-description.value = data.data.description;
+  const data = await shopApi.get('https://admin.mega1000.pl/api/categories/details/search?category=102');
+  description.value = data.data.description;
 
-window.addEventListener('message', handleIframeMessage);
+  window.addEventListener('message', handleIframeMessage);
+  window.addEventListener('navbar-tutorial-ended', playTutorialVideo);
 });
 
 onUnmounted(() => {
-window.removeEventListener('message', handleIframeMessage);
+  window.removeEventListener('message', handleIframeMessage);
+  window.removeEventListener('navbar-tutorial-ended', playTutorialVideo);
 });
 
 const handleIframeMessage = (event) => {
-if (event.data && event.data.url) {
-window.location.href = event.data.url;
-}
+  if (event.data && event.data.url) {
+    window.location.href = event.data.url;
+  }
 };
 
 const onIframeLoad = () => {
-isLoading.value = false;
+  isLoading.value = false;
+};
+
+
+const playTutorialVideo = () => {
+  if (tutorialVideo.value) {
+    tutorialVideo.value.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+  }
 };
 
 const onIframeError = () => {

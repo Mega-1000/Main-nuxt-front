@@ -15,8 +15,6 @@
   const navigationLink = ref(null);
   const profileLink = ref(null);
   const settingsLink = ref(null);
-  const logoutLink = ref(null);
-  const navLinks = ref(null);
 
   const tutorialActive = ref(false);
   const tutorialTitle = ref('');
@@ -123,6 +121,7 @@ const searchProduct = async () => {
         break;
       case 4:
         localStorage.setItem('navbarTutorialEnded', true);
+        window.dispatchEvent(new Event('navbar-tutorial-ended'))
         tutorialActive.value = false;
     }
   };
