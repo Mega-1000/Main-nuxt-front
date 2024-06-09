@@ -241,9 +241,9 @@ const goToPage = async (val: number) => {
         :category="currentProduct"
       />
 
-      <a href="/styropiany" target="__blank" class="rounded bg-blue-500 p-8 text-white my-5 block font-bold mx-6" v-if="isMainStyrofoamLobby">
+      <a href="/styropiany" target="__blank" class="rounded bg-green-500 p-8 text-white my-5 block font-bold mx-6" v-if="isMainStyrofoamLobby">
         <div class="font-bold text-3xl">
-          Kliknij aby zobaczyć tabelę cen styropianów
+          Kliknij aby zobaczyć porady dotyczące zakupu styropianu w najniższych cenach
         </div>
 
         <p class="mt-2">
