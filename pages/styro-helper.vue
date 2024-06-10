@@ -8,8 +8,11 @@
     </label>
     <div class="button-group">
       <button @click="sendS">Send</button>
-      <button type="reset">Reset</button>
     </div>
+  </div>
+
+  <div v-model="prompt">
+
   </div>
 </template>
 
