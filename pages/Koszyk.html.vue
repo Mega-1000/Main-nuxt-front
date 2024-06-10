@@ -9,6 +9,8 @@ import emitter from "~/helpers/emitter";
 import ShipmentCostCalculator from "~/helpers/PackageCalculator";
 import swal from "sweetalert2";
 import {trackEvent} from "~/utils/trackEvent";
+import { Polish } from 'flatpickr/dist/l10n/pl.js';
+
 
 const { query } = useRoute();
 const { $shopApi: shopApi, $buildImgRoute: buildImgRoute } = useNuxtApp();
@@ -145,12 +147,14 @@ onMounted(async () => {
     altInput: true,
     altFormat: 'F j, Y',
     dateFormat: 'Y-m-d',
+    locale: Polish,
   });
 
   const endDatePicker = useDatePicker('#delivery-end-date', {
     altInput: true,
     altFormat: 'F j, Y',
     dateFormat: 'Y-m-d',
+    locale: Polish,
   });
 });
 
