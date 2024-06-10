@@ -74,15 +74,15 @@ const products = [
   },
 
   {
-    id: 99546,
+    id: 112915,
     name: 'Justyr fasada 038',
     gross_selling_price_calculated_unit: 186,
     url_for_website: '/images/products/1My1BsmA51',
   },
   {
-    id: 99546,
-    name: 'Neotherm EPS 100',
-    gross_selling_price_calculated_unit: 188,
+    id: 109074,
+    name: 'Neotherm EPS 100 036',
+    gross_selling_price_calculated_unit: 231.24,
     url_for_website: '/storage/products/neotherm_fasada_033_1.jpg',
   },
 ]
