@@ -24,10 +24,11 @@
 
   const sendS = () => {
     const queryParams = new URLSearchParams(window.location.search);
-    const url = `https://admin.mega1000.pl/api/styro-help?${queryParams.toString()}`;
+    const url = `https://admin.mega1000.pl/api/styro-help`;
 
     axios.post(url, {
-      'message': prompt.value
+      'message': prompt.value,
+      'formData': queryParams.toString()
     }).then((res) => {
       form.value = res.data
     })
