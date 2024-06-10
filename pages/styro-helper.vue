@@ -11,7 +11,7 @@
     </div>
   </div>
 
-  <div v-model="prompt">
+  <div v-html="prompt">
 
   </div>
 </template>
