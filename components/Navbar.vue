@@ -296,6 +296,8 @@ const endTutorial = () => {
         </div>
       </div>
     </div>
+  </nav>
+</template>
 
     <style scoped>
 /* Navigation Links */
