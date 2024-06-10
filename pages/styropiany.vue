@@ -190,10 +190,10 @@ const products = [
 
       <section class="py-6 px-2 md:py-10 md:px-4 bg-gray-100" id="instructions">
         <div class="container mx-auto text-center flex flex-wrap justify-center gap-2 md:gap-4">
-          <NuxtLink href="/100styropiany-elewacyjne/101" class="bg-emerald-500 rounded px-2 md:px-4 py-2 text-white font-semibold">
+          <NuxtLink href="/100styropiany-elewacyjne/102" class="bg-emerald-500 rounded px-2 md:px-4 py-2 text-white font-semibold">
             Styropiany elewacyjne
           </NuxtLink>
-          <NuxtLink href="/10styropiany/49" class="bg-emerald-500 rounded px-2 md:px-4 py-2 text-white font-semibold">
+          <NuxtLink href="/10styropiany/50" class="bg-emerald-500 rounded px-2 md:px-4 py-2 text-white font-semibold">
             Styropiany posadzkowe
           </NuxtLink>
           <NuxtLink href="/--30termoizolacja-fundamentow/4" class="bg-emerald-500 rounded px-2 md:px-4 py-2 text-white font-semibold">
