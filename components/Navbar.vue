@@ -182,7 +182,7 @@ const endTutorial = () => {
         <!-- Search Bar and Cart -->
         <div class="flex items-center">
           <div class="relative md:mr-4" ref="navigationLink">
-            <input type="search" v-model="searchQuery" @input="searchProduct()" class="search-input" placeholder="Wyszukaj produkt" />
+            <input type="search" v-model="searchQuery" @input="searchProduct()" class="search-input border shadow" placeholder="Wyszukaj produkt" />
           </div>
 
           <div ref="profileLink">
@@ -274,7 +274,7 @@ const endTutorial = () => {
     </div>
 
     <!-- No Results Message -->
-    <div v-if="noResultsMessage" class="no-results-message text-red">
+    <div v-if="noResultsMessage" class="no-results-message text-red-500 px-8">
       <p>{{ noResultsMessage }}</p>
     </div>
 
