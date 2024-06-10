@@ -80,6 +80,10 @@ const searchProduct = async () => {
   searchResults.value = response.data;
   if (searchResults.value.length === 0) {
     noResultsMessage.value = 'Brak wyników dla podanej frazy. Spróbuj użyć innych słów kluczowych.';
+
+    setTimeout(() => {
+      noResultsMessage.value = '';
+    }, 3000)
   } else {
     noResultsMessage.value = '';
   }
@@ -243,7 +247,7 @@ const endTutorial = () => {
                   </div>
                 </div>
 
-                <input type="search" class="search-input" v-model="searchQuery" @input="searchProduct()" />
+                <input type="search" class="search-input border shadow" v-model="searchQuery" @input="searchProduct()" />
               </div>
 
               <div class="mt-6 relative flex-1 px-4 sm:px-6">
@@ -270,7 +274,7 @@ const endTutorial = () => {
     </div>
 
     <!-- No Results Message -->
-    <div v-if="noResultsMessage" class="no-results-message">
+    <div v-if="noResultsMessage" class="no-results-message text-red">
       <p>{{ noResultsMessage }}</p>
     </div>
 
