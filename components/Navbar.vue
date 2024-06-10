@@ -82,6 +82,7 @@ const searchProduct = async () => {
     if (localStorage.getItem('navbarTutorialEnded')) {
       return;
     }
+
     tutorialActive.value = true;
 
     switch (tutorialStep.value) {
@@ -275,7 +276,7 @@ const searchProduct = async () => {
         <div class="tutorial-content">
           <h3 class="text-2xl font-bold">{{ tutorialTitle }}</h3>
           <p>{{ tutorialDescription }}</p>
-          <SubmitButton @click="nextTutorialStep;" class="mt-4">{{ tutorialNextButtonText }}</SubmitButton>
+          <SubmitButton @click="nextTutorialStep()" class="mt-4">{{ tutorialNextButtonText }}</SubmitButton>
           <button v-if="tutorialStep === 0" @click="endTutorial()" class="text-white bg-red-700 hover:bg-red-800 mt-2 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center disabled:bg-gray-500">
             Dzięki, ogarnę portal sam
           </button>
