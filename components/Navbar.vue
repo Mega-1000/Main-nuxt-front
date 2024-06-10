@@ -1,33 +1,34 @@
 <script setup>
-  import { getToken, removeCookie } from "~~/helpers/authenticator";
-  import Cart from "~~/utils/Cart";
-  import Cookies from "universal-cookie";
+import { getToken, removeCookie } from "~~/helpers/authenticator";
+import Cart from "~~/utils/Cart";
+import Cookies from "universal-cookie";
 
-  const { $shopApi: shopApi } = useNuxtApp();
-  const productsCart = useProductsCart();
-  const router = useRouter();
-  const isVisibilityLimited = ref(false);
-  const userToken = ref('');
-  const showMenu = ref(false);
-  const searchQuery = ref('');
-  const searchResults = ref([]);
+const { $shopApi: shopApi } = useNuxtApp();
+const productsCart = useProductsCart();
+const router = useRouter();
+const isVisibilityLimited = ref(false);
+const userToken = ref('');
+const showMenu = ref(false);
+const searchQuery = ref('');
+const searchResults = ref([]);
+const noResultsMessage = ref(''); // To hold the message when no results are found
 
-  const navigationLink = ref(null);
-  const profileLink = ref(null);
-  const settingsLink = ref(null);
+const navigationLink = ref(null);
+const profileLink = ref(null);
+const settingsLink = ref(null);
 
-  const tutorialActive = ref(false);
-  const tutorialTitle = ref('');
-  const tutorialDescription = ref('');
-  const tutorialHighlightStyle = reactive({});
-  const tutorialNextButtonText = ref('Next');
-  const tutorialStep = ref(0);
+const tutorialActive = ref(false);
+const tutorialTitle = ref('');
+const tutorialDescription = ref('');
+const tutorialHighlightStyle = reactive({});
+const tutorialNextButtonText = ref('Next');
+const tutorialStep = ref(0);
 
-  useSeoMeta({
-    title: 'EPH Polska - Hurtownia Styropianu, Systemy Elewacyjne, Ocieplenia | Gwarancja Najniższej Ceny',
-    ogTitle: 'EPH Polska - Hurtownia Styropianu, Systemy Elewacyjne, Ocieplenia | Gwarancja Najniższej Ceny',
-    description: 'EPH Polska - hurtownia styropianu oferująca systemy ociepleniowe i elewacyjne z gwarancją najniższej ceny. Sprawdź naszą ofertę już dziś!',
-  })
+useSeoMeta({
+  title: 'EPH Polska - Hurtownia Styropianu, Systemy Elewacyjne, Ocieplenia | Gwarancja Najniższej Ceny',
+  ogTitle: 'EPH Polska - Hurtownia Styropianu, Systemy Elewacyjne, Ocieplenia | Gwarancja Najniższej Ceny',
+  description: 'EPH Polska - hurtownia styropianu oferująca systemy ociepleniowe i elewacyjne z gwarancją najniższej ceny. Sprawdź naszą ofertę już dziś!',
+})
 
 onMounted(async () => {
   showTutorial();
@@ -75,71 +76,76 @@ const toggleMenu = () => {
 }
 
 const searchProduct = async () => {
-  searchResults.value = (await shopApi.get(`/api/searchProduct/${searchQuery.value}`)).data;
+  const response = await shopApi.get(`/api/searchProduct/${searchQuery.value}`);
+  searchResults.value = response.data;
+  if (searchResults.value.length === 0) {
+    noResultsMessage.value = 'Brak wyników dla podanej frazy. Spróbuj użyć innych słów kluczowych.';
+  } else {
+    noResultsMessage.value = '';
+  }
 }
 
-  const showTutorial = () => {
-    if (localStorage.getItem('navbarTutorialEnded')) {
-      return;
-    }
-
-    tutorialActive.value = true;
-
-    switch (tutorialStep.value) {
-      case 0:
-        tutorialTitle.value = 'Witamy w EPH Polska!';
-        tutorialDescription.value = 'W tym tutorialu pokażemy ci kilka funkcji naszego portalu.';
-        tutorialNextButtonText.value = 'Chce dowiedzieć się jak działacie!';
-        break;
-      case 1:
-        tutorialTitle.value = 'Wyszukiwanie';
-        tutorialDescription.value = 'Jeśli poszukujesz konktetnego produktu wpisz to tutaj a my pokażemy ci wyniki.';
-        const navigationLinkRect = navigationLink.value.getBoundingClientRect();
-        tutorialHighlightStyle.top = navigationLinkRect.top + window.pageYOffset + 'px';
-        tutorialHighlightStyle.left = navigationLinkRect.left + window.pageXOffset + 'px';
-        tutorialHighlightStyle.width = navigationLinkRect.width + 'px';
-        tutorialHighlightStyle.height = navigationLinkRect.height + 'px';
-        tutorialNextButtonText.value = 'Następny krok';
-        break;
-      case 2:
-        tutorialTitle.value = 'Koszyk';
-        tutorialDescription.value = 'W tym miejscu możesz wejść do koszyka i wysłać zapytanie ofertowe.';
-        const profileLinkRect = profileLink.value.getBoundingClientRect();
-        tutorialHighlightStyle.top = profileLinkRect.top + window.pageYOffset + 'px';
-        tutorialHighlightStyle.left = profileLinkRect.left + window.pageXOffset + 'px';
-        tutorialHighlightStyle.width = profileLinkRect.width + 'px';
-        tutorialHighlightStyle.height = profileLinkRect.height + 'px';
-        break;
-      case 3:
-        tutorialTitle.value = 'Sklep';
-        tutorialDescription.value = 'Jeśli chcesz wrócić do sklepu i dodać inne produkty wejdź tutaj!';
-        const settingsLinkRect = settingsLink.value.getBoundingClientRect();
-        tutorialHighlightStyle.top = settingsLinkRect.top + window.pageYOffset + 'px';
-        tutorialHighlightStyle.left = settingsLinkRect.left + window.pageXOffset + 'px';
-        tutorialHighlightStyle.width = settingsLinkRect.width + 'px';
-        tutorialHighlightStyle.height = settingsLinkRect.height + 'px';
-        tutorialNextButtonText.value = 'Wszystko jasne przechodzę do strony.';
-        break;
-      case 4:
-        localStorage.setItem('navbarTutorialEnded', true);
-        window.dispatchEvent(new Event('navbar-tutorial-ended'))
-        tutorialActive.value = false;
-    }
-  };
-
-  const nextTutorialStep = () => {
-    if (tutorialStep.value === 4) {
-      tutorialActive.value = false;
-    } else {
-      tutorialStep.value++;
-      showTutorial();
-    }
-  };
-
-  const endTutorial = () => {
-    tutorialActive.value = false;
-    localStorage.setItem('navbarTutorialEnded', true);
+const showTutorial = () => {
+  if (localStorage.getItem('navbarTutorialEnded')) {
+    return;
   }
+
+  tutorialActive.value = true;
+
+  switch (tutorialStep.value) {
+    case 0:
+      tutorialTitle.value = 'Witamy w EPH Polska!';
+      tutorialDescription.value = 'W tym tutorialu pokażemy ci kilka funkcji naszego portalu.';
+      tutorialNextButtonText.value = 'Chce dowiedzieć się jak działacie!';
+      break;
+    case 1:
+      tutorialTitle.value = 'Wyszukiwanie';
+      tutorialDescription.value = 'Jeśli poszukujesz konktetnego produktu wpisz to tutaj a my pokażemy ci wyniki.';
+      const navigationLinkRect = navigationLink.value.getBoundingClientRect();
+      tutorialHighlightStyle.top = navigationLinkRect.top + window.pageYOffset + 'px';
+      tutorialHighlightStyle.left = navigationLinkRect.left + window.pageXOffset + 'px';
+      tutorialHighlightStyle.width = navigationLinkRect.width + 'px';
+      tutorialHighlightStyle.height = navigationLinkRect.height + 'px';
+      tutorialNextButtonText.value = 'Następny krok';
+      break;
+    case 2:
+      tutorialTitle.value = 'Koszyk';
+      tutorialDescription.value = 'W tym miejscu możesz wejść do koszyka i wysłać zapytanie ofertowe.';
+      const profileLinkRect = profileLink.value.getBoundingClientRect();
+      tutorialHighlightStyle.top = profileLinkRect.top + window.pageYOffset + 'px';
+      tutorialHighlightStyle.left = profileLinkRect.left + window.pageXOffset + 'px';
+      tutorialHighlightStyle.width = profileLinkRect.width + 'px';
+      tutorialHighlightStyle.height = profileLinkRect.height + 'px';
+      break;
+    case 3:
+      tutorialTitle.value = 'Sklep';
+      tutorialDescription.value = 'Jeśli chcesz wrócić do sklepu i dodać inne produkty wejdź tutaj!';
+      const settingsLinkRect = settingsLink.value.getBoundingClientRect();
+      tutorialHighlightStyle.top = settingsLinkRect.top + window.pageYOffset + 'px';
+      tutorialHighlightStyle.left = settingsLinkRect.left + window.pageXOffset + 'px';
+      tutorialHighlightStyle.width = settingsLinkRect.width + 'px';
+      tutorialNextButtonText.value = 'Wszystko jasne przechodzę do strony.';
+      break;
+    case 4:
+      localStorage.setItem('navbarTutorialEnded', true);
+      window.dispatchEvent(new Event('navbar-tutorial-ended'))
+      tutorialActive.value = false;
+  }
+};
+
+const nextTutorialStep = () => {
+  if (tutorialStep.value === 4) {
+    tutorialActive.value = false;
+  } else {
+    tutorialStep.value++;
+    showTutorial();
+  }
+};
+
+const endTutorial = () => {
+  tutorialActive.value = false;
+  localStorage.setItem('navbarTutorialEnded', true);
+}
 </script>
 
 <template>
@@ -188,8 +194,9 @@ const searchProduct = async () => {
         <!-- Mobile Menu Toggle -->
         <div class="md:hidden flex items-center">
           <button @click="showMenu = !showMenu" class="mobile-menu-toggle">
-            <svg :class="{ 'hidden': showMenu, 'inline-flex': !showMenu }" class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-              <path class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            <svg :class="{ 'hidden': showMenu, 'inline-flex': !showMenu }" class="h-6 w-6" stroke="currentColor" fill="none" viewBox="
+0 0 24 24">
+              <path class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
             </svg>
             <svg :class="{ 'hidden': !showMenu, 'inline-flex': showMenu }" class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
               <path class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -235,9 +242,9 @@ const searchProduct = async () => {
                     </button>
                   </div>
                 </div>
-              </div>
 
-              <input type="search" v-model="searchQuery" @input="searchProduct()" >
+                <input type="search" class="search-input" v-model="searchQuery" @input="searchProduct()" />
+              </div>
 
               <div class="mt-6 relative flex-1 px-4 sm:px-6">
                 <ul>
@@ -262,15 +269,18 @@ const searchProduct = async () => {
       </div>
     </div>
 
+    <!-- No Results Message -->
+    <div v-if="noResultsMessage" class="no-results-message">
+      <p>{{ noResultsMessage }}</p>
+    </div>
+
     <div class="ml-4 flex-shrink-0">
       <NavbarShipmentCostTable />
     </div>
 
-
-    <div class="tutorial-highlight" style="position: fixed; z-index: 888" :style="tutorialHighlightStyle" v-if="tutorialActive">
+    <div class="tutorial-highlight" style="position: fixed; z-index:  888" v-if="tutorialActive">
       <slot name="tutorial-highlight"></slot>
     </div>
-
     <div v-if="tutorialActive" class="tutorial-overlay">
       <div class="tutorial-modal">
         <div class="tutorial-content">
@@ -286,10 +296,8 @@ const searchProduct = async () => {
         </div>
       </div>
     </div>
-  </nav>
-</template>
 
-<style scoped>
+    <style scoped>
 /* Navigation Links */
 .nav-link {
   @apply inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-900 hover:border-gray-300 focus:outline-none focus:border-gray-700 transition duration-150 ease-in-out;
