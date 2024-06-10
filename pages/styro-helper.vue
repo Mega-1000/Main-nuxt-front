@@ -1,11 +1,7 @@
 <template>
   <div class="card">
-    <h2>
-      <svg class="icon" aria-hidden="true">
-        <use xlink:href="#icon-coffee" href="#icon-coffee" />
-      </svg>
-      Jakiego styropianu potrzevujesz?
-    </h2>
+    <h2><svg class="icon" aria-hidden="true">
+      <use xlink:href="#icon-coffee" href="#icon-coffee" /></svg>Jakiego styropianu potrzevujesz?</h2>
     <label class="input">
       <input class="input__field" type="text" placeholder="" v-model="prompt" />
       <span class="input__label">NP: Porzebuje czaegoś na ocieplenie podłogi...</span>
@@ -15,52 +11,27 @@
     </div>
   </div>
 
-  <div v-html="form"></div>
+  <div v-html="form">
 
-  <!-- Add this form -->
-  <form @submit.prevent="submitForm">
-    <!-- Add your form fields here -->
-    <button type="submit">Submit</button>
-  </form>
+  </div>
 </template>
 
 <script setup>
-import axios from "axios";
+  import axios from "axios";
 
-const prompt = ref('');
-const form = ref('');
-const formData = ref({
-  // Add your form data properties here
-});
+  const prompt = ref('');
+  const form = ref('')
 
-const sendS = () => {
-  axios
-      .post('https://admin.mega1000.pl/api/styro-help', {
-        'message': prompt.value
-      })
-      .then((res) => {
-        form.value = res.data;
-      });
-};
+  const sendS = () => {
+    const queryParams = new URLSearchParams(window.location.search);
+    const url = `https://admin.mega1000.pl/api/styro-help?${queryParams.toString()}`;
 
-const submitForm = () => {
-  const data = {
-    'message': prompt.value,
-    // Add your form data properties here
-    ...formData.value
-  };
-
-  axios
-      .post('https://admin.mega1000.pl/api/styro-help', data)
-      .then((res) => {
-        // Handle the response from the server
-        console.log(res.data);
-      })
-      .catch((error) => {
-        // Handle any errors
-        console.error(error);
-      });
-};
+    axios.post(url, {
+      'message': prompt.value
+    }).then((res) => {
+      form.value = res.data
+    })
+  }
 </script>
 
 <style>
