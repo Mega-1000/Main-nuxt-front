@@ -184,8 +184,7 @@ const decreaseFastAddToCartValue = () => {
 
 <template>
   <NuxtLink
-      v-if="!subPage"
-      :to="`/singleProduct/${item.id}`"
+      :to="!subPage ? `/singleProduct/${item.id}` : ''"
       class="block"
   >
     <div
