@@ -1,6 +1,6 @@
 export default defineNuxtConfig({
   ssr: false,
-  modules: ["@nuxtjs/tailwindcss", "nuxt-icon", "@nuxt/devtools", "nuxt-gtag", 'nuxt-module-hotjar'],
+  modules: ["@nuxtjs/tailwindcss", "nuxt-icon", "@nuxt/devtools", "nuxt-gtag", 'nuxt-module-hotjar', '@productdevbook/chatwoot'],
   gtag: {
     tags: [
       {
@@ -18,6 +18,19 @@ export default defineNuxtConfig({
   devtools: {
     enabled: true,
     vscode: {}
+  },
+  chatwoot: {
+    init: {
+      websiteToken: 'QZL2X1noKmm71rRcGyb259NF'
+    },
+    settings: {
+      locale: 'pl',
+      position: 'right',
+      launcherTitle: 'Możemy w czymś pomóc?',
+      // ... and more settings
+    },
+    // If this is loaded you can make it true, https://github.com/nuxt-modules/partytown
+    partytown: false,
   },
   runtimeConfig: {
     public: {

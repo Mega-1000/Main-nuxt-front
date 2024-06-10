@@ -630,6 +630,30 @@
     "unimport" "^3.0.10"
     "untyped" "^1.3.2"
 
+"@nuxt/kit@^3.11.1":
+  "integrity" "sha512-yiYKP0ZWMW7T3TCmsv4H8+jEsB/nFriRAR8bKoSqSV9bkVYWPE36sf7JDux30dQ91jSlQG6LQkB3vCHYTS2cIg=="
+  "resolved" "https://registry.npmjs.org/@nuxt/kit/-/kit-3.11.2.tgz"
+  "version" "3.11.2"
+  dependencies:
+    "@nuxt/schema" "3.11.2"
+    "c12" "^1.10.0"
+    "consola" "^3.2.3"
+    "defu" "^6.1.4"
+    "globby" "^14.0.1"
+    "hash-sum" "^2.0.0"
+    "ignore" "^5.3.1"
+    "jiti" "^1.21.0"
+    "knitwork" "^1.1.0"
+    "mlly" "^1.6.1"
+    "pathe" "^1.1.2"
+    "pkg-types" "^1.0.3"
+    "scule" "^1.3.0"
+    "semver" "^7.6.0"
+    "ufo" "^1.5.3"
+    "unctx" "^2.3.1"
+    "unimport" "^3.7.1"
+    "untyped" "^1.4.2"
+
 "@nuxt/kit@^3.11.2":
   "integrity" "sha512-yiYKP0ZWMW7T3TCmsv4H8+jEsB/nFriRAR8bKoSqSV9bkVYWPE36sf7JDux30dQ91jSlQG6LQkB3vCHYTS2cIg=="
   "resolved" "https://registry.npmjs.org/@nuxt/kit/-/kit-3.11.2.tgz"
@@ -852,6 +876,14 @@
   "integrity" "sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A=="
   "resolved" "https://registry.npmjs.org/@popperjs/core/-/core-2.11.8.tgz"
   "version" "2.11.8"
+
+"@productdevbook/chatwoot@^1.5.0":
+  "integrity" "sha512-c+7NCuGU3bmte3JZX2u+dMTS7FjHt22MF4ZvmEsWjdMxXiagAvlbxbWVQp96PgpuHwlRXvyr3cOpyIaoQ4odCw=="
+  "resolved" "https://registry.npmjs.org/@productdevbook/chatwoot/-/chatwoot-1.5.0.tgz"
+  "version" "1.5.0"
+  dependencies:
+    "@nuxt/kit" "^3.11.1"
+    "defu" "^6.1.4"
 
 "@rollup/plugin-alias@^5.0.0":
   "integrity" "sha512-l9hY5chSCjuFRPsnRm16twWBiSApl2uYFLsepQYwtBuAxNMQ/1dJqADld40P0Jkqm65GRTLy/AC6hnpVebtLsA=="
@@ -7812,7 +7844,7 @@
   dependencies:
     "envify" "^3.4.0"
 
-"vue@^2.7.0 || ^3.2.25", "vue@^3.0.0", "vue@^3.0.0-0 || ^2.6.0", "vue@^3.0.0-rc.11", "vue@^3.0.1", "vue@^3.2.0", "vue@^3.2.25", "vue@^3.3.4", "vue@>=2.7 || >=3", "vue@>=3", "vue@3.3.4":
+"vue@^2.7.0 || ^3.2.25", "vue@^3.0.0", "vue@^3.0.0-0 || ^2.6.0", "vue@^3.0.0-rc.11", "vue@^3.0.1", "vue@^3.2.0", "vue@^3.2.25", "vue@^3.3.4", "vue@>=2.7 || >=3", "vue@>=3", "vue@>=3.3.0", "vue@3.3.4":
   "integrity" "sha512-VTyEYn3yvIeY1Py0WaYGZsXnz3y5UnGi62GjVEqvEGPl6nxbOrCXbVOTQWBEJUqAyTUk2uJ5JLVnYJ6ZzGbrSw=="
   "resolved" "https://registry.npmjs.org/vue/-/vue-3.3.4.tgz"
   "version" "3.3.4"
