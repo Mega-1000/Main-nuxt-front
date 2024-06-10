@@ -92,11 +92,11 @@ const products = [
 
   <div>
     <main>
-      <section class="hero py-2 px-2 md:py-4 md:px-4 bg-gradient-to-r from-emerald-600 to-emerald-800 text-white hidden md:block">
+      <section class="hero py-2 px-2 md:py-4 md:px-4 bg-gradient-to-r from-emerald-600 to-emerald-800 text-white">
         <div class="container mx-auto text-center">
           <h1 class="text-2xl md:text-6xl font-extrabold mb-1 mt-2 md:mb-6">Dowiedz się jak działa nasza plaforma !</h1>
           <div class="mb-4 mx-auto w-full md:w-fit">
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/wWe4qP8W_b0" title="Jak działa nasza platforma" frameborder="0" allow="autoplay" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen ref="tutorialVideo"></iframe>
+            <iframe class="w-full md:w-[500px] h-[200px] md:h-[315px]" src="https://www.youtube.com/embed/wWe4qP8W_b0" title="Jak działa nasza platforma" frameborder="0" allow="autoplay" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen ref="tutorialVideo"></iframe>
           </div>
         </div>
       </section>
@@ -182,6 +182,7 @@ const products = [
           <div class="flex flex-wrap justify-center gap-4 md:gap-10 mt-4">
             <iframe class="w-full md:w-[500px] h-[200px] md:h-[315px]" src="https://www.youtube.com/embed/SEtNw6AJ9jg?si=UeQ9mJtyiZ3NiR1h" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
             <iframe class="w-full md:w-[500px] h-[200px] md:h-[315px]" src="https://www.youtube.com/embed/nbdtJYp19p4?si=7t_T5hD-JRyiQOWM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <iframe class="w-full md:w-[500px] h-[200px] md:h-[315px]" src="https://www.youtube.com/embed/6wgnCDapJIg?si=KlRt4yVkaCdIeN2E" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
           </div>
           <div v-html="description"></div>
         </div>
