@@ -282,7 +282,7 @@ const endTutorial = () => {
       <NavbarShipmentCostTable />
     </div>
 
-    <div class="tutorial-highlight" style="position: fixed; z-index:  888" v-if="tutorialActive">
+    <div class="tutorial-highlight" style="position: fixed; z-index: 888" v-if="tutorialActive">
       <slot name="tutorial-highlight"></slot>
     </div>
     <div v-if="tutorialActive" class="tutorial-overlay">

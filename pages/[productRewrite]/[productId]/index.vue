@@ -107,14 +107,8 @@ const setupModals = () => {
 onMounted(async () => {
   setupModals();
 
-  if ((productId === '102' || productId === '50' || productId === '5') && !localStorage.getItem('zipCode')) {
+  if (!localStorage.getItem('zipCode')) {
     askUserForZipCode.value = true;
-
-    const c = await shopApi.get(`/api/get-blurred-categories/${productId}?zip-code=${localStorage.getItem('zipCode')}`);
-
-    currentCategoriesToDisplay.value = c.data.slice().sort((a: any, b: any) => {
-      return a.blured === b.blured ? 0 : a.blured ? 1 : -1;
-    });
   }
 
   currentCategoriesToDisplay.value = currentProduct?.value.currentProduct?.children;
@@ -124,6 +118,12 @@ onMounted(async () => {
       (productId >= 49 && productId <= 90) ||
       (productId >= 4 && productId <= 10)
   ) {
+    const c = await shopApi.get(`/api/get-blurred-categories/${productId}?zip-code=${localStorage.getItem('zipCode')}`);
+
+    currentCategoriesToDisplay.value = c.data.slice().sort((a: any, b: any) => {
+      return a.blured === b.blured ? 0 : a.blured ? 1 : -1;
+    });
+
     isMainStyrofoamLobby.value = true;
   }
 
