@@ -110,7 +110,7 @@ onMounted(async () => {
   if ((productId === '100' || productId === '49' || productId === '5') && !localStorage.getItem('zipCode')) {
     askUserForZipCode.value = true;
 
-    const c = await shopApi.get(`/api/get-blurred-categories/101?zip-code=${localStorage.getItem('zipCode')}`);
+    const c = await shopApi.get(`/api/get-blurred-categories/${productId}?zip-code=${localStorage.getItem('zipCode')}`);
 
     currentCategoriesToDisplay.value = c.data.slice().sort((a: any, b: any) => {
       return a.blured === b.blured ? 0 : a.blured ? 1 : -1;
