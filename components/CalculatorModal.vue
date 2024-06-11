@@ -13,7 +13,7 @@ const state = ref<any>({
 });
 
 watch(currentItem, () => {
-  alert(currentItem.value)
+  console.log(currentItem.value)
   if (!currentItem.value)
     state.value = {
       selectedCommercial: 1,
