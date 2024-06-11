@@ -73,6 +73,7 @@ const handleShowModal = async (item: any, isSubProduct = false) => {
       return;
     }
   }
+
   props.modal?.show();
   currentItem.value = item;
 };

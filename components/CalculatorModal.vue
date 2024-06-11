@@ -345,16 +345,16 @@ const handleBlur = (event: any) => {
       <thead class="text-xs text-gray-700 uppercase bg-gray-50">
         <tr>
           <th />
-          <th scope="col" class="px-6 py-3" v-if="state?.commercial">
+          <th scope="col" class="px-6 py-3">
             Handlowa [{{ state?.commercialName }}]
           </th>
-          <th scope="col" class="px-6 py-3" v-if="state?.calculation">
+          <th scope="col" class="px-6 py-3">
             Obliczeniowa [{{ state?.calculationName }}]
           </th>
-          <th scope="col" class="px-6 py-3" v-if="state?.basicUnit">
+          <th scope="col" class="px-6 py-3">
             Podstawowa [{{ state?.basicUnitName }}]
           </th>
-          <th scope="col" class="px-6 py-3" v-if="state?.collective">
+          <th scope="col" class="px-6 py-3">
             Zbiorcza [{{ state?.collectiveName }}]
           </th>
           <th scope="col" class="px-6 py-3" v-if="state?.unitBiggest">
@@ -379,7 +379,7 @@ const handleBlur = (event: any) => {
               :onChange="handleChange"
             />
           </td>
-          <td class="px-6 py-4" v-if="state?.calculation">
+          <td class="px-6 py-4" v-if="state">
             <input
               class="border border-gray-400"
               name="selectedCalculation"
@@ -388,7 +388,7 @@ const handleBlur = (event: any) => {
               :onChange="handleChange"
             />
           </td>
-          <td class="px-6 py-4" v-if="state?.basicUnit">
+          <td class="px-6 py-4" v-if="state">
             <input
               class="border border-gray-400"
               name="selectedBasicUnit"
@@ -397,7 +397,7 @@ const handleBlur = (event: any) => {
               :onChange="handleChange"
             />
           </td>
-          <td class="px-6 py-4" v-if="state?.collective">
+          <td class="px-6 py-4" v-if="state">
             <input
               class="border border-gray-400"
               name="selectedCollective"
@@ -423,13 +423,13 @@ const handleBlur = (event: any) => {
           >
             Ceny brutto sprzedaży [PLN]
           </th>
-          <td class="px-6 py-4" v-if="state?.commercial">
+          <td class="px-6 py-4" v-if="state">
             {{ state?.commercialPrice }}
           </td>
-          <td class="px-6 py-4" v-if="state?.calculation">
+          <td class="px-6 py-4" v-if="state">
             {{ state?.calculationPrice }}
           </td>
-          <td class="px-6 py-4" v-if="state?.basicUnit">
+          <td class="px-6 py-4" v-if="state">
             {{ state?.basicPrice }}
           </td>
           <td class="px-6 py-4" v-if="state?.collective">
