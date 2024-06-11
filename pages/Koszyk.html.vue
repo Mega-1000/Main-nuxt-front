@@ -585,7 +585,7 @@ const ShipmentCostItemsLeftText = (product: any) => {
 
             <div>
               <label for="phone" class="block mb-2 text-sm font-medium text-gray-900">Numer telefonu</label>
-              <input type="phone" name="phone" id="phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required :disabled="loading" v-model="phoneInput" />
+              <input type="tel" name="phone" id="phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required :disabled="loading" v-model="phoneInput" pattern="\d{3}\d{3}\d{3}" title="Prosimy podać numer telefonu w formacie 123456789." />
             </div>
 
             <div class="flex items-start">
