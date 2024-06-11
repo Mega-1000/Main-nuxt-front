@@ -111,7 +111,7 @@ const getPriceString = (priceType: any) => {
 };
 
 const daysOfStock = computed(() => {
-  return props.item?.stock?.quantity / ((props.item.selledInLastWeek === 0 ? 1 : props.item.selledInLastWeek) * 7);
+  return props.item.stock.quantity / ((props.item.selledInLastWeek === 0 ? 1 : props.item.selledInLastWeek) * 7);
 });
 
 const daysOfStockText = computed(() => {
@@ -183,8 +183,7 @@ const decreaseFastAddToCartValue = () => {
 </script>
 
 <template>
-  <NuxtLink
-      :to="!subPage && !props.item.blured ? `/singleProduct/${item.id}` : ''"
+  <div
       class="block"
   >
     <div
@@ -294,7 +293,7 @@ const decreaseFastAddToCartValue = () => {
         </div>
       </div>
     </div>
-  </NuxtLink>
+  </div>
   <div class="md:w-2/3 md:mx-auto">
     <div
         v-for="subProduct in subProducts"
