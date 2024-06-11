@@ -3,7 +3,6 @@ import findActiveMenu from "~~/helpers/findActiveMenu";
 import { defaultImgSrc } from "~~/helpers/buildImgRoute";
 import { Modal, ModalOptions } from "flowbite";
 import Cookies from "universal-cookie";
-import emmiter from "~/helpers/emitter";
 import AskUserForZipCodeStyrofoarms from "~/components/AskUserForZipCodeStyrofoarms.vue";
 import {integer} from "vscode-languageserver-types";
 
@@ -416,7 +415,7 @@ const goToPage = async (val: number) => {
               </div>
               <!-- Modal body -->
               <div class="p-6 space-y-6 w-auto">
-                <CalculatorModal />
+                <CalculatorModal v-if="modal.value?.isVisible()" />
               </div>
               <!-- Modal footer -->
               <div

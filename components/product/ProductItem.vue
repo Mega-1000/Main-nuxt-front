@@ -73,8 +73,7 @@ const handleShowModal = async (item: any, isSubProduct = false) => {
       return;
     }
   }
-
-  currentItem.value = item;
+  localStorage.setItem('currentItem', JSON.stringify(item));
   props.modal?.show();
 };
 

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import DynamicCalculator from "~~/utils/DynamicCalculator";
 
-const currentItem = useCurrentItem();
+const currentItem = ref();
 
 const blurChange = ref<any>();
 
@@ -12,8 +12,8 @@ const state = ref<any>({
   selectedCommercial: 1,
 });
 
-watch(currentItem, () => {
-  console.log(currentItem.value)
+onMounted(() => {
+  currentItem.value = JSON.parse(localStorage.getItem('currentItem') as string)
   if (!currentItem.value)
     state.value = {
       selectedCommercial: 1,
