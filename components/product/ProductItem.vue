@@ -184,7 +184,7 @@ const decreaseFastAddToCartValue = () => {
 
 <template>
   <NuxtLink
-      :to="!subPage ? `/singleProduct/${item.id}` : ''"
+      :to="!subPage && !props.item.blured ? `/singleProduct/${item.id}` : ''"
       class="block"
   >
     <div
