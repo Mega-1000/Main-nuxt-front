@@ -152,7 +152,7 @@ const productsCart = useProductsCart();
 const productAmount = useProductAmount();
 
 const handleCart = () => {
-  const { cart: _cart, ...product } = currentItem.value;
+  const { cart: _cart, ...product } =  JSON.parse(localStorage.getItem('currentItem') as string);
   productsCart.value.addToCart(product, productAmount.value);
   modal.value?.hide();
 
