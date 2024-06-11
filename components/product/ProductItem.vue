@@ -183,13 +183,9 @@ const decreaseFastAddToCartValue = () => {
 </script>
 
 <template>
-  <div
-      class="block"
-  >
     <div
         :class="{ 'cursor-not-allowed filter': props.item.blured }"
         class="justify-between relative flex flex-col md:flex-row md:space-x-5 space-y-3 md:space-y-0 rounded-xl shadow-lg p-3 w-full mx-auto border border-white bg-white max-w-7xl"
-        @click.stop
     >
       <div v-if="props.item.blured" class="absolute inset-0 z-10 flex justify-center items-center bg-white bg-opacity-50">
         <span class="text-red-500 font-semibold">Produkt niedostępny dla podanego kodu pocztowego</span>
@@ -203,10 +199,10 @@ const decreaseFastAddToCartValue = () => {
             alt="Photo"
             loading="lazy"
             class="rounded-xl"
-        />
+        />`
       </div>
       <div
-          class="w-full md:w-[170%] bg-white flex flex-col space-y-2 p-3 grid md:place-items-end"
+        class="w-full md:w-[170%] bg-white flex flex-col space-y-2 p-3 grid md:place-items-end"
       >
         <h3 class="font-black text-gray-800 md:text-3xl text-xl" style="margin-right: auto;">
           <span v-if="!isStaff">
@@ -244,15 +240,15 @@ const decreaseFastAddToCartValue = () => {
                   +
               </span>
 
-              <SubmitButton class="mt-1" @click.stop>
+              <SubmitButton class="mt-1">
                 Dodaj do koszyka
               </SubmitButton>
             </div>
           </form>
 
           <div
-              class="text-3xl font-bold"
-              v-for="val in item.meta_price.split(`.`)"
+            class="text-3xl font-bold"
+            v-for="val in item.meta_price.split(`.`)"
           >
             {{ getPriceString(val) }}
             <div class="mt-4 text-lg" v-if="item.variation_group !== 'styropiany'">
@@ -277,13 +273,7 @@ const decreaseFastAddToCartValue = () => {
             data-modal-target="calculatorModal"
             @click="() => handleShowModal(item)"
         >
-          <NuxtLink
-              v-if="!subPage"
-              class="flex flex-col justify-center"
-              v-tooltip.auto-start="props.item.variation_group !== 'styropiany' ? ShipmentCostItemsLeftText : ''"
-              :href="`/singleProduct/${item.id}`"
-              @click.stop
-          >
+          <NuxtLink v-if="!subPage" class="flex flex-col justify-center" v-tooltip.auto-start="props.item.variation_group !== 'styropiany' ? ShipmentCostItemsLeftText : ''" :href="`/singleProduct/${item.id}`">
             <SubmitButton>
               {{ props.subPage ? 'Kalkulator cenowy' : 'Zobacz szczegóły i dodaj do koszyka' }}
             </SubmitButton>
@@ -293,30 +283,29 @@ const decreaseFastAddToCartValue = () => {
         </div>
       </div>
     </div>
-  </div>
-  <div class="md:w-2/3 md:mx-auto">
-    <div
+    <div class="md:w-2/3 md:mx-auto">
+      <div
         v-for="subProduct in subProducts"
         class="py-4 cursor-pointer border-t border-md bg-slate-100 px-3"
-    >
-      <div
+      >
+        <div
           class="flex flex-row justify-between"
           @click="() => handleShowModal(subProduct, true)"
           data-modal-target="calculatorModal"
-      >
-        <p class="text-sm pr-2">{{ subProduct.name }}</p>
-        <p class="text-sm pr-2">
-          Cena: {{ subProduct.gross_price_of_packing }}
-          {{ subProduct.currency || 'PLN' }}/{{ subProduct.unit_commercial }}
-        </p>
-        <p class="text-sm">Symbol produktu: {{ subProduct.symbol }}</p>
+        >
+          <p class="text-sm pr-2">{{ subProduct.name }}</p>
+          <p class="text-sm pr-2">
+            Cena: {{ subProduct.gross_price_of_packing }}
+            {{ subProduct.currency || "PLN" }}/{{ subProduct.unit_commercial }}
+          </p>
+          <p class="text-sm">Symbol produktu: {{ subProduct.symbol }}</p>
 
-        <submitButton>
-          Kalkulator cenowy
-        </submitButton>
+          <submitButton>
+            Kalkulator cenowy
+          </submitButton>
+        </div>
       </div>
     </div>
-  </div>
 </template>
 
 <style scoped>
