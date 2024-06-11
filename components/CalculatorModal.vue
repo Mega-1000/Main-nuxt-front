@@ -7,15 +7,13 @@ const blurChange = ref<any>();
 
 const dynamicCalculator = new DynamicCalculator();
 
-onMounted(() => {
-  alert(currentItem.value)
-})
 
 const state = ref<any>({
   selectedCommercial: 1,
 });
 
 watch(currentItem, () => {
+  alert(currentItem.value)
   if (!currentItem.value)
     state.value = {
       selectedCommercial: 1,

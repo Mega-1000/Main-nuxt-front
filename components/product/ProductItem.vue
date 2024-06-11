@@ -74,8 +74,8 @@ const handleShowModal = async (item: any, isSubProduct = false) => {
     }
   }
 
-  props.modal?.show();
   currentItem.value = item;
+  props.modal?.show();
 };
 
 const subProducts = ref<any[]>([]);
