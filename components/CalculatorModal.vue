@@ -14,6 +14,7 @@ const state = ref<any>({
 
 onMounted(() => {
   currentItem.value = JSON.parse(localStorage.getItem('currentItem') as string)
+  console.log(currentItem.value)
   if (!currentItem.value)
     state.value = {
       selectedCommercial: 1,
