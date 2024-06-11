@@ -7,6 +7,10 @@ const blurChange = ref<any>();
 
 const dynamicCalculator = new DynamicCalculator();
 
+onMounted(() => {
+  alert(currentItem.value)
+})
+
 const state = ref<any>({
   selectedCommercial: 1,
 });
@@ -429,7 +433,7 @@ const handleBlur = (event: any) => {
           <td class="px-6 py-4" v-if="state">
             {{ state?.calculationPrice }}
           </td>
-          <td class="px-6 py-4" v-if="state">
+          <td class="px-6 py-4" v-if="state?.basicUnit">
             {{ state?.basicPrice }}
           </td>
           <td class="px-6 py-4" v-if="state?.collective">
