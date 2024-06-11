@@ -370,7 +370,7 @@ const handleBlur = (event: any) => {
           >
             Ilość zamawianego towaru
           </th>
-          <td class="px-6 py-4" v-if="state?.commercial">
+          <td class="px-6 py-4" v-if="state">
             <input
               class="border border-gray-400"
               name="selectedCommercial"
