@@ -120,7 +120,7 @@ const daysOfStockText = computed(() => {
   const days = daysOfStock.value;
 
   if (localStorage.getItem('isAdmin') == 'true') {
-    return props.item.stock.quantity;
+    return props.item?.stock?.quantity;
   }
 
   if (days < 2) {
