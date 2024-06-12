@@ -129,7 +129,7 @@ const config = useRuntimeConfig().public;
               <article
                   class="h-full w-full sm:w-auto rounded-lg bg-white p-3 shadow hover:shadow-xl transition-shadow duration-300"
               >
-                  <NuxtLink to="styropiany">
+                  <NuxtLink to="/styropiany">
                     <div class="overflow-hidden rounded-xl">
                       <img
                           src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJZ06hGXAWHAg824Q5nCFxGD7FN16hK4S7PA&s"
@@ -137,7 +137,7 @@ const config = useRuntimeConfig().public;
                       />
                     </div>
                     <div class="mt-2 p-2">
-                      <h2 class="text-gray-900 font-medium text-lg">
+                      <h2 class="text-gray-900 font-medium text-lg font-extrabold text-green-600">
                          Styropiany
                       </h2>
                     </div>
