@@ -287,6 +287,7 @@ onMounted(() => {
   recalculate();
 
   emitter.listen('currentItemChanged', () => {
+    console.log('eee')
     recalculate();
   })
 });
