@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import getImage from "~~/helpers/image";
+import {checkIfUserIsLoggedIn} from "~/helpers/authenticationCheck";
 
 const bank = ref<any>(null);
 
@@ -22,6 +23,10 @@ const { data: paymentData } = await useAsyncData(async () => {
     console.log(err.getMessage);
   }
 });
+
+onMounted(() => {
+  checkIfUserIsLoggedIn('Ta strona jest dostępna tylko dla zalogowanych użytkowników');
+})
 
 const { data: banks } = await useAsyncData(async () => {
   try {
