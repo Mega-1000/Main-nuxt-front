@@ -13,6 +13,8 @@ const state = ref<any>({
 });
 
 const recalculate = () => {
+  currentItem.value = JSON.parse(localStorage.getItem('currentItem') as string)
+
   if (!currentItem.value)
     state.value = {
       selectedCommercial: 1,
