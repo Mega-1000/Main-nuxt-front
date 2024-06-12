@@ -76,7 +76,7 @@ const handleShowModal = async (item: any, isSubProduct = false) => {
   localStorage.setItem('currentItem', JSON.stringify(item));
   setTimeout(() => {
     props.modal?.show();
-  }, 100)
+  }, 1000)
 };
 
 const subProducts = ref<any[]>([]);
