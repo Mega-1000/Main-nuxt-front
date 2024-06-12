@@ -11,6 +11,7 @@ const { $shopApi: shopApi } = useNuxtApp();
 const productsCart = useProductsCart();
 const productAmount = useProductAmount();
 const currentItem = useCurrentItem();
+const isModalShown = ref(false)
 
 const setupModals = () => {
   // set the modal menu element
@@ -29,6 +30,10 @@ const setupModals = () => {
 
 onMounted(async () => {
   setupModals();
+
+  window.addEventListener('currentItemChanged', () => {
+    isModalShown.value = true;
+  })
 
   const {data: response} = await shopApi.get(`api/get-product/${route.params.id}`);
   item.value = response;
@@ -135,7 +140,7 @@ const goBack = () => {
           </div>
           <!-- Modal body -->
           <div class="p-6 space-y-6 w-auto">
-            <CalculatorModal v-if="modal.value.isShown" />
+            <CalculatorModal v-if="isModalShown" />
           </div>
           <!-- Modal footer -->
           <div

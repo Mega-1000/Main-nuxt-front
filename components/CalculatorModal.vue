@@ -285,11 +285,6 @@ watch(currentItem, () => {
 onMounted(() => {
   currentItem.value = JSON.parse(localStorage.getItem('currentItem') as string)
   recalculate();
-
-  emitter.listen('currentItemChanged', () => {
-    console.log('eee')
-    recalculate();
-  })
 });
 
 const handleChange = (event: any) => {
