@@ -287,6 +287,13 @@ onMounted(() => {
   recalculate();
 });
 
+const handleChange = (event: any) => {
+  blurChange.value = true;
+  state.value[event.target.name] = event.target.value.replace(",", ".");
+  blurChange.value = false;
+};
+
+const productAmount = useProductAmount();
 
 const handleBlur = (event: any) => {
   if (blurChange.value) {
