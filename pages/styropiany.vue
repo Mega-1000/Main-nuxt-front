@@ -71,6 +71,7 @@ const products = [
     name: 'Neotherm fasada 033',
     gross_selling_price_calculated_unit: 194,
     url_for_website: '/storage/products/neotherm_fasada_033_1.jpg',
+    purchases: 5
   },
 
   {
@@ -78,12 +79,14 @@ const products = [
     name: 'Justyr fasada 038',
     gross_selling_price_calculated_unit: 186,
     url_for_website: '/images/products/1My1BsmA51',
+    purchases: 7
   },
   {
     id: 109074,
     name: 'Neotherm EPS 100 036',
     gross_selling_price_calculated_unit: 231.24,
     url_for_website: '/storage/products/neotherm_fasada_033_1.jpg',
+    purchases: 3
   },
 ]
 </script>
@@ -122,6 +125,7 @@ const products = [
               <p class="text-red-500 font-extrabold text-xl md:text-2xl" style=" text-shadow: -0.5px 0 black, 0 1px black, 1px 0 black, 0 -0.5px black;">
                 {{ product.gross_selling_price_calculated_unit }}PLN/M3
               </p>
+              {{ product.purchases }} zamówień dzisiaj!
             </div>
           </nuxt-link>
         </div>
