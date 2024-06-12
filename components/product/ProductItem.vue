@@ -2,6 +2,7 @@
 import { Modal } from "flowbite";
 import swal from 'sweetalert2';
 import EditProductSection from "~/components/product/EditProductSection.vue";
+import emitter from "~/helpers/emitter";
 
 interface Props {
   item: any;
@@ -73,7 +74,10 @@ const handleShowModal = async (item: any, isSubProduct = false) => {
       return;
     }
   }
+
   localStorage.setItem('currentItem', JSON.stringify(item));
+  emitter.emit('currentItemChanged');
+
   setTimeout(() => {
     props.modal?.show();
   }, 100)

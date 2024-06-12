@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import DynamicCalculator from "~~/utils/DynamicCalculator";
+import emitter from "~/helpers/emitter";
 
 const currentItem = ref();
 
@@ -13,7 +14,6 @@ const state = ref<any>({
 });
 
 const recalculate = () => {
-  console.log(state)
   if (!currentItem.value)
     state.value = {
       selectedCommercial: 1,
@@ -284,9 +284,11 @@ watch(currentItem, () => {
 
 onMounted(() => {
   currentItem.value = JSON.parse(localStorage.getItem('currentItem') as string)
-  console.log('okej')
-  console.log(currentItem.value)
   recalculate();
+
+  emitter.listen('currentItemChanged', () => {
+    recalculate();
+  })
 });
 
 const handleChange = (event: any) => {
