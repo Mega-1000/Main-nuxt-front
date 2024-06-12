@@ -51,7 +51,7 @@ onMounted(async () => {
 const handleCart = () => {
   const { cart: _cart, ...product } = item.value;
   productsCart.value.addToCart(JSON.parse(localStorage.getItem('currentItem')), productAmount.value);
-  modal.value?.hide();
+  isModalShown.value = false;
   emitter.emit("cart:change");
 
   Swal.fire({
@@ -71,6 +71,7 @@ const handleCart = () => {
 };
 
 const handleCloseModal = () => {
+  isModalShown.value = false;
   modal.value?.hide();
 }
 
