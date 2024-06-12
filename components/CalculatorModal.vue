@@ -286,6 +286,57 @@ onMounted(() => {
   currentItem.value = JSON.parse(localStorage.getItem('currentItem') as string)
   recalculate();
 });
+
+
+const handleBlur = (event: any) => {
+  if (blurChange.value) {
+    return;
+  }
+  const target = event.target;
+  let value = target.value;
+  const name = target.name;
+  if (parseFloat(value) > parseFloat(target.max)) {
+    return;
+  }
+  if (parseFloat(value) < 0) {
+    value = 0;
+  }
+  dynamicCalculator.selectedCommercial = state.value.selectedCommercial;
+  dynamicCalculator.selectedCalculation = state.value.selectedCalculation;
+  dynamicCalculator.selectedConsumption = state.value.selectedConsumption;
+  var resp = dynamicCalculator.updateCalculator(value, name);
+  state.value.selectedCommercial = resp!.selectedCommercial.toFixed(0);
+  state.value.selectedCalculation = resp!.selectedCalculation.toFixed(2);
+  state.value.selectedBasicUnit = resp!.selectedBasicUnit.toFixed(2);
+  state.value.selectedCollective = parseFloat(resp!.selectedCollective).toFixed(
+      2
+  );
+  state.value.selectedUnitBiggest = parseFloat(
+      resp!.selectedUnitBiggest
+  ).toFixed(2);
+  state.value.selectedConsumption = parseFloat(
+      resp!.selectedConsumption
+  ).toFixed(2);
+  productAmount.value = resp!.selectedCommercial;
+
+  var commercialLesser =
+      state.value.selectedCommercial - 1 >= 0
+          ? state.value.selectedCommercial - 1
+          : 0;
+  var respLesser = dynamicCalculator.updateCalculator(
+      commercialLesser,
+      "selectedCommercial"
+  );
+  state.value.lesserCommercial = respLesser!.selectedCommercial.toFixed(0);
+  state.value.lesserCalculation = respLesser!.selectedCalculation.toFixed(2);
+  state.value.lesserBasicUnit = respLesser!.selectedBasicUnit.toFixed(2);
+  state.value.lesserCollective = parseFloat(
+      respLesser!.selectedCollective
+  ).toFixed(2);
+  state.value.lesserUnitBiggest = parseFloat(
+      respLesser!.selectedUnitBiggest
+  ).toFixed(2);
+};
 </script>
 
 
