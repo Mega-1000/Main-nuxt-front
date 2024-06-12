@@ -13,6 +13,7 @@ const state = ref<any>({
 });
 
 const recalculate = () => {
+  console.log(state)
   if (!currentItem.value)
     state.value = {
       selectedCommercial: 1,
