@@ -348,6 +348,9 @@ const handleBlur = (event: any) => {
 
 
 <template>
+  <div class="mt-2">
+    Wpisz ilość w jedno w pól aby przeliczyć ilości
+  </div>
   <div class="md:hidden mb-4">
     Przesuwaj kalkulator w poziomie, przesuwając palcem lub kursorem w lewo i w prawo.
   </div>
