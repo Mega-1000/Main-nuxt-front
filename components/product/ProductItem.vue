@@ -76,10 +76,10 @@ const handleShowModal = async (item: any, isSubProduct = false) => {
   }
 
   localStorage.setItem('currentItem', JSON.stringify(item));
-  emitter.emit('currentItemChanged');
 
   setTimeout(() => {
     props.modal?.show();
+    emitter.emit('currentItemChanged');
   }, 100)
 };
 
