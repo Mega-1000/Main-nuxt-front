@@ -135,7 +135,7 @@ const goBack = () => {
           </div>
           <!-- Modal body -->
           <div class="p-6 space-y-6 w-auto">
-            <CalculatorModal />
+            <CalculatorModal v-if="modal.isShown" />
           </div>
           <!-- Modal footer -->
           <div
