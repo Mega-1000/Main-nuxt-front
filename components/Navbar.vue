@@ -169,7 +169,6 @@ const endTutorial = () => {
             <span ref="settingsLink">
               <NuxtLink v-if="!isVisibilityLimited" href="/" class="nav-link">Sklep</NuxtLink>
             </span>
-            <NuxtLink v-if="!isVisibilityLimited" href="/info" class="nav-link">Kontakt</NuxtLink>
             <NuxtLink v-if="userToken && !isVisibilityLimited" href="/account" class="nav-link">Konto</NuxtLink>
             <NuxtLink href="/Complaint" v-if="userToken" class="nav-link">Zgłoś reklamację</NuxtLink>
             <NuxtLink v-if="userToken && !isVisibilityLimited" href="/" @click.prevent="logOut" class="nav-link">Wyloguj</NuxtLink>
@@ -212,7 +211,6 @@ const endTutorial = () => {
       <div :class="{ 'hidden': !showMenu, 'block': showMenu }" class="md:hidden">
         <div class="pt-2 pb-3">
           <NuxtLink v-if="!isVisibilityLimited" href="/" class="mobile-nav-link">Sklep</NuxtLink>
-          <NuxtLink v-if="!isVisibilityLimited" href="/info" class="mobile-nav-link">Kontakt</NuxtLink>
           <template v-for="page in customPages" v-if="!isVisibilityLimited">
             <NuxtLink :href="buildCustomLink(page.id)" class="mobile-nav-link">{{ page.title }}</NuxtLink>
           </template>
