@@ -69,7 +69,7 @@ const products = [
   {
     id: 99546,
     name: 'Neotherm fasada 033',
-    gross_selling_price_calculated_unit: 190,
+    gross_selling_price_calculated_unit: 194,
     url_for_website: '/storage/products/neotherm_fasada_033_1.jpg',
   },
 
