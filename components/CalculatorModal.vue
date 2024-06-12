@@ -13,6 +13,7 @@ const state = ref<any>({
 });
 
 const recalculate = () => {
+  currentItem.value = JSON.parse(localStorage.getItem('currentItem') as string)
   console.log(state)
   if (!currentItem.value)
     state.value = {
@@ -284,6 +285,8 @@ watch(currentItem, () => {
 
 onMounted(() => {
   currentItem.value = JSON.parse(localStorage.getItem('currentItem') as string)
+  console.log('okej')
+  console.log(currentItem.value)
   recalculate();
 });
 
