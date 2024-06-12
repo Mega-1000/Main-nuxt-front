@@ -284,7 +284,7 @@ const endTutorial = () => {
     <div class="tutorial-highlight" style="position: fixed; z-index: 888" v-if="tutorialActive">
       <slot name="tutorial-highlight"></slot>
     </div>
-    <div v-if="tutorialActive" class="tutorial-overlay">
+    <div v-if="false" class="tutorial-overlay">
       <div class="tutorial-modal">
         <div class="tutorial-content">
           <h3 class="text-2xl font-bold">{{ tutorialTitle }}</h3>
