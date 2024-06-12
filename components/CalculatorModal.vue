@@ -348,7 +348,7 @@ const handleBlur = (event: any) => {
 
 
 <template>
-  <div class="mt-2">
+  <div class="mt-2 hidden md:block">
     Wpisz ilość w jedno w pól aby przeliczyć ilości
   </div>
   <div class="md:hidden mb-4">
