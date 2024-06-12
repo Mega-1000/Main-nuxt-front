@@ -88,7 +88,7 @@ const products = [
 ]
 </script>
 <template>
-  <AskUserForZipCodeStyrofoams v-if="showZipCodeModal" />
+  <AskUserForZipCodeStyrofoarms v-if="showZipCodeModal" />
 
   <div>
     <main>
