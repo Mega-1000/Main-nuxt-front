@@ -60,6 +60,8 @@ const handleCart = () => {
   }).then((result) => {
     if (result.isConfirmed) {
       router.push('/koszyk.html');
+    } else {
+      goBack();
     }
   });
 };
