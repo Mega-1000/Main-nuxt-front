@@ -1,6 +1,7 @@
 <script setup>
 import { Tabs } from "flowbite";
 import OrderItem from "~~/components/account/OrderItem.vue";
+import {checkIfUserIsLoggedIn} from "~/helpers/authenticationCheck";
 
 const { $shopApi: shopApi } = useNuxtApp();
 
@@ -38,34 +39,21 @@ const fetchOrders = async (page) => {
   }
 };
 
-// Watch currentPage for changes and re-fetch orders
 watch(currentPage, (newPage) => {
   fetchOrders(newPage);
 });
 
-// Initial fetch moved to onMounted to ensure it runs once component is mounted
 onMounted(async () => {
+  await checkIfUserIsLoggedIn();
+
   await fetchOrders(currentPage.value);
   showTutorial();
-  // Other setup tasks
+
 });
 
-// Ensure goToPage method updates currentPage correctly
 const goToPage = (page) => {
   currentPage.value = page;
 };
-
-// Setup tabs - assuming this logic is needed for your component
-function setupTabs() {
-  const tabElements = [
-    // Define your tab elements here
-  ];
-  const tabsOptions = {
-    // Define your tabs options here
-  };
-  const tabs = new Tabs(tabElements, tabsOptions);
-  tabs.show("active");
-}
 
 const changeTab = (tabName) => {
   currentTab.value = tabName;
