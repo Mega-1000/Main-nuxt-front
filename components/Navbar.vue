@@ -279,24 +279,25 @@ const endTutorial = () => {
       <NavbarShipmentCostTable />
     </div>
 
-    <div class="tutorial-highlight" style="position: fixed; z-index: 888" v-if="tutorialActive">
-      <slot name="tutorial-highlight"></slot>
-    </div>
-    <div v-if="false" class="tutorial-overlay">
-      <div class="tutorial-modal">
-        <div class="tutorial-content">
-          <h3 class="text-2xl font-bold">{{ tutorialTitle }}</h3>
-          <p>{{ tutorialDescription }}</p>
-          <SubmitButton @click="nextTutorialStep()" class="mt-4">{{ tutorialNextButtonText }}</SubmitButton>
-          <button v-if="tutorialStep === 0" @click="endTutorial()" class="text-white bg-red-700 hover:bg-red-800 mt-2 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center disabled:bg-gray-500">
-            Dzięki, ogarnę portal sam
-          </button>
-          <button v-if="tutorialStep === 3" @click="tutorialStep = 0; nextTutorialStep()" class="text-white bg-red-700 hover:bg-red-800 mt-2 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center disabled:bg-gray-500">
-            Chce zobaczyć poradnik jeszcze raz
-          </button>
-        </div>
-      </div>
-    </div>
+<!--    <div class="tutorial-highlight" style="position: fixed; z-index: 888" v-if="tutorialActive">-->
+<!--      <slot name="tutorial-highlight"></slot>-->
+<!--    </div>-->
+
+<!--    <div v-if="false" class="tutorial-overlay">-->
+<!--      <div class="tutorial-modal">-->
+<!--        <div class="tutorial-content">-->
+<!--          <h3 class="text-2xl font-bold">{{ tutorialTitle }}</h3>-->
+<!--          <p>{{ tutorialDescription }}</p>-->
+<!--          <SubmitButton @click="nextTutorialStep()" class="mt-4">{{ tutorialNextButtonText }}</SubmitButton>-->
+<!--          <button v-if="tutorialStep === 0" @click="endTutorial()" class="text-white bg-red-700 hover:bg-red-800 mt-2 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center disabled:bg-gray-500">-->
+<!--            Dzięki, ogarnę portal sam-->
+<!--          </button>-->
+<!--          <button v-if="tutorialStep === 3" @click="tutorialStep = 0; nextTutorialStep()" class="text-white bg-red-700 hover:bg-red-800 mt-2 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center disabled:bg-gray-500">-->
+<!--            Chce zobaczyć poradnik jeszcze raz-->
+<!--          </button>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
   </nav>
 </template>
 

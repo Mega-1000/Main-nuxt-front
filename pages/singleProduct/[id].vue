@@ -105,7 +105,7 @@ const goBack = () => {
           class="relative w-full h-full max-w-xl sm:max-w-3xl md:max-w-5xl lg:max-w-7xl md:h-auto"
       >
         <!-- Modal content -->
-        <div class="relative bg-white rounded-lg shadow w-[65%] md:w-full">
+        <div class="relative bg-white rounded-lg shadow w-full md:w-[65%]">
           <!-- Modal header -->
           <div
               class="flex items-start justify-between p-4 border-b rounded-t"
