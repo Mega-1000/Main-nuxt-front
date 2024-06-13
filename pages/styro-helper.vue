@@ -16,7 +16,7 @@
     </div>
     <div v-if="response" class="response-container" @animationend="stopAnimation">
       <div class="response-header">
-        <h3>{{ typewriterText }}</h3>
+        <h3 ref="typewriterTextRef"></h3>
       </div>
       <transition-group
           name="product-list"
@@ -60,8 +60,7 @@ import { ref, onMounted, nextTick } from "vue";
 const prompt = ref("");
 const response = ref(null);
 const loading = ref(false);
-const typewriterText = ref(null);
-const typewriterTimeout = ref(null);
+const typewriterTextRef = ref(null);
 const selectedProduct = ref(null);
 
 const sendS = async () => {
@@ -77,9 +76,8 @@ const sendS = async () => {
     response.value = res.data;
     prompt.value = "";
 
-    // Assign typewriterText.value before calling typewriteText
-    typewriterText.value = document.querySelector(".response-header h3");
-    await typewriteText(res.data.message);
+    await nextTick();
+    typewriteText(res.data.message);
   } catch (error) {
     console.error(error);
   } finally {
@@ -88,13 +86,13 @@ const sendS = async () => {
 };
 
 const typewriteText = async (text) => {
-  if (typewriterText.value) {
-    typewriterText.value.textContent = "";
+  if (typewriterTextRef.value) {
+    typewriterTextRef.value.textContent = "";
     let i = 0;
 
     const typeWriter = () => {
       if (i < text.length) {
-        typewriterText.value.textContent += text.charAt(i);
+        typewriterTextRef.value.textContent += text.charAt(i);
         i++;
         requestAnimationFrame(typeWriter);
       }
@@ -128,10 +126,6 @@ const showDetails = (product) => {
 const closeDetails = () => {
   selectedProduct.value = null;
 };
-
-onMounted(() => {
-  // typewriterText.value = document.querySelector(".response-header h3");
-});
 </script>
 
 <style>
