@@ -61,7 +61,7 @@ const prompt = ref("");
 const response = ref(null);
 const loading = ref(false);
 const typewriterText = ref({
-  'textContext': ''
+  'textContent': ''
 });
 const typewriterTimeout = ref(null);
 const selectedProduct = ref(null);
