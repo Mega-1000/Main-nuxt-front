@@ -69,6 +69,8 @@ const config = useRuntimeConfig().public;
     </div>
   </div>
 
+  <OpinionStars class="mx-3" />
+
   <section>
     <div class="mx-auto max-w-screen-xl py-10">
       <NuxtLink class="md:grid flex md:gap-8 justify-between text-gray-400 grid-cols-10 gap-5 mx-1" href="/styropiany">
