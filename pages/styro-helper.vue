@@ -32,11 +32,10 @@
             class="product-item"
         >
           <ProductItem
-              :item="product"
+              :item="product.name"
               class="w-full"
               :showModal="true"
           />
-          {{ product.description }}
         </div>
       </transition-group>
     </div>
