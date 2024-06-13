@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h2 class="title">Jakiego styropianu potrzebujesz?</h2>
+    <h2 class="title">Znajdź idealny styropian dla Twojego projektu</h2>
     <div class="input-container">
       <input
           type="text"
@@ -11,7 +11,7 @@
       />
       <button class="button" @click="sendS" :disabled="!prompt || loading">
         <span v-if="loading" class="spinner"></span>
-        <span v-else>Wyślij</span>
+        <span v-else>Sprawdź</span>
       </button>
     </div>
     <div v-if="response" class="response-container" @animationend="stopAnimation">
@@ -26,10 +26,29 @@
           @enter="enter"
           @leave="leave"
       >
-        <div v-for="(product, index) in response.products" :key="index" class="product-item">
+        <div
+            v-for="(product, index) in response.products"
+            :key="index"
+            class="product-item"
+            @click="showDetails(product)"
+        >
           {{ product }}
         </div>
       </transition-group>
+    </div>
+    <div v-if="selectedProduct" class="product-details">
+      <div class="product-details-header">
+        <h4>{{ selectedProduct }}</h4>
+        <button class="close-button" @click="closeDetails">&times;</button>
+      </div>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed auctor,
+        magna vel imperdiet aliquam, nulla nulla convallis elit, vel tincidunt
+        enim magna vel justo.
+      </p>
+      <div class="product-details-footer">
+        <button class="button">Kup teraz</button>
+      </div>
     </div>
   </div>
 </template>
@@ -41,8 +60,11 @@ import { ref, onMounted, nextTick } from "vue";
 const prompt = ref("");
 const response = ref(null);
 const loading = ref(false);
-const typewriterText = ref(null);
+const typewriterText = ref({
+  'textContext': ''
+});
 const typewriterTimeout = ref(null);
+const selectedProduct = ref(null);
 
 const sendS = async () => {
   loading.value = true;
@@ -100,12 +122,20 @@ const leave = (el, done) => {
   el.addEventListener("transitionend", done);
 };
 
+const showDetails = (product) => {
+  selectedProduct.value = product;
+};
+
+const closeDetails = () => {
+  selectedProduct.value = null;
+};
+
 onMounted(() => {
   typewriterText.value = document.querySelector(".response-header h3");
 });
 </script>
 
-<style scoped>
+<style>
 .container {
   max-width: 600px;
   margin: 0 auto;
@@ -228,5 +258,62 @@ onMounted(() => {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+.product-item {
+background-color: #e0e0e0;
+padding: 10px;
+border-radius: 4px;
+margin: 5px;
+transition: transform 0.3s ease, opacity 0.3s ease;
+cursor: pointer;
+}
+
+.product-item:hover {
+background-color: #d8d8d8;
+transform: scale(1.05);
+}
+
+.product-details {
+position: fixed;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+background-color: white;
+padding: 20px;
+border-radius: 4px;
+box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+max-width: 400px;
+width: 90%;
+z-index: 10;
+animation: fadeIn 0.3s ease;
+}
+
+.product-details-header {
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin-bottom: 10px;
+}
+
+.close-button {
+background: none;
+border: none;
+font-size: 20px;
+cursor: pointer;
+}
+
+.product-details-footer {
+margin-top: 20px;
+text-align: right;
+}
+
+@keyframes fadeIn {
+0% {
+opacity: 0;
+}
+100% {
+opacity: 1;
+}
 }
 </style>
