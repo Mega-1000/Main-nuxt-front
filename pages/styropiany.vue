@@ -29,13 +29,27 @@ onMounted(async () => {
   window.addEventListener('navbar-tutorial-ended', playTutorialVideo);
 
   if (productCarousel.value && window.innerWidth < 768) {
+    let switchCount = 0;
+    const maxSwitches = 3;
+    const scrollDistance = 300;
+
     carouselInterval = setInterval(() => {
-      productCarousel.value.scrollBy({
-        left: 300,
-        behavior: 'smooth',
-      })
-    }, 3000)
+      if (switchCount < maxSwitches) {
+        productCarousel.value.scrollBy({
+          left: scrollDistance,
+          behavior: 'smooth',
+        });
+        switchCount++;
+      } else {
+        productCarousel.value.scrollTo({
+          left: 0,
+          behavior: 'smooth',
+        });
+        switchCount = 0;
+      }
+    }, 6000);
   }
+
 });
 
 onUnmounted(() => {
@@ -105,7 +119,7 @@ const playVideo  = () => {
         <div class="container mx-auto text-center">
           <h1 class="text-2xl md:text-6xl font-extrabold mb-1 mt-2 md:mb-6 pointer" @click="playVideo">Dowiedz się jak działa nasza plaforma !</h1>
           <div class="mb-4 mx-auto w-full md:w-fit">
-            <iframe class="w-full md:w-[500px] h-[200px] md:h-[315px]" src="https://www.youtube.com/embed/wWe4qP8W_b0" title="Jak działa nasza platforma" frameborder="0" allow="autoplay" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen ref="tutorialVideo"></iframe>
+            <iframe class="w-full md:w-[500px] h-[200px] md:h-[315px]" src="https://www.youtube.com/embed/wWe4qP8W_b0" title="Jak działa nasza platforma" frameborder="0" allow="autoplay" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen id="tutorialVideo" ref="tutorialVideo"></iframe>
           </div>
         </div>
       </section>
