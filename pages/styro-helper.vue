@@ -30,25 +30,15 @@
             v-for="(product, index) in response.products"
             :key="index"
             class="product-item"
-            @click="showDetails(product)"
         >
-          {{ product }}
+          <ProductItem
+              :item="product"
+              class="w-full"
+              :showModal="true"
+          />
+          {{ product.description }}
         </div>
       </transition-group>
-    </div>
-    <div v-if="selectedProduct" class="product-details">
-      <div class="product-details-header">
-        <h4>{{ selectedProduct }}</h4>
-        <button class="close-button" @click="closeDetails">&times;</button>
-      </div>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed auctor,
-        magna vel imperdiet aliquam, nulla nulla convallis elit, vel tincidunt
-        enim magna vel justo.
-      </p>
-      <div class="product-details-footer">
-        <button class="button">Kup teraz</button>
-      </div>
     </div>
   </div>
 </template>
