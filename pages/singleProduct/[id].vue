@@ -136,7 +136,7 @@ const goBack = () => {
             </button>
           </div>
           <!-- Modal body -->
-          <div class="p-2 md:p-6 space-y-6 w-auto">
+          <div class="p-2 md:p-6 space-y-6 w-auto w-[72%] md:w-full">
             <CalculatorModal v-if="isModalShown" />
           </div>
           <!-- Modal footer -->
@@ -149,6 +149,13 @@ const goBack = () => {
                 class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
             >
               Dodaj do koszyka
+            </button>
+            <button
+                @click="handleCloseModal"
+                type="button"
+                class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+            >
+              Zamknij kalkulator
             </button>
           </div>
         </div>
