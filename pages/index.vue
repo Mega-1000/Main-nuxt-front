@@ -137,7 +137,7 @@ const config = useRuntimeConfig().public;
                       />
                     </div>
                     <div class="mt-2 p-2">
-                      <h2 class="text-gray-900 font-medium text-lg font-extrabold text-green-600">
+                      <h2 class="text-gray-900 text-lg font-extrabold text-green-600">
                          Styropiany
                       </h2>
                     </div>
