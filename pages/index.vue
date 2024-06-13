@@ -69,7 +69,7 @@ const config = useRuntimeConfig().public;
     </div>
   </div>
 
-  <OpinionStars class="mx-3" />
+  <OpinionStars class="mx-3 text-black" />
 
   <section>
     <div class="mx-auto max-w-screen-xl py-10">
