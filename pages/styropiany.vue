@@ -89,6 +89,12 @@ const products = [
     purchases: 3
   },
 ]
+
+const playVideo  = () => {
+  const video = document.getElementById('tutorialVideo');
+  const src = video.src;
+  video.src = src.includes('?') ? `${src}&autoplay=1` : `${src}?autoplay=1`;
+}
 </script>
 <template>
   <AskUserForZipCodeStyrofoarms v-if="showZipCodeModal" />
@@ -97,7 +103,7 @@ const products = [
     <main>
       <section class="hero py-2 px-2 md:py-4 md:px-4 bg-gradient-to-r from-emerald-600 to-emerald-800 text-white">
         <div class="container mx-auto text-center">
-          <h1 class="text-2xl md:text-6xl font-extrabold mb-1 mt-2 md:mb-6">Dowiedz się jak działa nasza plaforma !</h1>
+          <h1 class="text-2xl md:text-6xl font-extrabold mb-1 mt-2 md:mb-6 pointer" @click="playVideo">Dowiedz się jak działa nasza plaforma !</h1>
           <div class="mb-4 mx-auto w-full md:w-fit">
             <iframe class="w-full md:w-[500px] h-[200px] md:h-[315px]" src="https://www.youtube.com/embed/wWe4qP8W_b0" title="Jak działa nasza platforma" frameborder="0" allow="autoplay" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen ref="tutorialVideo"></iframe>
           </div>
