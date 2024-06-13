@@ -37,7 +37,7 @@
               :showModal="true"
           />
 
-          {{ response.description }}
+          {{ product.description }}
         </div>
       </transition-group>
     </div>
