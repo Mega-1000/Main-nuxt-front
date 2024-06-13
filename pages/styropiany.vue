@@ -11,6 +11,7 @@ const iframeSrc = 'https://admin.mega1000.pl/auctions/display-prices-table?zip-c
 const tutorialVideo = ref(null);
 const productCarousel = ref(null)
 let carouselInterval = null
+const activeIndex = ref(0)
 
 onMounted(async () => {
   if (typeof window !== 'undefined' && window.gtag) {
@@ -28,14 +29,9 @@ onMounted(async () => {
   window.addEventListener('message', handleIframeMessage);
   window.addEventListener('navbar-tutorial-ended', playTutorialVideo);
 
-  if (productCarousel.value && window.innerWidth < 768) {
-    carouselInterval = setInterval(() => {
-      productCarousel.value.scrollBy({
-        left: 300,
-        behavior: 'smooth',
-      })
-    }, 3000)
-  }
+  setInterval(() => {
+    activeIndex.value = (activeIndex.value + 1) % products.length
+  }, 6000)
 });
 
 onUnmounted(() => {
@@ -114,30 +110,42 @@ const playVideo  = () => {
         <div class="font-extrabold text-xl md:text-2xl my-4 md:my-8">
           Najpopularniejsze produkty w najlepszych cenach 🔥
         </div>
-        <div class="flex overflow-auto scrolling-wrapper md:justify-between mt-4" ref="productCarousel">
-          <nuxt-link
-              v-for="product in products"
-              :key="product.id"
-              :href="`/singleProduct/${product.id}`"
-              class="flex-shrink-0 bg-white shadow-md rounded-lg overflow-hidden mb-4 md:mb-0 w-fit md:w-auto mx-2"
+        <div class="mx-auto w-full md:w-[70%] my-8">
+          <div class="font-extrabold text-xl md:text-2xl my-4 md:my-8">
+            Najpopularniejsze produkty w najlepszych cenach 🔥
+          </div>
+          <div
+              class="flex overflow-x-hidden relative"
+              ref="productCarousel"
           >
-            <img
-                :src="`https://admin.mega1000.pl${product.url_for_website}`"
-                :alt="product.name"
-                class="h-48 object-cover"
-            />
-            <div class="px-4 py-3">
-              <h3 class="text-lg font-semibold text-gray-900">{{ product.name }}</h3>
-              <p class="text-red-500 font-extrabold text-xl md:text-2xl" style=" text-shadow: -0.5px 0 black, 0 1px black, 1px 0 black, 0 -0.5px black;">
-                {{ product.gross_selling_price_calculated_unit }}PLN/M3
-              </p>
-              {{ product.purchases }} zamówień dzisiaj!
+            <div
+                class="flex animate-slide-left"
+                :style="{ animationDuration: `${products.length * 6}s`, animationDelay: `-${activeIndex * 6}s` }"
+            >
+              <NuxtLink
+                  v-for="(product, index) in [...products, ...products, ...products]"
+                  :key="index"
+                  :href="`/singleProduct/${product.id}`"
+                  class="flex-shrink-0 bg-white shadow-md rounded-lg overflow-hidden mb-4 md:mb-0 w-fit md:w-auto mx-2 transition-all duration-300"
+              >
+                <img
+                    :src="`https://admin.mega1000.pl${product.url_for_website}`"
+                    :alt="product.name"
+                    class="h-48 object-cover"
+                />
+                <div class="px-4 py-3">
+                  <h3 class="text-lg font-semibold text-gray-900">{{ product.name }}</h3>
+                  <p
+                      class="text-red-500 font-extrabold text-xl md:text-2xl"
+                      style="text-shadow: -0.5px 0 black, 0 1px black, 1px 0 black, 0 -0.5px black;"
+                  >
+                    {{ product.gross_selling_price_calculated_unit }}PLN/M3
+                  </p>
+                  {{ product.purchases }} zamówień dzisiaj!
+                </div>
+              </NuxtLink>
             </div>
-          </nuxt-link>
-        </div>
-        <div>
-
-        </div>
+          </div>
         <a class="text-center mt-8 text-lg md:text-xl w-fit mx-auto flex gap-2 align-center" href="#price-table">
           <div>
             Zobacz tabelę cen
@@ -280,4 +288,16 @@ const playVideo  = () => {
   align-items: center;
   height: 800px; /* Taka sama wysokość jak iframe, aby uniknąć przesunięcia treści */
 }
+
+.animate-slide-left {
+  animation: slide-left infinite linear;
+}
+
+@keyframes slide-left {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
 </style>
