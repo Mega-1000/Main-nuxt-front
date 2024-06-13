@@ -274,6 +274,7 @@ const playVideo  = () => {
           </div>
         </div>
       </section>
+      </div>
     </main>
   </div>
 </template>
@@ -300,4 +301,5 @@ const playVideo  = () => {
   100% {
     transform: translateX(-100%);
   }
+}
 </style>
