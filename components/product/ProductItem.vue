@@ -189,7 +189,8 @@ const decreaseFastAddToCartValue = () => {
 </script>
 
 <template>
-    <div
+    <NuxtLink
+        :href="!subPage ? `/singleProduct/${item.id}` : ''"
         :class="{ 'cursor-not-allowed filter': props.item.blured }"
         class="justify-between relative flex flex-col md:flex-row md:space-x-5 space-y-3 md:space-y-0 rounded-xl shadow-lg p-3 w-full mx-auto border border-white bg-white max-w-7xl"
     >
@@ -288,7 +289,7 @@ const decreaseFastAddToCartValue = () => {
         <div class="inline-flex rounded-md shadow-sm" role="group">
         </div>
       </div>
-    </div>
+    </NuxtLink>
     <div class="md:w-2/3 md:mx-auto">
       <div
         v-for="subProduct in subProducts"
