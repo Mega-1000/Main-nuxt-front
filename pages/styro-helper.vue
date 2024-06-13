@@ -1,25 +1,32 @@
 <template>
   <div class="container">
     <h2 class="title">Jakiego styropianu potrzebujesz?</h2>
-    <label class="input">
+    <div class="input-container">
       <input
           type="text"
           placeholder="Np: Potrzebuję czegoś na ocieplenie podłogi..."
           v-model="prompt"
           @keyup.enter="sendS"
+          class="input"
       />
-      <button class="button" @click="sendS" :disabled="!prompt">Wyślij</button>
-    </label>
-    <div v-if="response" class="response-container">
+      <button class="button" @click="sendS" :disabled="!prompt || loading">
+        <span v-if="loading" class="spinner"></span>
+        <span v-else>Wyślij</span>
+      </button>
+    </div>
+    <div v-if="response" class="response-container" @animationend="stopAnimation">
       <div class="response-header">
-        <h3>{{ response.message }}</h3>
+        <h3 ref="typewriterText"></h3>
       </div>
-      <transition-group name="product-list" tag="div" class="product-list">
-        <div
-            v-for="(product, index) in response.products"
-            :key="index"
-            class="product-item"
-        >
+      <transition-group
+          name="product-list"
+          tag="div"
+          class="product-list"
+          @before-enter="beforeEnter"
+          @enter="enter"
+          @leave="leave"
+      >
+        <div v-for="(product, index) in response.products" :key="index" class="product-item">
           {{ product }}
         </div>
       </transition-group>
@@ -29,24 +36,73 @@
 
 <script setup>
 import axios from "axios";
+import { ref, onMounted, nextTick } from "vue";
 
 const prompt = ref("");
 const response = ref(null);
+const loading = ref(false);
+const typewriterText = ref(null);
+const typewriterTimeout = ref(null);
 
-const sendS = () => {
+const sendS = async () => {
+  loading.value = true;
   const queryParams = new URLSearchParams(window.location.search);
   const url = `https://admin.mega1000.pl/api/styro-help`;
 
-  axios
-      .post(url, {
-        message: prompt.value,
-        formData: queryParams.toString(),
-      })
-      .then((res) => {
-        response.value = res.data;
-        prompt.value = "";
-      });
+  try {
+    const res = await axios.post(url, {
+      message: prompt.value,
+      formData: queryParams.toString(),
+    });
+    response.value = res.data;
+    prompt.value = "";
+    await typewriteText(res.data.message);
+  } catch (error) {
+    console.error(error);
+  } finally {
+    loading.value = false;
+  }
 };
+
+const typewriteText = async (text) => {
+  if (typewriterTimeout.value) {
+    clearTimeout(typewriterTimeout.value);
+  }
+
+  typewriterText.value.textContent = "";
+  let i = 0;
+
+  const typeWriter = () => {
+    if (i < text.length) {
+      typewriterText.value.textContent += text.charAt(i);
+      i++;
+      typewriterTimeout.value = setTimeout(typeWriter, 50);
+    }
+  };
+
+  typeWriter();
+};
+
+const beforeEnter = (el) => {
+  el.style.opacity = 0;
+  el.style.transform = "scale(0.8)";
+};
+
+const enter = (el, done) => {
+  el.style.opacity = 1;
+  el.style.transform = "scale(1)";
+  el.addEventListener("transitionend", done);
+};
+
+const leave = (el, done) => {
+  el.style.opacity = 0;
+  el.style.transform = "scale(0.8)";
+  el.addEventListener("transitionend", done);
+};
+
+onMounted(() => {
+  typewriterText.value = document.querySelector(".response-header h3");
+});
 </script>
 
 <style scoped>
@@ -55,31 +111,40 @@ const sendS = () => {
   margin: 0 auto;
   padding: 20px;
   text-align: center;
+  font-family: "Roboto", sans-serif;
 }
 
 .title {
-  font-size: 24px;
+  font-size: 28px;
   margin-bottom: 20px;
+  font-weight: 700;
+  color: #333;
 }
 
-.input {
+.input-container {
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 20px;
 }
 
-input {
-  padding: 10px;
+.input {
+  padding: 12px;
   font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 4px;
   flex: 1;
   margin-right: 10px;
+  transition: border-color 0.3s ease;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #4caf50;
 }
 
 .button {
-  padding: 10px 20px;
+  padding: 12px 20px;
   font-size: 16px;
   background-color: #4caf50;
   color: white;
@@ -87,6 +152,7 @@ input {
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  position: relative;
 }
 
 .button:disabled {
@@ -94,11 +160,25 @@ input {
   cursor: not-allowed;
 }
 
+.spinner {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 3px solid #fff;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
 .response-container {
   background-color: #f2f2f2;
   padding: 20px;
   border-radius: 4px;
   margin-top: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeIn 0.5s ease forwards;
 }
 
 .response-header {
@@ -116,7 +196,7 @@ input {
   padding: 10px;
   border-radius: 4px;
   margin: 5px;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
 .product-list-enter-active,
@@ -128,5 +208,25 @@ input {
 .product-list-leave-to {
   opacity: 0;
   transform: scale(0.8);
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 </style>
