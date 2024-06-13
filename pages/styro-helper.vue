@@ -88,10 +88,6 @@ const sendS = async () => {
 };
 
 const typewriteText = async (text) => {
-  if (typewriterTimeout.value) {
-    clearTimeout(typewriterTimeout.value);
-  }
-
   if (typewriterText.value) {
     typewriterText.value.textContent = "";
     let i = 0;
@@ -100,7 +96,7 @@ const typewriteText = async (text) => {
       if (i < text.length) {
         typewriterText.value.textContent += text.charAt(i);
         i++;
-        typewriterTimeout.value = setTimeout(typeWriter, 50);
+        requestAnimationFrame(typeWriter);
       }
     };
 
