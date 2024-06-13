@@ -60,9 +60,7 @@ import { ref, onMounted, nextTick } from "vue";
 const prompt = ref("");
 const response = ref(null);
 const loading = ref(false);
-const typewriterText = ref({
-  'textContent': ''
-});
+const typewriterText = ref(null);
 const typewriterTimeout = ref(null);
 const selectedProduct = ref(null);
 
@@ -78,6 +76,9 @@ const sendS = async () => {
     });
     response.value = res.data;
     prompt.value = "";
+
+    // Assign typewriterText.value before calling typewriteText
+    typewriterText.value = document.querySelector(".response-header h3");
     await typewriteText(res.data.message);
   } catch (error) {
     console.error(error);
@@ -91,18 +92,20 @@ const typewriteText = async (text) => {
     clearTimeout(typewriterTimeout.value);
   }
 
-  typewriterText.value.textContent = "";
-  let i = 0;
+  if (typewriterText.value) {
+    typewriterText.value.textContent = "";
+    let i = 0;
 
-  const typeWriter = () => {
-    if (i < text.length) {
-      typewriterText.value.textContent += text.charAt(i);
-      i++;
-      typewriterTimeout.value = setTimeout(typeWriter, 50);
-    }
-  };
+    const typeWriter = () => {
+      if (i < text.length) {
+        typewriterText.value.textContent += text.charAt(i);
+        i++;
+        typewriterTimeout.value = setTimeout(typeWriter, 50);
+      }
+    };
 
-  typeWriter();
+    typeWriter();
+  }
 };
 
 const beforeEnter = (el) => {
@@ -131,7 +134,7 @@ const closeDetails = () => {
 };
 
 onMounted(() => {
-  typewriterText.value = document.querySelector(".response-header h3");
+  // typewriterText.value = document.querySelector(".response-header h3");
 });
 </script>
 
