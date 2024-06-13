@@ -135,6 +135,9 @@ const playVideo  = () => {
             </div>
           </nuxt-link>
         </div>
+        <div>
+
+        </div>
         <a class="text-center mt-8 text-lg md:text-xl w-fit mx-auto flex gap-2 align-center" href="#price-table">
           <div>
             Zobacz tabelę cen
