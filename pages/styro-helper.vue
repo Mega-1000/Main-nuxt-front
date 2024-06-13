@@ -36,6 +36,8 @@
               class="w-full"
               :showModal="true"
           />
+
+          {{ response.description }}
         </div>
       </transition-group>
     </div>
