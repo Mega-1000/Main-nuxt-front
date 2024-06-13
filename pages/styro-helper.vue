@@ -16,7 +16,7 @@
     </div>
     <div v-if="response" class="response-container" @animationend="stopAnimation">
       <div class="response-header">
-        <h3 ref="typewriterText"></h3>
+        <h3>{{ typewriterText }}</h3>
       </div>
       <transition-group
           name="product-list"
