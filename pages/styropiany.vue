@@ -169,7 +169,9 @@ const playVideo  = () => {
               <p class="text-red-500 font-extrabold text-xl md:text-2xl" style=" text-shadow: -0.5px 0 black, 0 1px black, 1px 0 black, 0 -0.5px black;">
                 {{ product.gross_selling_price_calculated_unit }}PLN/M3
               </p>
-              {{ product.purchases }} zamówień dzisiaj!
+              <span class="font-extrabold">
+                {{ product.purchases }} zamówień dzisiaj!
+              </span>
             </div>
           </nuxt-link>
         </div>
