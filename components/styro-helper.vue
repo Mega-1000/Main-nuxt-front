@@ -1,6 +1,6 @@
 <template>
-  <div class="container">
-    <h2 class="title">Znajdź idealny styropian dla Twojego projektu</h2>
+  <div class="container mx-4">
+    <h2 class="title">Skorzystaj z pomocy sztucznej inteligencji i znajdź idealny styropian dla twojego projektu</h2>
     <div class="input-container">
       <input
           type="text"
