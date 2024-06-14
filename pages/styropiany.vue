@@ -31,7 +31,7 @@ onMounted(async () => {
 
   if (productCarousel.value && window.innerWidth < 768) {
     let switchCount = 0;
-    const maxSwitches = 3;
+    const maxSwitches = 2;
     const scrollDistance = 300;
 
     carouselInterval = setInterval(() => {
