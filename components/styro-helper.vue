@@ -120,13 +120,12 @@ const closeDetails = () => {
 </script>
 <style scoped>
 .container {
-  max-width: 600px;
+  max-width: 900px;
   margin: 0 auto;
   padding: 20px;
   text-align: center;
   font-family: "Roboto", sans-serif;
   color: #ffffff; /* Contrasting color for text */
-  background-color: #065f46; /* emerald-800 */
 }
 
 .title {
