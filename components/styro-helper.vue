@@ -118,51 +118,45 @@ const closeDetails = () => {
   selectedProduct.value = null;
 };
 </script>
-
-<style scoped>
+<style>
 .container {
   max-width: 600px;
   margin: 0 auto;
   padding: 20px;
   text-align: center;
   font-family: "Roboto", sans-serif;
+  color: #ffffff; /* Contrasting color for text */
+  background-color: #065f46; /* emerald-800 */
 }
 
 .title {
   font-size: 28px;
   margin-bottom: 20px;
   font-weight: 700;
-  color: #ffffff;
-}
-
-.input-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 20px;
+  color: #ffffff; /* Contrasting color for text */
 }
 
 .input {
   padding: 12px;
   font-size: 16px;
-  border: 1px solid #ccc;
+  border: 1px solid #cccccc;
   border-radius: 4px;
   flex: 1;
   margin-right: 10px;
   transition: border-color 0.3s ease;
-  color: black;
+  color: #333333; /* Contrasting color for text */
 }
 
 .input:focus {
   outline: none;
-  border-color: blue;
+  border-color: #fbbf24; /* Contrasting color for border */
 }
 
 .button {
   padding: 12px 20px;
   font-size: 16px;
-  background-color: blue;
-  color: white;
+  background-color: #fbbf24; /* Contrasting color for background */
+  color: #065f46; /* emerald-800 */
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -171,7 +165,7 @@ const closeDetails = () => {
 }
 
 .button:disabled {
-  background-color: #ccc;
+  background-color: #cccccc;
   cursor: not-allowed;
 }
 
@@ -179,7 +173,7 @@ const closeDetails = () => {
   display: inline-block;
   width: 20px;
   height: 20px;
-  border: 3px solid #fff;
+  border: 3px solid #065f46; /* emerald-800 */
   border-top-color: transparent;
   border-radius: 50%;
   animation: spin 1s linear infinite;
@@ -207,22 +201,53 @@ const closeDetails = () => {
 }
 
 .product-item {
-  background-color: #e0e0e0;
+  background-color: #d3e0db; /* Contrasting color for background */
   padding: 10px;
   border-radius: 4px;
   margin: 5px;
   transition: transform 0.3s ease, opacity 0.3s ease;
+  cursor: pointer;
+  color: #065f46; /* emerald-800 */
 }
 
-.product-list-enter-active,
-.product-list-leave-active {
-  transition: all 0.3s ease;
+.product-item:hover {
+  background-color: #c1d9ce; /* Contrasting color for background on hover */
+  transform: scale(1.05);
 }
 
-.product-list-enter-from,
-.product-list-leave-to {
-  opacity: 0;
-  transform: scale(0.8);
+.product-details {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  max-width: 400px;
+  width: 90%;
+  z-index: 10;
+  animation: fadeIn 0.3s ease;
+}
+
+.product-details-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: #065f46; /* emerald-800 */
+}
+
+.product-details-footer {
+  margin-top: 20px;
+  text-align: right;
 }
 
 @keyframes spin {
@@ -237,68 +262,9 @@ const closeDetails = () => {
 @keyframes fadeIn {
   0% {
     opacity: 0;
-    transform: translateY(20px);
   }
   100% {
     opacity: 1;
-    transform: translateY(0);
   }
-}
-
-.product-item {
-background-color: #e0e0e0;
-padding: 10px;
-border-radius: 4px;
-margin: 5px;
-transition: transform 0.3s ease, opacity 0.3s ease;
-cursor: pointer;
-}
-
-.product-item:hover {
-background-color: #d8d8d8;
-transform: scale(1.05);
-}
-
-.product-details {
-position: fixed;
-top: 50%;
-left: 50%;
-transform: translate(-50%, -50%);
-background-color: white;
-padding: 20px;
-border-radius: 4px;
-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-max-width: 400px;
-width: 90%;
-z-index: 10;
-animation: fadeIn 0.3s ease;
-}
-
-.product-details-header {
-display: flex;
-justify-content: space-between;
-align-items: center;
-margin-bottom: 10px;
-}
-
-.close-button {
-background: none;
-border: none;
-font-size: 20px;
-cursor: pointer;
-}
-
-.product-details-footer {
-margin-top: 20px;
-text-align: right;
-}
-
-@keyframes fadeIn {
-0% {
-opacity: 0;
-}
-100% {
-opacity: 1;
-}
 }
 </style>
