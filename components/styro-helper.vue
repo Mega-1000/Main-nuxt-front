@@ -119,7 +119,7 @@ const closeDetails = () => {
 };
 </script>
 
-<style>
+<style scoped>
 .container {
   max-width: 600px;
   margin: 0 auto;
@@ -132,7 +132,7 @@ const closeDetails = () => {
   font-size: 28px;
   margin-bottom: 20px;
   font-weight: 700;
-  color: #333;
+  color: #ffffff;
 }
 
 .input-container {
@@ -150,17 +150,18 @@ const closeDetails = () => {
   flex: 1;
   margin-right: 10px;
   transition: border-color 0.3s ease;
+  color: black;
 }
 
 .input:focus {
   outline: none;
-  border-color: #4caf50;
+  border-color: blue;
 }
 
 .button {
   padding: 12px 20px;
   font-size: 16px;
-  background-color: #4caf50;
+  background-color: blue;
   color: white;
   border: none;
   border-radius: 4px;

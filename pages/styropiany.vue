@@ -117,7 +117,7 @@ const playVideo  = () => {
   <div>
     <main>
       <section class="hero py-2 px-2 md:py-4 md:px-4 bg-gradient-to-r from-emerald-600 to-emerald-800 text-white">
-        <div class="mx-auto text-center">
+        <div class="container mx-auto text-center">
           <h1 class="text-2xl md:text-6xl font-extrabold mb-1 mt-2 md:mb-6 pointer" @click="playVideo">Dowiedz się jak działa nasza plaforma i stwórz przetarg! To do niczego nie zobowiązuje!</h1>
           <div class="mb-4 mx-auto w-full md:w-fit">
             <iframe class="w-full md:w-[500px] h-[200px] md:h-[315px]" src="https://www.youtube.com/embed/wWe4qP8W_b0" title="Jak działa nasza platforma" frameborder="0" allow="autoplay" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen id="tutorialVideo" ref="tutorialVideo"></iframe>
@@ -171,7 +171,7 @@ const playVideo  = () => {
       </div>
 
       <section class="py-6 px-2 md:py-10 md:px-4 bg-gray-100" id="price-table">
-        <div class="mx-auto relative">
+        <div class="container mx-auto relative">
           <h2 class="text-xl md:text-3xl font-extrabold mb-6 md:mb-10 text-center text-emerald-500">
             <a href="#price-table" style="cursor: default;">Wybierz styropian z tabeli, kliknij cenę - dodasz do koszyka.</a><br>
             <div class="text-sm md:text-lg text-black mt-2">
@@ -196,7 +196,7 @@ const playVideo  = () => {
       </section>
 
       <section class="py-10 px-2 md:py-20 md:px-4 bg-white">
-        <div class="mx-auto text-center">
+        <div class="container mx-auto text-center">
           <h2 class="text-2xl md:text-4xl md:text-5xl font-bold mb-4 md:mb-10">
             Odbiór w jednym z 100 punktów
           </h2>
@@ -208,7 +208,7 @@ const playVideo  = () => {
       </section>
 
       <section class="py-6 px-2 md:py-10 md:px-4 bg-gray-100" id="videos">
-        <div class="w-full md:w-[70%] mx-auto">
+        <div class="container w-full md:w-[70%] mx-auto">
           <span class="text-xl w-fit font-bold">
             Obejżyj filmy poradnikowe przygotowane dla ciebie 📽
           </span>
@@ -222,7 +222,7 @@ const playVideo  = () => {
       </section>
 
       <section class="py-6 px-2 md:py-10 md:px-4 bg-gray-100" id="instructions">
-        <div class="mx-auto text-center flex flex-wrap justify-center gap-2 md:gap-4">
+        <div class="container mx-auto text-center flex flex-wrap justify-center gap-2 md:gap-4">
           <NuxtLink href="/100styropiany-elewacyjne/102" class="bg-emerald-500 rounded px-2 md:px-4 py-2 text-white font-semibold">
             Styropiany elewacyjne
           </NuxtLink>
@@ -236,7 +236,7 @@ const playVideo  = () => {
       </section>
 
       <section class="py-10 px-2 md:py-20 md:px-4 bg-emerald-600 text-white">
-        <div class="mx-auto text-center">
+        <div class="container mx-auto text-center">
           <h2 class="text-2xl md:text-4xl md:text-5xl font-bold mb-4 md:mb-10">Polecaj i oszczędzaj!</h2>
           <p class="text-sm md:text-lg mb-4 md:mb-10">
             Zaproś znajomych, a otrzymasz 30 zł zniżki za każdego nowego użytkownika! Proste i korzystne.
@@ -246,7 +246,7 @@ const playVideo  = () => {
       </section>
 
       <section class="py-10 px-2 md:py-20 md:px-4 bg-gray-100">
-        <div class="mx-auto">
+        <div class="container mx-auto">
           <h2 class="text-2xl md:text-4xl md:text-5xl font-bold mb-4 md:mb-10 text-center">Skontaktuj się z nami</h2>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
             <div class="contact-card bg-white rounded-lg shadow-lg p-4 md:p-8">
@@ -262,7 +262,7 @@ const playVideo  = () => {
       </section>
 
       <section class="py-10 px-2 md:py-20 md:px-4 bg-white">
-        <div class="mx-auto">
+        <div class="container mx-auto">
           <h2 class="text-2xl md:text-4xl md:text-5xl font-bold mb-4 md:mb-10 text-center">Co mówią klienci?</h2>
           <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8">
             <div class="testimonial-card bg-gray-100 rounded-lg shadow-lg p-4 md:p-8">
