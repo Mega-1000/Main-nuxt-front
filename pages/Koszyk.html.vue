@@ -502,9 +502,9 @@ const ShipmentCostItemsLeftText = (product: any) => {
             <label for="default-checkbox" class="ml-2 text-sm font-medium text-gray-900">Czy to jest nowe zamówienie?</label>
           </div>
         </template>
-        <button type="button" @click="productsCart.removeAllFromCart" v-if="!(!productsCart?.products || productsCart?.products?.length === 0)" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded animate-bounce">
-          Usuń wszystko
-        </button>
+<!--        <button type="button" @click="productsCart.removeAllFromCart" v-if="!(!productsCart?.products || productsCart?.products?.length === 0)" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded animate-bounce">-->
+<!--          Usuń wszystko-->
+<!--        </button>-->
 
         <div v-for="product in productsCart.products" class="max-w-[100vw]" v-tooltip.auto-start="ShipmentCostItemsLeftText(product)">
           <div class="flex flex-col md:flex-row md:items-center bg-white shadow-lg rounded-lg overflow-hidden animate-slide-in-left">
