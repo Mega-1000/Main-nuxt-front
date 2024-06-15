@@ -23,12 +23,12 @@ export default defineNuxtConfig({
     init: {
       websiteToken: 'QZL2X1noKmm71rRcGyb259NF'
     },
-    settings: {
-      locale: 'pl',
-      position: 'right',
-      launcherTitle: 'Możemy w czymś pomóc?',
-      // ... and more settings
-    },
+    // settings: {
+    //   locale: 'pl',
+    //   position: 'right',
+    //   launcherTitle: 'Możemy w czymś pomóc?',
+    //   // ... and more settings
+    // },
     // If this is loaded you can make it true, https://github.com/nuxt-modules/partytown
     partytown: false,
   },
