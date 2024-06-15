@@ -183,7 +183,7 @@ const handleSubmit = async (e: Event | null) => {
   if (localStorage.getItem('isAdmin') == 'true') {
     Swal.fire({
       title: 'Ukryć przed klientem?',
-      text: "Czy chcesz ukryć zamówienie przed klientem?",
+      text: "Czy chcesz ukryć zapytanie przed klientem?",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -384,7 +384,7 @@ const createChat = async (redirect: boolean) => {
   }
 
   if (isOrderStyrofoam) {
-    await Swal.fire('Zapytanie zostało stworzone pomyślnie!', 'Po kliknięciu "OK" Przeniesiemy cię do konta z możliwością zarządzania twoimi zamówieniami', 'info');
+    await Swal.fire('Zapytanie zostało stworzone pomyślnie!', 'Po kliknięciu "OK" Przeniesiemy cię do konta z możliwością zarządzania twoimi zapytaniami', 'info');
     await router.push('/account');
     return;
   }
@@ -499,7 +499,7 @@ const ShipmentCostItemsLeftText = (product: any) => {
 
           <div class="flex items-center mb-4 animate-slide-in-left">
             <input id="default-checkbox" type="checkbox" v-model="isNewOrder" class="h-4 w-4 text-indigo-600 bg-gray-100 border-gray-300 rounded focus:ring-indigo-500 focus:ring-2" />
-            <label for="default-checkbox" class="ml-2 text-sm font-medium text-gray-900">Czy to jest nowe zamówienie?</label>
+            <label for="default-checkbox" class="ml-2 text-sm font-medium text-gray-900">Czy to jest nowe zapytanie?</label>
           </div>
         </template>
 <!--        <button type="button" @click="productsCart.removeAllFromCart" v-if="!(!productsCart?.products || productsCart?.products?.length === 0)" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded animate-bounce">-->
@@ -531,7 +531,7 @@ const ShipmentCostItemsLeftText = (product: any) => {
 
       <div v-if="productsCart?.products && productsCart?.products?.length > 0" class="bg-white shadow-lg rounded-lg p-6 mt-8 animate-slide-in-right">
         <h5 class="text-2xl font-bold mb-4">Podsumowanie</h5>
-        <div class="overflow-x-auto">
+        <div class="overflow-x-auto hidden md:block">
           <table class="w-full text-sm text-left text-gray-500">
             <thead class="text-xs text-gray-700 uppercase bg-gray-100">
             <tr>
@@ -557,7 +557,7 @@ const ShipmentCostItemsLeftText = (product: any) => {
         </div>
         <div class="mt-8 border-t pt-4">
           <div class="flex justify-between mb-4">
-            <p class="text-lg font-medium">Łączne zamówienie</p>
+            <p class="text-lg font-medium">Łączne zapytanie</p>
             <div>
               <p class="text-md">Netto: {{ productsCart.nettoPrice() }} PLN</p>
               <p class="text-md">Brutto: {{ productsCart.grossPrice() }} PLN</p>
@@ -608,10 +608,10 @@ const ShipmentCostItemsLeftText = (product: any) => {
               <p v-if="!isPostalCodeValid" class="text-red-500 text-sm">Kod pocztowy musi mieć format XX-XXX</p>
             </div>
 
-            <div>
-              <label for="additional-notices" class="block mb-2 text-sm font-medium text-gray-900">Opis i uwagi do zamówienia</label>
-              <textarea id="additional-notices" rows="4" v-model="additionalNoticesInput" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"></textarea>
-            </div>
+<!--            <div>-->
+<!--              <label for="additional-notices" class="block mb-2 text-sm font-medium text-gray-900">Opis i uwagi do zapytania</label>-->
+<!--              <textarea id="additional-notices" rows="4" v-model="additionalNoticesInput" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"></textarea>-->
+<!--            </div>-->
 
 
             <div v-if="isOrderStyrofoam" class="mt-4">
