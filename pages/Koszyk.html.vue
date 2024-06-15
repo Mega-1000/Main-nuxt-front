@@ -321,6 +321,9 @@ const createChat = async (redirect: boolean) => {
       const data =  await handleSubmit(null);
       loading.value = false;
 
+      productsCart.value.removeAllFromCart();
+      window.location.reload()
+
       swal.fire({
         title: '',
         html: 'Dziękujemy za wysłanie zapytania ofertowego. Wkrótce skontaktujemy się z Tobą.',
