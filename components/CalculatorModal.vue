@@ -491,7 +491,7 @@ const handleBlur = (event: any) => {
           {{ state?.lesserBiggest }}
         </td>
       </tr>
-      <tr class="bg-white">
+      <tr class="bg-white border-b">
         <th
             scope="row"
             class="px-3 px-1 font-medium text-gray-900 whitespace-nowrap"
