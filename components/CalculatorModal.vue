@@ -360,19 +360,19 @@ const handleBlur = (event: any) => {
       <thead class="text-xs text-gray-700 uppercase bg-gray-50">
       <tr>
         <th />
-        <th scope="col" class="px-6 py-3" v-if="state?.commercial">
+        <th scope="col" class="px-3 py-3" v-if="state?.commercial">
           Handlowa [{{ state?.commercialName }}]
         </th>
-        <th scope="col" class="px-6 py-3" v-if="state?.calculation">
+        <th scope="col" class="px-3 py-3" v-if="state?.calculation">
           Obliczeniowa [{{ state?.calculationName }}]
         </th>
-        <th scope="col" class="px-6 py-3" v-if="state?.basicUnit">
+        <th scope="col" class="px-3 py-3" v-if="state?.basicUnit">
           Podstawowa [{{ state?.basicUnitName }}]
         </th>
-        <th scope="col" class="px-6 py-3" v-if="state?.collective">
+        <th scope="col" class="px-3 py-3" v-if="state?.collective">
           Zbiorcza [{{ state?.collectiveName }}]
         </th>
-        <th scope="col" class="px-6 py-3" v-if="state?.unitBiggest">
+        <th scope="col" class="px-3 py-3" v-if="state?.unitBiggest">
           Globalna [{{ state?.unitBiggestName }}]
         </th>
       </tr>
@@ -381,11 +381,11 @@ const handleBlur = (event: any) => {
       <tr class="bg-white border-b">
         <th
             scope="row"
-            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
+            class="px-3 px-1 font-medium text-gray-900 whitespace-nowrap"
         >
           Ilość zamawianego towaru
         </th>
-        <td class="px-6 py-4" v-if="state?.commercial">
+        <td class="px-3 px-1" v-if="state?.commercial">
           <input
               class="border border-gray-400"
               name="selectedCommercial"
@@ -394,7 +394,7 @@ const handleBlur = (event: any) => {
               :onChange="handleChange"
           />
         </td>
-        <td class="px-6 py-4" v-if="state?.calculation">
+        <td class="px-3 px-1" v-if="state?.calculation">
           <input
               class="border border-gray-400"
               name="selectedCalculation"
@@ -403,7 +403,7 @@ const handleBlur = (event: any) => {
               :onChange="handleChange"
           />
         </td>
-        <td class="px-6 py-4" v-if="state?.basicUnit">
+        <td class="px-3 px-1" v-if="state?.basicUnit">
           <input
               class="border border-gray-400"
               name="selectedBasicUnit"
@@ -412,7 +412,7 @@ const handleBlur = (event: any) => {
               :onChange="handleChange"
           />
         </td>
-        <td class="px-6 py-4" v-if="state?.collective">
+        <td class="px-3 px-1" v-if="state?.collective">
           <input
               class="border border-gray-400"
               name="selectedCollective"
@@ -421,7 +421,7 @@ const handleBlur = (event: any) => {
               :onChange="handleChange"
           />
         </td>
-        <td class="px-6 py-4" v-if="state?.unitBiggest">
+        <td class="px-3 px-1" v-if="state?.unitBiggest">
           <input
               class="border border-gray-400"
               name="selectedUnitBiggest"
@@ -434,34 +434,34 @@ const handleBlur = (event: any) => {
       <tr class="bg-white border-b">
         <th
             scope="row"
-            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
+            class="px-3 px-1 font-medium text-gray-900 whitespace-nowrap"
         >
           Ceny brutto sprzedaży [PLN]
         </th>
-        <td class="px-6 py-4" v-if="state?.commercial">
+        <td class="px-3 px-1" v-if="state?.commercial">
           {{ state?.commercialPrice }}
         </td>
-        <td class="px-6 py-4" v-if="state?.calculation">
+        <td class="px-3 px-1" v-if="state?.calculation">
           {{ state?.calculationPrice }}
         </td>
-        <td class="px-6 py-4" v-if="state?.basicUnit">
+        <td class="px-3 px-1" v-if="state?.basicUnit">
           {{ state?.basicPrice }}
         </td>
-        <td class="px-6 py-4" v-if="state?.collective">
+        <td class="px-3 px-1" v-if="state?.collective">
           {{ state?.collectivePrice }}
         </td>
-        <td class="px-6 py-4" v-if="state?.unitBiggest">
+        <td class="px-3 px-1" v-if="state?.unitBiggest">
           {{ state?.biggestPrice }}
         </td>
       </tr>
       <tr class="bg-white border-b">
         <th
             scope="row"
-            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
+            class="px-3 px-1 font-medium text-gray-900 whitespace-nowrap"
         >
           Wartość brutto sprzedaży [PLN]
         </th>
-        <td class="px-6 py-4" v-if="state?.commercial">
+        <td class="px-3 px-1" v-if="state?.commercial">
           {{
             (state?.commercialPrice * state?.selectedCommercial).toFixed(2)
           }}
@@ -470,48 +470,48 @@ const handleBlur = (event: any) => {
       <tr class="bg-white border-b">
         <th
             scope="row"
-            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
+            class="px-3 px-1 font-medium text-gray-900 whitespace-nowrap"
         >
           Ilość przy zamówieniu 1 <br />
           opakowania handlowego mniej
         </th>
-        <td class="px-6 py-4" v-if="state?.commercial">
+        <td class="px-3 px-1" v-if="state?.commercial">
           {{ state?.lesserCommercial }}
         </td>
-        <td class="px-6 py-4" v-if="state?.calculation">
+        <td class="px-3 px-1" v-if="state?.calculation">
           {{ state?.lesserCalculation }}
         </td>
-        <td class="px-6 py-4" v-if="state?.basicUnit">
+        <td class="px-3 px-1" v-if="state?.basicUnit">
           {{ state?.lesserBasic }}
         </td>
-        <td class="px-6 py-4" v-if="state?.collective">
+        <td class="px-3 px-1" v-if="state?.collective">
           {{ state?.lesserCollective }}
         </td>
-        <td class="px-6 py-4" v-if="state?.unitBiggest">
+        <td class="px-3 px-1" v-if="state?.unitBiggest">
           {{ state?.lesserBiggest }}
         </td>
       </tr>
       <tr class="bg-white">
         <th
             scope="row"
-            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
+            class="px-3 px-1 font-medium text-gray-900 whitespace-nowrap"
         >
           Wartość brutto sprzedaży przy<br />
           zamówieniu 1 opakowania<br />
           handlowego mniej [PLN]
         </th>
-        <td class="px-6 py-4" v-if="state?.commercial">
+        <td class="px-3 px-1" v-if="state?.commercial">
           {{ (state?.commercialPrice * state?.lesserCommercial).toFixed(2) }}
         </td>
       </tr>
       <tr class="bg-white" v-if="state?.displayConsumption">
         <th
             scope="row"
-            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
+            class="px-3 px-1 font-medium text-gray-900 whitespace-nowrap"
         >
           Obliczenia dokonanu przy <br />założeniu zużycia
         </th>
-        <td class="px-6 py-4">
+        <td class="px-3 px-1">
           <input
               class="border border-gray-400"
               name="selectedConsumption"
