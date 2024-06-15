@@ -1,6 +1,7 @@
 export default defineNuxtConfig({
   ssr: false,
-  modules: ["@nuxtjs/tailwindcss", "nuxt-icon", "@nuxt/devtools", "nuxt-gtag", 'nuxt-module-hotjar', '@productdevbook/chatwoot'],
+  //'@productdevbook/chatwoot'
+  modules: ["@nuxtjs/tailwindcss", "nuxt-icon", "@nuxt/devtools", "nuxt-gtag", 'nuxt-module-hotjar'],
   gtag: {
     tags: [
       {

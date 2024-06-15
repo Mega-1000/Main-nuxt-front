@@ -397,47 +397,47 @@ const handleBlur = (event: any) => {
               />
             </td>
           </tr>
-          <tr class="bg-white border-b">
-            <th scope="row" class="px-1 py-1 font-medium text-black">
-              Ceny netto<br />
-              sprzedaży [PLN]
-            </th>
-            <td class="px-1 py-1" v-if="state?.commercial">
-              {{
-                parseFloat(
-                  props.product.net_selling_price_commercial_unit
-                ).toFixed(2)
-              }}
-            </td>
-            <td class="px-1 py-1" v-if="state?.calculation">
-              {{
-                parseFloat(
-                  props.product.net_selling_price_calculated_unit
-                ).toFixed(2)
-              }}
-            </td>
-            <td class="px-1 py-1" v-if="state?.basicUnit">
-              {{
-                parseFloat(props.product.net_selling_price_basic_unit).toFixed(
-                  2
-                )
-              }}
-            </td>
-            <td class="px-1 py-1" v-if="state?.collective">
-              {{
-                parseFloat(
-                  props.product.net_selling_price_aggregate_unit
-                ).toFixed(2)
-              }}
-            </td>
-            <td class="px-1 py-1" v-if="state?.unitBiggest">
-              {{
-                parseFloat(
-                  props.product.net_selling_price_the_largest_unit
-                ).toFixed(2)
-              }}
-            </td>
-          </tr>
+<!--          <tr class="bg-white border-b">-->
+<!--            <th scope="row" class="px-1 py-1 font-medium text-black">-->
+<!--              Ceny netto<br />-->
+<!--              sprzedaży [PLN]-->
+<!--            </th>-->
+<!--            <td class="px-1 py-1" v-if="state?.commercial">-->
+<!--              {{-->
+<!--                parseFloat(-->
+<!--                  props.product.net_selling_price_commercial_unit-->
+<!--                ).toFixed(2)-->
+<!--              }}-->
+<!--            </td>-->
+<!--            <td class="px-1 py-1" v-if="state?.calculation">-->
+<!--              {{-->
+<!--                parseFloat(-->
+<!--                  props.product.net_selling_price_calculated_unit-->
+<!--                ).toFixed(2)-->
+<!--              }}-->
+<!--            </td>-->
+<!--            <td class="px-1 py-1" v-if="state?.basicUnit">-->
+<!--              {{-->
+<!--                parseFloat(props.product.net_selling_price_basic_unit).toFixed(-->
+<!--                  2-->
+<!--                )-->
+<!--              }}-->
+<!--            </td>-->
+<!--            <td class="px-1 py-1" v-if="state?.collective">-->
+<!--              {{-->
+<!--                parseFloat(-->
+<!--                  props.product.net_selling_price_aggregate_unit-->
+<!--                ).toFixed(2)-->
+<!--              }}-->
+<!--            </td>-->
+<!--            <td class="px-1 py-1" v-if="state?.unitBiggest">-->
+<!--              {{-->
+<!--                parseFloat(-->
+<!--                  props.product.net_selling_price_the_largest_unit-->
+<!--                ).toFixed(2)-->
+<!--              }}-->
+<!--            </td>-->
+<!--          </tr>-->
           <tr class="bg-white border-b">
             <th scope="row" class="px-1 py-1 font-medium text-black">
               Ceny brutto<br />
@@ -461,20 +461,6 @@ const handleBlur = (event: any) => {
           </tr>
           <tr class="bg-white border-b">
             <th scope="row" class="px-1 py-1 font-medium text-black">
-              Wartość netto<br />
-              sprzedaży [PLN]
-            </th>
-            <td class="px-1 py-1" v-if="state?.commercial">
-              {{
-                (
-                  parseFloat(props.product.net_selling_price_commercial_unit) *
-                  parseFloat(state.selectedCommercial)
-                ).toFixed(2) || 0
-              }}
-            </td>
-          </tr>
-          <tr class="bg-white border-b">
-            <th scope="row" class="px-1 py-1 font-medium text-black">
               Wartość brutto <br />sprzedaży [PLN]
             </th>
             <td class="px-1 py-1" v-if="state?.commercial">
@@ -483,23 +469,23 @@ const handleBlur = (event: any) => {
               }}
             </td>
           </tr>
-          <tr class="bg-white" v-if="state?.displayConsumption">
-            <th scope="row" class="px-1 py-1 font-medium text-black">
-              Obliczenia dokonanu przy <br />założeniu zużycia
-            </th>
-            <td class="px-1 py-1">
-              <input
-                class="border border-gray-400 w-10 sm:w-20"
-                name="selectedConsumption"
-                :value="state?.selectedConsumption"
-                :onBlur="handleBlur"
-                :onChange="handleChange"
-              />
-              {{ props.product.unit_basic }}/{{
-                props.product.calculation_unit
-              }}
-            </td>
-          </tr>
+<!--          <tr class="bg-white" v-if="state?.displayConsumption">-->
+<!--            <th scope="row" class="px-1 py-1 font-medium text-black">-->
+<!--              Obliczenia dokonanu przy <br />założeniu zużycia-->
+<!--            </th>-->
+<!--            <td class="px-1 py-1">-->
+<!--              <input-->
+<!--                class="border border-gray-400 w-10 sm:w-20"-->
+<!--                name="selectedConsumption"-->
+<!--                :value="state?.selectedConsumption"-->
+<!--                :onBlur="handleBlur"-->
+<!--                :onChange="handleChange"-->
+<!--              />-->
+<!--              {{ props.product.unit_basic }}/{{-->
+<!--                props.product.calculation_unit-->
+<!--              }}-->
+<!--            </td>-->
+<!--          </tr>-->
         </tbody>
       </table>
     </div>
