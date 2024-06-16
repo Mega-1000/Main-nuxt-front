@@ -1,6 +1,6 @@
 <template>
-  <div v-if="show" class="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center" @click="hidePopup"></div>
-  <div v-if="show" class="fixed inset-0 flex items-center justify-center">
+  <div v-if="show" class="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center" style="z-index: 999999" @click="hidePopup"></div>
+  <div v-if="show" class="fixed inset-0 flex items-center justify-center" style="z-index: 999999">
     <div class="bg-white rounded-lg shadow-lg p-8 max-w-md mx-auto relative z-100 text-center">
       <button @click="hidePopup" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700">&times;</button>
       <h2 class="text-2xl font-bold mb-4">
