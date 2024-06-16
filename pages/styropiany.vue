@@ -331,4 +331,23 @@ const playVideo  = () => {
   align-items: center;
   height: 800px; /* Taka sama wysokość jak iframe, aby uniknąć przesunięcia treści */
 }
+em {
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(15%, #c1f99d), color-stop(94%, #e0f5d3));
+  background: linear-gradient(-180deg, #c1f99d 15%, #e0f5d3 94%);
+  padding: 2px;
+  font-style: normal;
+  color: #343a40;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+pm {
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(15%, #f99d9d), color-stop(94%, #f5d3d3));
+  background: linear-gradient(-180deg, #f99d9d 15%, #f5d3d3 94%);
+  padding: 2px;
+  font-style: normal;
+  color: #343a40;
+  border-radius: 4px;
+  overflow: hidden;
+}
 </style>
