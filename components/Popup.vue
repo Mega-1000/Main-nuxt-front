@@ -21,6 +21,7 @@
 
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from 'vue';
+import Swal from 'sweetalert2'
 
 const show = ref(false);
 const phoneNumber = ref('');
