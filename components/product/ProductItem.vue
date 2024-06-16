@@ -305,10 +305,10 @@ const decreaseFastAddToCartValue = () => {
             Cena: {{ subProduct.gross_price_of_packing }}
             {{ subProduct.currency || "PLN" }}/{{ subProduct.unit_commercial }}
           </p>
-          <p class="text-sm">Symbol produktu: {{ subProduct.symbol }}</p>
+<!--          <p class="text-sm">Symbol produktu: {{ subProduct.symbol }}</p>-->
 
           <submitButton>
-            Kalkulator cenowy
+            Wylicz ilość do zapytania
           </submitButton>
         </div>
       </div>
