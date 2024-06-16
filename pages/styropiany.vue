@@ -118,8 +118,10 @@ const playVideo  = () => {
     <main>
       <section class="hero py-2 px-2 md:py-4 md:px-4 bg-gradient-to-r from-emerald-600 to-emerald-800 text-white">
         <div class="container mx-auto text-center">
-          <h1 class="text-2xl md:text-6xl font-extrabold mb-1 mt-2 md:mb-6 pointer didact-gothic-regular " @click="playVideo">Dowiedz się jak oszczędzamy ponad <pm class="p-0"> 2M zł </pm> co roku naszym klientą
-            i stwórz <em class="p-0"> przetarg </em>! To do niczego nie zobowiązuje!</h1>
+          <h1 class="text-2xl md:text-6xl font-extrabold mb-1 mt-2 md:mb-6 pointer didact-gothic-regular " @click="playVideo">
+            Dowiedz się jak 3000+ klientów oszczędza ponad <pm class="p-0"> 2M zł </pm> co roku na styropianie
+            i stwórz <em class="p-0"> przetarg </em>! To do niczego nie zobowiązuje!
+          </h1>
           <div class="mb-4 mx-auto w-full md:w-fit">
             <iframe class="w-full md:w-[500px] h-[200px] md:h-[315px]" src="https://www.youtube.com/embed/wWe4qP8W_b0" title="Jak działa nasza platforma" frameborder="0" allow="autoplay" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen id="tutorialVideo" ref="tutorialVideo"></iframe>
           </div>
