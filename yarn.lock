@@ -5756,6 +5756,11 @@
   "resolved" "https://registry.npmjs.org/os-tmpdir/-/os-tmpdir-1.0.2.tgz"
   "version" "1.0.2"
 
+"ouibounce@^0.0.12":
+  "integrity" "sha512-Jxj79yq4x2gd5vj2hYfCKGy03IZrXgbCCiHvCe+5Crtc02mpLxggXaOI2wXH9At8Lx3GSlvbiTUvrQ75dUVtAA=="
+  "resolved" "https://registry.npmjs.org/ouibounce/-/ouibounce-0.0.12.tgz"
+  "version" "0.0.12"
+
 "p-limit@^3.0.2":
   "integrity" "sha512-TYOanM3wGwNGsZN2cVTYPArw454xnXj5qmWF1bEoAc4+cU/ol7GVh7odevjp1FNHduHc3KZMcFduxU5Xc6uJRQ=="
   "resolved" "https://registry.npmjs.org/p-limit/-/p-limit-3.1.0.tgz"

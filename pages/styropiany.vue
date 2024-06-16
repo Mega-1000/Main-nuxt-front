@@ -118,8 +118,8 @@ const playVideo  = () => {
     <main>
       <section class="hero py-2 px-2 md:py-4 md:px-4 bg-gradient-to-r from-emerald-600 to-emerald-800 text-white">
         <div class="container mx-auto text-center">
-          <h1 class="text-2xl md:text-6xl font-extrabold mb-1 mt-2 md:mb-6 pointer didact-gothic-regular " @click="playVideo">Dowiedz się jak oszczędzamy ponad 2M zł co roku naszym klientą
-            i stwórz przetarg! To do niczego nie zobowiązuje!</h1>
+          <h1 class="text-2xl md:text-6xl font-extrabold mb-1 mt-2 md:mb-6 pointer didact-gothic-regular " @click="playVideo">Dowiedz się jak oszczędzamy ponad <pm class="p-0"> 2M zł </pm> co roku naszym klientą
+            i stwórz <em class="p-0"> przetarg </em>! To do niczego nie zobowiązuje!</h1>
           <div class="mb-4 mx-auto w-full md:w-fit">
             <iframe class="w-full md:w-[500px] h-[200px] md:h-[315px]" src="https://www.youtube.com/embed/wWe4qP8W_b0" title="Jak działa nasza platforma" frameborder="0" allow="autoplay" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen id="tutorialVideo" ref="tutorialVideo"></iframe>
           </div>
@@ -130,7 +130,7 @@ const playVideo  = () => {
 
       <div class="mx-auto w-full md:w-[70%] my-8">
         <div class="font-extrabold text-xl md:text-2xl my-4 md:my-8">
-          Najpopularniejsze produkty w najlepszych cenach 🔥
+          Najpopularniejsze produkty w <em> najlepszych </em> cenach 🔥
         </div>
         <div class="flex overflow-auto scrolling-wrapper md:justify-between mt-4" ref="productCarousel">
           <nuxt-link
@@ -199,7 +199,7 @@ const playVideo  = () => {
       <section class="py-10 px-2 md:py-20 md:px-4 bg-white">
         <div class="container mx-auto text-center">
           <h2 class="text-2xl md:text-4xl md:text-5xl font-bold mb-4 md:mb-10">
-            Odbiór w jednym z 100 punktów
+            Odbiór w jednym z <em> 100 </em> punktów
           </h2>
           <h4 class="text-emerald-500 font-bold text-sm md:text-lg">
             Kliknij na punkt aby sprawdzić dostępne w nim produkty

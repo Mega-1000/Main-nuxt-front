@@ -2,6 +2,10 @@
 import { getToken, removeCookie } from "~~/helpers/authenticator";
 import Cart from "~~/utils/Cart";
 import Cookies from "universal-cookie";
+import { ref, onMounted, onBeforeUnmount } from 'vue';
+import ouibounce from 'ouibounce';
+import Popup from '~/components/Popup.vue';
+
 
 const { $shopApi: shopApi } = useNuxtApp();
 const productsCart = useProductsCart();
@@ -23,6 +27,8 @@ const tutorialDescription = ref('');
 const tutorialHighlightStyle = reactive({});
 const tutorialNextButtonText = ref('Next');
 const tutorialStep = ref(0);
+const popupRef = ref(null);
+
 
 useSeoMeta({
   title: 'EPH Polska - Hurtownia Styropianu, Systemy Elewacyjne, Ocieplenia | Gwarancja Najniższej Ceny',
@@ -153,6 +159,7 @@ const endTutorial = () => {
 </script>
 
 <template>
+  <Popup />
   <nav class="bg-gray-200 border-b border-gray-200 shadow-lg">
     <div class="max-w-7xl mx-auto lg:px-8">
       <div class="flex items-center justify-between h-16">
