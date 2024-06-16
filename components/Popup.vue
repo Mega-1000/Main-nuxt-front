@@ -31,6 +31,7 @@ const showPopup = () => {
 };
 
 const hidePopup = () => {
+  localStorage.setItem('formSubmitted', 'true');
   show.value = false;
 };
 
