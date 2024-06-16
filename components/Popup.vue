@@ -33,8 +33,13 @@ const hidePopup = () => {
   show.value = false;
 };
 
-const submitPhoneNumber = () => {
-  alert(`Phone number submitted: ${phoneNumber.value}`);
+const submitPhoneNumber = async () => {
+  const {data: response} = await shopApi.post('api/contact-approach/create', {
+    phone_number: phoneNumber.value,
+    referred_by_user_id: 57352,
+  });
+
+  Swal.fire('Dziękujemy! Skontaktujemy się z tobą szybko!', '', 'success')
   localStorage.setItem('formSubmitted', 'true');
   hidePopup();
 };
