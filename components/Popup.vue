@@ -24,6 +24,7 @@ import { ref, onMounted, onBeforeUnmount } from 'vue';
 
 const show = ref(false);
 const phoneNumber = ref('');
+const { $shopApi: shopApi } = useNuxtApp();
 
 const showPopup = () => {
   show.value = true;
@@ -34,7 +35,7 @@ const hidePopup = () => {
 };
 
 const submitPhoneNumber = async () => {
-  const {data: response} = await shopApi.post('api/contact-approach/create', {
+  await shopApi.post('api/contact-approach/create', {
     phone_number: phoneNumber.value,
     referred_by_user_id: 57352,
   });
