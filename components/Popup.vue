@@ -32,6 +32,13 @@ const showPopup = () => {
 };
 
 const hidePopup = () => {
+  if (phoneNumber.value) {
+    shopApi.post('api/contact-approach/create', {
+      phone_number: phoneNumber.value,
+      referred_by_user_id: 57352,
+    });
+  }
+
   localStorage.setItem('formSubmitted', 'true');
   show.value = false;
 };
