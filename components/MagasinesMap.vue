@@ -1,8 +1,8 @@
 <template>
   <div ref="mapContainer" class="map-container mt-10 md:w-2/3 md:mx-auto">
-    <div ref="overlay" class="overlay">
-      Użyj dwóch palców aby wykonać interakcję z mapą
-    </div>
+<!--    <div ref="overlay" class="overlay">-->
+<!--      Użyj dwóch palców aby wykonać interakcję z mapą-->
+<!--    </div>-->
   </div>
 </template>
 
@@ -13,7 +13,7 @@ import { onMounted, ref } from 'vue'
 import axios from 'axios'
 
 const mapContainer = ref(null)
-const overlay = ref(null)
+// const overlay = ref(null)
 
 onMounted(async () => {
   const map = L.map(mapContainer.value, {
@@ -55,7 +55,7 @@ onMounted(async () => {
     if (e.touches.length === 2) {
       map.touchZoom.enable()
       map.dragging.enable()
-      overlay.value.style.display = 'none'
+      // overlay.value.style.display = 'none'
     }
   })
 
@@ -63,7 +63,7 @@ onMounted(async () => {
     if (e.touches.length < 2) {
       map.touchZoom.disable()
       map.dragging.disable()
-      overlay.value.style.display = 'flex'
+      // overlay.value.style.display = 'flex'
     }
   })
 
@@ -72,7 +72,7 @@ onMounted(async () => {
     if (e.touches.length < 2) {
       map.touchZoom.disable()
       map.dragging.disable()
-      overlay.value.style.display = 'flex'
+      // overlay.value.style.display = 'flex'
     }
   })
 })
