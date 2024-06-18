@@ -131,7 +131,7 @@ const playVideo  = () => {
       </section>
 
       <section class="my-6">
-        <div class="w-[100%]">
+        <div class="w-[100%] md:w-[70%] mx-auto">
           <div class="contact-card bg-white rounded-lg shadow-lg p-4 md:p-8">
             <h3 class="text-xl md:text-2xl font-bold mb-2 md:mb-4"><em> Skorzystaj z pomocy specjalisty </em></h3>
             <p class="text-gray-600">Telefon: <span class="font-bold"><pm>+48 576 205 389</pm></span></p>
