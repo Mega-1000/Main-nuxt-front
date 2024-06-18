@@ -163,7 +163,7 @@ const playVideo  = () => {
             <h2 class="text-2xl md:text-4xl md:text-5xl font-bold mb-4 md:mb-10 text-center">Skontaktuj się z nami</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
               <div class="contact-card bg-white rounded-lg shadow-lg p-4 md:p-8">
-                <h3 class="text-xl md:text-2xl font-bold mb-2 md:mb-4">Infolinia</h3>
+                <h3 class="text-xl md:text-2xl font-bold mb-2 md:mb-4">Skożystaj z pomocy specjalisty</h3>
                 <p class="text-gray-600">Telefon: <span class="font-bold">+48 576 205 389</span></p>
                 <p class="text-gray-600">Godziny pracy: <span class="font-bold">6:30 - 22:00</span></p>
               </div>
