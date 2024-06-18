@@ -77,6 +77,10 @@ const handleClick = () => {
         </a>
       </div>
 
+      <div>
+        <iframe :src="`https://admin.mega1000.pl/dates-order-dates/${paymentData?.id}`" frameborder="0"></iframe>
+      </div>
+
       <p class="text-md md:text-xl">
         Jeśli potrzebujesz się skontaktować zaloguj się i wejdź w zakładkę "Moje
         Konto" (domyślnie nr telefonu jest hasłem)
