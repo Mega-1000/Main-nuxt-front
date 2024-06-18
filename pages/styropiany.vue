@@ -130,6 +130,17 @@ const playVideo  = () => {
         <OpinionStars />
       </section>
 
+      <section class="my-6">
+        <div class="w-[100%]">
+          <div class="contact-card bg-white rounded-lg shadow-lg p-4 md:p-8">
+            <h3 class="text-xl md:text-2xl font-bold mb-2 md:mb-4"><em> Skożystaj z pomocy specjalisty </em></h3>
+            <p class="text-gray-600">Telefon: <span class="font-bold"><pm>+48 576 205 389</pm></span></p>
+            <p class="text-gray-600">Godziny pracy: <span class="font-bold">6:30 - 22:00</span></p>
+          </div>
+        </div>
+      </section>
+
+
       <div class="mx-auto w-full md:w-[70%] my-8">
         <div class="font-extrabold text-xl md:text-2xl my-4 md:my-8">
           Najpopularniejsze produkty w <em> najlepszych </em> cenach 🔥
@@ -157,19 +168,6 @@ const playVideo  = () => {
             </div>
           </nuxt-link>
         </div>
-
-        <section class="py-10 px-2 md:py-20 md:px-4 bg-gray-100">
-          <div class="container mx-auto">
-            <h2 class="text-2xl md:text-4xl md:text-5xl font-bold mb-4 md:mb-10 text-center">Skontaktuj się z nami</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
-              <div class="contact-card bg-white rounded-lg shadow-lg p-4 md:p-8">
-                <h3 class="text-xl md:text-2xl font-bold mb-2 md:mb-4">Skożystaj z pomocy specjalisty</h3>
-                <p class="text-gray-600">Telefon: <span class="font-bold">+48 576 205 389</span></p>
-                <p class="text-gray-600">Godziny pracy: <span class="font-bold">6:30 - 22:00</span></p>
-              </div>
-            </div>
-          </div>
-        </section>
 
         <a class="text-center mt-8 text-lg md:text-xl w-fit mx-auto flex gap-2 align-center" href="#price-table">
           <div>
