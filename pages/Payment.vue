@@ -78,7 +78,7 @@ const handleClick = () => {
       </div>
 
       <div>
-        <iframe class="w-[100%] h-[500px]" :src="`https://admin.mega1000.pl/dates-order-dates/${paymentData?.id}`" frameborder="0"></iframe>
+        <iframe class="w-[100%] h-[200px]" :src="`https://admin.mega1000.pl/dates-order-dates/${paymentData?.id}`" frameborder="0"></iframe>
       </div>
 
       <p class="text-md md:text-xl">
