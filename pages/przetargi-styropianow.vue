@@ -11,7 +11,7 @@
             class="w-1/3"
         />
 
-        <TextInput type="number" @input="selection.quantity = $event" label="Podaj ilość w m3" class="w-1/3" />
+        <TextInput type="number" @input="selection.quantity = $event" label="Podaj ilość paczek" class="w-1/3" />
 
         <SubmitButton @click="showQuotes(selection)" v-if="selection.value" class="w-1/3">
           Pokaż aktualne ceny
