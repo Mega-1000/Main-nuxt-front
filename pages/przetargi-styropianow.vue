@@ -59,14 +59,12 @@
                 <table class="w-full">
                   <thead>
                   <tr class="bg-gray-100">
-                    <th class="py-2 px-4 font-semibold text-left">Nazwa</th>
                     <th class="py-2 px-4 font-semibold text-left">Producent</th>
                     <th class="py-2 px-4 font-semibold text-left">Cena jednostkowa netto</th>
                   </tr>
                   </thead>
                   <tbody>
                   <tr v-for="item in modalData" :key="item.id" class="border-b">
-                    <td class="py-2 px-4">{{ item.name }}</td>
                     <td class="py-2 px-4">{{ item.manufacturer }}</td>
                     <td class="py-2 px-4">{{ item.price.net_purchase_price_basic_unit }} PLN</td>
                   </tr>
