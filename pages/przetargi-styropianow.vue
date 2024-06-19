@@ -6,14 +6,14 @@
         <SelectInput
             label="Wybierz rodzaj styropianu"
             :options="styrofoamTypes"
-            v-model="selection.selectedType"
+            v-model="selection.value"
             v-if="styrofoamTypes.length !== 0"
             class="w-1/3"
         />
 
-        <TextInput v-model.number="selection.quantity" label="Podaj ilość w m3" class="w-1/3" />
+        <TextInput type="number" @input="selection.quantity = $event" label="Podaj ilość w m3" class="w-1/3" />
 
-        <SubmitButton @click="showQuotes(selection)" v-if="selection.selectedType" class="w-1/3">
+        <SubmitButton @click="showQuotes(selection)" v-if="selection.value" class="w-1/3">
           Pokaż aktualne ceny
         </SubmitButton>
 
@@ -33,7 +33,7 @@
     </div>
 
     <div class="mt-6">
-      <SubmitButton @click="saveAuction" class="bg-gradient-to-r from-green-400 to-green-600 text-white font-semibold px-6 py-3 rounded-lg shadow-md hover:shadow-lg transition-all duration-300">
+      <SubmitButton @click="showUserInfoModal = true" class="bg-gradient-to-r from-green-400 to-green-600 text-white font-semibold px-6 py-3 rounded-lg shadow-md hover:shadow-lg transition-all duration-300">
         Zatwierdź
       </SubmitButton>
     </div>
@@ -82,11 +82,11 @@
     <div class="modal-backdrop" v-if="showUserInfoModal">
       <div class="modal-content">
         <div class="p-4">
-          <h2 class="text-xl font-bold mb-4">Enter User Information</h2>
-          <TextInput v-model="userInfo.email" label="Email" class="mb-4" />
-          <TextInput v-model="userInfo.phone" label="Phone Number" class="mb-4" />
+          <h2 class="text-xl font-bold mb-4">Powiedz nam trochę o sobie...</h2>
+          <TextInput @input="userInfo.email = $event" label="Email" class="mb-4" />
+          <TextInput @input="userInfo.phone = $event" label="Numer telefonu" class="mb-4" />
           <SubmitButton @click="confirmAuction" class="bg-green-500 text-white">
-            Confirm Auction
+            Zatwierdź
           </SubmitButton>
         </div>
       </div>
@@ -94,13 +94,13 @@
   </div>
 </template>
 
-
 <script setup>
 import SubmitButton from "../components/SubmitButton.vue";
+import Swal from "sweetalert2";
 const { $shopApi: shopApi } = useNuxtApp();
 
 const styrofoamTypes = ref([]);
-const selections = reactive([{ selectedType: null, quantity: '' }]);
+const selections = reactive([{ value: null, quantity: '' }]);
 const modalData = ref(false);
 const userInfo = ref({ email: '', phone: '' });
 const showUserInfoModal = ref(false);
@@ -108,24 +108,18 @@ const showUserInfoModal = ref(false);
 onMounted(async () => {
   const types = await shopApi.get('/auctions/get-styrofoam-types');
   styrofoamTypes.value = Array.from(types.data.map((styrofoam) => ({ label: styrofoam, value: styrofoam })));
-
-  const storedSelections = localStorage.getItem('selections');
-  if (storedSelections) {
-    selections.push(...JSON.parse(storedSelections));
-  }
 });
 
 const addSelection = () => {
   if (selections.length < 5) {
-    selections.push({ selectedType: null, quantity: '' });
-    saveSelectionsToLocalStorage();
+    selections.push({ value: null, quantity: '' });
   }
 };
 
 const saveAuction = async () => {
   try {
-    const auctionData = selections.filter(selection => selection.selectedType !== null && selection.quantity !== '').map(selection => ({
-      styrofoamType: selection.selectedType,
+    const auctionData = selections.filter(selection => selection.value !== null && selection.quantity !== '').map(selection => ({
+      styrofoamType: selection.value,
       quantity: selection.quantity
     }));
 
@@ -143,16 +137,15 @@ const saveAuction = async () => {
 
 const confirmAuction = async () => {
   try {
-    const auctionData = selections.filter(selection => selection.selectedType !== null && selection.quantity !== '').map(selection => ({
-      styrofoamType: selection.selectedType,
+    const auctionData = selections.filter(selection => selection.value !== null && selection.quantity !== '').map(selection => ({
+      styrofoamType: selection.value,
       quantity: selection.quantity
     }));
 
-    await shopApi.post('/auctions/save', { auctionData, userInfo: userInfo.value });
-    alert('Auction saved successfully!');
-    // Optionally, you can clear the selections after saving
+    await shopApi.post('/api/auctions/save', {auctionData, userInfo: userInfo.value});
+    Swal.fire('Pomyślnie Zapisano przetarg. Odezwiemy siędo ciebie kiedy będziemy znać wyceny producentów', '', 'success')
+
     selections.length = 0;
-    saveSelectionsToLocalStorage();
     showUserInfoModal.value = false;
   } catch (error) {
     console.error('Error saving auction:', error);
@@ -162,15 +155,18 @@ const confirmAuction = async () => {
 
 const deleteSelection = (index) => {
   selections.splice(index, 1);
-  saveSelectionsToLocalStorage();
 };
 
-const saveSelectionsToLocalStorage = () => {
-  localStorage.setItem('selections', JSON.stringify(selections));
+
+const updateSelection = (index, newValue) => {
+  if (index === selections.length - 1 && selections.length < 5) {
+    addSelection();
+  }
 };
 
-const showQuotes = async (selection) => {
-  const { data: request } = await shopApi.get(`/auctions/get-quotes-by-styrofoarm-type/${selection.selectedType}`);
+const showQuotes = async (name) => {
+  const {data: request} = await shopApi.get(`/auctions/get-quotes-by-styrofoarm-type/${name.value}`);
+  console.log(name)
   modalData.value = request;
-};
+}
 </script>

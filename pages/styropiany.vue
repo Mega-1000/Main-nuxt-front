@@ -124,9 +124,15 @@ const playVideo  = () => {
 
             To do niczego nie zobowiązuje!
           </h1>
-          <div class="mb-4 mx-auto w-full md:w-fit">
-            <iframe class="w-full md:w-[500px] h-[200px] md:h-[315px]" src="https://www.youtube.com/embed/wWe4qP8W_b0" title="Jak działa nasza platforma" frameborder="0" allow="autoplay" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen id="tutorialVideo" ref="tutorialVideo"></iframe>
-          </div>
+<!--          <div class="mb-4 mx-auto w-full md:w-fit">-->
+<!--            <iframe class="w-full md:w-[500px] h-[200px] md:h-[315px]" src="https://www.youtube.com/embed/wWe4qP8W_b0" title="Jak działa nasza platforma" frameborder="0" allow="autoplay" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen id="tutorialVideo" ref="tutorialVideo"></iframe>-->
+<!--          </div>-->
+
+          <NuxtLink href="/przetargi-styropianow" class="block mb-[20px]">
+            <SubmitButton>
+              Stwórz przetarg
+            </SubmitButton>
+          </NuxtLink>
         </div>
 
         <OpinionStars />
