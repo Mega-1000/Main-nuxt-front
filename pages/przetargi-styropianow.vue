@@ -13,8 +13,9 @@
 
         <TextInput type="number" @input="selection.quantity = $event" label="Podaj ilość paczek" class="w-full sm:w-1/3" />
 
-        <SubmitButton @click="showQuotes(selection)" v-if="selection.value" class="w-full sm:w-1/3">
-          Pokaż aktualne ceny
+        <SubmitButton @click="showQuotes(selection)" :disabled="loading" v-if="selection.value" class="w-full sm:w-1/3">
+          <span v-if="!loading">Pokaż aktualne ceny</span>
+          <span v-else>Ładowanie...</span>
         </SubmitButton>
 
         <button @click="deleteSelection(index)" class="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600 transition-colors duration-300">
@@ -33,8 +34,9 @@
     </div>
 
     <div class="mt-6">
-      <SubmitButton @click="showUserInfoModal = true" class="bg-gradient-to-r from-green-400 to-green-600 text-white font-semibold px-6 py-3 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 w-full sm:w-auto">
-        Zatwierdź
+      <SubmitButton @click="saveAuction" :disabled="loading" class="bg-gradient-to-r from-green-400 to-green-600 text-white font-semibold px-6 py-3 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 w-full sm:w-auto">
+        <span v-if="!loading">Zatwierdź</span>
+        <span v-else>Ładowanie...</span>
       </SubmitButton>
     </div>
 
@@ -83,14 +85,106 @@
           <h2 class="text-xl font-bold mb-4">Powiedz nam trochę o sobie...</h2>
           <TextInput @input="userInfo.email = $event" label="Email" class="mb-4" />
           <TextInput @input="userInfo.phone = $event" label="Numer telefonu" class="mb-4" />
-          <SubmitButton @click="confirmAuction" class="bg-green-500 text-white">
-            Zatwierdź
+          <SubmitButton @click="confirmAuction" :disabled="loading" class="bg-green-500 text-white">
+            <span v-if="!loading">Zatwierdź</span>
+            <span v-else>Ładowanie...</span>
           </SubmitButton>
         </div>
       </div>
     </div>
   </div>
 </template>
+
+<script setup>
+import SubmitButton from "../components/SubmitButton.vue";
+import Swal from "sweetalert2";
+const { $shopApi: shopApi } = useNuxtApp();
+
+const styrofoamTypes = ref([]);
+const selections = reactive([{ value: null, quantity: '' }]);
+const modalData = ref(false);
+const userInfo = ref({ email: '', phone: '' });
+const showUserInfoModal = ref(false);
+const loading = ref(false); // Loading state
+
+onMounted(async () => {
+  const types = await shopApi.get('/auctions/get-styrofoam-types');
+  styrofoamTypes.value = Array.from(types.data.map((styrofoam) => ({ label: styrofoam, value: styrofoam })));
+});
+
+const addSelection = () => {
+  if (selections.length < 5) {
+    selections.push({ value: null, quantity: '' });
+  }
+};
+
+const saveAuction = async () => {
+  try {
+    loading.value = true; // Start loading
+    const auctionData = selections.filter(selection => selection.value !== null && selection.quantity !== '').map(selection => ({
+      styrofoamType: selection.value,
+      quantity: selection.quantity
+    }));
+
+    if (auctionData.length === 0) {
+      alert('Please select at least one styrofoam type and quantity.');
+      loading.value = false; // Stop loading if no data
+      return;
+    }
+
+    showUserInfoModal.value = true;
+    loading.value = false; // Stop loading when showing user info modal
+  } catch (error) {
+    console.error('Error saving auction:', error);
+    alert('An error occurred while saving the auction. Please try again.');
+    loading.value = false; // Stop loading on error
+  }
+};
+
+const confirmAuction = async () => {
+  try {
+    loading.value = true; // Start loading
+    const auctionData = selections.filter(selection => selection.value !== null && selection.quantity !== '').map(selection => ({
+      styrofoamType: selection.value,
+      quantity: selection.quantity
+    }));
+
+    const {data: data} = await shopApi.post('/api/auctions/save', { auctionData, userInfo: userInfo.value });
+    window.location.href = `https://admin.mega1000.pl/chat-show-or-new/${data.id}/${data.customerId}?showAuctionInstructions=true`
+
+    selections.length = 0;
+    showUserInfoModal.value = false;
+    loading.value = false; // Stop loading on success
+  } catch (error) {
+    console.error('Error saving auction:', error);
+    alert('An error occurred while saving the auction. Please try again.');
+    loading.value = false; // Stop loading on error
+  }
+};
+
+const deleteSelection = (index) => {
+  selections.splice(index, 1);
+};
+
+const updateSelection = (index, newValue) => {
+  if (index === selections.length - 1 && selections.length < 5) {
+    addSelection();
+  }
+};
+
+const showQuotes = async (name) => {
+  try {
+    loading.value = true; // Start loading
+    const { data: request } = await shopApi.get(`/auctions/get-quotes-by-styrofoarm-type/${name.value}`);
+    modalData.value = request;
+    loading.value = false; // Stop loading on success
+  } catch (error) {
+    console.error('Error fetching quotes:', error);
+    alert('An error occurred while fetching quotes. Please try again.');
+    loading.value = false; // Stop loading on error
+  }
+};
+</script>
 
 <script setup>
 import SubmitButton from "../components/SubmitButton.vue";
