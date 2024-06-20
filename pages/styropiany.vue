@@ -198,6 +198,9 @@ const playVideo  = () => {
             <div class="text-sm md:text-lg text-black mt-2">
               Oprócz znalezienia najtańszej hurtowni w Polsce która dostarczy ci ten styropian wraz z gratisowym transportem dokonamy także przetargu dla wszystkich pozostałych 50 producentów dla porównania.
             </div>
+            <NuxtLink href="/przetargi-styropianow" class="block w-fit mx-auto my-[20px] bg-white text-emerald-800 font-bold py-3 px-6 rounded-full transition-all duration-300 hover:bg-emerald-800 hover:text-white hover:scale-105">
+              Stwórz przetarg
+            </NuxtLink>
           </h2>
           <div class="loader-container" v-if="isLoading">
             <Loader :showLoader="isLoading" />
