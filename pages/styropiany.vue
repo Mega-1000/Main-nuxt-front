@@ -119,7 +119,7 @@ const playVideo  = () => {
       <section class="hero py-2 px-2 md:py-4 md:px-4 bg-gradient-to-r from-emerald-600 to-emerald-800 text-white">
         <div class="container mx-auto text-center">
           <h5 class="text-lg md:text-6xl font-extrabold mb-1 mt-2 md:mb-6 pointer didact-gothic-regular " @click="playVideo">
-            Przez ostatnie 12 miesięcy <pm> 3000 </pm> użytkowników stworzyło <em class="p-0">przetarg</em> i oszczędziło na styropianie!
+            Przez ostatnie 12 miesięcy <pm> 2968 </pm> użytkowników stworzyło <em class="p-0">przetarg</em> i oszczędziło na styropianie!
             <br>
 
             To do niczego nie zobowiązuje!
