@@ -51,6 +51,9 @@ const futureActions = [
 ];
 
 const fn_UpdateSocialProofData = () => {
+  setTimeout(() => {
+    fn_ToggleSocialProof();
+  }, 4000)
   const selectedName = names[Math.floor(Math.random() * names.length)];
   const selectedTown = towns[Math.floor(Math.random() * towns.length)];
 
@@ -67,9 +70,6 @@ const fn_ToggleSocialProof = () => {
   if (showNotification.value) {
     fn_UpdateSocialProofData();
   }
-  popBackup = setTimeout(() => {
-    showNotification.value = !showNotification.value;
-  }, spTimeout);
 };
 
 const fn_Percentage = (paraPercent) => Math.random() < paraPercent / 100;
@@ -82,9 +82,11 @@ const closeNotification = () => {
 };
 
 onMounted(() => {
-  fn_UpdateSocialProofData();
-  showNotification.value = true;
-  toggleVar = setInterval(fn_ToggleSocialProof, spFrequency);
+  setTimeout(() => {
+    fn_UpdateSocialProofData();
+    showNotification.value = true;
+    toggleVar = setInterval(fn_UpdateSocialProofData, 30500);
+  }, 14000)
 });
 
 onBeforeUnmount(() => {

@@ -306,6 +306,7 @@ const endTutorial = () => {
 <!--      </div>-->
 <!--    </div>-->
   </nav>
+  <SocialProof />
 </template>
 
     <style scoped>
