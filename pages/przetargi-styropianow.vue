@@ -13,19 +13,19 @@
 
         <TextInput type="number" @input="selection.quantity = $event" label="Podaj ilość paczek" class="w-full sm:w-1/3" />
 
-        <SubmitButton @click="showQuotes(selection)" :disabled="loading" v-if="selection.value" class="w-full sm:w-1/3">
+        <SubmitButton @click="showQuotes(selection)" :disabled="loading || !selection.value" class="w-full sm:w-1/3">
           <span v-if="!loading">Pokaż aktualne ceny</span>
           <span v-else>Ładowanie...</span>
         </SubmitButton>
 
-        <button @click="deleteSelection(index)" class="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600 transition-colors duration-300">
+        <button @click="deleteSelection(index)" class="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600 transition-colors duration-300" :disabled="loading">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
             <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
           </svg>
         </button>
       </div>
 
-      <button @click="addSelection" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition-colors duration-300 flex items-center justify-center">
+      <button @click="addSelection" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition-colors duration-300 flex items-center justify-center" :disabled="loading">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
           <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd" />
         </svg>
@@ -96,6 +96,7 @@
 </template>
 
 <script setup>
+import { ref, reactive, onMounted } from 'vue';
 import SubmitButton from "../components/SubmitButton.vue";
 import Swal from "sweetalert2";
 const { $shopApi: shopApi } = useNuxtApp();
@@ -105,10 +106,16 @@ const selections = reactive([{ value: null, quantity: '' }]);
 const modalData = ref(false);
 const userInfo = ref({ email: '', phone: '' });
 const showUserInfoModal = ref(false);
+const loading = ref(false);
 
 onMounted(async () => {
-  const types = await shopApi.get('/auctions/get-styrofoam-types');
-  styrofoamTypes.value = Array.from(types.data.map((styrofoam) => ({ label: styrofoam, value: styrofoam })));
+  try {
+    loading.value = true;
+    const types = await shopApi.get('/auctions/get-styrofoam-types');
+    styrofoamTypes.value = types.data.map(styrofoam => ({ label: styrofoam, value: styrofoam }));
+  } finally {
+    loading.value = false;
+  }
 });
 
 const addSelection = () => {
@@ -138,6 +145,7 @@ const saveAuction = async () => {
 
 const confirmAuction = async () => {
   try {
+    loading.value = true;
     const auctionData = selections.filter(selection => selection.value !== null && selection.quantity !== '').map(selection => ({
       styrofoamType: selection.value,
       quantity: selection.quantity
@@ -151,6 +159,8 @@ const confirmAuction = async () => {
   } catch (error) {
     console.error('Error saving auction:', error);
     alert('An error occurred while saving the auction. Please try again.');
+  } finally {
+    loading.value = false;
   }
 };
 
@@ -164,9 +174,15 @@ const updateSelection = (index, newValue) => {
   }
 };
 
-const showQuotes = async (name) => {
-  const {data: request} = await shopApi.get(`/auctions/get-quotes-by-styrofoarm-type/${name.value}`);
-  console.log(name)
-  modalData.value = request;
-}
+const showQuotes = async (selection) => {
+  try {
+    loading.value = true;
+    const {data: request} = await shopApi.get(`/auctions/get-quotes-by-styrofoarm-type/${selection.value}`);
+    modalData.value = request;
+  } catch (error) {
+    console.error('Error fetching quotes:', error);
+  } finally {
+    loading.value = false;
+  }
+};
 </script>
