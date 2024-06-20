@@ -191,8 +191,6 @@ const playVideo  = () => {
         <styro-helper />
       </div>
 
-      Firm::whereHas('products', function ($q) {$q->where('variation_group', 'styropiany');}))->pluck('email')->get()
-
       <section class="py-6 px-2 md:py-10 md:px-4 bg-gray-100" id="price-table">
         <div class="container mx-auto relative">
           <h2 class="text-xl md:text-3xl font-extrabold mb-6 md:mb-10 text-center text-emerald-500">
