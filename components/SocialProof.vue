@@ -82,7 +82,7 @@ onMounted(() => {
   setTimeout(() => {
     fn_UpdateSocialProofData();
     showNotification.value = true;
-    toggleVar = setInterval(fn_UpdateSocialProofData, 60500);
+    toggleVar = setInterval(fn_UpdateSocialProofData, 120500);
   }, 40000)
 });
 
