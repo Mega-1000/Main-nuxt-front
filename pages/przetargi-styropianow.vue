@@ -102,6 +102,7 @@
 import { ref, reactive, onMounted } from 'vue';
 import SubmitButton from "../components/SubmitButton.vue";
 import Swal from "sweetalert2";
+import Cookies from "universal-cookie/cjs/Cookies";
 const { $shopApi: shopApi } = useNuxtApp();
 
 const styrofoamTypes = ref([]);
@@ -169,7 +170,13 @@ const confirmAuction = async () => {
     }));
 
     await shopApi.post('/api/auctions/save', {auctionData, userInfo: userInfo.value});
-    Swal.fire('Pomyślnie Zapisano przetarg. Odezwiemy się do ciebie kiedy będziemy znać wyceny producentów', '', 'success')
+    const cookies = new Cookies();
+    await cookies.set("token", res.data.access_token);
+
+    window.dispatchEvent(new CustomEvent('token-refreshed'));
+
+    await Swal.fire('Zapytanie zostało stworzone pomyślnie!', 'Po kliknięciu "OK" Przeniesiemy cię do konta z możliwością zarządzania twoimi zapytaniami', 'info');
+    await router.push('/account');
 
     selections.length = 0;
     showUserInfoModal.value = false;
