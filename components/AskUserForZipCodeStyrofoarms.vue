@@ -6,12 +6,22 @@ const zipCode = ref('');
 const zipCodeValid = ref(true);
 
 onBeforeMount(() => {
-  zipCode.value = localStorage.getItem('zipCode');
+  zipCode.value = localStorage.getItem('zipCode') || '';
 });
 
 const validateZipCode = (code) => {
-  const zipCodePattern = /^[0-9]{2}-[0-9]{3}$/;
+  const zipCodePattern = /^[0-9]{2}(-?[0-9]{3})?$/;
   return zipCodePattern.test(code);
+};
+
+const formatZipCode = (code) => {
+  const digitsOnly = code.replace(/\D/g, '');
+
+  if (digitsOnly.length <= 2) {
+    return digitsOnly;
+  } else {
+    return `${digitsOnly.slice(0, 2)}-${digitsOnly.slice(2, 5)}`;
+  }
 };
 
 const zipCodeErrorMessage = computed(() => {
@@ -19,12 +29,14 @@ const zipCodeErrorMessage = computed(() => {
 });
 
 const submitZipCode = async () => {
-  zipCodeValid.value = validateZipCode(zipCode.value);
+  const formattedZipCode = formatZipCode(zipCode.value);
+  zipCodeValid.value = validateZipCode(formattedZipCode);
   if (!zipCodeValid.value) {
     return;
   }
 
-  localStorage.setItem('zipCode', zipCode.value);
+  zipCode.value = formattedZipCode;
+  localStorage.setItem('zipCode', formattedZipCode);
 
   await Swal.fire('Zapisano kod pocztowy', 'Od teraz będziemy ci pokazywać jedynie oferty w twoim zasięgu', 'success');
   await window.location.reload();
@@ -54,9 +66,10 @@ const submitZipCode = async () => {
                   <TextInput
                       type="text"
                       :value="zipCode"
-                      @input="zipCode = $event"
-                      label="Wpisz kod pocztowy w formacie xx-xxx"
+                      @input="zipCode = formatZipCode($event)"
+                      label="Wpisz kod pocztowy"
                       :error="zipCodeErrorMessage"
+                      maxlength="6"
                   />
                   <div v-if="!zipCodeValid" class="text-red-500 text-sm">
                     {{ zipCodeErrorMessage }}
