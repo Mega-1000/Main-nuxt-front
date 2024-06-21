@@ -13,6 +13,8 @@
 
         <TextInput type="number" @input="selection.quantity = $event" label="Podaj ilość paczek" class="w-full sm:w-1/3" />
 
+        <TextInput type="number" @input="selection.thikness = $event" label="Podaj ilość paczek" class="w-full sm:w-1/3" />
+
         <SubmitButton @click="showQuotes(selection)" :disabled="loading || !selection.value" class="w-full sm:w-1/3">
           <span v-if="!loading">Pokaż aktualne ceny</span>
           <span v-else>Ładowanie...</span>
@@ -103,7 +105,7 @@ import Swal from "sweetalert2";
 const { $shopApi: shopApi } = useNuxtApp();
 
 const styrofoamTypes = ref([]);
-const selections = reactive([{ value: null, quantity: '' }]);
+const selections = reactive([{ value: null, quantity: '', thikness: '' }]);
 const modalData = ref(false);
 const userInfo = ref({ email: '', phone: '', zipCode: '' });
 const showUserInfoModal = ref(false);
