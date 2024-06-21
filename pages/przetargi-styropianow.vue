@@ -132,18 +132,27 @@ const saveAuction = async () => {
   try {
     const auctionData = selections.filter(selection => selection.value !== null && selection.quantity !== '').map(selection => ({
       styrofoamType: selection.value,
-      quantity: selection.quantity
+      quantity: parseInt(selection.quantity, 10)
     }));
 
     if (auctionData.length === 0) {
-      alert('Please select at least one styrofoam type and quantity.');
+      alert('Musisz dodać ilość styropianu');
+      return;
+    }
+
+    // Calculate total quantity
+    const totalQuantity = auctionData.reduce((sum, item) => sum + item.quantity, 0);
+
+    // Check if total quantity is less than 66
+    if (totalQuantity < 66) {
+      alert('Ilość końcowa musi być większa niż 66 paczek');
       return;
     }
 
     showUserInfoModal.value = true;
   } catch (error) {
     console.error('Error saving auction:', error);
-    alert('An error occurred while saving the auction. Please try again.');
+    alert('Wystąpił błąd. administrator sięz tobą skontaktuje');
   }
 };
 
