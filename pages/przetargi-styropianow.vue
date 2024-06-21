@@ -13,7 +13,7 @@
 
         <TextInput type="number" @input="selection.quantity = $event" label="Podaj ilość paczek" class="w-full sm:w-1/3" />
 
-        <TextInput type="number" @input="selection.thikness = $event" label="Podaj ilość paczek" class="w-full sm:w-1/3" />
+        <TextInput type="number" @input="selection.thikness = $event" label="Grubość w cm" class="w-full sm:w-1/3" />
 
         <SubmitButton @click="showQuotes(selection)" :disabled="loading || !selection.value" class="w-full sm:w-1/3">
           <span v-if="!loading">Pokaż aktualne ceny</span>
