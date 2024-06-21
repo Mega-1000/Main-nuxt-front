@@ -134,7 +134,7 @@ const saveAuction = async () => {
   try {
     const auctionData = selections.filter(selection => selection.value !== null && selection.quantity !== '').map(selection => ({
       styrofoamType: selection.value,
-      quantity: parseInt(selection.quantity, 10)
+      quantity: parseInt(selection.quantity, 10),
       thikness: selection.thikness
     }));
 
