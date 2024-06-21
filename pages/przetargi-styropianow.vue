@@ -112,7 +112,7 @@ const defaultZipCode = ref('')
 
 onMounted(async () => {
   defaultZipCode.value = localStorage.getItem('zipCode');
-
+  userInfo.value.zipCode = defaultZipCode.value;
   try {
     loading.value = true;
     const types = await shopApi.get('/auctions/get-styrofoam-types');
