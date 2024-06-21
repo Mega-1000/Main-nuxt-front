@@ -57,12 +57,12 @@ const handleClick = () => {
 </script>
 
 <template>
-  <div v-if="message" class="mt-4 p-4 bg-blue-100 text-blue-800 rounded">
-    {{ message }}
-  </div>
 
   <div class="flex justify-center pt-10 pb-20">
     <div>
+      <div v-if="message" class="mt-4 p-4 bg-blue-100 text-blue-800 rounded">
+        {{ message }}
+      </div>
       <div class="text-3xl font-bold">
         !!! UWAGA od dnia 2023.12.13 zmiana numeru konta oraz firmy !!!
       </div>
