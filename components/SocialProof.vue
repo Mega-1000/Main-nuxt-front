@@ -83,7 +83,7 @@ onMounted(() => {
     fn_UpdateSocialProofData();
     showNotification.value = true;
     toggleVar = setInterval(fn_UpdateSocialProofData, 30500);
-  }, 20000)
+  }, 40000)
 });
 
 onBeforeUnmount(() => {
