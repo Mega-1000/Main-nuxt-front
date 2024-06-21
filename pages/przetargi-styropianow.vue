@@ -195,7 +195,10 @@ const showQuotes = async (selection) => {
   try {
     loading.value = true;
     const {data: request} = await shopApi.get(`/auctions/get-quotes-by-styrofoarm-type/${selection.value}`);
-    modalData.value = request;
+    modalData.value = request.sort((a, b) => {
+      return a.price.net_purchase_price_basic_unit - b.price.net_purchase_price_basic_unit;
+    });
+
   } catch (error) {
     console.error('Error fetching quotes:', error);
   } finally {
