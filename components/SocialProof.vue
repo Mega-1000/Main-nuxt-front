@@ -53,7 +53,7 @@ const futureActions = [
 const fn_UpdateSocialProofData = () => {
   setTimeout(() => {
     fn_ToggleSocialProof();
-  }, 12000)
+  }, 6000)
   const selectedName = names[Math.floor(Math.random() * names.length)];
   const selectedTown = towns[Math.floor(Math.random() * towns.length)];
 
@@ -67,9 +67,6 @@ const fn_UpdateSocialProofData = () => {
 
 const fn_ToggleSocialProof = () => {
   showNotification.value = !showNotification.value;
-  if (showNotification.value) {
-    fn_UpdateSocialProofData();
-  }
 };
 
 const fn_Percentage = (paraPercent) => Math.random() < paraPercent / 100;
