@@ -242,6 +242,10 @@ const playVideo  = () => {
             <iframe class="w-full md:w-[500px] h-[200px] md:h-[315px]" src="https://www.youtube.com/embed/6wgnCDapJIg?si=KlRt4yVkaCdIeN2E" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
           </div>
           <div v-html="description"></div>
+
+          <NuxtLink href="/przetargi-styropianow" class="block w-fit mx-auto my-[20px] bg-white text-emerald-800 font-bold py-3 px-6 rounded-full transition-all duration-300 hover:bg-emerald-800 hover:text-white hover:scale-105">
+            Stwórz przetarg
+          </NuxtLink>
         </div>
       </section>
 
