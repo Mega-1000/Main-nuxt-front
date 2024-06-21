@@ -1,17 +1,19 @@
 <script setup lang="ts">
 import getImage from "~~/helpers/image";
 import {checkIfUserIsLoggedIn} from "~/helpers/authenticationCheck";
+import { ref, onMounted } from 'vue';
+import { useRoute } from 'vue-router';
 
 const bank = ref<any>(null);
+const message = ref<string | null>(null);
 
 const { $shopApi: shopApi } = useNuxtApp();
-
-const { query } = useRoute();
+const route = useRoute();
 
 const { data: paymentData } = await useAsyncData(async () => {
   try {
     const res = await shopApi.get(
-      `api/orders/get-payments-for-order/${query.token}`
+        `api/orders/get-payments-for-order/${route.query.token}`
     );
 
     return {
@@ -26,7 +28,8 @@ const { data: paymentData } = await useAsyncData(async () => {
 
 onMounted(() => {
   checkIfUserIsLoggedIn('Ta strona jest dostępna tylko dla zalogowanych użytkowników');
-})
+  message.value = route.query.message as string | null;
+});
 
 const { data: banks } = await useAsyncData(async () => {
   try {
@@ -47,8 +50,8 @@ const config = useRuntimeConfig().public;
 
 const handleClick = () => {
   window.open(
-    `${config.nuxtNewFront}zamowienie/mozliwe-do-realizacji/brak-danych/${paymentData?.value?.id}`,
-    "_blank"
+      `${config.nuxtNewFront}zamowienie/mozliwe-do-realizacji/brak-danych/${paymentData?.value?.id}`,
+      "_blank"
   );
 };
 </script>
@@ -57,7 +60,7 @@ const handleClick = () => {
   <div class="flex justify-center pt-10 pb-20">
     <div>
       <div class="text-3xl font-bold">
-          !!! UWAGA od dnia 2023.12.13 zmiana numeru konta oraz firmy !!!
+        !!! UWAGA od dnia 2023.12.13 zmiana numeru konta oraz firmy !!!
       </div>
 
       <div class="my-4">
@@ -83,8 +86,7 @@ const handleClick = () => {
       </div>
 
       <p class="text-md md:text-xl">
-        Jeśli potrzebujesz się skontaktować zaloguj się i wejdź w zakładkę "Moje
-        Konto" (domyślnie nr telefonu jest hasłem)
+        Jeśli potrzebujesz się skontaktować zaloguj się i wejdź w zakładkę "Moje Konto" (domyślnie nr telefonu jest hasłem)
       </p>
       <p>
         Zaloguj się na swoim koncie aby
@@ -101,9 +103,7 @@ const handleClick = () => {
       </p>
       <p class="text-md md:text-xl">
         W tytule przelewu wpisz tylko:
-        <span class="font-bold"
-          >QQ{{ paymentData?.id }}QQ</span
-        >
+        <span class="font-bold">QQ{{ paymentData?.id }}QQ</span>
       </p>
       <p class="text-md md:text-xl">
         Dane odbiorcy: <span class="font-bold">{{ adress }}</span>
@@ -111,19 +111,22 @@ const handleClick = () => {
       <p class="text-md md:text-xl">
         Wybierz swój Bank i przekopiuj wartości do przelewu:
       </p>
-      <div
-        class="grid grid-cols-3 md:grid-cols-4 space-x-5 space-y-5 max-w-3xl py-10"
-      >
+      <div class="grid grid-cols-3 md:grid-cols-4 space-x-5 space-y-5 max-w-3xl py-10">
         <div
-          v-for="bank in banks"
-          @click="handleBank(bank)"
-          class="p-5 cursor-pointer border border-gray-200"
+            v-for="bank in banks"
+            @click="handleBank(bank)"
+            class="p-5 cursor-pointer border border-gray-200"
         >
           <img
-            :src="getImage(bank.img_url, config.baseUrl)"
-            class="w-full h-full"
+              :src="getImage(bank.img_url, config.baseUrl)"
+              class="w-full h-full"
           />
         </div>
+      </div>
+
+      <!-- Display the message from the query parameter -->
+      <div v-if="message" class="mt-4 p-4 bg-blue-100 text-blue-800 rounded">
+        {{ message }}
       </div>
     </div>
   </div>

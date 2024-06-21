@@ -1,146 +1,202 @@
 <template>
-  <div v-if="show" class="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center" style="z-index: 999999" @click="hidePopup"></div>
-  <div v-if="show" class="fixed inset-0 flex items-center justify-center" style="z-index: 999999">
-    <div class="bg-white rounded-lg shadow-lg p-8 max-w-md mx-auto relative z-100 text-center">
-      <h2 class="text-2xl font-bold mb-4">
-        Gwarantujemy, że zaoszczędzisz minimalnie <em>100zł</em>
-        <br> Skontaktujemy się z tobą w <pm>23 sekundy</pm>
-      </h2>
-      <p v-if="message" class="mb-4">{{ message }}</p>
-      <p class="mb-4">Podaj nam swój numer telefonu:</p>
-      <input
-          type="text"
-          v-model="phoneNumber"
-          placeholder="Np. 342 234 546"
-          class="w-full p-2 mb-4 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-      />
-      <button @click="submitPhoneNumber" class="w-full py-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">Wyślij</button>
+  <div class="custom-social-proof" v-show="showNotification">
+    <div class="custom-notification">
+      <div class="custom-notification-container">
+        <div class="custom-notification-image-wrapper">
+          <img src="/favicon.ico" />
+        </div>
+        <div class="custom-notification-content-wrapper">
+          <p class="custom-notification-content" id="customername">
+            <span>{{ customerName }}</span> z <span>{{ location }}</span>
+            <br />
+            <strong>{{ actionName }}</strong>
+            <small>{{ timePeriod }}</small>
+          </p>
+        </div>
+      </div>
+      <div class="custom-close" @click="closeNotification"></div>
     </div>
   </div>
 </template>
 
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from 'vue';
-import Swal from 'sweetalert2';
 
-const show = ref(false);
-const phoneNumber = ref('');
-const message = ref('');
-const { $shopApi: shopApi } = useNuxtApp();
+const showNotification = ref(false);
+const customerName = ref('');
+const location = ref('');
+const actionName = ref('');
+const timePeriod = ref('');
 
-const showPopup = () => {
-  show.value = true;
+const spFrequency = 14500;
+const spTimeout = 1200;
+let popBackup = null;
+let toggleVar = null;
+
+const names = [
+  "Anonimowy", "Anonimowy", "Anonimowy", "Ktoś", "Ktoś", "Marek", "Piotrek", "Walerian", "Saszka2213", "henio", "Marta", "Jeremiasz"
+];
+const towns = [
+  "Wrocław","Poznań","Katowice","Warszawa","Kalisz","Nowa wieś","Gorzów wielkopolski","Zielona góra","Kłodawka","Lublin","Skierniewice","Babimost"
+];
+
+const pastActions = [
+  "Właśnie stworzył przetarg"
+];
+const recentActions = [
+  "Właśnie zamówił 40.23m3 styropianu", "Właśnie zamówił 13m3 styropianu", "Właśnie zamówił 75.5m3 styropianu", "Właśnie zamówił 200m3 styropianu"
+];
+const futureActions = [
+  "Scheduled for this week", "On the schedule", "Scheduled for an interior detail", "Protecting their investment with a ceramic coating", "Having their vehicle polished and sealed", "Getting a full odor removal"
+];
+
+const fn_UpdateSocialProofData = () => {
+  setTimeout(() => {
+    fn_ToggleSocialProof();
+  }, 4000)
+  const selectedName = names[Math.floor(Math.random() * names.length)];
+  const selectedTown = towns[Math.floor(Math.random() * towns.length)];
+
+  let selectedAction = recentActions[Math.floor(Math.random() * recentActions.length)];
+
+  customerName.value = selectedName;
+  location.value = selectedTown;
+  actionName.value = selectedAction;
+  timePeriod.value = 'Właśnie teraz';
 };
 
-const hidePopup = () => {
-  if (phoneNumber.value) {
-    shopApi.post('api/contact-approach/create', {
-      phone_number: phoneNumber.value,
-      referred_by_user_id: 57352,
-    });
+const fn_ToggleSocialProof = () => {
+  showNotification.value = !showNotification.value;
+  if (showNotification.value) {
+    fn_UpdateSocialProofData();
   }
-
-  localStorage.setItem('formSubmitted', 'true');
-  show.value = false;
 };
 
-const submitPhoneNumber = async () => {
-  await shopApi.post('api/contact-approach/create', {
-    phone_number: phoneNumber.value,
-    referred_by_user_id: 57352,
-  });
+const fn_Percentage = (paraPercent) => Math.random() < paraPercent / 100;
 
-  Swal.fire('Dziękujemy! Skontaktujemy się z tobą szybko!', '', 'success');
-  localStorage.setItem('formSubmitted', 'true');
-  hidePopup();
-};
 
-const handleMouseLeave = (event) => {
-  if (event.clientY <= 0 && !localStorage.getItem('formSubmitted')) {
-    showPopup();
-  }
-};
-
-const handlePopState = (event) => {
-  const referrer = document.referrer;
-  const targetUrl = "https://mega1000.pl";
-
-  if (referrer.includes(targetUrl) && !localStorage.getItem('formSubmitted')) {
-    showPopup();
-  }
+const closeNotification = () => {
+  clearTimeout(popBackup);
+  clearTimeout(toggleVar);
+  showNotification.value = false;
 };
 
 onMounted(() => {
-  if (!localStorage.getItem('formSubmitted')) {
-    document.addEventListener('mouseleave', handleMouseLeave);
-    window.history.pushState(null, null, window.location.pathname);
-    window.addEventListener('popstate', handlePopState);
-  }
-
-  // Extract the 'message' query parameter from the URL
-  const urlParams = new URLSearchParams(window.location.search);
-  message.value = urlParams.get('message');
+  setTimeout(() => {
+    fn_UpdateSocialProofData();
+    showNotification.value = true;
+    toggleVar = setInterval(fn_UpdateSocialProofData, 30500);
+  }, 14000)
 });
 
 onBeforeUnmount(() => {
-  document.removeEventListener('mouseleave', handleMouseLeave);
-  window.removeEventListener('popstate', handlePopState);
+  clearTimeout(popBackup);
+  clearTimeout(toggleVar);
 });
 </script>
 
 <style scoped>
-.popup {
-  display: block;
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600');
+
+.custom-social-proof {
   position: fixed;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  padding: 20px;
-  background: white;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
+  bottom: 20px;
+  left: 20px;
+  z-index: 9999999999999 !important;
+  font-family: 'Open Sans', sans-serif;
 }
 
-.popup-overlay {
-  display: block;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 999;
-}
-
-.popup h2 {
-  margin-top: 0;
-}
-
-.close-button {
-  position: absolute;
-  top: 0.5rem;
-  right: 0.5rem;
-  font-size: 1.5rem;
+.custom-notification {
+  width: 320px;
+  border: 0;
+  text-align: left;
+  z-index: 99999;
+  box-sizing: border-box;
+  font-weight: 400;
+  border-radius: 6px;
+  box-shadow: 2px 2px 10px 2px hsla(0, 4%, 4%, 0.2);
+  background-color: #fff;
+  position: relative;
   cursor: pointer;
 }
 
-em {
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(15%, #c1f99d), color-stop(94%, #e0f5d3));
-  background: linear-gradient(-180deg, #c1f99d 15%, #e0f5d3 94%);
-  padding: 2px;
-  font-style: normal;
-  color: #343a40;
-  border-radius: 4px;
-  overflow: hidden;
+.custom-notification-container {
+  display: flex !important;
+  align-items: center;
+  height: 80px;
 }
 
-pm {
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(15%, #f99d9d), color-stop(94%, #f5d3d3));
-  background: linear-gradient(-180deg, #f99d9d 15%, #f5d3d3 94%);
-  padding: 2px;
-  font-style: normal;
-  color: #343a40;
-  border-radius: 4px;
+.custom-notification-image-wrapper img {
+  max-height: 75px;
+  width: 90px;
   overflow: hidden;
+  border-radius: 6px 0 0 6px;
+  object-fit: cover;
+}
+
+.custom-notification-content-wrapper {
+  margin: 0;
+  height: 100%;
+  color: gray;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-radius: 0 6px 6px 0;
+  flex: 1;
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.custom-notification-content {
+  font-family: inherit !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  font-size: 14px;
+  line-height: 16px;
+}
+
+.custom-notification-content small {
+  margin-top: 3px !important;
+  display: block !important;
+  font-size: 12px !important;
+  opacity: .8;
+}
+
+.custom-close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  height: 12px;
+  width: 12px;
+  cursor: pointer;
+  transition: .2s ease-in-out;
+  transform: rotate(45deg);
+  opacity: 0;
+}
+
+.custom-close::before {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 2px;
+  background-color: gray;
+  position: absolute;
+  left: 0;
+  top: 5px;
+}
+
+.custom-close::after {
+  content: "";
+  display: block;
+  height: 100%;
+  width: 2px;
+  background-color: gray;
+  position: absolute;
+  left: 5px;
+  top: 0;
+}
+
+.custom-notification:hover .custom-close {
+  opacity: 1;
 }
 </style>
