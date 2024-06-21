@@ -57,6 +57,10 @@ const handleClick = () => {
 </script>
 
 <template>
+  <div v-if="message" class="mt-4 p-4 bg-blue-100 text-blue-800 rounded">
+    {{ message }}
+  </div>
+
   <div class="flex justify-center pt-10 pb-20">
     <div>
       <div class="text-3xl font-bold">
@@ -88,15 +92,9 @@ const handleClick = () => {
       <p class="text-md md:text-xl">
         Jeśli potrzebujesz się skontaktować zaloguj się i wejdź w zakładkę "Moje Konto" (domyślnie nr telefonu jest hasłem)
       </p>
-      <p>
-        Zaloguj się na swoim koncie aby
-        - sprawdzić/skorygować dane do dostawy i faktury i daty logistyczne
-        - podpiąć potwierdznie przelwu w przypadku gdy zależy ci na szybkiej wysyłce
-        - sprawdzic po nadaniu nr listów przewozowych oraz ich status
-      </p>
       <p class="text-md md:text-xl font-md">
         Aby dokonać płatności przelej kwotę:
-        <span class="font-bold">{{ $route.query.total }}</span>
+        <span class="font-bold">{{ $route.query.total }} ZŁ</span>
       </p>
       <p class="text-md md:text-xl">
         na konto bankowe: <span class="font-bold">{{ accountNumber }}</span>
@@ -124,10 +122,6 @@ const handleClick = () => {
         </div>
       </div>
 
-      <!-- Display the message from the query parameter -->
-      <div v-if="message" class="mt-4 p-4 bg-blue-100 text-blue-800 rounded">
-        {{ message }}
-      </div>
     </div>
   </div>
 </template>
