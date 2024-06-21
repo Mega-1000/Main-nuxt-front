@@ -53,7 +53,7 @@ const futureActions = [
 const fn_UpdateSocialProofData = () => {
   setTimeout(() => {
     fn_ToggleSocialProof();
-  }, 4000)
+  }, 12000)
   const selectedName = names[Math.floor(Math.random() * names.length)];
   const selectedTown = towns[Math.floor(Math.random() * towns.length)];
 
@@ -86,7 +86,7 @@ onMounted(() => {
     fn_UpdateSocialProofData();
     showNotification.value = true;
     toggleVar = setInterval(fn_UpdateSocialProofData, 30500);
-  }, 14000)
+  }, 20000)
 });
 
 onBeforeUnmount(() => {
