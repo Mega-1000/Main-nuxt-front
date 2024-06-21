@@ -164,7 +164,8 @@ const confirmAuction = async () => {
     loading.value = true;
     const auctionData = selections.filter(selection => selection.value !== null && selection.quantity !== '').map(selection => ({
       styrofoamType: selection.value,
-      quantity: selection.quantity
+      quantity: selection.quantity,
+      thikness: selection.thikness
     }));
 
     await shopApi.post('/api/auctions/save', {auctionData, userInfo: userInfo.value});
