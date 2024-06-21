@@ -126,7 +126,7 @@ onMounted(async () => {
 
 const addSelection = () => {
   if (selections.length < 5) {
-    selections.push({ value: null, quantity: '' });
+    selections.push({ value: null, quantity: '', thikness: '' });
   }
 };
 
@@ -135,6 +135,7 @@ const saveAuction = async () => {
     const auctionData = selections.filter(selection => selection.value !== null && selection.quantity !== '').map(selection => ({
       styrofoamType: selection.value,
       quantity: parseInt(selection.quantity, 10)
+      thikness: selection.thikness
     }));
 
     if (auctionData.length === 0) {
