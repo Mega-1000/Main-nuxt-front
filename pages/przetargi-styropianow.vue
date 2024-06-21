@@ -85,6 +85,7 @@
           <h2 class="text-xl font-bold mb-4">Powiedz nam trochę o sobie...</h2>
           <TextInput @input="userInfo.email = $event" label="Email" class="mb-4" />
           <TextInput @input="userInfo.phone = $event" label="Numer telefonu" class="mb-4" />
+          <TextInput @input="userInfo.zipCode = $event" :value="defaultZipCode" label="Kod pocztowy" class="mb-4" />
           <SubmitButton @click="confirmAuction" :disabled="loading" class="bg-green-500 text-white">
             <span v-if="!loading">Zatwierdź</span>
             <span v-else>Ładowanie...</span>
@@ -104,11 +105,14 @@ const { $shopApi: shopApi } = useNuxtApp();
 const styrofoamTypes = ref([]);
 const selections = reactive([{ value: null, quantity: '' }]);
 const modalData = ref(false);
-const userInfo = ref({ email: '', phone: '' });
+const userInfo = ref({ email: '', phone: '', zipCode: '' });
 const showUserInfoModal = ref(false);
 const loading = ref(false);
+const defaultZipCode = ref('')
 
 onMounted(async () => {
+  defaultZipCode.value = localStorage.getItem('zipCode');
+
   try {
     loading.value = true;
     const types = await shopApi.get('/auctions/get-styrofoam-types');
