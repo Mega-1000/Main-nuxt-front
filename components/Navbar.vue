@@ -173,11 +173,11 @@ const endTutorial = () => {
 
           <!-- Desktop Navigation Links -->
           <div class="hidden md:ml-6 md:flex md:space-x-8">
-            <span ref="settingsLink">
+            <div ref="settingsLink">
               <NuxtLink v-if="!isVisibilityLimited" href="/" class="nav-link">Sklep</NuxtLink>
-            </span>
+            </div>
             <NuxtLink v-if="userToken && !isVisibilityLimited" href="/account" class="nav-link">Konto</NuxtLink>
-            <NuxtLink href="/Complaint" v-if="userToken" class="nav-link">Zgłoś reklamację</NuxtLink>
+            <NuxtLink href="/przetargi-styropianow" class="nav-link">Stwórz przetarg</NuxtLink>
             <NuxtLink v-if="userToken && !isVisibilityLimited" href="/" @click.prevent="logOut" class="nav-link">Wyloguj</NuxtLink>
             <NuxtLink v-else href="/login" class="nav-link">Zaloguj</NuxtLink>
             <NuxtLink href="/faq" class="nav-link">FAQ</NuxtLink>

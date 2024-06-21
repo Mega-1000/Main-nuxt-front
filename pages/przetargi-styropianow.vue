@@ -1,33 +1,42 @@
 <template>
   <div class="w-full sm:w-[90%] md:w-[80%] lg:w-[70%] mx-auto">
     <div class="bg-white rounded-lg shadow-md p-6 mt-12">
-      <h2 class="text-xl md:text-2xl font-bold mb-4">Dodaj produkty</h2>
-      <div v-for="(selection, index) in selections" :key="index" class="mb-4 flex flex-col sm:flex-row items-center gap-2">
-        <SelectInput
-            label="Wybierz rodzaj styropianu"
-            :options="styrofoamTypes"
-            v-model="selection.value"
-            v-if="styrofoamTypes.length !== 0"
-            class="w-full sm:w-1/3"
-        />
+      <h2 class="text-xl md:text-2xl font-bold mb-4">Masz jakieś pytania? Jesteśmy do twojej dyspozycji! <pm> 576 205 389 </pm></h2>
+      <div ref="parent" class="space-y-4">
+        <div v-for="(selection, index) in selections" :key="index" class="flex flex-col sm:flex-row items-center gap-2">
+          <SelectInput
+              label="Wybierz rodzaj styropianu"
+              :options="styrofoamTypes"
+              v-model="selection.value"
+              v-if="styrofoamTypes.length !== 0"
+              class="w-full sm:w-1/3"
+          />
 
-        <TextInput type="number" @input="selection.quantity = $event" label="Podaj ilość paczek" class="w-full sm:w-1/3" />
+          <TextInput type="number" @input="selection.quantity = $event" label="Podaj ilość paczek" class="w-full sm:w-1/3" />
 
-        <TextInput type="number" @input="selection.thikness = $event" label="Grubość w cm" class="w-full sm:w-1/3" />
+          <div class="md:w-[40%]">
+            <label class="block text-gray-700 text-sm font-bold mb-2">
+              Grubość styropianu
+            </label>
+            <select @input="selection.thikness = $event.target.value" class="px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 w-full">
+              <option v-for="n in 26" :key="n-1" :value="n-1">{{ n-1 }}</option>
+            </select>
+          </div>
 
-        <SubmitButton @click="showQuotes(selection)" :disabled="loading || !selection.value" class="w-full sm:w-1/3">
-          <span v-if="!loading">Pokaż aktualne ceny</span>
-          <span v-else>Ładowanie...</span>
-        </SubmitButton>
+          <SubmitButton @click="showQuotes(selection)" :disabled="loading || !selection.value" class="w-full sm:w-1/3 md:mt-7">
+            <span v-if="!loading">Pokaż aktualne ceny</span>
+            <span v-else>Ładowanie...</span>
+          </SubmitButton>
 
-        <button @click="deleteSelection(index)" class="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600 transition-colors duration-300" :disabled="loading">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-            <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
-          </svg>
-        </button>
+          <button @click="deleteSelection(index)" class="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600 transition-colors duration-300 md:mt-7" :disabled="loading">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
+            </svg>
+          </button>
+        </div>
       </div>
 
-      <button @click="addSelection" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition-colors duration-300 flex items-center justify-center" :disabled="loading">
+      <button @click="addSelection" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition-colors duration-300 flex items-center justify-center mt-4" :disabled="loading">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
           <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd" />
         </svg>
@@ -42,6 +51,7 @@
       </SubmitButton>
     </div>
 
+    <!-- Modals -->
     <div class="modal-backdrop" v-if="modalData">
       <div class="modal-content">
         <div class="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full h-full" style="background-color: rgba(0, 0, 0, 0.50)">
@@ -100,6 +110,7 @@
 
 <script setup>
 import { ref, reactive, onMounted } from 'vue';
+import { useAutoAnimate } from '@formkit/auto-animate/vue';
 import SubmitButton from "../components/SubmitButton.vue";
 import Swal from "sweetalert2";
 import Cookies from "universal-cookie/cjs/Cookies";
@@ -111,7 +122,9 @@ const modalData = ref(false);
 const userInfo = ref({ email: '', phone: '', zipCode: '' });
 const showUserInfoModal = ref(false);
 const loading = ref(false);
-const defaultZipCode = ref('')
+const defaultZipCode = ref('');
+
+const [parent] = useAutoAnimate();
 
 onMounted(async () => {
   defaultZipCode.value = localStorage.getItem('zipCode');
@@ -169,7 +182,7 @@ const confirmAuction = async () => {
       thikness: selection.thikness
     }));
 
-    await shopApi.post('/api/auctions/save', {auctionData, userInfo: userInfo.value});
+    await shopApi.post('/api/auctions/save', { auctionData, userInfo: userInfo.value });
     const cookies = new Cookies();
     await cookies.set("token", res.data.access_token);
 
@@ -201,7 +214,7 @@ const updateSelection = (index, newValue) => {
 const showQuotes = async (selection) => {
   try {
     loading.value = true;
-    const {data: request} = await shopApi.get(`/auctions/get-quotes-by-styrofoarm-type/${selection.value}`);
+    const { data: request } = await shopApi.get(`/auctions/get-quotes-by-styrofoarm-type/${selection.value}`);
     modalData.value = Object.values(request).sort((a, b) => {
       return a.price.net_purchase_price_basic_unit - b.price.net_purchase_price_basic_unit;
     });
@@ -213,3 +226,15 @@ const showQuotes = async (selection) => {
   }
 };
 </script>
+
+<style>
+pm {
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(15%, #c1f99d), color-stop(94%, #e0f5d3));
+  background: linear-gradient(-180deg, #c1f99d 15%, #e0f5d3 94%);
+  padding: 2px;
+  font-style: normal;
+  color: #343a40;
+  border-radius: 4px;
+  overflow: hidden;
+}
+</style>
