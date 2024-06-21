@@ -1,18 +1,34 @@
 <script setup>
-  import Swal from 'sweetalert2';
+import Swal from 'sweetalert2';
+import { ref, computed, onBeforeMount } from 'vue';
 
-  const zipCode = ref('');
+const zipCode = ref('');
+const zipCodeValid = ref(true);
 
-  onBeforeMount(() => {
-    zipCode.value = localStorage.getItem('zipCode');
-  });
+onBeforeMount(() => {
+  zipCode.value = localStorage.getItem('zipCode');
+});
 
-  const submitZipCode = async () =>  {
-    localStorage.setItem('zipCode', zipCode.value);
+const validateZipCode = (code) => {
+  const zipCodePattern = /^[0-9]{2}-[0-9]{3}$/;
+  return zipCodePattern.test(code);
+};
 
-    await Swal.fire('Zapisano kod pocztowy', 'Od teraz będziemy ci pokazywać jedynie ofery w twoim zasięgu', 'success')
-    await window.location.reload();
+const zipCodeErrorMessage = computed(() => {
+  return zipCodeValid.value ? '' : 'Kod pocztowy musi być w formacie xx-xxx';
+});
+
+const submitZipCode = async () => {
+  zipCodeValid.value = validateZipCode(zipCode.value);
+  if (!zipCodeValid.value) {
+    return;
   }
+
+  localStorage.setItem('zipCode', zipCode.value);
+
+  await Swal.fire('Zapisano kod pocztowy', 'Od teraz będziemy ci pokazywać jedynie oferty w twoim zasięgu', 'success');
+  await window.location.reload();
+};
 </script>
 
 <template>
@@ -35,8 +51,16 @@
                   Wpisz swój kod pocztowy żebyśmy mogli dobrać fabryki specjalnie dla ciebie
                 </p>
                 <form @submit.prevent="submitZipCode">
-                  <TextInput type="text" :value="zipCode" @input="zipCode = $event" label="Wpisz kod pocztowy w formacie xx-xxx" />
-
+                  <TextInput
+                      type="text"
+                      :value="zipCode"
+                      @input="zipCode = $event"
+                      label="Wpisz kod pocztowy w formacie xx-xxx"
+                      :error="zipCodeErrorMessage"
+                  />
+                  <div v-if="!zipCodeValid" class="text-red-500 text-sm">
+                    {{ zipCodeErrorMessage }}
+                  </div>
                   <SubmitButton class="mt-5">
                     Zapisz
                   </SubmitButton>
