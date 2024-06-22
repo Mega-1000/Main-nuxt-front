@@ -5,7 +5,7 @@
         Dziękujemy za skorzystanie z naszej giełdy styropianu!
       </h2>
       <div class="bg-white rounded-lg shadow-2xl p-6 md:p-10">
-        <img src="https://www.svgrepo.com/show/506471/check.svg" alt="Sukces" class="w-24 h-24 mx-auto mb-6" />
+        <img src="favicon.ico" alt="Sukces" class="w-24 h-24 mx-auto mb-6" />
 
         <p class="text-xl mb-4">Twoje zapytanie zostało przyjęte. Wkrótce otrzymasz najlepsze oferty!</p>
 
@@ -18,12 +18,10 @@
           </ul>
         </div>
 
-        <p class="mb-6">Numer Twojego zapytania: <span class="font-bold">#{{ requestNumber }}</span></p>
-
         <div class="bg-emerald-100 border-l-4 border-emerald-500 p-4 mb-6">
           <p class="font-bold">Bonus: Twój darmowy poradnik</p>
           <p>Kliknij poniższy przycisk, aby pobrać "10 sposobów na efektywne ocieplenie domu"</p>
-          <a href="#" class="inline-block mt-2 bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-2 px-4 rounded">
+          <a href="/poradnik.pdf" class="inline-block mt-2 bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-2 px-4 rounded">
             Pobierz poradnik
           </a>
         </div>
@@ -33,10 +31,10 @@
 
       <div class="mt-10 text-white">
         <p class="font-bold text-xl mb-4">Polecaj i zarabiaj!</p>
-        <p class="mb-2">Poleć nas znajomym i otrzymaj 50 zł za każde zrealizowane zamówienie</p>
-        <button class="bg-yellow-400 hover:bg-yellow-500 text-emerald-800 font-bold py-2 px-4 rounded">
+        <p class="mb-2">Poleć nas znajomym i otrzymaj 30 zł za każde zrealizowane zamówienie</p>
+        <a class="bg-yellow-400 hover:bg-yellow-500 text-emerald-800 font-bold py-2 px-4 rounded" href="/polec-znajomego">
           Program poleceń
-        </button>
+        </a>
       </div>
     </div>
   </section>
