@@ -1,7 +1,7 @@
 <template>
   <div class="w-full sm:w-[90%] md:w-[80%] lg:w-[70%] mx-auto">
     <div class="bg-white rounded-lg shadow-md p-6 mt-12">
-      <h2 class="text-xl md:text-2xl font-bold mb-4">Masz jakieś pytania? Jesteśmy do twojej dyspozycji! <pm> 576 205 389 </pm></h2>
+      <h2 class="text-xl md:text-2xl font-bold mb-4">Masz jakieś pytania? Jesteśmy do twojej dyspozycji! <em> 576 205 389 </em></h2>
       <div ref="parent" class="space-y-4">
         <div v-for="(selection, index) in selections" :key="index" class="flex flex-col sm:flex-row items-center gap-2">
           <SelectInput
@@ -228,7 +228,7 @@ const showQuotes = async (selection) => {
 </script>
 
 <style>
-pm {
+em {
   background: -webkit-gradient(linear, left top, left bottom, color-stop(15%, #c1f99d), color-stop(94%, #e0f5d3));
   background: linear-gradient(-180deg, #c1f99d 15%, #e0f5d3 94%);
   padding: 2px;
