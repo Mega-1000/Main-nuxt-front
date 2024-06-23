@@ -174,7 +174,7 @@ const confirmAuction = async () => {
       thikness: selection.thikness
     }));
 
-    await shopApi.post('/api/auctions/save', { auctionData, userInfo: userInfo.value });
+    const res = await shopApi.post('/api/auctions/save', { auctionData, userInfo: userInfo.value });
     const cookies = new Cookies();
     await cookies.set("token", res.data.access_token);
 
