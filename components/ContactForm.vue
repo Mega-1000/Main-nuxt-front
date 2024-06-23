@@ -13,7 +13,7 @@
 
 <form @submit.prevent="handleSubmit" class="space-y-4">
   <div v-if="step === 1">
-    <label for="zip" class="block text-lg font-semibold mb-2 text-gray-700">Kod pocztowy:</label>
+    <label for="zip" class="block text-lg font-semibold mb-2 text-gray-700">Podaj kod pocztowy dostawy:</label>
     <input type="text" id="zip" v-model="form.zip" required class="w-full px-4 py-3 border-2 border-emerald-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition" placeholder="Np. 00-001" />
     <button @click="nextStep" type="button" class="mt-4 w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-opacity-50">
       Sprawdź dostępne oferty
@@ -81,11 +81,7 @@
 <div class="space-y-4">
   <div>
     <h4 class="font-semibold text-lg mb-2">Czy jesteście sprzedawcą styropianu?</h4>
-    <p>Nie, jesteśmy giełdą styropianu. Zbieramy oferty od różnych dostawców, dzięki czemu możesz łatwo porównać ceny i wybrać najlepszą dla siebie.</p>
-  </div>
-  <div>
-    <h4 class="font-semibold text-lg mb-2">Jak mogę być pewny jakości produktów?</h4>
-    <p>Współpracujemy tylko z zaufanymi dostawcami. Każda oferta zawiera szczegółowe informacje o produkcie i jego parametrach.</p>
+    <p>Nie, jesteśmy giełdą styropianu. Zbieramy oferty od różnych dostawców, dzięki czemu możesz łatwo porównać ceny i wybrać najlepszą dla siebie i kupić bezpośrednio u producenta.</p>
   </div>
 </div>
 </div>

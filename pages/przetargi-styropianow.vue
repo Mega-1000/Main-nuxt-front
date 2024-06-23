@@ -36,7 +36,12 @@
         </div>
       </div>
 
-      <button @click="addSelection" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition-colors duration-300 flex items-center justify-center mt-4" :disabled="loading">
+      <div v-if="hasMultipleSelections" class="mt-4 p-4 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700">
+        <p class="font-bold">Uwaga:</p>
+        <p>Dodawaj więcej niż jeden produkt tylko jeśli jesteś pewien, że potrzebujesz różnych typów styropianu. W przeciwnym razie firmy mogą uznać, że Twoje zamówienie jest większe niż w rzeczywistości.</p>
+      </div>
+
+      <button @click="addSelection" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition-colors duration-300 flex items-center justify-center mt-4" :disabled="loading" title="Dodaj tylko jeśli potrzebujesz innego typu styropianu">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
           <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd" />
         </svg>
@@ -114,7 +119,7 @@
 </template>
 
 <script setup>
-import { ref, reactive, onMounted } from 'vue';
+import { ref, reactive, onMounted, computed } from 'vue';
 import { useAutoAnimate } from '@formkit/auto-animate/vue';
 import SubmitButton from "../components/SubmitButton.vue";
 import Swal from "sweetalert2";
@@ -131,6 +136,8 @@ const defaultZipCode = ref('');
 const router = useRouter();
 
 const [parent] = useAutoAnimate();
+
+const hasMultipleSelections = computed(() => selections.length > 1);
 
 onMounted(async () => {
   defaultZipCode.value = localStorage.getItem('zipCode');
