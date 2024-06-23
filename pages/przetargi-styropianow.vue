@@ -24,7 +24,7 @@
           </div>
 
           <SubmitButton @click="showQuotes(selection)" :disabled="loading || !selection.value" class="w-full sm:w-1/3 md:mt-7">
-            <span v-if="!loading">Pokaż aktualne ceny</span>
+            <span v-if="!loading">Pokaż aktualne ceny podstawowe</span>
             <span v-else>Ładowanie...</span>
           </SubmitButton>
 
