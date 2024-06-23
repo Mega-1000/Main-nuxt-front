@@ -225,9 +225,11 @@ const updateSelection = (index, newValue) => {
 };
 
 const showQuotes = async (selection) => {
+  const zipCode = localStorage.getItem('zipCode');
+
   try {
     loading.value = true;
-    const { data: request } = await shopApi.get(`/auctions/get-quotes-by-styrofoarm-type/${selection.value}`);
+    const { data: request } = await shopApi.get(`/auctions/get-quotes-by-styrofoarm-type/${selection.value}?zipCode=${zipCode}`);
     modalData.value = Object.values(request).sort((a, b) => {
       return a.price.net_purchase_price_basic_unit - b.price.net_purchase_price_basic_unit;
     });
