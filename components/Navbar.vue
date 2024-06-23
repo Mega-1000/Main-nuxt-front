@@ -2,20 +2,20 @@
 import { getToken, removeCookie } from "~~/helpers/authenticator";
 import Cart from "~~/utils/Cart";
 import Cookies from "universal-cookie";
-import { ref, onMounted, onBeforeUnmount } from 'vue';
+import { ref, onMounted, onBeforeUnmount, computed } from 'vue';
 import ouibounce from 'ouibounce';
 import Popup from '~/components/Popup.vue';
-
 
 const { $shopApi: shopApi } = useNuxtApp();
 const productsCart = useProductsCart();
 const router = useRouter();
+const route = useRoute();
 const isVisibilityLimited = ref(false);
 const userToken = ref('');
 const showMenu = ref(false);
 const searchQuery = ref('');
 const searchResults = ref([]);
-const noResultsMessage = ref(''); // To hold the message when no results are found
+const noResultsMessage = ref('');
 
 const navigationLink = ref(null);
 const profileLink = ref(null);
@@ -29,6 +29,9 @@ const tutorialNextButtonText = ref('Next');
 const tutorialStep = ref(0);
 const popupRef = ref(null);
 
+const showShopLink = computed(() => {
+  return route.path !== '/';
+});
 
 useSeoMeta({
   title: 'EPH Polska - Hurtownia Styropianu, Systemy Elewacyjne, Ocieplenia | Gwarancja Najniższej Ceny',
@@ -47,21 +50,18 @@ onMounted(async () => {
   cart.init();
   productsCart.value = cart;
 
-  // Listen to a custom event or a typical window action that implies token change
   window.addEventListener('token-refreshed', checkUserLoggedIn);
 });
 
-onUnmounted(() => {
+onBeforeUnmount(() => {
   window.removeEventListener('token-refreshed', checkUserLoggedIn);
 });
 
 const checkUserLoggedIn = () => {
   const cookies = new Cookies();
-  userToken.value = cookies.get("token"); // Reload the token
+  userToken.value = cookies.get("token");
 
-  // Assuming you might need to refresh user-specific data
   if (userToken.value) {
-    // You could refresh user-specific data here, e.g., user profile or permissions
     console.log("User logged in, token refreshed.");
   } else {
     console.log("User not logged in or session expired.");
@@ -173,7 +173,7 @@ const endTutorial = () => {
 
           <!-- Desktop Navigation Links -->
           <div class="hidden md:ml-6 md:flex md:space-x-8">
-            <div ref="settingsLink">
+            <div ref="settingsLink" v-if="showShopLink">
               <NuxtLink v-if="!isVisibilityLimited" href="/" class="nav-link">Sklep</NuxtLink>
             </div>
             <NuxtLink v-if="userToken && !isVisibilityLimited" href="/account" class="nav-link">Konto</NuxtLink>
@@ -217,7 +217,7 @@ const endTutorial = () => {
       <!-- Mobile Menu -->
       <div :class="{ 'hidden': !showMenu, 'block': showMenu }" class="md:hidden">
         <div class="pt-2 pb-3">
-          <NuxtLink v-if="!isVisibilityLimited" href="/" class="mobile-nav-link">Sklep</NuxtLink>
+          <NuxtLink v-if="!isVisibilityLimited && showShopLink" href="/" class="mobile-nav-link">Sklep</NuxtLink>
           <template v-for="page in customPages" v-if="!isVisibilityLimited">
             <NuxtLink :href="buildCustomLink(page.id)" class="mobile-nav-link">{{ page.title }}</NuxtLink>
           </template>
@@ -285,31 +285,11 @@ const endTutorial = () => {
     <div class="ml-4 flex-shrink-0">
       <NavbarShipmentCostTable />
     </div>
-
-<!--    <div class="tutorial-highlight" style="position: fixed; z-index: 888" v-if="tutorialActive">-->
-<!--      <slot name="tutorial-highlight"></slot>-->
-<!--    </div>-->
-
-<!--    <div v-if="false" class="tutorial-overlay">-->
-<!--      <div class="tutorial-modal">-->
-<!--        <div class="tutorial-content">-->
-<!--          <h3 class="text-2xl font-bold">{{ tutorialTitle }}</h3>-->
-<!--          <p>{{ tutorialDescription }}</p>-->
-<!--          <SubmitButton @click="nextTutorialStep()" class="mt-4">{{ tutorialNextButtonText }}</SubmitButton>-->
-<!--          <button v-if="tutorialStep === 0" @click="endTutorial()" class="text-white bg-red-700 hover:bg-red-800 mt-2 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center disabled:bg-gray-500">-->
-<!--            Dzięki, ogarnę portal sam-->
-<!--          </button>-->
-<!--          <button v-if="tutorialStep === 3" @click="tutorialStep = 0; nextTutorialStep()" class="text-white bg-red-700 hover:bg-red-800 mt-2 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center disabled:bg-gray-500">-->
-<!--            Chce zobaczyć poradnik jeszcze raz-->
-<!--          </button>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
   </nav>
   <SocialProof />
 </template>
 
-    <style scoped>
+<style scoped>
 /* Navigation Links */
 .nav-link {
   @apply inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-900 hover:border-gray-300 focus:outline-none focus:border-gray-700 transition duration-150 ease-in-out;
@@ -356,9 +336,10 @@ const endTutorial = () => {
 .star-active {
   @apply text-yellow-400;
 }
- .user-dashboard {
-   display: flex;
- }
+
+.user-dashboard {
+  display: flex;
+}
 
 .sidebar {
   width: 200px;
@@ -410,7 +391,7 @@ nav a {
   max-width: 500px;
   text-align: center;
   position: relative;
-  z-index: 900; /* Add a higher z-index value */
+  z-index: 900;
 }
 
 .tutorial-modal-container {
