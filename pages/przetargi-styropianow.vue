@@ -46,7 +46,7 @@
 
     <div class="mt-6">
       <SubmitButton @click="saveAuction" :disabled="loading" class="bg-gradient-to-r from-green-400 to-green-600 text-white font-semibold px-6 py-3 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 w-full sm:w-auto">
-        <span v-if="!loading">Zatwierdź</span>
+        <span v-if="!loading">Stwórz przetarg</span>
         <span v-else>Ładowanie...</span>
       </SubmitButton>
     </div>
@@ -69,6 +69,11 @@
                   <span class="sr-only">Close modal</span>
                 </button>
               </div>
+
+              <h3 class="mx-4 mt-4 text-red-500 font-bold">
+                !! Aby stworzyć przetarg zamknij to okienko i kliknij przycisk stwórz przetarg !!
+              </h3>
+
               <div class="p-4 space-y-4">
                 <table class="w-full">
                   <thead>
