@@ -69,9 +69,6 @@
         </svg>
         Dodaj inny produkt
       </button>
-
-      <OpinionStars class="" />
-
     </div>
 
     <div class="mt-6">
@@ -100,7 +97,6 @@
         </div>
       </div>
     </div>
-
   </div>
 </template>
 
