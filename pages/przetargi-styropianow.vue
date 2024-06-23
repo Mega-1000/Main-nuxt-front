@@ -115,6 +115,7 @@ const userInfo = ref({ email: '', phone: '', zipCode: '' });
 const showUserInfoModal = ref(false);
 const loading = ref(false);
 const defaultZipCode = ref('');
+const router = useRouter();
 
 const [parent] = useAutoAnimate();
 
