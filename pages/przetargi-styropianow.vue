@@ -1,24 +1,7 @@
 <template>
   <div class="w-full sm:w-[90%] md:w-[80%] lg:w-[70%] mx-auto">
-    <!-- Progress bar for Progressive Disclosure -->
-    <div class="mb-4 bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
-      <div class="bg-blue-600 h-2.5 rounded-full" :style="{ width: progressPercentage + '%' }"></div>
-    </div>
-
     <div class="bg-white rounded-lg shadow-md p-6 mt-12">
-      <!-- Social Proof -->
-      <div class="text-center mb-4 text-gray-600">
-        <p>Ponad 10,000 zadowolonych klientów w całej Polsce!</p>
-      </div>
-
       <h2 class="text-xl md:text-2xl font-bold mb-4">Potrzebujesz pomocy? Zadzwoń do nas: <em>576 205 389</em></h2>
-
-      <!-- Scarcity and Urgency -->
-      <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 mb-4" role="alert">
-        <p class="font-bold">Oferta ograniczona czasowo!</p>
-        <p>Zamów w ciągu najbliższych 24 godzin i otrzymaj 10% zniżki.</p>
-      </div>
-
       <div ref="parent" class="space-y-4">
         <div v-for="(selection, index) in selections" :key="index" class="flex flex-col sm:flex-row items-center gap-2 p-4 border rounded-lg">
           <SelectInput
@@ -36,7 +19,6 @@
               label="Ilość paczek"
               class="w-full sm:w-1/3"
               tooltip="Podaj liczbę paczek, które chcesz zamówić"
-              :placeholder="getPlaceholder(index)" <!-- Anchoring -->
           />
 
           <div class="md:w-[40%]">
@@ -56,11 +38,11 @@
           <SubmitButton
               @click="showQuotes(selection)"
               :disabled="loading || !selection.value || !selection.quantity || !selection.thickness"
-              class="w-full sm:w-1/3 md:mt-7 bg-green-500 hover:bg-green-600" <!-- More prominent CTA -->
-          tooltip="Kliknij, aby zobaczyć aktualne ceny dla wybranego styropianu"
+              class="w-full sm:w-1/3 md:mt-7"
+              tooltip="Kliknij, aby zobaczyć aktualne ceny dla wybranego styropianu"
           >
-          <span v-if="!loading">Sprawdź ceny</span>
-          <span v-else>Ładowanie...</span>
+            <span v-if="!loading">Sprawdź ceny</span>
+            <span v-else>Ładowanie...</span>
           </SubmitButton>
 
           <button
@@ -87,12 +69,9 @@
         </svg>
         Dodaj inny produkt
       </button>
-    </div>
 
-    <!-- Loss Aversion -->
-    <div class="mt-4 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" role="alert">
-      <p class="font-bold">Nie przegap okazji!</p>
-      <p>Zamów teraz i zaoszczędź nawet do 30% na kosztach izolacji.</p>
+      <OpinionStars class="" />
+
     </div>
 
     <div class="mt-6">
@@ -105,12 +84,6 @@
         <span v-if="!loading">Przejdź dalej</span>
         <span v-else>Przetwarzanie...</span>
       </SubmitButton>
-    </div>
-
-    <!-- Trust Signals -->
-    <div class="mt-4 flex justify-center space-x-4">
-      <img src="/path-to-trust-badge.png" alt="Trust Badge" class="h-12">
-      <img src="/path-to-security-seal.png" alt="Security Seal" class="h-12">
     </div>
 
     <div class="modal-backdrop" v-if="showUserInfoModal">
@@ -127,11 +100,12 @@
         </div>
       </div>
     </div>
+
   </div>
 </template>
 
 <script setup>
-import { ref, reactive, onMounted, computed } from 'vue';
+import { ref, reactive, onMounted } from 'vue';
 import { useAutoAnimate } from '@formkit/auto-animate/vue';
 import SubmitButton from "../components/SubmitButton.vue";
 import Swal from "sweetalert2";
@@ -139,7 +113,7 @@ import Cookies from "universal-cookie/cjs/Cookies";
 const { $shopApi: shopApi } = useNuxtApp();
 
 const styrofoamTypes = ref([]);
-const selections = reactive([{ value: null, quantity: '', thickness: '' }]);
+const selections = reactive([{ value: null, quantity: '', thikness: '' }]);
 const modalData = ref(false);
 const userInfo = ref({ email: '', phone: '', zipCode: '' });
 const showUserInfoModal = ref(false);
@@ -148,13 +122,6 @@ const defaultZipCode = ref('');
 const router = useRouter();
 
 const [parent] = useAutoAnimate();
-
-// Computed property for progress bar
-const progressPercentage = computed(() => {
-  const totalSteps = 3; // Adjust based on your form steps
-  const completedSteps = selections.filter(s => s.value && s.quantity && s.thickness).length;
-  return (completedSteps / totalSteps) * 100;
-});
 
 onMounted(async () => {
   defaultZipCode.value = localStorage.getItem('zipCode');
@@ -168,15 +135,9 @@ onMounted(async () => {
   }
 });
 
-// Anchoring: Function to get placeholder for quantity input
-const getPlaceholder = (index) => {
-  const basePlaceholder = 100; // Start with a higher number
-  return (basePlaceholder - index * 10).toString(); // Decrease for each subsequent input
-};
-
 const addSelection = () => {
   if (selections.length < 5) {
-    selections.push({ value: null, quantity: '', thickness: '' });
+    selections.push({ value: null, quantity: '', thikness: '' });
   }
 };
 
@@ -185,7 +146,7 @@ const saveAuction = async () => {
     const auctionData = selections.filter(selection => selection.value !== null && selection.quantity !== '').map(selection => ({
       styrofoamType: selection.value,
       quantity: parseInt(selection.quantity, 10),
-      thickness: selection.thickness
+      thikness: selection.thikness
     }));
 
     if (auctionData.length === 0) {
@@ -215,7 +176,7 @@ const confirmAuction = async () => {
     const auctionData = selections.filter(selection => selection.value !== null && selection.quantity !== '').map(selection => ({
       styrofoamType: selection.value,
       quantity: selection.quantity,
-      thickness: selection.thickness
+      thikness: selection.thikness
     }));
 
     const res = await shopApi.post('/api/auctions/save', { auctionData, userInfo: userInfo.value });
