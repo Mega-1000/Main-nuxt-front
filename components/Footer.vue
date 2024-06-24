@@ -10,7 +10,7 @@ onMounted(() => {
 <template>
   <footer class="z-20 mt-10 p-2 w-full bg-slate-100 border-t border-gray-200 shadow md:flex md:items-center md:justify-between">
     <span class="text-xs md:text-sm text-gray-500 sm:text-center">
-      EPH - ELEKTRONICZNA PLATFORMA HANDLOWA POLSKA NIP: 8971930266 Wszystkie prawa zastrzeżone.
+      EPH - ELEKTRONICZNA PLATFORMA HANDLOWA EU NIP: 9121945342 Wszystkie prawa zastrzeżone.
     </span>
     <div class="flex gap-4">
       <a href="https://www.linkedin.com/company/eph-polska" target="__blank">
