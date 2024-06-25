@@ -49,34 +49,7 @@ const config = useRuntimeConfig().public;
 
 <template>
   <ReferalBanner />
-
-  <section class="bg-white">
-    <div class="mx-auto max-w-screen-xl">
-      <div class="grid grid-cols-2 gap-8 text-gray-500 sm:gap-12 md:grid-cols-3 lg:grid-cols-6 text-gray-400">
-        <a href="#" class="flex justify-center items-center">
-          <img src="/genderka.webp" alt="" style="width: 70%">
-        </a>
-
-        <a href="#" class="flex justify-center items-center">
-          <img src="/swisspor.webp" alt="" style="width: 70%">
-        </a>
-        <a href="#" class="flex justify-center items-center">
-          <img src="/kubala.webp" alt="" style="width: 70%">
-        </a>
-
-        <a href="#" class="flex justify-center items-center">
-          <img src="/arsanit.webp" alt="" style="width: 70%">
-        </a>
-        <a href="#" class="flex justify-center items-center">
-          <img src="/austroterm.webp" alt="" style="width: 70%">
-        </a>
-        <a href="#" class="flex justify-center items-center">
-          <img src="/yetico.webp" style="width: 70%">
-        </a>
-      </div>
-    </div>
-  </section>
-
+  <LogosSection />
   <p v-if="pending">Loading...</p>
   <div v-else class="flex">
     <section class="pt-10 pb-20 w-full flex justify-center">

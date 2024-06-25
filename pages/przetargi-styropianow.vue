@@ -56,6 +56,15 @@
       </SubmitButton>
     </div>
 
+    <div class="mt-12">
+      <span class="font-bold text-lg">
+        Dostaniesz wyceny między innmi od:
+
+      </span>
+
+      <LogosSection />
+    </div>
+
     <!-- Modals -->
     <div class="modal-backdrop" v-if="modalData">
       <div class="modal-content">

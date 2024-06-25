@@ -70,43 +70,7 @@ const config = useRuntimeConfig().public;
   </div>
 
   <OpinionStars class="mt-3 text-black" />
-
-  <section>
-    <div class="mx-auto max-w-screen-xl py-10">
-      <NuxtLink class="md:grid flex md:gap-8 justify-between text-gray-400 grid-cols-10 gap-5 mx-1" href="/styropiany">
-        <div class="flex justify-center items-center hover:scale-105 transition-transform duration-300 hidden md:flex">
-          <img src="/genderka.webp" alt="Genderka - Lider rynku" class="md:w-[70%]">
-        </div>
-        <div href="#" class="flex justify-center items-center hover:scale-105 transition-transform duration-300 hidden md:flex">
-          <img src="/swisspor.webp" alt="Swisspor - Szwajcarska precyzja" class="md:w-[70%]">
-        </div>
-        <div href="#" class="flex justify-center items-center hover:scale-105 transition-transform duration-300">
-          <img src="/images (13).jpeg" alt="Termoorganika - Naturalnie ciepły dom" class="md:w-[70%]">
-        </div>
-        <div href="#" class="flex justify-center items-center hover:scale-105 transition-transform duration-300">
-          <img src="/arsanit.webp" alt="Arsanit - Komfort na lata" class="md:w-[70%]">
-        </div>
-        <div href="#" class="flex justify-center items-center hover:scale-105 transition-transform duration-300">
-          <img src="/austroterm.webp" alt="Austroterm - Najwyższa jakość" class="md:w-[70%]">
-        </div>
-        <div href="#" class="flex justify-center items-center hover:scale-105 transition-transform duration-300">
-          <img src="/yetico.webp" alt="Yetico - Energia oszczędności" class="md:w-[70%]">
-        </div>
-        <div href="#" class="flex justify-center items-center hover:scale-105 transition-transform duration-300">
-          <img src="/images (4).png" alt="Ciepły dom to szczęśliwy dom" class="md:w-[70%]">
-        </div>
-        <div href="#" class="flex justify-center items-center hover:scale-105 transition-transform duration-300">
-          <img src="/unnamed.png" alt="Zaufana marka, komfortowa izolacja" class="md:w-[70%]">
-        </div>
-        <div href="#" class="flex justify-center items-center hover:scale-105 transition-transform duration-300">
-          <img src="/knauf.png" alt="Knauf - Eksperci izolacji" class="md:w-[70%]">
-        </div>
-        <div href="#" class="flex justify-center items-center hover:scale-105 transition-transform duration-300 hidden md:flex">
-          <img src="/polstyr_logo_without_background.png" alt="Polstyr - Polska jakość" class="md:w-[70%]">
-        </div>
-      </NuxtLink>
-    </div>
-  </section>
+  <LogosSection />
 
   <Slider />
   <div v-if="pending" class="flex justify-center py-12">
