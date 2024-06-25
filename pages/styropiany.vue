@@ -268,6 +268,8 @@ const playVideo  = () => {
           <MagasinesMap />
         </div>
       </section>
+        </div>
+      </section>
 
       <!-- Other sections remain largely the same -->
 
