@@ -96,6 +96,7 @@
 <script setup>
 import { reactive, ref, onMounted } from 'vue'
 import { useRouter } from 'nuxt/app'
+import axios from "axios";
 
 const form = reactive({
   zip: '',
@@ -108,7 +109,7 @@ const router = useRouter()
 const step = ref(1)
 
 const nextStep = () => {
-  step.value = 2
+  step.value = 2;
 }
 
 const handleSubmit = async () => {
