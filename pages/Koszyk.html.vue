@@ -11,7 +11,6 @@ import swal from "sweetalert2";
 import {trackEvent} from "~/utils/trackEvent";
 import { Polish } from 'flatpickr/dist/l10n/pl.js';
 
-
 const { query } = useRoute();
 const { $shopApi: shopApi, $buildImgRoute: buildImgRoute } = useNuxtApp();
 const productsCart = useProductsCart();
@@ -106,8 +105,8 @@ const prepareCartEdition = async (cart: Cart, token: any) => {
 const getPackagesNumber = async (cart: Cart) => {
   try {
     const response = await shopApi.post(
-      "api/packages/count",
-      cart.idsWithQuantity()
+        "api/packages/count",
+        cart.idsWithQuantity()
     );
 
     state.value = {
@@ -119,10 +118,10 @@ const getPackagesNumber = async (cart: Cart) => {
     state.value = {
       ...state.value,
       errorText:
-        (error.response &&
-          error.response.data &&
-          error.response.data.error_message) ||
-        "Wystąpił błąd, proszę spróbować później",
+          (error.response &&
+              error.response.data &&
+              error.response.data.error_message) ||
+          "Wystąpił błąd, proszę spróbować później",
     };
   }
 };
@@ -166,6 +165,7 @@ const handleDelete = async () => {
 
   window.location.reload();
 };
+
 const updateAmount = (productId: number, value: string | number) => {
   const idx = productsCart.value.getIdxByProductId(productId);
   if (idx === -1) {
@@ -173,6 +173,12 @@ const updateAmount = (productId: number, value: string | number) => {
   }
   productsCart.value.changeAmount(idx, value);
   getPackagesNumber(productsCart.value);
+};
+
+const separateProducts = (products: any[]) => {
+  const styrofoamProducts = products.filter(p => p.variation_group === 'styropiany');
+  const otherProducts = products.filter(p => p.variation_group !== 'styropiany');
+  return { styrofoamProducts, otherProducts };
 };
 
 const handleSubmit = async (e: Event | null) => {
@@ -195,45 +201,65 @@ const handleSubmit = async (e: Event | null) => {
     })
   }
 
-  const params = {
-    customer_login: emailInput.value,
-    phone: phoneInput.value,
-    customer_notices: additionalNoticesInput,
-    delivery_address: {
-      city: cityInput,
-      postal_code: postalCodeInput,
-    },
-    shipping_abroad: abroadInput.value,
-    is_standard: true,
-    files,
-    order_items: productsCart.value.idsWithQuantity(),
-    rewrite: 0,
-    need_support: true,
-    update_email: true,
-    hide_from_customer: hideFromCustomer,
-    packages: ShipmentCostCalculator(productsCart.value.products),
-    register_reffered_user_id: localStorage.getItem('registerRefferedUserId') || null,
-    createAuction: auctionInput.value,
-    delivery_start_date: deliveryStartDate.value,
-    delivery_end_date: deliveryEndDate.value,
-    user_name: userName.value,
+  const { styrofoamProducts, otherProducts } = separateProducts(productsCart.value.products);
+
+  const createOrder = async (products: any[]) => {
+    const params = {
+      customer_login: emailInput.value,
+      phone: phoneInput.value,
+      customer_notices: additionalNoticesInput,
+      delivery_address: {
+        city: cityInput,
+        postal_code: postalCodeInput,
+      },
+      shipping_abroad: abroadInput.value,
+      is_standard: true,
+      files,
+      order_items: products.map(p => ({ id: p.id, amount: p.amount })),
+      rewrite: 0,
+      need_support: true,
+      update_email: true,
+      hide_from_customer: hideFromCustomer,
+      packages: ShipmentCostCalculator(products),
+      register_reffered_user_id: localStorage.getItem('registerRefferedUserId') || null,
+      createAuction: auctionInput.value,
+      delivery_start_date: deliveryStartDate.value,
+      delivery_end_date: deliveryEndDate.value,
+      user_name: userName.value,
+    };
+
+    try {
+      const res = await shopApi.post("/api/new_order", params);
+      return res.data;
+    } catch (err: any) {
+      throw err;
+    }
   };
 
   try {
-    const res = await shopApi.post("/api/new_order", params);
+    let results = [];
+
+    if (styrofoamProducts.length > 0) {
+      results.push(await createOrder(styrofoamProducts));
+    }
+
+    if (otherProducts.length > 0) {
+      results.push(await createOrder(otherProducts));
+    }
+
+    const firstOrderData = results[0];
+
     const cookies = new Cookies();
-    cookies.set("token", res.data.access_token);
+    cookies.set("token", firstOrderData.access_token);
 
     window.dispatchEvent(new CustomEvent('token-refreshed'));
-    return res.data;
+    return firstOrderData;
   } catch (err: any) {
-    errorText2.value = err.response.data.error_message || "Wystąpił błąd";
+    errorText2.value = err.response?.data?.error_message || "Wystąpił błąd";
   } finally {
     loading.value = false;
   }
 };
-
-const config = useRuntimeConfig().public;
 
 const handleSubmitWithToken = async () => {
   loading.value = true;
@@ -269,10 +295,10 @@ const shipmentCostBrutto = computed(() => {
 const isNewOrder = ref(false);
 
 const updateProduct = async (
-  cart: Cart,
-  productId: number,
-  amount: number,
-  prodId: number
+    cart: Cart,
+    productId: number,
+    amount: number,
+    prodId: number
 ) => {
   await cart.removeFromCart(prodId);
 
@@ -468,7 +494,6 @@ const ShipmentCostItemsLeftText = (product: any) => {
   return `Możesz dodać do przesyłki jeszcze ${itemsLeft} ${product.unit_commercial} tego produktu aby uzupełnić do pełna paczkę i nie ponosić dodatkowych kosztów transportu.`;
 };
 </script>
-
 <template>
   <div v-if="query.isEdition">
     <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative animate-slide-in-left mx-auto w-2/3" role="alert">
