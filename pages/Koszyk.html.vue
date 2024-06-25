@@ -215,7 +215,7 @@ const handleSubmit = async (e: Event | null) => {
       shipping_abroad: abroadInput.value,
       is_standard: true,
       files,
-      order_items: products.map(p => ({ id: p.id, amount: p.amount })),
+      order_items: products.map(p => ({ id: p.id, amount: p.amount, symbol: p.symbol })),
       rewrite: 0,
       need_support: true,
       update_email: true,
