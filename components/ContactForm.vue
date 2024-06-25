@@ -111,10 +111,11 @@ const nextStep = () => {
   step.value = 2
 }
 
-const handleSubmit = () => {
-  console.log('Form submitted:', form)
-  // Perform form submission logic here
-  router.push('/thank-you')
+const handleSubmit = async () => {
+  const {data: response} = await axios.post('https://admin.mega1000.pl/api/submit-offer-ask-form', form);
+
+
+  await router.push('/thank-you')
 }
 
 onMounted(() => {
