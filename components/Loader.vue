@@ -4,7 +4,7 @@
       <div class="styrofoam-block"></div>
     </div>
     <div class="loader-text">
-      <p>Ładowanie tabeli cen, prosimy poczekać...</p>
+      <p>Ładowanie, prosimy poczekać... Ale czekanie ci się opłaci :)</p>
       <p class="fact">{{ currentFact }}</p>
     </div>
   </div>

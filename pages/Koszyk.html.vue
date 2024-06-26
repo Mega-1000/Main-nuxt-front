@@ -706,7 +706,6 @@ const ShipmentCostItemsLeftText = (product: any) => {
     </div>
   <!-- if loading variable show spinner -->
 
-
   <div v-if="loading" class="fixed top-0 left-0 w-screen h-screen flex justify-center items-center bg-gray-500 bg-opacity-50">
     <Loader :showLoader="loading" />
   </div>

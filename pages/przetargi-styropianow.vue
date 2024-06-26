@@ -2,6 +2,16 @@
   <div class="w-full sm:w-[90%] md:w-[80%] lg:w-[70%] mx-auto">
     <div class="bg-white rounded-lg shadow-md p-6 mt-12">
       <h2 class="text-xl md:text-2xl font-bold mb-4">Masz jakieś pytania? Jesteśmy do twojej dyspozycji! <em> 576 205 389 </em></h2>
+
+
+      <span class="text-xl md:text-lg font-bold mb-4">
+        nie wiesz ile paczek potrzebujesz wylicz je
+      </span>
+
+      <button @click="showCalculator = true" class="mb-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+        Kalkulator ilości
+      </button>
+
       <div ref="parent" class="space-y-4">
         <div v-for="(selection, index) in selections" :key="index" class="flex flex-col sm:flex-row items-center gap-2">
           <SelectInput
@@ -22,6 +32,9 @@
               <option v-for="n in 26" :key="n-1" :value="n-1">{{ n-1 }}</option>
             </select>
           </div>
+          <div v-if="loading" class="fixed top-0 left-0 w-screen h-screen flex justify-center items-center bg-gray-500 bg-opacity-50">
+            <Loader :showLoader="loading" />
+          </div>
 
           <SubmitButton @click="showQuotes(selection)" :disabled="loading || !selection.value" class="w-full sm:w-1/3 md:mt-7">
             <span v-if="!loading">Pokaż aktualne ceny podstawowe</span>
@@ -41,92 +54,130 @@
         <p>Dodawaj więcej niż jeden produkt tylko jeśli jesteś pewien, że potrzebujesz różnych typów styropianu. W przeciwnym razie firmy mogą uznać, że Twoje zamówienie jest większe niż w rzeczywistości.</p>
       </div>
 
-      <button @click="addSelection" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition-colors duration-300 flex items-center justify-center mt-4" :disabled="loading" title="Dodaj tylko jeśli potrzebujesz innego typu styropianu">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-          <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd" />
-        </svg>
-        Dodaj inny produkt
-      </button>
+    <!-- Calculator Modal -->
+    <div v-if="showCalculator" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full" id="my-modal">
+      <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+        <div class="mt-3 text-center">
+          <h3 class="text-lg leading-6 font-medium text-gray-900">Kalkulator styropianu</h3>
+          <div class="mt-2 px-7 py-3">
+            <div class="space-y-4">
+              <div>
+                <label class="block text-sm font-medium text-gray-700">Grubość styropianu</label>
+                <select v-model="calculator.thickness" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+                  <option v-for="n in 30" :key="n" :value="n">{{ n }} cm</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700">Wykończenie krawędzi</label>
+                <select v-model="calculator.edgeFinish" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+                  <option value="proste">Proste</option>
+                  <option value="frez">Frez</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700">Powierzchnia do ocieplenia (m2)</label>
+                <input v-model="calculator.area" type="number" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+              </div>
+              <div>
+                <p class="text-sm font-medium text-gray-700">Ilość m3 w opakowaniu: <strong>0,3 m3</strong></p>
+              </div>
+              <div>
+                <p class="text-sm font-medium text-gray-700">Ilość (m3 w paczkach): {{ calculatedVolume.toFixed(2) }} m3</p>
+              </div>
+              <div>
+                <p class="text-sm font-medium text-gray-700">Ilość (m2 w paczkach): {{ calculatedArea.toFixed(2) }} m2</p>
+              </div>
+              <div>
+                <p class="text-sm font-medium text-gray-700">Ilość opakowań: {{ Math.ceil(calculatedPackages) }} op.</p>
+              </div>
+            </div>
+          </div>
+          <div class="items-center px-4 py-3">
+            <button id="ok-btn" @click="showCalculator = false" class="px-4 py-2 bg-blue-500 text-white text-base font-medium rounded-md w-full shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-300">
+              Zamknij
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 
-    <div class="mt-6">
-      <SubmitButton @click="saveAuction" :disabled="loading" class="bg-gradient-to-r from-green-400 to-green-600 text-white font-semibold px-6 py-3 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 w-full sm:w-auto">
-        <span v-if="!loading">Stwórz przetarg</span>
-        <span v-else>Ładowanie...</span>
-      </SubmitButton>
-    </div>
+  <div class="mt-6">
+    <SubmitButton @click="saveAuction" :disabled="loading" class="bg-gradient-to-r from-green-400 to-green-600 text-white font-semibold px-6 py-3 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 w-full sm:w-auto">
+      <span v-if="!loading">Stwórz przetarg</span>
+      <span v-else>Ładowanie...</span>
+    </SubmitButton>
+  </div>
 
-    <div class="mt-12">
+  <div class="mt-12">
       <span class="font-bold text-lg">
         Dostaniesz wyceny między innmi od:
-
       </span>
 
-      <LogosSection />
-    </div>
+    <LogosSection />
+  </div>
 
-    <!-- Modals -->
-    <div class="modal-backdrop" v-if="modalData">
-      <div class="modal-content">
-        <div class="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full h-full" style="background-color: rgba(0, 0, 0, 0.50)">
-          <div class="relative p-4 w-full max-w-2xl max-h-full mx-auto">
-            <div class="relative bg-white rounded-lg shadow">
-              <div class="flex items-center justify-between p-4 border-b rounded-t">
-                <h3 class="text-xl font-semibold text-gray-900">
-                  Wycena dostępnych firm dla tego styropianu
-                </h3>
-
-                <button type="button" @click="modalData = false" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center">
-                  <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-                  </svg>
-                  <span class="sr-only">Close modal</span>
-                </button>
-              </div>
-
-              <h3 class="mx-4 mt-4 text-red-500 font-bold">
-                !! Aby stworzyć przetarg zamknij to okienko i kliknij przycisk stwórz przetarg !!
+  <!-- Modals -->
+  <div class="modal-backdrop" v-if="modalData">
+    <div class="modal-content">
+      <div class="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full h-full" style="background-color: rgba(0, 0, 0, 0.50)">
+        <div class="relative p-4 w-full max-w-2xl max-h-full mx-auto">
+          <div class="relative bg-white rounded-lg shadow">
+            <div class="flex items-center justify-between p-4 border-b rounded-t">
+              <h3 class="text-xl font-semibold text-gray-900">
+                Wycena dostępnych firm dla tego styropianu
               </h3>
 
-              <div class="p-4 space-y-4">
-                <table class="w-full">
-                  <thead>
-                  <tr class="bg-gray-100">
-                    <th class="py-2 px-4 font-semibold text-left">Producent</th>
-                    <th class="py-2 px-4 font-semibold text-left">Cena jednostkowa netto</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                  <tr v-for="item in modalData" :key="item.id" class="border-b">
-                    <td class="py-2 px-4">{{ item.manufacturer }}</td>
-                    <td class="py-2 px-4">{{ item.price.net_purchase_price_basic_unit }} PLN</td>
-                  </tr>
-                  </tbody>
-                </table>
-              </div>
+              <button type="button" @click="modalData = false" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center">
+                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                </svg>
+                <span class="sr-only">Close modal</span>
+              </button>
+            </div>
+
+            <h3 class="mx-4 mt-4 text-red-500 font-bold">
+              !! Aby stworzyć przetarg zamknij to okienko i kliknij przycisk stwórz przetarg !!
+            </h3>
+
+            <div class="p-4 space-y-4">
+              <table class="w-full">
+                <thead>
+                <tr class="bg-gray-100">
+                  <th class="py-2 px-4 font-semibold text-left">Producent</th>
+                  <th class="py-2 px-4 font-semibold text-left">Cena jednostkowa netto</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="item in modalData" :key="item.id" class="border-b">
+                  <td class="py-2 px-4">{{ item.manufacturer }}</td>
+                  <td class="py-2 px-4">{{ item.price.net_purchase_price_basic_unit }} PLN</td>
+                </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
 
-    <div class="modal-backdrop" v-if="showUserInfoModal">
-      <div class="modal-content">
-        <div class="p-4">
-          <h2 class="text-xl font-bold mb-4">Powiedz nam trochę o sobie...</h2>
-          <TextInput @input="userInfo.email = $event" label="Email" class="mb-4" />
-          <TextInput @input="userInfo.phone = $event" label="Numer telefonu" class="mb-4" />
-          <TextInput @input="userInfo.zipCode = $event" :value="defaultZipCode" label="Kod pocztowy" class="mb-4" />
-          <SubmitButton @click="confirmAuction" :disabled="loading" class="bg-green-500 text-white">
-            <span v-if="!loading">Zatwierdź</span>
-            <span v-else>Ładowanie...</span>
-          </SubmitButton>
-        </div>
+  <div class="modal-backdrop" v-if="showUserInfoModal">
+    <div class="modal-content">
+      <div class="p-4">
+        <h2 class="text-xl font-bold mb-4">Powiedz nam trochę o sobie...</h2>
+        <TextInput @input="userInfo.email = $event" label="Email" class="mb-4" />
+        <TextInput @input="userInfo.phone = $event" label="Numer telefonu" class="mb-4" />
+        <TextInput @input="userInfo.zipCode = $event" :value="defaultZipCode" label="Kod pocztowy" class="mb-4" />
+        <SubmitButton @click="confirmAuction" :disabled="loading" class="bg-green-500 text-white">
+          <span v-if="!loading">Zatwierdź</span>
+          <span v-else>Ładowanie...</span>
+        </SubmitButton>
       </div>
     </div>
   </div>
+  </div>
 </template>
-
 <script setup>
 import { ref, reactive, onMounted, computed } from 'vue';
 import { useAutoAnimate } from '@formkit/auto-animate/vue';
@@ -147,6 +198,26 @@ const router = useRouter();
 const [parent] = useAutoAnimate();
 
 const hasMultipleSelections = computed(() => selections.length > 1);
+
+const showCalculator = ref(false);
+
+const calculator = reactive({
+  thickness: 1,
+  edgeFinish: 'proste',
+  area: 0,
+});
+
+const calculatedVolume = computed(() => {
+  return (calculator.area * calculator.thickness) / 100;
+});
+
+const calculatedArea = computed(() => {
+  return calculator.area;
+});
+
+const calculatedPackages = computed(() => {
+  return calculatedVolume.value / 0.3;
+});
 
 onMounted(async () => {
   defaultZipCode.value = localStorage.getItem('zipCode');
@@ -179,10 +250,8 @@ const saveAuction = async () => {
       return;
     }
 
-    // Calculate total quantity
     const totalQuantity = auctionData.reduce((sum, item) => sum + item.quantity, 0);
 
-    // Check if total quantity is less than 66
     if (totalQuantity < 66) {
       alert('Ilość końcowa musi być większa niż 66 paczek');
       return;
@@ -203,6 +272,7 @@ const confirmAuction = async () => {
       quantity: selection.quantity,
       thikness: selection.thikness
     }));
+    showUserInfoModal.value = false;
 
     const res = await shopApi.post('/api/auctions/save', { auctionData, userInfo: userInfo.value });
     const cookies = new Cookies();
@@ -214,7 +284,6 @@ const confirmAuction = async () => {
     await router.push('/account');
 
     selections.length = 0;
-    showUserInfoModal.value = false;
   } catch (error) {
     console.error('Error saving auction:', error);
     alert('An error occurred while saving the auction. Please try again.');
