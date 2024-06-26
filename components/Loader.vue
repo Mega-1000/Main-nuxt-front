@@ -1,6 +1,15 @@
 <template>
   <div v-if="showLoader" class="loader-container">
-    <div ref="container" class="loader"></div>
+    <div class="loader">
+      <div class="styrofoam-pack">
+        <div class="face front"></div>
+        <div class="face back"></div>
+        <div class="face right"></div>
+        <div class="face left"></div>
+        <div class="face top"></div>
+        <div class="face bottom"></div>
+      </div>
+    </div>
     <div class="loader-text">
       <p>Ładowanie, prosimy poczekać... Ale czekanie ci się opłaci :)</p>
       <p class="fact">{{ currentFact }}</p>
@@ -10,9 +19,6 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue';
-import * as THREE from 'three';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
 const props = defineProps({
   showLoader: {
@@ -31,15 +37,8 @@ const facts = [
 
 const currentFact = ref(facts[0]);
 let factInterval;
-const container = ref(null);
-
-let scene, camera, renderer, model, controls;
 
 onMounted(() => {
-  initThreeJS();
-  loadModel();
-  animate();
-
   let index = 0;
   factInterval = setInterval(() => {
     index = (index + 1) % facts.length;
@@ -49,58 +48,7 @@ onMounted(() => {
 
 onUnmounted(() => {
   clearInterval(factInterval);
-  if (renderer) {
-    renderer.dispose();
-  }
 });
-
-function initThreeJS() {
-  scene = new THREE.Scene();
-  camera = new THREE.PerspectiveCamera(75, container.value.clientWidth / container.value.clientHeight, 0.1, 1000);
-  renderer = new THREE.WebGLRenderer({ antialias: true });
-  renderer.setSize(container.value.clientWidth, container.value.clientHeight);
-  container.value.appendChild(renderer.domElement);
-
-  const light = new THREE.AmbientLight(0xffffff, 0.5);
-  scene.add(light);
-
-  const pointLight = new THREE.PointLight(0xffffff, 1);
-  pointLight.position.set(5, 5, 5);
-  scene.add(pointLight);
-
-  camera.position.z = 5;
-
-  controls = new OrbitControls(camera, renderer.domElement);
-  controls.enableDamping = true;
-  controls.dampingFactor = 0.25;
-  controls.enableZoom = false;
-}
-
-function loadModel() {
-  const loader = new GLTFLoader();
-  loader.load(
-      'styro.glb',
-      (gltf) => {
-        model = gltf.scene;
-        scene.add(model);
-      },
-      (xhr) => {
-        console.log((xhr.loaded / xhr.total) * 100 + '% loaded');
-      },
-      (error) => {
-        console.error('An error happened', error);
-      }
-  );
-}
-
-function animate() {
-  requestAnimationFrame(animate);
-  if (model) {
-    model.rotation.y += 0.01;
-  }
-  controls.update();
-  renderer.render(scene, camera);
-}
 </script>
 
 <style scoped>
@@ -116,9 +64,40 @@ function animate() {
 }
 
 .loader {
-  width: 300px;
-  height: 300px;
+  width: 200px;
+  height: 200px;
+  position: relative;
+  perspective: 1000px;
   margin-bottom: 20px;
+}
+
+.styrofoam-pack {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  animation: rotate 10s linear infinite;
+}
+
+.face {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  background: linear-gradient(45deg, #f0f0f0, #ffffff);
+  border: 1px solid #e0e0e0;
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.front  { transform: rotateY(0deg) translateZ(100px); }
+.back   { transform: rotateY(180deg) translateZ(100px); }
+.right  { transform: rotateY(90deg) translateZ(100px); }
+.left   { transform: rotateY(-90deg) translateZ(100px); }
+.top    { transform: rotateX(90deg) translateZ(100px); }
+.bottom { transform: rotateX(-90deg) translateZ(100px); }
+
+@keyframes rotate {
+  0% { transform: rotateX(0deg) rotateY(0deg); }
+  100% { transform: rotateX(360deg) rotateY(360deg); }
 }
 
 .loader-text {
