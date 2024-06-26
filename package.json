@@ -45,6 +45,7 @@
     "ouibounce": "^0.0.12",
     "reveal.js": "^5.1.0",
     "sweetalert2": "^11.7.3",
+    "three": "^0.165.0",
     "universal-cookie": "^4.0.4",
     "vue-file-base64": "^1.0.2",
     "vuedraggable": "^4.1.0"
