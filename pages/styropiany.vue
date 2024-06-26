@@ -50,12 +50,14 @@ onMounted(async () => {
       }
     }, 6000);
   }
-
 });
 
 onUnmounted(() => {
   window.removeEventListener('message', handleIframeMessage);
   window.removeEventListener('navbar-tutorial-ended', playTutorialVideo);
+  if (carouselInterval) {
+    clearInterval(carouselInterval);
+  }
 });
 
 const handleIframeMessage = (event) => {
@@ -68,7 +70,6 @@ const onIframeLoad = () => {
   isLoading.value = false;
 };
 
-
 const playTutorialVideo = () => {
   if (tutorialVideo.value) {
     tutorialVideo.value.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
@@ -76,8 +77,8 @@ const playTutorialVideo = () => {
 };
 
 const onIframeError = () => {
-isLoading.value = false;
-alert('Failed to load the iframe content.');
+  isLoading.value = false;
+  alert('Failed to load the iframe content.');
 };
 
 const products = [
@@ -88,7 +89,6 @@ const products = [
     url_for_website: '/storage/products/neotherm_fasada_033_1.jpg',
     purchases: 5
   },
-
   {
     id: 112915,
     name: 'Justyr fasada 038',
@@ -111,24 +111,32 @@ const playVideo  = () => {
   video.src = src.includes('?') ? `${src}&autoplay=1` : `${src}?autoplay=1`;
 }
 </script>
+
 <template>
   <AskUserForZipCodeStyrofoarms v-if="showZipCodeModal" />
   <div>
     <main>
-      <section class="hero py-2 px-2 md:py-4 md:px-4 bg-gradient-to-r from-emerald-600 to-emerald-800 text-white">
+      <section class="hero py-4 md:py-8 px-4 bg-gradient-to-r from-emerald-600 to-emerald-800 text-white">
         <div class="container mx-auto text-center">
-          <h5 class="text-lg md:text-6xl font-extrabold mb-1 mt-2 md:mb-6 pointer didact-gothic-regular " @click="playVideo">
-            Przez ostatnie 12 miesięcy <pm> 2968 </pm> użytkowników stworzyło <em class="p-0">przetarg</em> i oszczędziło na styropianie!
+          <h5 class="text-2xl md:text-5xl font-extrabold mb-4 mt-4 md:mb-8 pointer didact-gothic-regular" @click="playVideo">
+            Przez ostatnie 12 miesięcy <pm>2968</pm> użytkowników stworzyło <em class="p-0">przetarg</em> i oszczędziło na styropianie!
             <br>
             To do niczego nie zobowiązuje!
           </h5>
-          <p class="text-xl md:text-2xl mb-4">
+          <p class="text-xl md:text-2xl mb-6">
             Dołącz do zadowolonych klientów i skorzystaj z <em>DARMOWEJ DOSTAWY</em> na wszystkie zamówienia!
           </p>
 
-          <NuxtLink href="/przetargi-styropianow" class="block w-fit mx-auto my-[20px] bg-white text-emerald-800 font-bold py-3 px-6 rounded-full transition-all duration-300 hover:bg-emerald-800 hover:text-white hover:scale-105">
-            Stwórz przetarg
+          <NuxtLink
+              href="/przetargi-styropianow"
+              class="create-auction-btn block w-fit mx-auto my-6 bg-white text-emerald-800 font-bold py-4 px-8 rounded-full transition-all duration-300 hover:bg-emerald-800 hover:text-white hover:scale-105 shadow-lg hover:shadow-xl"
+          >
+            Stwórz przetarg teraz!
           </NuxtLink>
+
+          <p class="text-sm md:text-base mt-4 text-emerald-200">
+            Już ponad 5000 klientów zaoszczędziło dzięki naszym przetargom!
+          </p>
         </div>
 
         <OpinionStars />
@@ -163,7 +171,7 @@ const playVideo  = () => {
             />
             <div class="px-4 py-3">
               <h3 class="text-lg font-semibold text-gray-900">{{ product.name }}</h3>
-              <p class="text-red-500 font-extrabold text-xl md:text-2xl" style=" text-shadow: -0.5px 0 black, 0 1px black, 1px 0 black, 0 -0.5px black;">
+              <p class="text-red-500 font-extrabold text-xl md:text-2xl" style="text-shadow: -0.5px 0 black, 0 1px black, 1px 0 black, 0 -0.5px black;">
                 {{ product.gross_selling_price_calculated_unit }}PLN/M3
               </p>
               <span class="font-extrabold">
@@ -199,8 +207,8 @@ const playVideo  = () => {
             <p class="text-emerald-700 font-bold mt-4">
               98% naszych klientów zaoszczędziło na zakupie styropianu przez przetarg!
             </p>
-            <NuxtLink href="/przetargi-styropianow" class="block w-fit mx-auto my-[20px] bg-white text-emerald-800 font-bold py-3 px-6 rounded-full transition-all duration-300 hover:bg-emerald-800 hover:text-white hover:scale-105">
-              Stwórz przetarg
+            <NuxtLink href="/przetargi-styropianow" class="create-auction-btn block w-fit mx-auto my-6 bg-emerald-500 text-white font-bold py-4 px-8 rounded-full transition-all duration-300 hover:bg-emerald-700 hover:scale-105 shadow-lg hover:shadow-xl">
+              Stwórz przetarg teraz!
             </NuxtLink>
           </h2>
           <div class="loader-container" v-if="isLoading">
@@ -217,47 +225,50 @@ const playVideo  = () => {
               @load="onIframeLoad"
               @error="onIframeError"
           ></iframe>
-        <section>
-          <div class="mx-auto max-w-screen-xl py-10">
-            <NuxtLink class="md:grid flex md:gap-8 justify-between text-gray-400 grid-cols-10 gap-5 mx-1" href="/styropiany">
-              <div class="flex justify-center items-center hover:scale-105 transition-transform duration-300 hidden md:flex">
-                <img src="/genderka.webp" alt="Genderka - Lider rynku" class="md:w-[70%]">
-              </div>
-              <div href="#" class="flex justify-center items-center hover:scale-105 transition-transform duration-300 hidden md:flex">
-                <img src="/swisspor.webp" alt="Swisspor - Szwajcarska precyzja" class="md:w-[70%]">
-              </div>
-              <div href="#" class="flex justify-center items-center hover:scale-105 transition-transform duration-300">
-                <img src="/images (13).jpeg" alt="Termoorganika - Naturalnie ciepły dom" class="md:w-[70%]">
-              </div>
-              <div href="#" class="flex justify-center items-center hover:scale-105 transition-transform duration-300">
-                <img src="/arsanit.webp" alt="Arsanit - Komfort na lata" class="md:w-[70%]">
-              </div>
-              <div href="#" class="flex justify-center items-center hover:scale-105 transition-transform duration-300">
-                <img src="/austroterm.webp" alt="Austroterm - Najwyższa jakość" class="md:w-[70%]">
-              </div>
-              <div href="#" class="flex justify-center items-center hover:scale-105 transition-transform duration-300">
-                <img src="/yetico.webp" alt="Yetico - Energia oszczędności" class="md:w-[70%]">
-              </div>
-              <div href="#" class="flex justify-center items-center hover:scale-105 transition-transform duration-300">
-                <img src="/images (4).png" alt="Ciepły dom to szczęśliwy dom" class="md:w-[70%]">
-              </div>
-              <div href="#" class="flex justify-center items-center hover:scale-105 transition-transform duration-300">
-                <img src="/unnamed.png" alt="Zaufana marka, komfortowa izolacja" class="md:w-[70%]">
-              </div>
-              <div href="#" class="flex justify-center items-center hover:scale-105 transition-transform duration-300">
-                <img src="/knauf.png" alt="Knauf - Eksperci izolacji" class="md:w-[70%]">
-              </div>
-              <div href="#" class="flex justify-center items-center hover:scale-105 transition-transform duration-300 hidden md:flex">
-                <img src="/polstyr_logo_without_background.png" alt="Polstyr - Polska jakość" class="md:w-[70%]">
-              </div>
-            </NuxtLink>
-          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="mx-auto max-w-screen-xl py-10">
+          <NuxtLink class="md:grid flex md:gap-8 justify-between text-gray-400 grid-cols-10 gap-5 mx-1" href="/styropiany">
+            <div class="flex justify-center items-center hover:scale-105 transition-transform duration-300 hidden md:flex">
+              <img src="/genderka.webp" alt="Genderka - Lider rynku" class="md:w-[70%]">
+            </div>
+            <div href="#" class="flex justify-center items-center hover:scale-105 transition-transform duration-300 hidden md:flex">
+              <img src="/swisspor.webp" alt="Swisspor - Szwajcarska precyzja" class="md:w-[70%]">
+            </div>
+            <div href="#" class="flex justify-center items-center hover:scale-105 transition-transform duration-300">
+              <img src="/images (13).jpeg" alt="Termoorganika - Naturalnie ciepły dom" class="md:w-[70%]">
+            </div>
+            <div href="#" class="flex justify-center items-center hover:scale-105 transition-transform duration-300">
+              <img src="/arsanit.webp" alt="Arsanit - Komfort na lata" class="md:w-[70%]">
+            </div>
+            <div href="#" class="flex justify-center items-center hover:scale-105 transition-transform duration-300">
+              <img src="/austroterm.webp" alt="Austroterm - Najwyższa jakość" class="md:w-[70%]">
+            </div>
+            <div href="#" class="flex justify-center items-center hover:scale-105 transition-transform duration-300">
+              <img src="/yetico.webp" alt="Yetico - Energia oszczędności" class="md:w-[70%]">
+            </div>
+            <div href="#" class="flex justify-center items-center hover:scale-105 transition-transform duration-300">
+              <img src="/images (4).png" alt="Ciepły dom to szczęśliwy dom" class="md:w-[70%]">
+            </div>
+            <div href="#" class="flex justify-center items-center hover:scale-105 transition-transform duration-300">
+              <img src="/unnamed.png" alt="Zaufana marka, komfortowa izolacja" class="md:w-[70%]">
+            </div>
+            <div href="#" class="flex justify-center items-center hover:scale-105 transition-transform duration-300">
+              <img src="/knauf.png" alt="Knauf - Eksperci izolacji" class="md:w-[70%]">
+            </div>
+            <div href="#" class="flex justify-center items-center hover:scale-105 transition-transform duration-300 hidden md:flex">
+              <img src="/polstyr_logo_without_background.png" alt="Polstyr - Polska jakość" class="md:w-[70%]">
+            </div>
+          </NuxtLink>
+        </div>
       </section>
 
       <section class="py-10 px-2 md:py-20 md:px-4 bg-white">
         <div class="container mx-auto text-center">
           <h2 class="text-2xl md:text-4xl md:text-5xl font-bold mb-4 md:mb-10">
-            Odbiór w jednym z <em> 100 </em> punktów
+            Odbiór w jednym z <em>100</em> punktów
           </h2>
           <h4 class="text-emerald-500 font-bold text-sm md:text-lg">
             Kliknij na punkt aby sprawdzić dostępne w nim produkty
@@ -268,10 +279,6 @@ const playVideo  = () => {
           <MagasinesMap />
         </div>
       </section>
-        </div>
-      </section>
-
-      <!-- Other sections remain largely the same -->
 
       <section class="py-10 px-2 md:py-20 md:px-4 bg-emerald-600 text-white">
         <div class="container mx-auto text-center">
@@ -282,7 +289,9 @@ const playVideo  = () => {
           <p class="text-lg md:text-xl font-bold mb-6">
             Już ponad 5000 klientów skorzystało z programu poleceń!
           </p>
-          <a href="https://mega1000.pl/polec-znajomego" class="bg-emerald-500 hover:bg-emerald-700 text-white font-medium py-2 md:py-4 px-4 md:px-10 rounded-full inline-block transition-colors duration-300">Sprawdź swój panel poleceń</a>
+          <a href="https://mega1000.pl/polec-znajomego" class="bg-white text-emerald-600 font-medium py-3 px-6 rounded-full inline-block transition-all duration-300 hover:bg-emerald-700 hover:text-white hover:scale-105 shadow-lg hover:shadow-xl">
+            Sprawdź swój panel poleceń
+          </a>
         </div>
       </section>
 
@@ -301,11 +310,11 @@ const playVideo  = () => {
           </div>
         </div>
       </section>
-
     </main>
   </div>
 </template>
-<style>
+
+<style scoped>
 * {
   user-select: none;
 }
@@ -313,28 +322,26 @@ const playVideo  = () => {
 @import url('https://fonts.cdnfonts.com/css/futura-lt');
 
 .didact-gothic-regular {
-  text-align: center; /* Center the text horizontally */
+  text-align: center;
 }
 
-/* Responsive adjustments */
 @media (max-width: 768px) {
   .didact-gothic-regular {
-    font-size: 2.5rem; /* Smaller font size for tablets */
+    font-size: 2.5rem;
   }
 }
 
 @media (max-width: 480px) {
   .didact-gothic-regular {
-    font-size: 2rem; /* Even smaller font size for mobile phones */
+    font-size: 2rem;
   }
 }
 
 @media (max-width: 320px) {
   .didact-gothic-regular {
-    font-size: 1.5rem; /* Smallest font size for very small screens */
+    font-size: 1.5rem;
   }
 }
-
 
 * {
   scroll-behavior: smooth;
@@ -344,10 +351,10 @@ const playVideo  = () => {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 800px; /* Taka sama wysokość jak iframe, aby uniknąć przesunięcia treści */
+  height: 800px;
 }
+
 em {
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(15%, #c1f99d), color-stop(94%, #e0f5d3));
   background: linear-gradient(-180deg, #c1f99d 15%, #e0f5d3 94%);
   padding: 2px;
   font-style: normal;
@@ -357,12 +364,31 @@ em {
 }
 
 pm {
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(15%, #f99d9d), color-stop(94%, #f5d3d3));
   background: linear-gradient(-180deg, #f99d9d 15%, #f5d3d3 94%);
   padding: 2px;
   font-style: normal;
   color: #343a40;
   border-radius: 4px;
   overflow: hidden;
+}
+
+.create-auction-btn {
+  animation: pulse 2s infinite;
+  font-size: 1.25rem;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7);
+  }
+  70% {
+    transform: scale(1.05);
+    box-shadow: 0 0 0 10px rgba(255, 255, 255, 0);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+  }
 }
 </style>
