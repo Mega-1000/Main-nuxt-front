@@ -4,7 +4,7 @@
     <div class="bg-white rounded-lg shadow-lg p-8 max-w-md mx-auto relative z-100 text-center">
 <!--      <button @click="hidePopup" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700">&times;</button>-->
       <h2 class="text-2xl font-bold mb-4">
-        Gwarantujemy, że zaoszczędzisz minimalnie <em>100zł</em>
+        Gwarantujemy, że zaoszczędzisz minimalnie <em>1000zł</em>
         <br> Skontaktujemy się z tobą w <pm>23 sekundy</pm>
       </h2>
       <p class="mb-4">Podaj nam swój numer telefonu:</p>
