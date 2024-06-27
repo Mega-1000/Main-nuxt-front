@@ -15,7 +15,7 @@
         <div v-for="(selection, index) in selections" :key="index" class="flex flex-col sm:flex-row items-center gap-2">
           <select v-model="selection.value" @change="updateSelection(index, $event.target.value)" class="px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 w-full">
             <option value="">Wybierz rodzaj</option>
-            <optgroup v-for="(types, category) in categorizedStyrofoamTypes" :key="category" :label="category">
+            <optgroup v-for="(types, category) in styrofoamTypes" :key="category" :label="category">
               <option v-for="type in types" :key="type" :value="type">{{ type }}</option>
             </optgroup>
           </select>
