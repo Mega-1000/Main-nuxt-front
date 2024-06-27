@@ -671,7 +671,7 @@ const ShipmentCostItemsLeftText = (product: any) => {
               <label for="auction" class="ml-2 text-sm font-medium text-gray-900">Chcę wykonać przetarg (cena może być do 20zł/m3 niższa)</label>
             </div>
 
-            <div v-if="!isOrderSmall">
+            <div v-if="!isOrderSmall && isOrderStyrofoam">
               <div class="flex items-start mt-2" v-if="!auctionInput && !isOrderSmall">
                 <div class="flex items-center h-5">
                   <input id="shipByMyself" type="checkbox" v-model="selfPickup" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300" />
