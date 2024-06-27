@@ -13,13 +13,12 @@
 
       <div ref="parent" class="space-y-4">
         <div v-for="(selection, index) in selections" :key="index" class="flex flex-col sm:flex-row items-center gap-2">
-          <SelectInput
-              label="Wybierz rodzaj styropianu"
-              :options="styrofoamTypes"
-              v-model="selection.value"
-              v-if="styrofoamTypes.length !== 0"
-              class="w-full sm:w-1/3"
-          />
+          <select v-model="selection.value" @change="updateSelection(index, $event.target.value)" class="px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 w-full">
+            <option value="">Wybierz rodzaj</option>
+            <optgroup v-for="(types, category) in categorizedStyrofoamTypes" :key="category" :label="category">
+              <option v-for="type in types" :key="type" :value="type">{{ type }}</option>
+            </optgroup>
+          </select>
 
           <TextInput type="number"  @input="selection.quantity = $event" label="Podaj ilość paczek" class="w-full sm:w-1/3" />
 
