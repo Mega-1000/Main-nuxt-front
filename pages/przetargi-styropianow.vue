@@ -258,7 +258,7 @@ onMounted(async () => {
   try {
     loading.value = true;
     const types = await shopApi.get('/auctions/get-styrofoam-types');
-    styrofoamTypes.value = types.data.map(styrofoam => ({ label: styrofoam, value: styrofoam }));
+    styrofoamTypes.value = types.value;
   } finally {
     loading.value = false;
   }
