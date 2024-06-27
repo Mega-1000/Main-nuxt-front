@@ -23,7 +23,7 @@
 
           <TextInput type="number"  @input="selection.quantity = $event" label="Podaj ilość paczek" class="w-full sm:w-1/3" />
 
-          <div class="md:w-[40%]">
+          <div class="w-[100%] md:w-[40%]">
             <label class="block text-gray-700 text-sm font-bold mb-2">
               Grubość styropianu
             </label>
