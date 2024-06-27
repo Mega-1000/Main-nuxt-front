@@ -10,7 +10,7 @@
         <div class="face bottom"></div>
       </div>
     </div>
-    <div class="loader-text">
+    <div class="loader-text mt-10">
       <p>Ładowanie, prosimy poczekać... Ale czekanie ci się opłaci :)</p>
       <p class="fact">{{ currentFact }}</p>
     </div>
