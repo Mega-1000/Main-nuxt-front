@@ -15,7 +15,6 @@ const isStaff = ref(false);
 const askUserForZipCode = ref(false);
 const categoryFirmId = ref<integer|null>(null);
 const isMainStyrofoamLobby = ref<bool>(false);
-const loadingItems = ref(true);
 const currentCategoriesToDisplay = ref();
 
 const { data: currentProduct, pending: pending1 } = await useAsyncData(
