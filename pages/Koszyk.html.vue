@@ -504,7 +504,14 @@ const ShipmentCostItemsLeftText = (product: any) => {
 
     <!-- Empty cart message -->
     <div v-if="!productsCart?.products || productsCart?.products?.length === 0" class="text-center py-20 animate-fade-in">
-      <img src="/empty-cart.svg" alt="Pusty koszyk" class="w-48 h-48 mx-auto mb-6">
+      <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="w-48 h-48 mx-auto mb-6" stroke-linejoin="round">
+        <path d="M25 30h65l-5 40H30z" />
+        <path d="M85 30c0-10-20-10-20 0" />
+        <circle cx="35" cy="80" r="5" />
+        <circle cx="75" cy="80" r="5" />
+        <path d="M50 50c-5 0-10 5-10 5s5 5 10 5 10-5 10-5-5-5-10-5z" />
+        <path d="M45 60q5 5 10 0" stroke-linecap="round" />
+      </svg>
       <h2 class="text-3xl font-bold text-gray-800 mb-2">Twój koszyk jest pusty</h2>
       <p class="text-gray-600 mb-6">Rozpocznij zakupy i dodaj produkty do koszyka.</p>
       <nuxt-link to="/shop" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-full transition duration-300 ease-in-out transform hover:scale-105">
