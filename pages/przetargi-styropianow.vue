@@ -198,9 +198,9 @@
       <div class="modal-content">
         <div class="p-4">
           <h2 class="text-xl font-bold mb-4">Powiedz nam trochę o sobie...</h2>
-          <TextInput v-model="userInfo.email" label="Email" class="mb-4" />
-          <TextInput v-model="userInfo.phone" label="Numer telefonu" class="mb-4" />
-          <TextInput v-model="userInfo.zipCode" :value="defaultZipCode" label="Kod pocztowy" class="mb-4" />
+          <TextInput @input="userInfo.email = $event" label="Email" class="mb-4" />
+          <TextInput @input="userInfo.phone = $event" label="Numer telefonu" class="mb-4" />
+          <TextInput @input="userInfo.zipCode = $event" :value="defaultZipCode" label="Kod pocztowy" class="mb-4" />
           <SubmitButton @click="confirmAuction" :disabled="loading" class="bg-green-500 text-white">
             <span v-if="!loading">Zatwierdź</span>
             <span v-else>Ładowanie...</span>
