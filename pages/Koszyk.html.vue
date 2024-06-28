@@ -495,203 +495,242 @@ const ShipmentCostItemsLeftText = (product: any) => {
 };
 </script>
 <template>
-  <div class="cart-container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <!-- Edit mode alert -->
-    <div v-if="query.isEdition" class="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 mb-6 rounded-md shadow-md animate-fade-in" role="alert">
-      <p class="font-bold">Tryb edycji</p>
-      <p>Edytujesz swoje zapytanie. Aby dodać produkt, przejdź do sklepu i dodaj go do koszyka.</p>
+  <div v-if="query.isEdition">
+    <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative animate-slide-in-left mx-auto w-2/3" role="alert">
+      <span class="block sm:inline">Edutujesz swoje zapytanie! Jeśli chcesz dodać produkt kliknij na sklep i dodaj produkt do koszyka.</span>
+      <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
+          <svg class="fill-current h-6 w-6 text-green-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+            <path d="M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z" />
+          </svg>
+      </span>
     </div>
+  </div>
 
-    <!-- Empty cart message -->
-    <div v-if="!productsCart?.products || productsCart?.products?.length === 0" class="text-center py-20 animate-fade-in">
-      <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="w-48 h-48 mx-auto mb-6" stroke-linejoin="round">
-        <path d="M25 30h65l-5 40H30z" />
-        <path d="M85 30c0-10-20-10-20 0" />
-        <circle cx="35" cy="80" r="5" />
-        <circle cx="75" cy="80" r="5" />
-        <path d="M50 50c-5 0-10 5-10 5s5 5 10 5 10-5 10-5-5-5-10-5z" />
-        <path d="M45 60q5 5 10 0" stroke-linecap="round" />
-      </svg>
-      <h2 class="text-3xl font-bold text-gray-800 mb-2">Twój koszyk jest pusty</h2>
-      <p class="text-gray-600 mb-6">Rozpocznij zakupy i dodaj produkty do koszyka.</p>
-      <nuxt-link to="/shop" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-full transition duration-300 ease-in-out transform hover:scale-105">
-        Przejdź do sklepu
-      </nuxt-link>
-    </div>
+  <div v-if="!productsCart?.products || productsCart?.products?.length === 0" class="text-center py-20 animate-fade mx-auto w-fit">
+    <h2 class="text-2xl md:text-4xl font-bold text-gray-600">Twój koszyk jest pusty</h2>
+    <p class="mt-4 text-gray-500">Rozpocznij zakupy i dodaj produkty do koszyka.</p>
+  </div>
 
-    <div v-else class="md:flex md:space-x-8">
-      <div class="md:w-2/3">
-        <!-- Product list -->
-        <div class="space-y-6">
-          <div v-for="product in productsCart.products" :key="product.id" class="bg-white rounded-lg shadow-md overflow-hidden animate-slide-in-left">
-            <div class="md:flex">
-              <div class="md:flex-shrink-0">
-                <img :src="buildImgRoute(product?.url_for_website)" alt="Zdjęcie produktu" class="h-48 w-full object-cover md:w-48">
-              </div>
-              <div class="p-6 w-full">
-                <div class="flex justify-between items-center mb-4">
-                  <h3 class="text-xl font-semibold text-gray-800">{{ product.name }}</h3>
-                  <button @click="async () => { productsCart.removeFromCart(product.id); await handleDelete(); }" class="text-red-500 hover:text-red-700 transition duration-300 ease-in-out">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                    </svg>
+  <div class="md:flex md:flex-row md:mt-8 md:w-5/6 md:gap-4 md:mx-auto">
+    <div>
+      <div class="grid grid-cols-1 space-y-8">
+        <p class="mt-2 text-sm text-red-600" v-if="state?.errorText">{{ state?.errorText }}</p>
+        <template v-if="state?.cart_token">
+          <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative animate-slide-in-right" role="alert">
+            <span class="block sm:inline">Uwaga! To jest edycja koszyka.</span>
+            <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
+              <svg class="fill-current h-6 w-6 text-red-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                <path d="M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z" />
+              </svg>
+            </span>
+          </div>
+
+          <div class="flex items-center mb-4 animate-slide-in-left">
+            <input id="default-checkbox" type="checkbox" v-model="isNewOrder" class="h-4 w-4 text-indigo-600 bg-gray-100 border-gray-300 rounded focus:ring-indigo-500 focus:ring-2" />
+            <label for="default-checkbox" class="ml-2 text-sm font-medium text-gray-900">Czy to jest nowe zapytanie?</label>
+          </div>
+        </template>
+<!--        <button type="button" @click="productsCart.removeAllFromCart" v-if="!(!productsCart?.products || productsCart?.products?.length === 0)" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded animate-bounce">-->
+<!--          Usuń wszystko-->
+<!--        </button>-->
+
+        <div v-for="product in productsCart.products" class="max-w-[100vw]" v-tooltip.auto-start="ShipmentCostItemsLeftText(product)">
+          <div class="flex flex-col md:flex-row md:items-center bg-white shadow-lg rounded-lg overflow-hidden animate-slide-in-left">
+            <div class="w-full md:w-1/3 bg-gray-100">
+              <img :src="buildImgRoute(product?.url_for_website)" alt="Zdjęcie produktu" class="h-64 w-full object-cover" />
+            </div>
+            <div class="w-full md:w-2/3 p-6">
+              <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-bold text-gray-800">{{ product.name }}</h3>
+                <div class="flex space-x-2">
+                  <button v-if="state?.cart_token" @click="() => updateProduct(productsCart, product.product_id, product.amount, product.id)" type="button" class="bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded">
+                    Przelicz po cenie z CSV
+                  </button>
+                  <button @click="async () => { productsCart.removeFromCart(product.id); await handleDelete(); }" type="button" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded animate-bounce">
+                    Usuń
                   </button>
                 </div>
-                <CartPriceTable class="w-full" :product="product" :handle-product-amount="(val) => updateAmount(product.id, val)" />
               </div>
+              <CartPriceTable class="w-full pb-10" :product="product" :handle-product-amount="(val) => updateAmount(product.id, val)" />
             </div>
           </div>
         </div>
       </div>
 
-      <div class="md:w-1/3 mt-8 md:mt-0">
-        <!-- Order summary -->
-        <div class="bg-white rounded-lg shadow-md p-6 sticky top-6">
-          <h2 class="text-2xl font-bold mb-6">Podsumowanie zamówienia</h2>
-          <div class="space-y-4">
-            <div class="flex justify-between">
-              <span>Suma częściowa</span>
-              <span>{{ productsCart.nettoPrice() }} PLN</span>
+      <div v-if="productsCart?.products && productsCart?.products?.length > 0" class="bg-white shadow-lg rounded-lg p-6 mt-8 animate-slide-in-right">
+        <h5 class="text-2xl font-bold mb-4">Podsumowanie</h5>
+        <div class="overflow-x-auto hidden md:block">
+          <table class="w-full text-sm text-left text-gray-500">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-100">
+            <tr>
+              <th scope="col" class="px-6 py-3">Produkt</th>
+              <th scope="col" class="px-6 py-3">Ilość</th>
+              <th scope="col" class="px-6 py-3">Cena netto</th>
+              <th scope="col" class="px-6 py -3">Cena brutto</th>
+              <th scope="col" class="px-6 py-3">Wartość netto</th>
+              <th scope="col" class="px-6 py-3">Wartość brutto</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="product in productsCart.products" class="bg-white border-b hover:bg-gray-50">
+              <th scope="row" class="px-6 py-4 font-medium text-gray-900 max-w-sm md:max-w-lg">{{ product.name }}</th>
+              <td class="px-6 py-4">{{ product.amount }} {{ product.unit_commercial }}</td>
+              <td class="px-6 py-4">{{ product.net_selling_price_commercial_unit || 0 }} {{ product.currency || "PLN" }}</td>
+              <td class="px-6 py-4">{{ product.gross_price_of_packing || 0 }} {{ product.currency|| "PLN" }}</td>
+              <td class="px-6 py-4">{{ (parseFloat(product.net_selling_price_commercial_unit) * product.amount).toFixed(2) || 0 }} {{ product.currency || "PLN" }}</td>
+              <td class="px-6 py-4">{{ (parseFloat(product.gross_price_of_packing) * product.amount).toFixed(2) || 0 }} {{ product.currency || "PLN" }}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="mt-8 border-t pt-4">
+          <div class="flex justify-between mb-4">
+            <p class="text-lg font-medium">Łączne zapytanie</p>
+            <div>
+              <p class="text-md">Netto: {{ productsCart.nettoPrice() }} PLN</p>
+              <p class="text-md">Brutto: {{ productsCart.grossPrice() }} PLN</p>
             </div>
-            <div class="flex justify-between">
-              <span>Podatek</span>
-              <span>{{ (productsCart.grossPrice() - productsCart.nettoPrice()).toFixed(2) }} PLN</span>
+          </div>
+          <div class="flex justify-between mb-4">
+            <p class="text-lg font-medium">Koszt transportu</p>
+            <p class="text-md">{{ shipmentCostBrutto }} PLN</p>
+          </div>
+          <div class="flex justify-between mb-4">
+            <p class="text-lg font-medium">Łączna wartość oferty wraz z transportem</p>
+            <p class="text-md">Brutto: {{ (parseFloat(productsCart.grossPrice()) + shipmentCostBrutto).toFixed(2) }} PLN</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+      <div class="md:flex md:flex-row md:justify-between md:items-start">
+        <div v-if="(productsCart?.products && productsCart?.products?.length > 0 && !state?.cart_token) || isNewOrder" class="bg-white shadow-lg rounded-lg p-6 mt-8  animate-slide-in-left">
+          <form class="space-y-6" @submit.prevent="createChat">
+            <div>
+              <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Email</label>
+              <input type="email" name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required :disabled="loading" v-model="emailInput" />
             </div>
-            <div class="flex justify-between">
-              <span>Koszt dostawy</span>
-              <span>{{ shipmentCostBrutto }} PLN</span>
+
+            <div>
+              <label for="phone" class="block mb-2 text-sm font-medium text-gray-900">Numer telefonu</label>
+              <input type="tel" name="phone" id="phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required :disabled="loading" v-model="phoneInput" pattern="\d{3}\d{3}\d{3}" title="Prosimy podać numer telefonu w formacie 123456789." />
             </div>
-            <div class="border-t pt-4">
-              <div class="flex justify-between items-center">
-                <span class="text-xl font-bold">Suma</span>
-                <span class="text-xl font-bold">{{ (parseFloat(productsCart.grossPrice()) + shipmentCostBrutto).toFixed(2) }} PLN</span>
+
+            <div class="flex items-start">
+              <div class="flex items-center h-5">
+                <input id="abroad" type="checkbox" v-model="abroadInput" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300" />
+              </div>
+              <label for="abroad" class="ml-2 text-sm font-medium text-gray-900">Wysyłka poza granice Polski</label>
+            </div>
+
+            <div>
+              <label for="postal-code" class="block mb-2 text-sm font-medium text-gray-900">Kod Pocztowy</label>
+              <input name="postal-code" id="postal-code" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                     required
+                     :disabled="loading"
+                     v-model="postalCodeInput"
+                     :pattern="abroadInput ? '.*' : '\\d{2}-\\d{3}'"
+                     @input="validatePostalCode"
+                     :class="{'border-red-500': !isPostalCodeValid}"
+              />
+              <p v-if="!isPostalCodeValid" class="text-red-500 text-sm">Kod pocztowy musi mieć format XX-XXX</p>
+            </div>
+
+<!--            <div>-->
+<!--              <label for="additional-notices" class="block mb-2 text-sm font-medium text-gray-900">Opis i uwagi do zapytania</label>-->
+<!--              <textarea id="additional-notices" rows="4" v-model="additionalNoticesInput" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"></textarea>-->
+<!--            </div>-->
+
+
+            <div v-if="isOrderStyrofoam" class="mt-4">
+              Przybliżone daty dostawy/odbioru
+
+              <div>
+                <label for="delivery-start-date" class="block mb-2 text-sm font-medium text-gray-900">od</label>
+                <input type="text" id="delivery-start-date" v-model="deliveryStartDate" placeholder="Kliknij aby wybrać date" class="block w-full px-3 py-2 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" required>
+              </div>
+
+              <div class="mt-4">
+                <label for="delivery-end-date" class="block mb-2 text-sm font-medium text-gray-900">do</label>
+                <input type="text" id="delivery-end-date" v-model="deliveryEndDate" placeholder="Kliknij aby wybrać date" class="block w-full px-3 py-2 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" required>
+              </div>
+
+            </div>
+
+            <div class="flex items-start">
+              <div class="flex items-center h-5">
+                <input id="rules" type="checkbox" required v-model="rulesInput" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300" />
+              </div>
+              <label for="rules" class="ml-2 text-sm font-medium text-gray-900">Zapoznałem się z <nuxt-link class="text-blue-500" href="https://mega1000.pl/custom/5">regulaminem</nuxt-link></label>
+            </div>
+
+            <div class="flex items-start mt-2" v-if="canAuctionBeMade && !selfPickup">
+              <div class="flex items-center h-5">
+                <input id="auction" type="checkbox" v-model="auctionInput" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300" />
+              </div>
+              <label for="auction" class="ml-2 text-sm font-medium text-gray-900">Chcę wykonać przetarg (cena może być do 20zł/m3 niższa)</label>
+            </div>
+
+            <div v-if="!isOrderSmall && isOrderStyrofoam">
+              <div class="flex items-start mt-2" v-if="!auctionInput && !isOrderSmall">
+                <div class="flex items-center h-5">
+                  <input id="shipByMyself" type="checkbox" v-model="selfPickup" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300" />
+                </div>
+                <label for="shipByMyself" class="ml-2 text-sm font-medium text-gray-900">Chce odebrać te produkty osobiście w magazynie fabryki.</label>
               </div>
             </div>
-          </div>
 
-          <!-- Social proof -->
-          <div class="mt-6 bg-gray-100 rounded-md p-4">
-            <p class="text-sm text-gray-700 mb-2">
-              <span class="font-semibold">98% klientów</span> poleca nasze produkty
-            </p>
-            <div class="flex items-center">
-              <span class="text-yellow-400">★★★★★</span>
-              <span class="ml-2 text-sm text-gray-600">4.9/5 (1023 opinii)</span>
+            <p class="mt-2 text-sm text-red-600">{{ errorText2 }}</p>
+            <SubmitButton :disabled="loading" type="submit">{{ !auctionInput ? 'Wyślij zapytanie - do niczego nie zobowiązuje' : 'Chce uzyskać oferty od ponad 50 producentów' }}</SubmitButton>
+            <div class="mt-6 bg-gray-100 rounded-md p-4">
+              <p class="text-sm text-gray-700 mb-2">
+                <span class="font-semibold">98% klientów</span> poleca nasze produkty
+              </p>
+              <div class="flex items-center">
+                <span class="text-yellow-400">★★★★★</span>
+                <span class="ml-2 text-sm text-gray-600">4.9/5 (827 opinii)</span>
+              </div>
             </div>
-          </div>
 
-          <!-- CTA Button -->
-          <button @click="scrollToForm" class="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-4 rounded-full mt-6 transition duration-300 ease-in-out transform hover:scale-105 animate-pulse">
-            Przejdź do formularza zamówienia
+
+            <div class="text-red-600 font-bold" v-if="isOrderSmall">
+              Z powodu że aktualne produkty z koszyka nie przekraczają 10m3 nie jest możliwa dostawa.
+              <br>
+              Zostaniesz przekierowany do wyboru magazynu, w którym chcesz odebrać dane produkty.
+              <br>
+              Zostanie również doliczona dodatkowa opłata 50zł
+            </div>
+          </form>
+        </div>
+
+        <div v-if="state?.cart_token && !isNewOrder" class="flex justify-center mb-10 md:w-1/2 animate-slide-in-right">
+          <button class="w-60 text-white bg-cyan-400 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center" :disabled="loading" @click="handleSubmitWithToken">
+            Zapisz edycję
           </button>
         </div>
       </div>
+
+      <div v-if="message" class="flex justify-center animate-bounce">
+        <div class="bg-green-500 rounded p-2 text-white">{{ message }}</div>
+      </div>
     </div>
+  <!-- if loading variable show spinner -->
 
-    <!-- Order form -->
-    <div v-if="(productsCart?.products && productsCart?.products?.length > 0 && !state?.cart_token) || isNewOrder" class="mt-12 bg-white rounded-lg shadow-md p-8 animate-fade-in" id="orderForm">
-      <h2 class="text-2xl font-bold mb-6">Dane do zamówienia</h2>
-      <form @submit.prevent="createChat" class="space-y-6">
-        <div>
-          <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Email</label>
-          <input type="email" name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required :disabled="loading" v-model="emailInput" />
-        </div>
-
-        <div>
-          <label for="phone" class="block mb-2 text-sm font-medium text-gray-900">Numer telefonu</label>
-          <input type="tel" name="phone" id="phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required :disabled="loading" v-model="phoneInput" pattern="\d{3}\d{3}\d{3}" title="Prosimy podać numer telefonu w formacie 123456789." />
-        </div>
-
-        <div class="flex items-start">
-          <div class="flex items-center h-5">
-            <input id="abroad" type="checkbox" v-model="abroadInput" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300" />
-          </div>
-          <label for="abroad" class="ml-2 text-sm font-medium text-gray-900">Wysyłka poza granice Polski</label>
-        </div>
-
-        <div>
-          <label for="postal-code" class="block mb-2 text-sm font-medium text-gray-900">Kod Pocztowy</label>
-          <input name="postal-code" id="postal-code" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                 required
-                 :disabled="loading"
-                 v-model="postalCodeInput"
-                 :pattern="abroadInput ? '.*' : '\\d{2}-\\d{3}'"
-                 @input="validatePostalCode"
-                 :class="{'border-red-500': !isPostalCodeValid}"
-          />
-          <p v-if="!isPostalCodeValid" class="text-red-500 text-sm">Kod pocztowy musi mieć format XX-XXX</p>
-        </div>
-
-        <div v-if="isOrderStyrofoam" class="mt-4">
-          Przybliżone daty dostawy/odbioru
-
-          <div>
-            <label for="delivery-start-date" class="block mb-2 text-sm font-medium text-gray-900">od</label>
-            <input type="text" id="delivery-start-date" v-model="deliveryStartDate" placeholder="Kliknij aby wybrać date" class="block w-full px-3 py-2 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" required>
-          </div>
-
-          <div class="mt-4">
-            <label for="delivery-end-date" class="block mb-2 text-sm font-medium text-gray-900">do</label>
-            <input type="text" id="delivery-end-date" v-model="deliveryEndDate" placeholder="Kliknij aby wybrać date" class="block w-full px-3 py-2 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" required>
-          </div>
-        </div>
-
-        <div class="flex items-start">
-          <div class="flex items-center h-5">
-            <input id="rules" type="checkbox" required v-model="rulesInput" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300" />
-          </div>
-          <label for="rules" class="ml-2 text-sm font-medium text-gray-900">Zapoznałem się z <nuxt-link class="text-blue-500" href="https://mega1000.pl/custom/5">regulaminem</nuxt-link></label>
-        </div>
-
-        <div class="flex items-start mt-2" v-if="canAuctionBeMade && !selfPickup">
-          <div class="flex items-center h-5">
-            <input id="auction" type="checkbox" v-model="auctionInput" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300" />
-          </div>
-          <label for="auction" class="ml-2 text-sm font-medium text-gray-900">Chcę wykonać przetarg (cena może być do 20zł/m3 niższa)</label>
-        </div>
-
-        <div v-if="!isOrderSmall && isOrderStyrofoam">
-          <div class="flex items-start mt-2" v-if="!auctionInput && !isOrderSmall">
-            <div class="flex items-center h-5">
-              <input id="shipByMyself" type="checkbox" v-model="selfPickup" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300" />
-            </div>
-            <label for="shipByMyself" class="ml-2 text-sm font-medium text-gray-900">Chce odebrać te produkty osobiście w magazynie fabryki.</label>
-          </div>
-        </div>
-
-        <p class="mt-2 text-sm text-red-600">{{ errorText2 }}</p>
-
-        <SubmitButton :disabled="loading" type="submit" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded-full transition duration-300 ease-in-out transform hover:scale-105">
-          {{ !auctionInput ? 'Wyślij zapytanie - do niczego nie zobowiązuje' : 'Chcę uzyskać oferty od ponad 50 producentów' }}
-        </SubmitButton>
-
-        <div class="text-red-600 font-bold" v-if="isOrderSmall">
-          Z powodu że aktualne produkty z koszyka nie przekraczają 10m3 nie jest możliwa dostawa.
-          <br>
-          Zostaniesz przekierowany do wyboru magazynu, w którym chcesz odebrać dane produkty.
-          <br>
-          Zostanie również doliczona dodatkowa opłata 50zł
-        </div>
-      </form>
-    </div>
-
-    <div v-if="state?.cart_token && !isNewOrder" class="flex justify-center mt-8">
-      <button @click="handleSubmitWithToken" class="bg-cyan-400 hover:bg-cyan-500 text-white font-bold py-3 px-6 rounded-full transition duration-300 ease-in-out transform hover:scale-105" :disabled="loading">
-        Zapisz edycję
-      </button>
-    </div>
-
-    <div v-if="message" class="flex justify-center mt-8 animate-bounce">
-      <div class="bg-green-500 rounded-full p-4 text-white font-bold">{{ message }}</div>
-    </div>
-
-    <!-- Loading spinner -->
-    <div v-if="loading" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50">
-      <Loader :showLoader="loading" />
-    </div>
+  <div v-if="loading" class="fixed top-0 left-0 w-screen h-screen flex justify-center items-center bg-gray-500 bg-opacity-50">
+    <Loader :showLoader="loading" />
   </div>
+<!--  <div v-if="loading" class="fixed top-0 left-0 w-screen h-screen flex justify-center items-center bg-gray-500 bg-opacity-50">-->
+<!--    <div class="bg-white rounded p-5">-->
+<!--      <div class="flex justify-center items-center">-->
+<!--        <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-gray-900" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">-->
+<!--          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>-->
+<!--          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>-->
+<!--        </svg>-->
+<!--        <span class="text-gray-900 text-lg">Ładowanie...</span>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
 </template>
-
 
 <style>
 /* Additional styles can be added here */
