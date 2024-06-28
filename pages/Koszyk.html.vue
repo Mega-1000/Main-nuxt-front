@@ -585,13 +585,97 @@ const ShipmentCostItemsLeftText = (product: any) => {
     <div v-if="(productsCart?.products && productsCart?.products?.length > 0 && !state?.cart_token) || isNewOrder" class="mt-12 bg-white rounded-lg shadow-md p-8 animate-fade-in" id="orderForm">
       <h2 class="text-2xl font-bold mb-6">Dane do zamówienia</h2>
       <form @submit.prevent="createChat" class="space-y-6">
-        <!-- Form fields (email, phone, etc.) go here, similar to your original template -->
+        <div>
+          <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Email</label>
+          <input type="email" name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required :disabled="loading" v-model="emailInput" />
+        </div>
 
-        <!-- Submit button -->
+        <div>
+          <label for="phone" class="block mb-2 text-sm font-medium text-gray-900">Numer telefonu</label>
+          <input type="tel" name="phone" id="phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required :disabled="loading" v-model="phoneInput" pattern="\d{3}\d{3}\d{3}" title="Prosimy podać numer telefonu w formacie 123456789." />
+        </div>
+
+        <div class="flex items-start">
+          <div class="flex items-center h-5">
+            <input id="abroad" type="checkbox" v-model="abroadInput" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300" />
+          </div>
+          <label for="abroad" class="ml-2 text-sm font-medium text-gray-900">Wysyłka poza granice Polski</label>
+        </div>
+
+        <div>
+          <label for="postal-code" class="block mb-2 text-sm font-medium text-gray-900">Kod Pocztowy</label>
+          <input name="postal-code" id="postal-code" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                 required
+                 :disabled="loading"
+                 v-model="postalCodeInput"
+                 :pattern="abroadInput ? '.*' : '\\d{2}-\\d{3}'"
+                 @input="validatePostalCode"
+                 :class="{'border-red-500': !isPostalCodeValid}"
+          />
+          <p v-if="!isPostalCodeValid" class="text-red-500 text-sm">Kod pocztowy musi mieć format XX-XXX</p>
+        </div>
+
+        <div v-if="isOrderStyrofoam" class="mt-4">
+          Przybliżone daty dostawy/odbioru
+
+          <div>
+            <label for="delivery-start-date" class="block mb-2 text-sm font-medium text-gray-900">od</label>
+            <input type="text" id="delivery-start-date" v-model="deliveryStartDate" placeholder="Kliknij aby wybrać date" class="block w-full px-3 py-2 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" required>
+          </div>
+
+          <div class="mt-4">
+            <label for="delivery-end-date" class="block mb-2 text-sm font-medium text-gray-900">do</label>
+            <input type="text" id="delivery-end-date" v-model="deliveryEndDate" placeholder="Kliknij aby wybrać date" class="block w-full px-3 py-2 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" required>
+          </div>
+        </div>
+
+        <div class="flex items-start">
+          <div class="flex items-center h-5">
+            <input id="rules" type="checkbox" required v-model="rulesInput" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300" />
+          </div>
+          <label for="rules" class="ml-2 text-sm font-medium text-gray-900">Zapoznałem się z <nuxt-link class="text-blue-500" href="https://mega1000.pl/custom/5">regulaminem</nuxt-link></label>
+        </div>
+
+        <div class="flex items-start mt-2" v-if="canAuctionBeMade && !selfPickup">
+          <div class="flex items-center h-5">
+            <input id="auction" type="checkbox" v-model="auctionInput" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300" />
+          </div>
+          <label for="auction" class="ml-2 text-sm font-medium text-gray-900">Chcę wykonać przetarg (cena może być do 20zł/m3 niższa)</label>
+        </div>
+
+        <div v-if="!isOrderSmall && isOrderStyrofoam">
+          <div class="flex items-start mt-2" v-if="!auctionInput && !isOrderSmall">
+            <div class="flex items-center h-5">
+              <input id="shipByMyself" type="checkbox" v-model="selfPickup" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300" />
+            </div>
+            <label for="shipByMyself" class="ml-2 text-sm font-medium text-gray-900">Chce odebrać te produkty osobiście w magazynie fabryki.</label>
+          </div>
+        </div>
+
+        <p class="mt-2 text-sm text-red-600">{{ errorText2 }}</p>
+
         <SubmitButton :disabled="loading" type="submit" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded-full transition duration-300 ease-in-out transform hover:scale-105">
           {{ !auctionInput ? 'Wyślij zapytanie - do niczego nie zobowiązuje' : 'Chcę uzyskać oferty od ponad 50 producentów' }}
         </SubmitButton>
+
+        <div class="text-red-600 font-bold" v-if="isOrderSmall">
+          Z powodu że aktualne produkty z koszyka nie przekraczają 10m3 nie jest możliwa dostawa.
+          <br>
+          Zostaniesz przekierowany do wyboru magazynu, w którym chcesz odebrać dane produkty.
+          <br>
+          Zostanie również doliczona dodatkowa opłata 50zł
+        </div>
       </form>
+    </div>
+
+    <div v-if="state?.cart_token && !isNewOrder" class="flex justify-center mt-8">
+      <button @click="handleSubmitWithToken" class="bg-cyan-400 hover:bg-cyan-500 text-white font-bold py-3 px-6 rounded-full transition duration-300 ease-in-out transform hover:scale-105" :disabled="loading">
+        Zapisz edycję
+      </button>
+    </div>
+
+    <div v-if="message" class="flex justify-center mt-8 animate-bounce">
+      <div class="bg-green-500 rounded-full p-4 text-white font-bold">{{ message }}</div>
     </div>
 
     <!-- Loading spinner -->
@@ -600,6 +684,7 @@ const ShipmentCostItemsLeftText = (product: any) => {
     </div>
   </div>
 </template>
+
 
 <style>
 /* Additional styles can be added here */
