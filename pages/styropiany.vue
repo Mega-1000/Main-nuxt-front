@@ -216,7 +216,20 @@ const playVideo  = () => {
 
       <!-- Styro Helper Section -->
       <div class="hero py-2 px-2 md:py-4 md:px-4 bg-gradient-to-r from-emerald-600 to-emerald-800 text-white">
-        <styro-helper />
+        <!-- Kupuj z płatnością przy odbiorze! Bez rytzyka -->
+        <div class="container mx-auto text-center relative z-10">
+          <h1 class="text-4xl md:text-6xl font-extrabold mb-6 mt-4 animate-fade-in-up didact-gothic-regular">
+             Płatność przy odbiorze! Bez ryzyka!
+          </h1>
+          <p class="text-xl md text-2xl mb-8 animate-fade-in-up animation-delay-300">
+            Zamówienia realizowane są również z opcją płatności przy odbiorze, lub bezpośrednio od fabryki <br> Nie musisz obawiać się o swoje pieniądze!
+          </p>
+
+          <NuxtLink href="/przetargi-styropianow" class="create-auction-btn block w-fit mx-auto my-6 bg-emerald-500 text-white font-bold py-4 px-8 rounded-full transition-all duration-300 hover:bg-emerald-700 hover:scale-105 shadow-lg hover:shadow-xl animate-pulse">
+            Stwórz przetarg i kup bezpośrednio u producenta!
+          </NuxtLink>
+<!--        <styro-helper />-->
+        </div>
       </div>
 
       <!-- Price Table Section -->
