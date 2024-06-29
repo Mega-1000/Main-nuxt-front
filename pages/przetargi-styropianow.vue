@@ -13,7 +13,7 @@
 
       <div ref="parent" class="space-y-4">
         <div v-for="(selection, index) in selections" :key="index" class="flex flex-col sm:flex-row items-center gap-2">
-          <div class="flex flex-col">
+          <div class="flex flex-col w-full sm:w-1/3">
             <label class="mb-1">Wybierz rodzaj styropianu</label>
             <select v-model="selection.value" @change="updateSelection(index, $event.target.value)" class="px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 w-full">
               <option value="">Wybierz rodzaj</option>

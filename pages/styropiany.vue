@@ -139,7 +139,7 @@ const playVideo  = () => {
     <AskUserForZipCodeStyrofoarms v-if="showZipCodeModal" />
     <main>
       <!-- Hero Section -->
-      <section class="hero py-8 md:py-16 px-4 bg-gradient-to-r from-emerald-600 to-emerald-800 text-white relative overflow-hidden">
+      <section class="hero py-8 md:py-8 px-4 bg-gradient-to-r from-emerald-600 to-emerald-800 text-white relative overflow-hidden">
         <div class="container mx-auto text-center relative z-10">
           <h1 class="text-4xl md:text-6xl font-extrabold mb-6 mt-4 animate-fade-in-up didact-gothic-regular">
             Przez ostatnie 12 miesięcy <pm>2968</pm> użytkowników stworzyło <em class="p-0">przetarg</em> i oszczędziło na styropianie!
@@ -151,18 +151,22 @@ const playVideo  = () => {
               href="/przetargi-styropianow"
               class="create-auction-btn block w-fit mx-auto my-6 bg-white text-emerald-800 font-bold py-4 px-8 rounded-full transition-all duration-300 hover:bg-yellow-300 hover:text-emerald-800 hover:scale-105 shadow-lg hover:shadow-xl animate-pulse"
           >
-            Stwórz przetarg teraz! - niczego nie zobowiązuje!
+            <div class="flex gap-3">
+              <div>
+                Stwórz przetarg teraz! - niczego nie zobowiązuje!
+              </div>
+            </div>
           </NuxtLink>
           <p class="text-sm md:text-base mt-4 text-emerald-200 animate-fade-in-up animation-delay-600">
             Już ponad 5000 klientów zaoszczędziło dzięki naszym przetargom!
           </p>
         </div>
-        <OpinionStars class="animate-fade-in-up animation-delay-900" />
+        <OpinionStars class="animate-fade-in-up animation-delay-900 mt-4" />
         <div class="absolute inset-0 bg-emerald-700 opacity-20 animate-wave"></div>
       </section>
 
       <!-- Contact Card Section -->
-      <section class="my-6 bg-gray-100 py-8 animate-fade-in-up">
+      <section class="my-3 bg-gray-100 py-8 animate-fade-in-up">
         <div class="w-[100%] md:w-[70%] mx-auto">
           <div class="contact-card bg-white rounded-lg shadow-lg p-4 md:p-8 hover:shadow-xl transition-shadow duration-300">
             <h3 class="text-xl md:text-2xl font-bold mb-2 md:mb-4"><em> Skorzystaj z pomocy specjalisty </em></h3>
@@ -214,6 +218,7 @@ const playVideo  = () => {
         </a>
       </div>
 
+
       <!-- Styro Helper Section -->
       <div class="hero py-2 px-2 md:py-4 md:px-4 bg-gradient-to-r from-emerald-600 to-emerald-800 text-white">
         <!-- Kupuj z płatnością przy odbiorze! Bez rytzyka -->
@@ -226,9 +231,12 @@ const playVideo  = () => {
           </p>
 
           <NuxtLink href="/przetargi-styropianow" class="create-auction-btn block w-fit mx-auto my-6 bg-emerald-500 text-white font-bold py-4 px-8 rounded-full transition-all duration-300 hover:bg-emerald-700 hover:scale-105 shadow-lg hover:shadow-xl animate-pulse">
-            Stwórz przetarg i kup bezpośrednio u producenta!
+            <div class="flex gap-3 items-center">
+              <div>
+                Stwórz przetarg i kup bezpośrednio od producenta!
+              </div>
+            </div>
           </NuxtLink>
-<!--        <styro-helper />-->
         </div>
       </div>
 
@@ -246,7 +254,11 @@ const playVideo  = () => {
               98% naszych klientów zaoszczędziło na zakupie styropianu przez przetarg!
             </p>
             <NuxtLink href="/przetargi-styropianow" class="create-auction-btn block w-fit mx-auto my-6 bg-emerald-500 text-white font-bold py-4 px-8 rounded-full transition-all duration-300 hover:bg-emerald-700 hover:scale-105 shadow-lg hover:shadow-xl animate-pulse">
-              Stwórz przetarg teraz! - do niczego nie zobowiązuje!
+              <div class="flex gap-3 items-center">
+                <div>
+                  Stwórz przetarg - do niczego nie zobowiązuje!
+                </div>
+              </div>
             </NuxtLink>
             <div class="loader-container mt-20" v-if="isLoading">
               <Loader :showLoader="isLoading" />
@@ -298,6 +310,8 @@ const playVideo  = () => {
             <LogosSection />
         </div>
       </section>
+
+      <StyroTree />
 
       <!-- Pickup Points Section -->
       <section class="py-10 px-4 md:py-20 bg-gray-100 animate-fade-in-up">
