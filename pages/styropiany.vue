@@ -219,7 +219,6 @@ const playVideo  = () => {
       </div>
 
 
-      <!-- Styro Helper Section -->
       <div class="hero py-2 px-2 md:py-4 md:px-4 bg-gradient-to-r from-emerald-600 to-emerald-800 text-white">
         <!-- Kupuj z płatnością przy odbiorze! Bez rytzyka -->
         <div class="container mx-auto text-center relative z-10">
@@ -274,10 +273,48 @@ const playVideo  = () => {
                 @load="onIframeLoad"
                 @error="onIframeError"
             ></iframe>
+            <br>
+            <div>
+              Nie wiesz jak korzystać z tabeli cen? <NuxtLink class="text-blue-500" href="/tabela-cen-instrukcje">Kliknij tutaj</NuxtLink>
+            </div>
           </div>
         </div>
       </section>
 
+      <section class="py-10 px-4 animate-fade-in-up">
+        <div class="mx-auto max-w-screen-xl">
+          <LogosSection />
+        </div>
+      </section>
+
+
+      <!-- Styro Helper Section -->
+      <div class="hero py-2 px-2 md:py-4 md:px-4 bg-gradient-to-r from-emerald-600 to-emerald-800 text-white">
+        <!-- Kupuj z płatnością przy odbiorze! Bez rytzyka -->
+        <div class="container mx-auto text-center relative z-10">
+          <h1 class="text-4xl md:text-6xl font-extrabold mb-6 mt-4 animate-fade-in-up didact-gothic-regular">
+            Dostawa do <pm>7 dni</pm> na terenie całej Polski!
+          </h1>
+
+          <p class="text-xl md text-2xl mb-8 animate-fade-in-up animation-delay-300">
+            Dzięki naszej sieci magazynów w całej Polsce dostawa styropianu do Twojego domu jest szybka i bezpieczna!
+          </p>
+
+          <div class="flex gap-4 w-fit mx-auto">
+            <NuxtLink href="/100styropiany-elewacyjne/143" class="bg-blue-500 px-4 py-2 rounded">
+              Styropian elewacyjny
+            </NuxtLink>
+
+            <NuxtLink href="/10styropiany/91" class="bg-blue-500 px-4 py-2 rounded">
+              Styropian posadzkowy
+            </NuxtLink>
+
+            <NuxtLink href="/10styropiany-wodoodporne/5" class="bg-blue-500 px-4 py-2 rounded">
+              Styropian fundamentowy
+            </NuxtLink>
+          </div>
+        </div>
+      </div>
 
       <section class="py-16 px-4 bg-emerald-50 animate-fade-in-up">
         <div class="container mx-auto">
@@ -301,13 +338,6 @@ const playVideo  = () => {
               </div>
             </div>
           </div>
-        </div>
-      </section>
-
-      <!-- Brands Section -->
-      <section class="py-10 px-4 animate-fade-in-up">
-        <div class="mx-auto max-w-screen-xl">
-            <LogosSection />
         </div>
       </section>
 

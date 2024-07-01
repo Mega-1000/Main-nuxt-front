@@ -20,6 +20,7 @@ export default defineNuxtConfig({
     enabled: true,
     vscode: {}
   },
+
   chatwoot: {
     init: {
       websiteToken: 'QZL2X1noKmm71rRcGyb259NF'
