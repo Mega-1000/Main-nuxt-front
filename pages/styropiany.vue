@@ -240,42 +240,42 @@ const playVideo  = () => {
       </div>
 
       <!-- Price Table Section -->
-      <section class="py-10 px-4 bg-gray-100" id="price-table">
-        <div class="container mx-auto relative">
-          <h2 class="text-3xl md:text-4xl font-extrabold mb-8 text-center text-emerald-600 animate-fade-in-up">
-            Wybierz styropian z tabeli, kliknij cenę - dodasz do koszyka.
+      <section class="py-16 px-4 bg-gradient-to-b from-emerald-50 to-white" id="price-table">
+        <div class="container mx-auto relative max-w-5xl">
+          <h2 class="text-3xl md:text-4xl font-extrabold mb-12 text-center text-emerald-600 animate-fade-in-up">
+            Wybierz styropian z tabeli, kliknij cenę - dodasz do koszyka
           </h2>
-          <div class="bg-white rounded-lg shadow-xl md:p-10 animate-fade-in-up animation-delay-300">
-            <p class="text-lg md:text-xl mb-6 text-gray-700">
+          <div class="bg-white rounded-2xl shadow-2xl p-6 md:p-10 animate-fade-in-up animation-delay-300">
+            <p class="text-lg md:text-xl mb-8 text-gray-700 leading-relaxed">
               Oprócz znalezienia najtańszej hurtowni w Polsce która dostarczy ci ten styropian wraz z gratisowym transportem dokonamy także przetargu dla wszystkich pozostałych 50 producentów dla porównania.
             </p>
-            <p class="text-emerald-700 font-bold mt-4 mb-6">
+            <p class="text-emerald-700 font-bold text-xl mb-8 text-center">
               98% naszych klientów zaoszczędziło na zakupie styropianu przez przetarg!
             </p>
-            <NuxtLink href="/przetargi-styropianow" class="create-auction-btn block w-fit mx-auto my-6 bg-emerald-500 text-white font-bold py-4 px-8 rounded-full transition-all duration-300 hover:bg-emerald-700 hover:scale-105 shadow-lg hover:shadow-xl animate-pulse">
-              <div class="flex gap-3 items-center">
-                <div>
-                  Stwórz przetarg - do niczego nie zobowiązuje!
-                </div>
-              </div>
+            <NuxtLink
+                to="/przetargi-styropianow"
+                class="create-auction-btn block w-full md:w-fit mx-auto my-8 bg-emerald-500 text-white font-bold py-4 px-8 rounded-full transition-all duration-300 hover:bg-emerald-600 hover:scale-105 shadow-lg hover:shadow-xl text-center"
+            >
+          <span class="flex gap-3 items-center justify-center">
+            <span>Stwórz przetarg - do niczego nie zobowiązuje!</span>
+          </span>
             </NuxtLink>
-            <div class="loader-container mt-20" v-if="isLoading">
-              <Loader :showLoader="isLoading" />
+            <div v-if="isLoading" class="flex justify-center items-center h-40 mt-20">
+              <Loader :show-loader="isLoading" />
             </div>
             <iframe
                 ref="priceTable"
                 title="Tabelka cen styropianów"
                 :src="iframeSrc"
                 loading="lazy"
-                :style="!isLoading ? 'height: 600px' : 'height: 1px'"
-                class="w-full border-2 border-gray-200 rounded-lg shadow-lg transition-all duration-500"
+                :class="['w-full border-2 border-gray-200 rounded-lg shadow-lg transition-all duration-500', isLoading ? 'h-0' : 'h-[600px]']"
                 sandbox="allow-scripts allow-same-origin"
                 @load="onIframeLoad"
                 @error="onIframeError"
             ></iframe>
-            <br>
-            <div>
-              Nie wiesz jak korzystać z tabeli cen? <NuxtLink class="text-blue-500" href="/tabela-cen-instrukcje">Kliknij tutaj</NuxtLink>
+            <div class="mt-6 text-center">
+              <span class="text-gray-700">Nie wiesz jak korzystać z tabeli cen?</span>
+              <NuxtLink class="text-emerald-600 hover:text-emerald-700 ml-2 font-semibold" to="/tabela-cen-instrukcje">Kliknij tutaj</NuxtLink>
             </div>
           </div>
         </div>
@@ -289,32 +289,7 @@ const playVideo  = () => {
 
 
       <!-- Styro Helper Section -->
-      <div class="hero py-2 px-2 md:py-4 md:px-4 bg-gradient-to-r from-emerald-600 to-emerald-800 text-white">
-        <!-- Kupuj z płatnością przy odbiorze! Bez rytzyka -->
-        <div class="container mx-auto text-center relative z-10">
-          <h1 class="text-4xl md:text-6xl font-extrabold mb-6 mt-4 animate-fade-in-up didact-gothic-regular">
-            Dostawa do <pm>7 dni</pm> na terenie całej Polski!
-          </h1>
-
-          <p class="text-xl md text-2xl mb-8 animate-fade-in-up animation-delay-300">
-            Dzięki naszej sieci magazynów w całej Polsce dostawa styropianu do Twojego domu jest szybka i bezpieczna!
-          </p>
-
-          <div class="flex gap-4 w-fit mx-auto">
-            <NuxtLink href="/100styropiany-elewacyjne/143" class="bg-blue-500 px-4 py-2 rounded">
-              Styropian elewacyjny
-            </NuxtLink>
-
-            <NuxtLink href="/10styropiany/91" class="bg-blue-500 px-4 py-2 rounded">
-              Styropian posadzkowy
-            </NuxtLink>
-
-            <NuxtLink href="/10styropiany-wodoodporne/5" class="bg-blue-500 px-4 py-2 rounded">
-              Styropian fundamentowy
-            </NuxtLink>
-          </div>
-        </div>
-      </div>
+    <FastShipping />
 
       <section class="py-16 px-4 bg-emerald-50 animate-fade-in-up">
         <div class="container mx-auto">

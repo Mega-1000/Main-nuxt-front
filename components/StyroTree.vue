@@ -1,27 +1,31 @@
 <template>
-  <div class="styrofoam-tree">
-    <h2 class="title">Klasyfikacja Styropianu</h2>
-    <div class="tree-container">
-      <div v-for="(type, index) in styrofoamTypes" :key="index" class="tree-node" :class="{ 'expanded': expandedNodes[index] }">
-        <div class="node-header" @click="toggleNode(index)">
-          <div class="node-icon" :class="type.icon"></div>
-          <h3>{{ type.name }}</h3>
-          <span class="expand-icon">{{ expandedNodes[index] ? '−' : '+' }}</span>
-        </div>
-        <transition name="expand">
-          <div v-if="expandedNodes[index]" class="node-content">
-            <p>{{ type.description }}</p>
-            <div class="subtypes">
-              <div v-for="(subtype, subIndex) in type.subtypes" :key="subIndex" class="subtype">
-                <h4>{{ subtype.name }}</h4>
-                <p>{{ subtype.explanation }}</p>
+  <section class="styrofoam-tree py-16 px-4 bg-emerald-50 animate-fade-in-up">
+    <div class="container mx-auto">
+      <h2 class="text-3xl md:text-5xl font-bold mb-12 text-center text-emerald-800">
+        Klasyfikacja Styropianu
+      </h2>
+      <div class="tree-container">
+        <div v-for="(type, index) in styrofoamTypes" :key="index" class="tree-node" :class="{ 'expanded': expandedNodes[index] }">
+          <div class="node-header" @click="toggleNode(index)">
+            <div class="node-icon" :class="type.icon"></div>
+            <h3 class="text-xl md:text-2xl font-semibold">{{ type.name }}</h3>
+            <span class="expand-icon">{{ expandedNodes[index] ? '−' : '+' }}</span>
+          </div>
+          <transition name="expand">
+            <div v-if="expandedNodes[index]" class="node-content">
+              <p class="text-gray-600 mb-4">{{ type.description }}</p>
+              <div class="subtypes">
+                <div v-for="(subtype, subIndex) in type.subtypes" :key="subIndex" class="subtype">
+                  <h4 class="text-lg font-semibold mb-2 text-emerald-700">{{ subtype.name }}</h4>
+                  <p class="text-gray-600">{{ subtype.explanation }}</p>
+                </div>
               </div>
             </div>
-          </div>
-        </transition>
+          </transition>
+        </div>
       </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script setup>
@@ -77,21 +81,6 @@ const toggleNode = (index) => {
 <style scoped>
 .styrofoam-tree {
   font-family: 'Roboto', sans-serif;
-  max-width: 1500px;
-  margin: 30px auto;
-  padding: 40px 20px;
-  background-color: #f5f5f5;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-
-}
-
-.title {
-  text-align: center;
-  color: #333;
-  font-size: 2.5em;
-  margin-bottom: 40px;
-  font-weight: 300;
 }
 
 .tree-container {
@@ -125,37 +114,25 @@ const toggleNode = (index) => {
 }
 
 .node-icon {
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
   margin-right: 15px;
-  background-color: #e0e0e0;
+  background-color: #10b981;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 20px;
-}
-
-.node-header h3 {
-  flex-grow: 1;
-  margin: 0;
-  font-weight: 500;
-  color: #333;
+  font-size: 24px;
+  color: white;
 }
 
 .expand-icon {
   font-size: 24px;
-  color: #757575;
+  color: #10b981;
 }
 
 .node-content {
   padding: 0 20px 20px;
-}
-
-.node-content p {
-  margin-top: 0;
-  color: #616161;
-  line-height: 1.6;
 }
 
 .subtypes {
@@ -166,21 +143,10 @@ const toggleNode = (index) => {
 }
 
 .subtype {
-  background-color: #f5f5f5;
+  background-color: #f0fdf4;
   padding: 15px;
   border-radius: 6px;
-}
-
-.subtype h4 {
-  margin: 0 0 10px 0;
-  color: #424242;
-  font-weight: 500;
-}
-
-.subtype p {
-  margin: 0;
-  font-size: 0.9em;
-  color: #757575;
+  border: 1px solid #10b981;
 }
 
 .expand-enter-active, .expand-leave-active {
@@ -200,4 +166,20 @@ const toggleNode = (index) => {
 .icon-floor::before { content: '🔳'; }
 .icon-roof::before { content: '🏠'; }
 .icon-foundation::before { content: '🏗️'; }
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out forwards;
+  opacity: 0;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 </style>
