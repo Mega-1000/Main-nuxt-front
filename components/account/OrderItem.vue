@@ -322,7 +322,7 @@ const markOfferAsInactive = async () => {
           </button>
         </div>
         <div class="p-6 space-y-6">
-          <template v-if="!item.dates?.customer_shipment_date_from || !item.dates?.customer_shipment_date_to">
+          <template v-if="!item.dates?.customer_shipment_date_from || !item.dates?.customer_shipment_date_to || item.addresses[0].address">
             <div class="flex max-w-lg p-4 bg-red-100 rounded-lg">
               <h5 class="text-lg font-medium text-red-500 mr-4">
                 Uwaga brak danych do dostawy bądź faktury
@@ -340,6 +340,10 @@ const markOfferAsInactive = async () => {
           </p>
           <p class="text-gray-700">
             Zalecane aby otworzyć ją i sprawdzić pod względem asortymentowym, ilościowym oraz sprawdzić dane do dostawy, faktury i daty logistyczne.
+          </p>
+
+          <p>
+
           </p>
 
           <input type="file" @change="onFileChange" accept=".pdf,image/*" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md" />
