@@ -323,7 +323,7 @@ const markOfferAsInactive = async () => {
         </div>
         <div class="p-6 space-y-6">
           <template v-if="!item.dates?.customer_shipment_date_from || !item.dates?.customer_shipment_date_to || !item.addresses[0].address">
-            <div class="flex max-w-lg p-4 bg-red-100 rounded-lg">
+            <div class="flex p-4 bg-red-100 rounded-lg">
               <h5 class="text-lg font-medium text-red-500 mr-4">
                 Uwaga brak danych do dostawy bądź faktury
               </h5>
