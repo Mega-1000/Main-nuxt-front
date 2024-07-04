@@ -191,11 +191,11 @@ const markOfferAsInactive = async () => {
       <p class="text-gray-700">Na to zapytanie jest aktywny przetarg!</p>
       <p class="text-gray-700">Jeśli chcesz zmienić jego szczegóły kliknij przycisk przejdz do chatu. W tym module jest również możliwość zmiany dat logistycznych.</p>
       <a
-          :href="`${config.baseUrl}/chat-show-or-new/${item.id}/${item.customer_id}`"
+          :href="`${config.baseUrl}/auctions/${item.auctionId}/end`"
           target="_blank"
           class="mt-4 inline-block bg-blue-600 text-white rounded-md px-4 py-2 hover:bg-blue-700 transition-colors duration-300"
       >
-        Przejdź do chatu
+        Przejdź do tabeli wycen
       </a>
 
       <a
@@ -259,17 +259,17 @@ const markOfferAsInactive = async () => {
       </accountActionButton>
     </div>
 
-    <div v-for="buttonGroup in Object.keys(item.buttons)" class="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-      <div class="flex items-center space-x-2">
-        <p class="text-sm font-medium text-gray-500">{{ buttonGroup }}</p>
-        <div class="flex-1 h-px bg-gray-300"></div>
-      </div>
-      <div class="col-span-1 md:col-span-2 lg:col-span-2 flex flex-wrap gap-2">
-        <a v-for="button in (Object.values(item.buttons[buttonGroup]) as any)" target="_blank" :href="button.url" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded-md transition-colors duration-300">
-          {{ button.description }}
-        </a>
-      </div>
-    </div>
+<!--    <div v-for="buttonGroup in Object.keys(item.buttons)" class="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">-->
+<!--      <div class="flex items-center space-x-2">-->
+<!--        <p class="text-sm font-medium text-gray-500">{{ buttonGroup }}</p>-->
+<!--        <div class="flex-1 h-px bg-gray-300"></div>-->
+<!--      </div>-->
+<!--      <div class="col-span-1 md:col-span-2 lg:col-span-2 flex flex-wrap gap-2">-->
+<!--        <a v-for="button in (Object.values(item.buttons[buttonGroup]) as any)" target="_blank" :href="button.url" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded-md transition-colors duration-300">-->
+<!--          {{ button.description }}-->
+<!--        </a>-->
+<!--      </div>-->
+<!--    </div>-->
 
 <!--    <div v-if="!item.reminder_date" class="mt-8 bg-red-100 p-4 rounded-lg">-->
 <!--      <p class="text-gray-700">Wskaż datę przypomnienia lub przenieś do ofert nieaktywnych bo w innym przypadku system będzie codziennie wysyłał powiadomienia na twojego emaila.</p>-->
