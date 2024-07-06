@@ -74,34 +74,34 @@ const showOfferTable = (auction: any) => {
         </div>
       </div>
 
-      <div class="mt-4">
-        <table class="w-full border-collapse overflow-x-auto">
-          <thead>
-          <tr class="bg-gray-200">
-            <th class="px-4 py-2 text-left">Produkt</th>
-            <th class="px-4 py-2 text-left">Ilość opakowań</th>
-            <th class="px-4 py-2 text-left">Ilość M3</th>
-            <th class="px-4 py-2 text-left">Twoja cena</th>
-            <th class="px-4 py-2 text-left">Najniższa cena na ten moment</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr v-for="item in auction?.chat?.order?.items" class="border-b">
-            <td class="px-4 py-2">{{ item.product.name.substr(item.product.name.indexOf(" ") + 1) }}</td>
-            <td class="px-4 py-2">{{ item.quantity }}</td>
-            <td class="px-4 py-2">{{ Math.round(item.quantity * item.product.packing.numbers_of_basic_commercial_units_in_pack * 100) / 100 }} {{ item.product.unit_basic }}</td>
-            <td
-                :class="{ 'text-red-700': (lowestPrice = Math.min(...auction.offers.filter((offer) => offer.product_id === item.id).map((offer) => offer.basic_price_net))) > yourPrice }"
-                class="px-4 py-2"
-            >
-              {{ yourPrice = auction.offers.filter((offer) => offer.firm_id === currentFirm.id && offer.product_id === item.product.id).sort((a, b) => a.basic_price_net - b.basic_price_net)[0]?.basic_price_net }}
-              <span v-if="lowestPrice < yourPrice" class="text-red-700"> - Uwaga: Twoja oferta nie jest najniższa</span>
-            </td>
-            <td class="px-4 py-2">{{ lowestPrice }}</td>
-          </tr>
-          </tbody>
-        </table>
-      </div>
+<!--      <div class="mt-4">-->
+<!--        <table class="w-full border-collapse overflow-x-auto">-->
+<!--          <thead>-->
+<!--          <tr class="bg-gray-200">-->
+<!--            <th class="px-4 py-2 text-left">Produkt</th>-->
+<!--            <th class="px-4 py-2 text-left">Ilość opakowań</th>-->
+<!--            <th class="px-4 py-2 text-left">Ilość M3</th>-->
+<!--            <th class="px-4 py-2 text-left">Twoja cena</th>-->
+<!--            <th class="px-4 py-2 text-left">Najniższa cena na ten moment</th>-->
+<!--          </tr>-->
+<!--          </thead>-->
+<!--          <tbody>-->
+<!--          <tr v-for="item in auction?.chat?.order?.items" class="border-b">-->
+<!--            <td class="px-4 py-2">{{ item.product.name.substr(item.product.name.indexOf(" ") + 1) }}</td>-->
+<!--            <td class="px-4 py-2">{{ item.quantity }}</td>-->
+<!--            <td class="px-4 py-2">{{ Math.round(item.quantity * item.product.packing.numbers_of_basic_commercial_units_in_pack * 100) / 100 }} {{ item.product.unit_basic }}</td>-->
+<!--            <td-->
+<!--                :class="{ 'text-red-700': (lowestPrice = Math.min(...auction.offers.filter((offer) => offer.product_id === item.id).map((offer) => offer.basic_price_net))) > yourPrice }"-->
+<!--                class="px-4 py-2"-->
+<!--            >-->
+<!--              {{ yourPrice = auction.offers.filter((offer) => offer.firm_id === currentFirm.id && offer.product_id === item.product.id).sort((a, b) => a.basic_price_net - b.basic_price_net)[0]?.basic_price_net }}-->
+<!--              <span v-if="lowestPrice < yourPrice" class="text-red-700"> - Uwaga: Twoja oferta nie jest najniższa</span>-->
+<!--            </td>-->
+<!--            <td class="px-4 py-2">{{ lowestPrice }}</td>-->
+<!--          </tr>-->
+<!--          </tbody>-->
+<!--        </table>-->
+<!--      </div>-->
     </div>
   </div>
 </template>
