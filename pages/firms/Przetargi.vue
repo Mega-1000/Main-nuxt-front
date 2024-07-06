@@ -57,7 +57,7 @@ const showOfferTable = (auction: any) => {
     <div v-for="auction in auctions" class="border rounded-lg p-6 mb-8 shadow-md">
       <div class="flex flex-col md:flex-row justify-between items-center mb-4">
         <div class="flex-grow">
-          <h2 class="text-2xl font-bold mb-2">Numer przetargu: {{ auction.id }}</h2>
+          <h2 class="text-2xl font-bold mb-2">Numer przetargu: {{ auction.chat.order.id }}</h2>
           <p class="mb-2">Koniec przetargu: {{ auction.end_of_auction }}</p>
           <p class="mb-2">Wstępna data dostawy wskazana przez klienta: {{ auction.date_of_delivery }}</p>
           <p class="mb-2">Procentowy udział ceny: {{ auction.price }}</p>
