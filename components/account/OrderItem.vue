@@ -225,11 +225,11 @@ const markOfferAsInactive = async () => {
         Potwierdzenie przelewu podłączone
       </button>
 
-      <a v-if="item?.chat?.auctions[0]?.end_of_auction < Date.now()" :href="`${config.baseUrl}/order-proform-pdf/${item.order_offers[0]?.id}`" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-md transition-colors duration-300">
+      <a v-if="!(item?.chat?.auctions[0]?.end_of_auction < Date.now())" :href="`${config.baseUrl}/order-proform-pdf/${item.order_offers[0]?.id}`" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-md transition-colors duration-300">
         Faktura proforma
       </a>
 
-      <a v-if="!isVisiblitityLimited" target="_blank" :href="`${config.baseUrl}/order-offer-pdf/${item.order_offers[0]?.id}`" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-md transition-colors duration-300">
+      <a v-if="!isVisiblitityLimited && !(item?.chat?.auctions[0]?.end_of_auction < Date.now())" target="_blank" :href="`${config.baseUrl}/order-offer-pdf/${item.order_offers[0]?.id}`" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-md transition-colors duration-300">
         Opis oferty
       </a>
 
