@@ -58,12 +58,13 @@ export default {
       isOpen: false,
       selected: this.modelValue,
       searchTerm: '',
-      styrofoamTypes: {
-        'Fasada': ['EPS 70', 'EPS 80', 'EPS 100'],
-        'Podłoga': ['EPS 100', 'EPS 150', 'EPS 200'],
-        'Dach': ['EPS 100', 'EPS 150', 'EPS 200']
-      }
+      styrofoamTypes: {}
     };
+  },
+  mounted() {
+    axios.get('https://admin.mega1000.pl/auctions/get-styrofoam-types').then(response => {
+      this.styrofoamTypes = response.data;
+    });
   },
   computed: {
     filteredTypes() {
@@ -88,11 +89,11 @@ export default {
     },
     getApplicationInfo(category) {
       switch (category) {
-        case 'Fasada':
+        case '100.styropiany elewacyjne':
           return 'Izolacja ścian zewnętrznych';
-        case 'Podłoga':
+        case '10.styropiany':
           return 'Izolacja podłóg i fundamentów';
-        case 'Dach':
+        case '10.styropiany wodoodporne':
           return 'Izolacja dachów i stropodachów';
         default:
           return '';

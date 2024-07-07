@@ -1,4 +1,8 @@
 <script setup lang="ts">
+import { ref, onMounted } from 'vue';
+import { useRoute } from 'vue-router';
+import { Clock, TrendingUp, Calendar, Truck, Edit } from 'lucide-vue-next';
+
 const auctions = ref<any>([]);
 const { $shopApi: shopApi } = useNuxtApp();
 const route = useRoute();
@@ -18,128 +22,111 @@ const fetchAuctions = async () => {
   haveToFillPrices.value = response[2].haveToFillPrices;
 
   auctions.value.forEach((auction: any) => {
-    auction.offersExpanded = true;
-    auction.activeOffers = auction.offers.splice(0, 3);
+    auction.offersExpanded = false;
+    auction.activeOffers = auction.offers.slice(0, 3);
   });
 };
 
-const expandOffers = (auction: any) => {
-  auction.offersExpanded = true;
-  auction.activeOffers = auction.offers;
+const toggleOffers = (auction: any) => {
+  auction.offersExpanded = !auction.offersExpanded;
+  auction.activeOffers = auction.offersExpanded ? auction.offers : auction.offers.slice(0, 3);
 };
 
-const collapseOffers = (auction: any) => {
-  auction.offersExpanded = false;
-  auction.activeOffers = auction.offers.splice(0, 3);
-};
-
-const showOfferTable = (auction: any) => {
-  auction.offerTableShown = true;
+const formatDate = (dateString: string) => {
+  const date = new Date(dateString);
+  return date.toLocaleString('pl-PL', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit'
+  });
 };
 </script>
+
 <template>
-  <div class="container mx-auto px-4 py-8">
-    <div class="text-center mb-8">
-      <h1 class="text-3xl font-bold">Aktualnie jesteś zalogowany jako: {{ currentFirm?.name }}</h1>
-    </div>
-
-    <div class="mb-8">
-      <a
-          :href="`https://new.mega1000.pl/magazyn/aktualizacja-cen/${currentFirm?.id}/zaktualizuj?isByFirm=true`"
-          target="__blank"
-          class="block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-fit"
-          :class="haveToFillPrices ? 'bg-red-500' : ''"
-      >
-        Zaktualizuj ceny podstawowe styropianów
-      </a>
-    </div>
-
-    <div v-for="auction in auctions" class="border rounded-lg p-6 mb-8 shadow-md">
-      <div class="flex flex-col md:flex-row justify-between items-center mb-4">
-        <div class="flex-grow">
-          <h2 class="text-2xl font-bold mb-2">Numer przetargu: {{ auction?.chat?.order?.id }}</h2>
-          <p class="mb-2">Koniec przetargu: {{ auction.end_of_auction }}</p>
-          <p class="mb-2">Wstępna data dostawy wskazana przez klienta: {{ auction.date_of_delivery }}</p>
-          <p class="mb-2">Procentowy udział ceny: {{ auction.price }}</p>
-          <p class="mb-2">Procentowy udział jakości: {{ auction.quality }}</p>
-          <p class="mb-2">Data rozpoczęcia przetargu: {{ auction?.created_at?.split('T')[0] }} {{ auction?.created_at?.split('T')[1].split('.')[0] }}</p>
-          <p class="mb-2">Ostatnia data aktualizacji danych przetargu: {{ auction?.updated_at?.split('T')[0] }} {{ auction?.updated_at?.split('T')[1].split('.')[0] }}</p>
-        </div>
-        <div class="flex flex-col md:flex-row items-center">
-          <a :href="auction.editPricesLink" target="__blank" class="mb-4 md:mb-0 md:mr-4">
-            <SubmitButton class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
-              Zmień swoje ceny w tym przetargu
-            </SubmitButton>
-          </a>
-        </div>
+  <div class="min-h-screen bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-12">
+        <h1 class="text-4xl font-extrabold text-gray-900 sm:text-5xl sm:tracking-tight lg:text-6xl">
+          Witaj, {{ currentFirm?.name }}!
+        </h1>
+        <p class="mt-5 max-w-xl mx-auto text-xl text-gray-500">
+          Zarządzaj swoimi aukcjami i ofertami w jednym miejscu.
+        </p>
       </div>
 
-<!--      <div class="mt-4">-->
-<!--        <table class="w-full border-collapse overflow-x-auto">-->
-<!--          <thead>-->
-<!--          <tr class="bg-gray-200">-->
-<!--            <th class="px-4 py-2 text-left">Produkt</th>-->
-<!--            <th class="px-4 py-2 text-left">Ilość opakowań</th>-->
-<!--            <th class="px-4 py-2 text-left">Ilość M3</th>-->
-<!--            <th class="px-4 py-2 text-left">Twoja cena</th>-->
-<!--            <th class="px-4 py-2 text-left">Najniższa cena na ten moment</th>-->
-<!--          </tr>-->
-<!--          </thead>-->
-<!--          <tbody>-->
-<!--          <tr v-for="item in auction?.chat?.order?.items" class="border-b">-->
-<!--            <td class="px-4 py-2">{{ item.product.name.substr(item.product.name.indexOf(" ") + 1) }}</td>-->
-<!--            <td class="px-4 py-2">{{ item.quantity }}</td>-->
-<!--            <td class="px-4 py-2">{{ Math.round(item.quantity * item.product.packing.numbers_of_basic_commercial_units_in_pack * 100) / 100 }} {{ item.product.unit_basic }}</td>-->
-<!--            <td-->
-<!--                :class="{ 'text-red-700': (lowestPrice = Math.min(...auction.offers.filter((offer) => offer.product_id === item.id).map((offer) => offer.basic_price_net))) > yourPrice }"-->
-<!--                class="px-4 py-2"-->
-<!--            >-->
-<!--              {{ yourPrice = auction.offers.filter((offer) => offer.firm_id === currentFirm.id && offer.product_id === item.product.id).sort((a, b) => a.basic_price_net - b.basic_price_net)[0]?.basic_price_net }}-->
-<!--              <span v-if="lowestPrice < yourPrice" class="text-red-700"> - Uwaga: Twoja oferta nie jest najniższa</span>-->
-<!--            </td>-->
-<!--            <td class="px-4 py-2">{{ lowestPrice }}</td>-->
-<!--          </tr>-->
-<!--          </tbody>-->
-<!--        </table>-->
-<!--      </div>-->
+      <div class="mb-12">
+        <a
+            :href="`https://new.mega1000.pl/magazyn/aktualizacja-cen/${currentFirm?.id}/zaktualizuj?isByFirm=true`"
+            target="_blank"
+            class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200"
+            :class="{ 'bg-red-600 hover:bg-red-700 focus:ring-red-500': haveToFillPrices }"
+        >
+          <Edit class="mr-2 h-5 w-5" />
+          Zaktualizuj ceny podstawowe styropianów
+        </a>
+      </div>
+
+      <div class="space-y-8">
+        <div v-for="auction in auctions" :key="auction.id" class="bg-white shadow overflow-hidden sm:rounded-lg">
+          <div class="px-4 py-5 sm:px-6">
+            <h3 class="text-lg leading-6 font-medium text-gray-900">
+              Numer przetargu: {{ auction?.chat?.order?.id }}
+            </h3>
+            <p class="mt-1 max-w-2xl text-sm text-gray-500">
+              Szczegóły i zarządzanie przetargiem
+            </p>
+          </div>
+          <div class="border-t border-gray-200 px-4 py-5 sm:p-0">
+            <dl class="sm:divide-y sm:divide-gray-200">
+              <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <dt class="text-sm font-medium text-gray-500 flex items-center">
+                  <Clock class="mr-2 h-5 w-5 text-gray-400" />
+                  Koniec przetargu
+                </dt>
+                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                  {{ formatDate(auction.end_of_auction) }}
+                </dd>
+              </div>
+              <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <dt class="text-sm font-medium text-gray-500 flex items-center">
+                  <Truck class="mr-2 h-5 w-5 text-gray-400" />
+                  Data dostawy
+                </dt>
+                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                  {{ formatDate(auction.date_of_delivery) }}
+                </dd>
+              </div>
+              <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <dt class="text-sm font-medium text-gray-500 flex items-center">
+                  <TrendingUp class="mr-2 h-5 w-5 text-gray-400" />
+                  Udział ceny/jakości
+                </dt>
+                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                  {{ auction.price }}% / {{ auction.quality }}%
+                </dd>
+              </div>
+              <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <dt class="text-sm font-medium text-gray-500 flex items-center">
+                  <Calendar class="mr-2 h-5 w-5 text-gray-400" />
+                  Data rozpoczęcia
+                </dt>
+                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                  {{ formatDate(auction.created_at) }}
+                </dd>
+              </div>
+            </dl>
+          </div>
+          <div class="px-4 py-5 sm:px-6">
+            <a :href="auction.editPricesLink" target="_blank" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors duration-200">
+              <Edit class="mr-2 h-5 w-5" />
+              Zmień swoje ceny w tym przetargu
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
-
-
-<style scoped>
-.tooltip {
-  position: relative;
-}
-
-.tooltip .tooltip-text {
-  visibility: hidden;
-  background-color: black;
-  color: #fff;
-  text-align: center;
-  border-radius: 6px;
-  padding: 20px;
-  /* Position the tooltip */
-  position: absolute;
-  z-index: 1;
-  bottom: 100%;
-  left: 50%;
-  margin-left: -60px;
-}
-
-.tooltip:hover .tooltip-text {
-  visibility: visible;
-}
-
-.alert-text {
-  color: red;
-}
-
-@media (max-width: 767px) {
-  .mt-4 table {
-    display: block;
-    overflow-x: auto;
-    white-space: nowrap;
-  }
-}
-</style>
+1
