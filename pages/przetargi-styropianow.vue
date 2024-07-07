@@ -14,13 +14,7 @@
       <div ref="parent" class="space-y-4">
         <div v-for="(selection, index) in selections" :key="index" class="flex flex-col sm:flex-row items-center gap-2">
           <div class="flex flex-col w-full sm:w-1/3">
-            <label class="mb-1">Wybierz rodzaj styropianu</label>
-            <select v-model="selection.value" @change="updateSelection(index, $event.target.value)" class="px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 w-full">
-              <option value="">Wybierz rodzaj</option>
-              <optgroup v-for="(types, category) in styrofoamTypes" :key="category" :label="category">
-                <option v-for="type in types" :key="type" :value="type">{{ type }}</option>
-              </optgroup>
-            </select>
+      <StyroTypeModal />
           </div>
 
           <TextInput type="number"  @input="selection.quantity = $event" label="Podaj ilość paczek" class="w-full sm:w-1/3" />
@@ -220,6 +214,7 @@ import { useAutoAnimate } from '@formkit/auto-animate/vue';
 import SubmitButton from "../components/SubmitButton.vue";
 import Swal from "sweetalert2";
 import Cookies from "universal-cookie/cjs/Cookies";
+import StyroTypeModal from "~/components/StyroTypeModal.vue";
 const { $shopApi: shopApi } = useNuxtApp();
 
 const styrofoamTypes = ref([]);
