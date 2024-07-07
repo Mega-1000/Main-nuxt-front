@@ -15,9 +15,9 @@ const itemsPerPage = ref(5); // Adjust as needed
 const totalPages = ref(0);
 const loading = ref(false);
 
-onMounted(() => {
+onMounted(async () => {
   loading.value = true;
-  fetchAuctions();
+  await fetchAuctions();
   loading.value = false;
 });
 
