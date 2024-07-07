@@ -215,6 +215,8 @@ import SubmitButton from "../components/SubmitButton.vue";
 import Swal from "sweetalert2";
 import Cookies from "universal-cookie/cjs/Cookies";
 import StyroTypeModal from "~/components/StyroTypeModal.vue";
+import axios from "axios";
+
 const { $shopApi: shopApi } = useNuxtApp();
 
 const styrofoamTypes = ref([]);
