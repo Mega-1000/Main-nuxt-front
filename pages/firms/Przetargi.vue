@@ -8,9 +8,12 @@ const { $shopApi: shopApi } = useNuxtApp();
 const route = useRoute();
 const currentFirm = ref<any>(null);
 const haveToFillPrices = ref<boolean>(false);
+const loading = ref<boolean>(false);
 
 onMounted(() => {
+  loading.value = true;
   fetchAuctions();
+  loading.value = false;
 });
 
 const fetchAuctions = async () => {
@@ -127,6 +130,10 @@ const formatDate = (dateString: string) => {
         </div>
       </div>
     </div>
+  </div>
+
+  <div v-if="loading" class="fixed top-0 left-0 w-screen h-screen flex justify-center items-center bg-gray-500 bg-opacity-50">
+    <Loader :showLoader="loading" />
   </div>
 </template>
 

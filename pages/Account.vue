@@ -23,19 +23,23 @@ const tutorialDescription = ref('');
 const tutorialHighlightStyle = reactive({});
 const tutorialNextButtonText = ref('Next');
 const tutorialStep = ref(0);
+const loading = ref(false);
 
 
 // Adjusted fetchOrders to directly update the orders ref
 const fetchOrders = async (page) => {
   try {
+    loading.value = true;
     const inactiveStatusIds = [6, 8];
     const res = await shopApi.get(`/api/orders/getAll?page=${page}`);
     totalPages.value = res.data.last_page;
     orders.active = res.data.data.filter(order => !inactiveStatusIds.includes(order.status.id) && order.is_hidden === 0);
     orders.inactive = res.data.data.filter(order => inactiveStatusIds.includes(order.status.id) && order.is_hidden === 1);
     orders.all = res.data.data;
+    loading.value = false;
   } catch (e) {
     console.error(e);
+    loading.value = false;
   }
 };
 
@@ -223,6 +227,9 @@ const nextTutorialStep = () => {
     </div>
   </div>
 
+  <div v-if="loading" class="fixed top-0 left-0 w-screen h-screen flex justify-center items-center bg-gray-500 bg-opacity-50">
+    <Loader :showLoader="loading" />
+  </div>
 </template>
 
 
