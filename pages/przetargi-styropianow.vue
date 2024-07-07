@@ -14,7 +14,7 @@
       <div ref="parent" class="space-y-4">
         <div v-for="(selection, index) in selections" :key="index" class="flex flex-col sm:flex-row items-center gap-2">
           <div class="flex flex-col w-full sm:w-1/3">
-      <StyroTypeModal />
+            <StyroTypeModal v-model="selection.value" />
           </div>
 
           <TextInput type="number"  @input="selection.quantity = $event" label="Podaj ilość paczek" class="w-full sm:w-1/3" />
