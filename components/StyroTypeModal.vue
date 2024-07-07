@@ -1,10 +1,11 @@
 <template>
   <div>
+    Wybierz rodzaj styropianu
     <button
         @click="isOpen = true"
         class="w-full px-4 py-2 text-left bg-white border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
     >
-      {{ selected || "Wybierz rodzaj styropianu" }}
+      {{ selected || "Kliknij aby wybrać" }}
     </button>
 
     <div v-if="isOpen" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
