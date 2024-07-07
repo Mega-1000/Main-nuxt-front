@@ -13,9 +13,12 @@ const haveToFillPrices = ref<boolean>(false);
 const currentPage = ref(1);
 const itemsPerPage = ref(5); // Adjust as needed
 const totalPages = ref(0);
+const loading = ref(false);
 
 onMounted(() => {
+  loading.value = true;
   fetchAuctions();
+  loading.value = false;
 });
 
 const fetchAuctions = async () => {
@@ -179,5 +182,9 @@ const paginationRange = computed(() => {
         </ul>
       </nav>
     </div>
+  </div>
+
+  <div v-if="loading" class="fixed top-0 left-0 w-screen h-screen flex justify-center items-center bg-gray-500 bg-opacity-50">
+    <Loader :showLoader="loading" />
   </div>
 </template>
