@@ -188,7 +188,12 @@ const markOfferAsInactive = async () => {
     </div>
 
     <div v-if="item.isAuctionCreated" class="mt-8 bg-blue-100 p-4 rounded-lg">
-      <p class="text-gray-700">Na to zapytanie jest aktywny przetarg!</p>
+      <p class="text-gray-700" v-if="item?.chat?.auctions[0]?.end_of_auction < Date.now()">
+        Przetarg na tę zapytanie został zakończony!
+      </p>
+      <p v-else>
+        Na to zapytanie jest aktywny przetarg!
+      </p>
       <p class="text-gray-700">Jeśli chcesz zmienić jego szczegóły kliknij przycisk przejdz do chatu. W tym module jest również możliwość zmiany dat logistycznych.</p>
       <a
           :href="`${config.baseUrl}/auctions/${item.auctionId}/end`"
@@ -220,7 +225,7 @@ const markOfferAsInactive = async () => {
         Potwierdzenie przelewu podłączone
       </button>
 
-      <a :href="`${config.baseUrl}/order-proform-pdf/${item.order_offers[0]?.id}`" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-md transition-colors duration-300">
+      <a v-if="item?.chat?.auctions[0]?.end_of_auction < Date.now()" :href="`${config.baseUrl}/order-proform-pdf/${item.order_offers[0]?.id}`" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-md transition-colors duration-300">
         Faktura proforma
       </a>
 
