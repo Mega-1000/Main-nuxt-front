@@ -112,7 +112,42 @@
       <section>
         <div class="mx-auto py-10">
           <NuxtLink class="md:grid flex md:gap-8 justify-between text-gray-400 grid-cols-12 gap-5 mx-1" href="/styropiany">
-            <!-- ... (company logos) ... -->
+            <div class="flex justify-center items-center hover:scale-105 transition-transform duration-300 hidden md:flex">
+              <img src="/genderka.webp" alt="Genderka - Lider rynku" class="md:w-[70%]">
+            </div>
+            <div href="#" class="flex justify-center items-center hover:scale-105 transition-transform duration-300 hidden md:flex">
+              <img src="/swisspor.webp" alt="Swisspor - Szwajcarska precyzja" class="md:w-[70%]">
+            </div>
+            <div href="#" class="flex justify-center items-center hover:scale-105 transition-transform duration-300">
+              <img src="/images (13).jpeg" alt="Termoorganika - Naturalnie ciepły dom" class="md:w-[70%]">
+            </div>
+            <div href="#" class="flex justify-center items-center hover:scale-105 transition-transform duration-300">
+              <img src="/arsanit.webp" alt="Arsanit - Komfort na lata" class="md:w-[70%]">
+            </div>
+            <div href="#" class="flex justify-center items-center hover:scale-105 transition-transform duration-300">
+              <img src="/austroterm.webp" alt="Austroterm - Najwyższa jakość" class="md:w-[70%]">
+            </div>
+            <div href="#" class="flex justify-center items-center hover:scale-105 transition-transform duration-300">
+              <img src="/yetico.webp" alt="Yetico - Energia oszczędności" class="md:w-[70%]">
+            </div>
+            <div href="#" class="flex justify-center items-center hover:scale-105 transition-transform duration-300">
+              <img src="/images (4).png" alt="Ciepły dom to szczęśliwy dom" class="md:w-[70%]">
+            </div>
+            <div href="#" class="flex justify-center items-center hover:scale-105 transition-transform duration-300">
+              <img src="/unnamed.png" alt="Zaufana marka, komfortowa izolacja" class="md:w-[70%]">
+            </div>
+            <div href="#" class="flex justify-center items-center hover:scale-105 transition-transform duration-300">
+              <img src="/knauf.png" alt="Knauf - Eksperci izolacji" class="md:w-[70%]">
+            </div>
+            <div href="#" class="flex justify-center items-center hover:scale-105 transition-transform duration-300 hidden md:flex">
+              <img src="/polstyr_logo_without_background.png" alt="Polstyr - Polska jakość" class="md:w-[70%]">
+            </div>
+            <div href="#" class="flex justify-center items-center hover:scale-105 transition-transform duration-300 hidden md:flex">
+              <img src="/images.png" alt="Polstyr - Polska jakość" class="md:w-[70%]">
+            </div>
+            <div href="#" class="flex justify-center items-center hover:scale-105 transition-transform duration-300 hidden md:flex">
+              <img src="/images%20(14).jpeg" alt="Polstyr - Polska jakość" class="md:w-[70%]">
+            </div>
           </NuxtLink>
         </div>
       </section>
@@ -251,109 +286,109 @@ const handlePageUnload = (event) => {
   event.returnValue = '';
 };
 
-  const addSelection = () => {
-    if (selections.length < 5) {
-      selections.push({ value: null, quantity: '', thickness: '' });
-    }
-  };
+const addSelection = () => {
+  if (selections.length < 5) {
+    selections.push({ value: null, quantity: '', thickness: '' });
+  }
+};
 
-  const saveAuction = async () => {
-    try {
-      const auctionData = selections.filter(selection => selection.value !== null && selection.quantity !== '').map(selection => ({
-        styrofoamType: selection.value,
-        quantity: parseInt(selection.quantity, 10),
-        thickness: selection.thickness
-      }));
+const saveAuction = async () => {
+  try {
+    const auctionData = selections.filter(selection => selection.value !== null && selection.quantity !== '').map(selection => ({
+      styrofoamType: selection.value,
+      quantity: parseInt(selection.quantity, 10),
+      thickness: selection.thickness
+    }));
 
-      if (auctionData.length === 0) {
-        alert('Musisz dodać ilość styropianu');
-        return;
-      }
-
-      const totalQuantity = auctionData.reduce((sum, item) => sum + item.quantity, 0);
-      if (totalQuantity < 66) {
-        alert('Ilość końcowa musi być większa niż 66 paczek');
-        return;
-      }
-
-      showUserInfoModal.value = true;
-    } catch (error) {
-      console.error('Error saving auction:', error);
-      alert('Wystąpił błąd. Administrator się z tobą skontaktuje');
-    }
-  };
-
-  const confirmAuction = async () => {
-    try {
-      loading.value = true;
-      const auctionData = selections.filter(selection => selection.value !== null && selection.quantity !== '').map(selection => ({
-        styrofoamType: selection.value,
-        quantity: selection.quantity,
-        thickness: selection.thickness
-      }));
-      showUserInfoModal.value = false;
-
-      const res = await shopApi.post('/api/auctions/save', { auctionData, userInfo: userInfo.value });
-      const cookies = new Cookies();
-      await cookies.set("token", res.data.access_token);
-
-      window.dispatchEvent(new CustomEvent('token-refreshed'));
-
-      await Swal.fire('Zapytanie zostało stworzone pomyślnie!', 'Po kliknięciu "OK" Przeniesiemy cię do konta z możliwością zarządzania twoimi zapytaniami', 'info');
-      await router.push('/account');
-
-      selections.length = 0;
-    } catch (error) {
-      console.error('Error saving auction:', error);
-      alert('Wystąpił błąd podczas zapisywania przetargu. Proszę spróbować ponownie.');
-    } finally {
-      loading.value = false;
-    }
-  };
-
-  const deleteSelection = (index) => {
-    selections.splice(index, 1);
-  };
-
-  const updateSelection = (index, newValue) => {
-    if (index === selections.length - 1 && selections.length < 5) {
-      // addSelection();
-    }
-  };
-
-  const showQuotes = async (selection) => {
-    const zipCode = localStorage.getItem('zipCode');
-
-    try {
-      loading.value = true;
-      const { data: request } = await shopApi.get(`/auctions/get-quotes-by-styrofoarm-type/${selection.value}?zipCode=${zipCode}`);
-      modalData.value = Object.values(request).sort((a, b) => {
-        return a.price.net_purchase_price_basic_unit - b.price.net_purchase_price_basic_unit;
-      });
-
-    } catch (error) {
-      console.error('Error fetching quotes:', error);
-    } finally {
-      loading.value = false;
-    }
-  };
-
-  const applyCalculatorResults = () => {
-    const calculatedQuantity = Math.ceil(calculatedPackages.value);
-
-    // Find or create a selection with the calculated styrofoam type
-    let selection = selections.find(s => s.value === calculator.styrofoamType);
-    if (!selection) {
-      selection = { value: calculator.styrofoamType, quantity: '', thickness: '' };
-      selections.push(selection);
+    if (auctionData.length === 0) {
+      alert('Musisz dodać ilość styropianu');
+      return;
     }
 
-    // Update the selection with calculated values
-    selection.quantity = calculatedQuantity.toString();
-    selection.thickness = calculator.thickness.toString();
+    const totalQuantity = auctionData.reduce((sum, item) => sum + item.quantity, 0);
+    if (totalQuantity < 66) {
+      alert('Ilość końcowa musi być większa niż 66 paczek');
+      return;
+    }
 
-    showCalculator.value = false;
-  };
+    showUserInfoModal.value = true;
+  } catch (error) {
+    console.error('Error saving auction:', error);
+    alert('Wystąpił błąd. Administrator się z tobą skontaktuje');
+  }
+};
+
+const confirmAuction = async () => {
+  try {
+    loading.value = true;
+    const auctionData = selections.filter(selection => selection.value !== null && selection.quantity !== '').map(selection => ({
+      styrofoamType: selection.value,
+      quantity: selection.quantity,
+      thickness: selection.thickness
+    }));
+    showUserInfoModal.value = false;
+
+    const res = await shopApi.post('/api/auctions/save', { auctionData, userInfo: userInfo.value });
+    const cookies = new Cookies();
+    await cookies.set("token", res.data.access_token);
+
+    window.dispatchEvent(new CustomEvent('token-refreshed'));
+
+    await Swal.fire('Zapytanie zostało stworzone pomyślnie!', 'Po kliknięciu "OK" Przeniesiemy cię do konta z możliwością zarządzania twoimi zapytaniami', 'info');
+    await router.push('/account');
+
+    selections.length = 0;
+  } catch (error) {
+    console.error('Error saving auction:', error);
+    alert('Wystąpił błąd podczas zapisywania przetargu. Proszę spróbować ponownie.');
+  } finally {
+    loading.value = false;
+  }
+};
+
+const deleteSelection = (index) => {
+  selections.splice(index, 1);
+};
+
+const updateSelection = (index, newValue) => {
+  if (index === selections.length - 1 && selections.length < 5) {
+    // addSelection();
+  }
+};
+
+const showQuotes = async (selection) => {
+  const zipCode = localStorage.getItem('zipCode');
+
+  try {
+    loading.value = true;
+    const { data: request } = await shopApi.get(`/auctions/get-quotes-by-styrofoarm-type/${selection.value}?zipCode=${zipCode}`);
+    modalData.value = Object.values(request).sort((a, b) => {
+      return a.price.net_purchase_price_basic_unit - b.price.net_purchase_price_basic_unit;
+    });
+
+  } catch (error) {
+    console.error('Error fetching quotes:', error);
+  } finally {
+    loading.value = false;
+  }
+};
+
+const applyCalculatorResults = () => {
+  const calculatedQuantity = Math.ceil(calculatedPackages.value);
+
+  // Find or create a selection with the calculated styrofoam type
+  let selection = selections.find(s => s.value === calculator.styrofoamType);
+  if (!selection) {
+    selection = { value: calculator.styrofoamType, quantity: '', thickness: '' };
+    selections.push(selection);
+  }
+
+  // Update the selection with calculated values
+  selection.quantity = calculatedQuantity.toString();
+  selection.thickness = calculator.thickness.toString();
+
+  showCalculator.value = false;
+};
 </script>
 
 <style>
