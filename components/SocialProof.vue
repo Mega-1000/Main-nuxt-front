@@ -1,199 +1,188 @@
-  <template>
-    <div class="custom-social-proof" v-show="showNotification">
-      <div class="custom-notification">
-        <div class="custom-notification-container">
-          <div class="custom-notification-image-wrapper">
-            <img src="/favicon.ico" />
+<template>
+  <Transition name="fade">
+    <div class="social-proof" v-show="showNotification">
+      <div class="notification">
+        <div class="notification-content">
+          <div class="notification-image">
+            <img :src="randomImage" alt="User Avatar" />
           </div>
-          <div class="custom-notification-content-wrapper">
-            <p class="custom-notification-content" id="customername">
-              <span>{{ customerName }}</span> z <span>{{ location }}</span>
-              <br />
-              <strong>{{ actionName }}</strong>
-              <small>{{ timePeriod }}</small>
-            </p>
+          <div class="notification-text">
+            <p class="name">{{ customerName }} z {{ location }}</p>
+            <p class="action">{{ actionName }}</p>
+            <p class="time">{{ timePeriod }}</p>
           </div>
         </div>
-        <div class="custom-close" @click="closeNotification"></div>
+        <button class="close-button" @click="closeNotification" aria-label="Close">
+          &times;
+        </button>
       </div>
     </div>
-  </template>
+  </Transition>
+</template>
 
-  <script setup>
-  import { ref, onMounted, onBeforeUnmount } from 'vue';
+<script setup>
+import { ref, onMounted, onBeforeUnmount } from 'vue';
 
-  const showNotification = ref(false);
-  const customerName = ref('');
-  const location = ref('');
-  const actionName = ref('');
-  const timePeriod = ref('');
+const showNotification = ref(false);
+const customerName = ref('');
+const location = ref('');
+const actionName = ref('');
+const timePeriod = ref('');
+const randomImage = ref('');
 
-  const spFrequency = 14500;
-  const spTimeout = 1200;
-  let popBackup = null;
-  let toggleVar = null;
+const spFrequency = 12000; // Reduced frequency for more frequent notifications
+const spTimeout = 8000; // Increased visibility time
+let popBackup = null;
+let toggleVar = null;
 
-  const names = [
-    "Anonimowy", "Anonimowy", "Anonimowy", "Ktoś", "Ktoś", "Marek", "Piotrek", "Walerian", "Saszka2213", "henio", "Marta", "Jeremiasz"
-  ];
-  const towns = [
-    "Wrocław","Poznań","Katowice","Warszawa","Kalisz","Nowa wieś","Gorzów wielkopolski","Zielona góra","Kłodawka","Lublin","Skierniewice","Babimost"
-  ];
+const names = [
+  "Anonimowy", "Ktoś", "Marek", "Piotrek", "Walerian", "Saszka2213", "henio", "Marta", "Jeremiasz",
+  "Anna", "Karolina", "Tomasz", "Michał", "Ewa", "Zofia", "Krzysztof", "Magdalena"
+];
+const towns = [
+  "Wrocław", "Poznań", "Katowice", "Warszawa", "Kalisz", "Nowa Wieś", "Gorzów Wielkopolski",
+  "Zielona Góra", "Kłodawka", "Lublin", "Skierniewice", "Babimost", "Kraków", "Gdańsk", "Szczecin"
+];
 
-  const pastActions = [
-    "Właśnie stworzył przetarg"
-  ];
-  const recentActions = [
-    "Właśnie zamówił 40.23m3 styropianu", "Właśnie zamówił 13m3 styropianu", "Właśnie zamówił 75.5m3 styropianu", "Właśnie zamówił 200m3 styropianu"
-  ];
-  const futureActions = [
-    "Scheduled for this week", "On the schedule", "Scheduled for an interior detail", "Protecting their investment with a ceramic coating", "Having their vehicle polished and sealed", "Getting a full odor removal"
-  ];
+const recentActions = [
+  "właśnie zamówił(a) 40.23m³ styropianu",
+  "właśnie zamówił(a) 13m³ styropianu",
+  "właśnie zamówił(a) 75.5m³ styropianu",
+  "właśnie zamówił(a) 200m³ styropianu",
+  "właśnie zapytał(a) o cenę 50m³ styropianu",
+  "właśnie porównuje oferty na styropian",
+  "właśnie zaoszczędził(a) 15% na zamówieniu styropianu"
+];
 
-  const fn_UpdateSocialProofData = () => {
-    setTimeout(() => {
-      fn_ToggleSocialProof();
-    }, 6000)
-    const selectedName = names[Math.floor(Math.random() * names.length)];
-    const selectedTown = towns[Math.floor(Math.random() * towns.length)];
+const avatars = [
+  "/api/placeholder/50/50?text=👤1",
+  "/api/placeholder/50/50?text=👤2",
+  "/api/placeholder/50/50?text=👤3",
+  "/api/placeholder/50/50?text=👤4",
+  "/api/placeholder/50/50?text=👤5"
+];
 
-    let selectedAction = recentActions[Math.floor(Math.random() * recentActions.length)];
+const updateSocialProofData = () => {
+  const selectedName = names[Math.floor(Math.random() * names.length)];
+  const selectedTown = towns[Math.floor(Math.random() * towns.length)];
+  const selectedAction = recentActions[Math.floor(Math.random() * recentActions.length)];
+  const selectedAvatar = avatars[Math.floor(Math.random() * avatars.length)];
 
-    customerName.value = selectedName;
-    location.value = selectedTown;
-    actionName.value = selectedAction;
-    timePeriod.value = 'Właśnie teraz';
-  };
+  customerName.value = selectedName;
+  location.value = selectedTown;
+  actionName.value = selectedAction;
+  timePeriod.value = 'Właśnie teraz';
+  randomImage.value = selectedAvatar;
 
-  const fn_ToggleSocialProof = () => {
-    showNotification.value = !showNotification.value;
-  };
+  showNotification.value = true;
 
-  const fn_Percentage = (paraPercent) => Math.random() < paraPercent / 100;
-
-
-  const closeNotification = () => {
-    clearTimeout(popBackup);
-    clearTimeout(toggleVar);
+  popBackup = setTimeout(() => {
     showNotification.value = false;
-  };
+  }, spTimeout);
+};
 
-  onMounted(() => {
-    setTimeout(() => {
-      fn_UpdateSocialProofData();
-      showNotification.value = true;
-      toggleVar = setInterval(fn_UpdateSocialProofData, 120500);
-    }, 40000)
-  });
+const closeNotification = () => {
+  clearTimeout(popBackup);
+  showNotification.value = false;
+};
 
-  onBeforeUnmount(() => {
-    clearTimeout(popBackup);
-    clearTimeout(toggleVar);
-  });
-  </script>
+onMounted(() => {
+  setTimeout(() => {
+    updateSocialProofData();
+    toggleVar = setInterval(updateSocialProofData, spFrequency);
+  }, 5000); // Start notifications sooner
+});
 
-  <style scoped>
-  @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600');
+onBeforeUnmount(() => {
+  clearTimeout(popBackup);
+  clearInterval(toggleVar);
+});
+</script>
 
-  .custom-social-proof {
-    position: fixed;
-    bottom: 20px;
-    left: 20px;
-    z-index: 9999999999999 !important;
-    font-family: 'Open Sans', sans-serif;
-  }
+<style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
 
-  .custom-notification {
-    width: 320px;
-    border: 0;
-    text-align: left;
-    z-index: 99999;
-    box-sizing: border-box;
-    font-weight: 400;
-    border-radius: 6px;
-    box-shadow: 2px 2px 10px 2px hsla(0, 4%, 4%, 0.2);
-    background-color: #fff;
-    position: relative;
-    cursor: pointer;
-  }
+.social-proof {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  z-index: 9999;
+  font-family: 'Roboto', sans-serif;
+}
 
-  .custom-notification-container {
-    display: flex !important;
-    align-items: center;
-    height: 80px;
-  }
+.notification {
+  width: 300px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
 
-  .custom-notification-image-wrapper img {
-    max-height: 75px;
-    width: 90px;
-    overflow: hidden;
-    border-radius: 6px 0 0 6px;
-    object-fit: cover;
-  }
+.notification:hover {
+  box-shadow: 0 7px 14px rgba(0, 0, 0, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+}
 
-  .custom-notification-content-wrapper {
-    margin: 0;
-    height: 100%;
-    color: gray;
-    padding-left: 20px;
-    padding-right: 20px;
-    border-radius: 0 6px 6px 0;
-    flex: 1;
-    display: flex !important;
-    flex-direction: column;
-    justify-content: center;
-  }
+.notification-content {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+}
 
-  .custom-notification-content {
-    font-family: inherit !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    font-size: 14px;
-    line-height: 16px;
-  }
+.notification-image img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
 
-  .custom-notification-content small {
-    margin-top: 3px !important;
-    display: block !important;
-    font-size: 12px !important;
-    opacity: .8;
-  }
+.notification-text {
+  margin-left: 12px;
+  flex: 1;
+}
 
-  .custom-close {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    height: 12px;
-    width: 12px;
-    cursor: pointer;
-    transition: .2s ease-in-out;
-    transform: rotate(45deg);
-    opacity: 0;
-  }
+.name {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  margin: 0 0 2px;
+}
 
-  .custom-close::before {
-    content: "";
-    display: block;
-    width: 100%;
-    height: 2px;
-    background-color: gray;
-    position: absolute;
-    left: 0;
-    top: 5px;
-  }
+.action {
+  font-size: 13px;
+  color: #4a4a4a;
+  margin: 0 0 2px;
+}
 
-  .custom-close::after {
-    content: "";
-    display: block;
-    height: 100%;
-    width: 2px;
-    background-color: gray;
-    position: absolute;
-    left: 5px;
-    top: 0;
-  }
+.time {
+  font-size: 12px;
+  color: #888;
+  margin: 0;
+}
 
-  .custom-notification:hover .custom-close {
-    opacity: 1;
-  }
-  </style>
+.close-button {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: #888;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.close-button:hover {
+  color: #333;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.fade-enter-from, .fade-leave-to {
+  opacity: 0;
+  transform: translateY(20px);
+}
+</style>
