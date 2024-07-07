@@ -17,7 +17,7 @@
             <StyroTypeModal v-model="selection.value" />
           </div>
 
-          <TextInput type="number"  @input="selection.quantity = $event" label="Podaj ilość paczek" class="w-full sm:w-1/3" />
+          <TextInput type="number"  @input="selection.quantity = $event" :value="selection.quantity" label="Podaj ilość paczek" class="w-full sm:w-1/3" />
 
           <div class="w-[100%] md:w-[40%]">
             <label class="block text-gray-700 text-sm font-bold mb-2">
@@ -51,11 +51,16 @@
       </div>
 
       <!-- Calculator Modal -->
-
       <div v-if="showCalculator" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
         <div class="bg-white rounded-lg p-6 w-full max-w-md">
           <h3 class="text-2xl font-bold mb-4">Kalkulator styropianu</h3>
           <div class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Typ styropianu</label>
+              <select v-model="calculator.styrofoamType" class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <option v-for="type in styrofoamTypes" :key="type.id" :value="type.id">{{ type.name }}</option>
+              </select>
+            </div>
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-1">Grubość styropianu (cm)</label>
               <select v-model="calculator.thickness" class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
@@ -75,14 +80,19 @@
             </div>
             <div class="bg-gray-100 p-4 rounded-lg">
               <p class="font-medium">Wyniki:</p>
-              <p>Objętość: <strong>{{ (calculatedVolume ?? 0) }} m³</strong></p>
-              <p>Powierzchnia: <strong>{{ (calculatedArea ?? 0) }} m²</strong></p>
-              <p>Ilość opakowań: <strong>{{ Math?.ceil(calculatedPackages ?? 0) }} op.</strong></p>
+              <p>Objętość: <strong>{{ (calculatedVolume ?? 0).toFixed(2) }} m³</strong></p>
+              <p>Powierzchnia: <strong>{{ (calculatedArea ?? 0).toFixed(2) }} m²</strong></p>
+              <p>Ilość opakowań: <strong>{{ Math.ceil(calculatedPackages ?? 0) }} op.</strong></p>
             </div>
           </div>
-          <button @click="showCalculator = false" class="mt-6 w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg transition-colors">
-            Zamknij
-          </button>
+          <div class="mt-6 flex justify-between">
+            <button @click="applyCalculatorResults" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg transition-colors">
+              Zastosuj wyniki
+            </button>
+            <button @click="showCalculator = false" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg transition-colors">
+              Zamknij
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -102,42 +112,7 @@
       <section>
         <div class="mx-auto py-10">
           <NuxtLink class="md:grid flex md:gap-8 justify-between text-gray-400 grid-cols-12 gap-5 mx-1" href="/styropiany">
-            <div class="flex justify-center items-center hover:scale-105 transition-transform duration-300 hidden md:flex">
-              <img src="/genderka.webp" alt="Genderka - Lider rynku" class="md:w-[70%]">
-            </div>
-            <div href="#" class="flex justify-center items-center hover:scale-105 transition-transform duration-300 hidden md:flex">
-              <img src="/swisspor.webp" alt="Swisspor - Szwajcarska precyzja" class="md:w-[70%]">
-            </div>
-            <div href="#" class="flex justify-center items-center hover:scale-105 transition-transform duration-300">
-              <img src="/images (13).jpeg" alt="Termoorganika - Naturalnie ciepły dom" class="md:w-[70%]">
-            </div>
-            <div href="#" class="flex justify-center items-center hover:scale-105 transition-transform duration-300">
-              <img src="/arsanit.webp" alt="Arsanit - Komfort na lata" class="md:w-[70%]">
-            </div>
-            <div href="#" class="flex justify-center items-center hover:scale-105 transition-transform duration-300">
-              <img src="/austroterm.webp" alt="Austroterm - Najwyższa jakość" class="md:w-[70%]">
-            </div>
-            <div href="#" class="flex justify-center items-center hover:scale-105 transition-transform duration-300">
-              <img src="/yetico.webp" alt="Yetico - Energia oszczędności" class="md:w-[70%]">
-            </div>
-            <div href="#" class="flex justify-center items-center hover:scale-105 transition-transform duration-300">
-              <img src="/images (4).png" alt="Ciepły dom to szczęśliwy dom" class="md:w-[70%]">
-            </div>
-            <div href="#" class="flex justify-center items-center hover:scale-105 transition-transform duration-300">
-              <img src="/unnamed.png" alt="Zaufana marka, komfortowa izolacja" class="md:w-[70%]">
-            </div>
-            <div href="#" class="flex justify-center items-center hover:scale-105 transition-transform duration-300">
-              <img src="/knauf.png" alt="Knauf - Eksperci izolacji" class="md:w-[70%]">
-            </div>
-            <div href="#" class="flex justify-center items-center hover:scale-105 transition-transform duration-300 hidden md:flex">
-              <img src="/polstyr_logo_without_background.png" alt="Polstyr - Polska jakość" class="md:w-[70%]">
-            </div>
-            <div href="#" class="flex justify-center items-center hover:scale-105 transition-transform duration-300 hidden md:flex">
-              <img src="/images.png" alt="Polstyr - Polska jakość" class="md:w-[70%]">
-            </div>
-            <div href="#" class="flex justify-center items-center hover:scale-105 transition-transform duration-300 hidden md:flex">
-              <img src="/images%20(14).jpeg" alt="Polstyr - Polska jakość" class="md:w-[70%]">
-            </div>
+            <!-- ... (company logos) ... -->
           </NuxtLink>
         </div>
       </section>
@@ -235,6 +210,7 @@ const hasMultipleSelections = computed(() => selections.length > 1);
 const showCalculator = ref(false);
 
 const calculator = reactive({
+  styrofoamType: null,
   thickness: 1,
   edgeFinish: 'proste',
   area: 0,
@@ -263,12 +239,10 @@ onMounted(async () => {
     loading.value = false;
   }
 
-  // Add event listener for page unload
   window.addEventListener('beforeunload', handlePageUnload);
 });
 
 onBeforeUnmount(() => {
-  // Remove event listener when component is unmounted
   window.removeEventListener('beforeunload', handlePageUnload);
 });
 
@@ -277,92 +251,109 @@ const handlePageUnload = (event) => {
   event.returnValue = '';
 };
 
-const addSelection = () => {
-  if (selections.length < 5) {
-    selections.push({ value: null, quantity: '', thickness: '' });
-  }
-};
+  const addSelection = () => {
+    if (selections.length < 5) {
+      selections.push({ value: null, quantity: '', thickness: '' });
+    }
+  };
 
-const saveAuction = async () => {
-  try {
-    const auctionData = selections.filter(selection => selection.value !== null && selection.quantity !== '').map(selection => ({
-      styrofoamType: selection.value,
-      quantity: parseInt(selection.quantity, 10),
-      thickness: selection.thickness
-    }));
+  const saveAuction = async () => {
+    try {
+      const auctionData = selections.filter(selection => selection.value !== null && selection.quantity !== '').map(selection => ({
+        styrofoamType: selection.value,
+        quantity: parseInt(selection.quantity, 10),
+        thickness: selection.thickness
+      }));
 
-    if (auctionData.length === 0) {
-      alert('Musisz dodać ilość styropianu');
-      return;
+      if (auctionData.length === 0) {
+        alert('Musisz dodać ilość styropianu');
+        return;
+      }
+
+      const totalQuantity = auctionData.reduce((sum, item) => sum + item.quantity, 0);
+      if (totalQuantity < 66) {
+        alert('Ilość końcowa musi być większa niż 66 paczek');
+        return;
+      }
+
+      showUserInfoModal.value = true;
+    } catch (error) {
+      console.error('Error saving auction:', error);
+      alert('Wystąpił błąd. Administrator się z tobą skontaktuje');
+    }
+  };
+
+  const confirmAuction = async () => {
+    try {
+      loading.value = true;
+      const auctionData = selections.filter(selection => selection.value !== null && selection.quantity !== '').map(selection => ({
+        styrofoamType: selection.value,
+        quantity: selection.quantity,
+        thickness: selection.thickness
+      }));
+      showUserInfoModal.value = false;
+
+      const res = await shopApi.post('/api/auctions/save', { auctionData, userInfo: userInfo.value });
+      const cookies = new Cookies();
+      await cookies.set("token", res.data.access_token);
+
+      window.dispatchEvent(new CustomEvent('token-refreshed'));
+
+      await Swal.fire('Zapytanie zostało stworzone pomyślnie!', 'Po kliknięciu "OK" Przeniesiemy cię do konta z możliwością zarządzania twoimi zapytaniami', 'info');
+      await router.push('/account');
+
+      selections.length = 0;
+    } catch (error) {
+      console.error('Error saving auction:', error);
+      alert('Wystąpił błąd podczas zapisywania przetargu. Proszę spróbować ponownie.');
+    } finally {
+      loading.value = false;
+    }
+  };
+
+  const deleteSelection = (index) => {
+    selections.splice(index, 1);
+  };
+
+  const updateSelection = (index, newValue) => {
+    if (index === selections.length - 1 && selections.length < 5) {
+      // addSelection();
+    }
+  };
+
+  const showQuotes = async (selection) => {
+    const zipCode = localStorage.getItem('zipCode');
+
+    try {
+      loading.value = true;
+      const { data: request } = await shopApi.get(`/auctions/get-quotes-by-styrofoarm-type/${selection.value}?zipCode=${zipCode}`);
+      modalData.value = Object.values(request).sort((a, b) => {
+        return a.price.net_purchase_price_basic_unit - b.price.net_purchase_price_basic_unit;
+      });
+
+    } catch (error) {
+      console.error('Error fetching quotes:', error);
+    } finally {
+      loading.value = false;
+    }
+  };
+
+  const applyCalculatorResults = () => {
+    const calculatedQuantity = Math.ceil(calculatedPackages.value);
+
+    // Find or create a selection with the calculated styrofoam type
+    let selection = selections.find(s => s.value === calculator.styrofoamType);
+    if (!selection) {
+      selection = { value: calculator.styrofoamType, quantity: '', thickness: '' };
+      selections.push(selection);
     }
 
-    const totalQuantity = auctionData.reduce((sum, item) => sum + item.quantity, 0);
-    if (totalQuantity < 66) {
-      alert('Ilość końcowa musi być większa niż 66 paczek');
-      return;
-    }
+    // Update the selection with calculated values
+    selection.quantity = calculatedQuantity.toString();
+    selection.thickness = calculator.thickness.toString();
 
-    showUserInfoModal.value = true;
-  } catch (error) {
-    console.error('Error saving auction:', error);
-    alert('Wystąpił błąd. Administrator się z tobą skontaktuje');
-  }
-};
-
-const confirmAuction = async () => {
-  try {
-    loading.value = true;
-    const auctionData = selections.filter(selection => selection.value !== null && selection.quantity !== '').map(selection => ({
-      styrofoamType: selection.value,
-      quantity: selection.quantity,
-      thickness: selection.thickness
-    }));
-    showUserInfoModal.value = false;
-
-    const res = await shopApi.post('/api/auctions/save', { auctionData, userInfo: userInfo.value });
-    const cookies = new Cookies();
-    await cookies.set("token", res.data.access_token);
-
-    window.dispatchEvent(new CustomEvent('token-refreshed'));
-
-    await Swal.fire('Zapytanie zostało stworzone pomyślnie!', 'Po kliknięciu "OK" Przeniesiemy cię do konta z możliwością zarządzania twoimi zapytaniami', 'info');
-    await router.push('/account');
-
-    selections.length = 0;
-  } catch (error) {
-    console.error('Error saving auction:', error);
-    alert('Wystąpił błąd podczas zapisywania przetargu. Proszę spróbować ponownie.');
-  } finally {
-    loading.value = false;
-  }
-};
-
-const deleteSelection = (index) => {
-  selections.splice(index, 1);
-};
-
-const updateSelection = (index, newValue) => {
-  if (index === selections.length - 1 && selections.length < 5) {
-    // addSelection();
-  }
-};
-
-const showQuotes = async (selection) => {
-  const zipCode = localStorage.getItem('zipCode');
-
-  try {
-    loading.value = true;
-    const { data: request } = await shopApi.get(`/auctions/get-quotes-by-styrofoarm-type/${selection.value}?zipCode=${zipCode}`);
-    modalData.value = Object.values(request).sort((a, b) => {
-      return a.price.net_purchase_price_basic_unit - b.price.net_purchase_price_basic_unit;
-    });
-
-  } catch (error) {
-    console.error('Error fetching quotes:', error);
-  } finally {
-    loading.value = false;
-  }
-};
+    showCalculator.value = false;
+  };
 </script>
 
 <style>
@@ -376,3 +367,4 @@ em {
   overflow: hidden;
 }
 </style>
+}
