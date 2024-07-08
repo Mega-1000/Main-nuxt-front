@@ -4,7 +4,7 @@
       <div class="notification">
         <div class="notification-content">
           <div class="notification-image">
-            <img src="favicon.ico" alt="User Avatar" />
+            <img src="/favicon.ico" alt="User Avatar" />
           </div>
           <div class="notification-text">
             <p class="name">{{ customerName }} z {{ location }}</p>
