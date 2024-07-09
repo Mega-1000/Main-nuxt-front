@@ -27,7 +27,7 @@ const messages = ref([])
 const userInput = ref('')
 const messagesContainer = ref(null)
 
-const ANTHROPIC_API_KEY = 'your-api-key-here' // Replace with your actual API key
+const ANTHROPIC_API_KEY = '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' // Replace with your actual API key
 
 const systemInstructions = `
 You are an AI assistant with the ability to search for products. When a user asks about finding or buying a product, you should use the following format to initiate a product search:
