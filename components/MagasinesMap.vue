@@ -1,8 +1,8 @@
 <template>
   <div ref="mapContainer" class="map-container mt-10 md:w-2/3 md:mx-auto">
-<!--    <div ref="overlay" class="overlay">-->
-<!--      Użyj dwóch palców aby wykonać interakcję z mapą-->
-<!--    </div>-->
+    <!--    <div ref="overlay" class="overlay">-->
+    <!--      Użyj dwóch palców aby wykonać interakcję z mapą-->
+    <!--    </div>-->
   </div>
 </template>
 
@@ -14,8 +14,27 @@ import axios from 'axios'
 
 const mapContainer = ref(null)
 // const overlay = ref(null)
+const userCoordinates = ref(null)
+
+async function getCoordinatesFromZipcode(zipcode) {
+  try {
+    const response = await axios.get(`https://nominatim.openstreetmap.org/search?postalcode=${zipcode}&country=Poland&format=json`)
+    if (response.data && response.data.length > 0) {
+      return {
+        lat: parseFloat(response.data[0].lat),
+        lng: parseFloat(response.data[0].lon)
+      }
+    }
+  } catch (error) {
+    console.error('Failed to get coordinates from zipcode:', error)
+  }
+  return null
+}
 
 onMounted(async () => {
+  const userZipcode = localStorage.getItem('zipCode');
+  userCoordinates.value = await getCoordinatesFromZipcode(userZipcode);
+
   const map = L.map(mapContainer.value, {
     zoomControl: false,
     scrollWheelZoom: false,
@@ -46,8 +65,25 @@ onMounted(async () => {
         console.error('Failed to load warehouse data:', error)
       }
     })
+
+    // Add user location marker if coordinates are available
+    if (userCoordinates.value) {
+      const userMarker = L.marker([userCoordinates.value.lat, userCoordinates.value.lng], {
+        icon: L.divIcon({
+          className: 'user-location-marker',
+          html: '<div style="background-color: orange; width: 10px; height: 10px; border-radius: 50%;"></div>'
+        })
+      }).addTo(map)
+      userMarker.bindTooltip("Wpisany przez ciebie kod pocztowy", {
+        permanent: true,
+        direction: 'top'
+      }).openTooltip()
+
+      // Center the map on user location
+      map.setView([userCoordinates.value.lat, userCoordinates.value.lng], 8)
+    }
   } catch (error) {
-    console.error('Failed to load warehouse data:', error)
+    console.error('Failed to load data:', error)
   }
 
   // Add event listeners to control map interactions based on touch points
@@ -99,5 +135,10 @@ onMounted(async () => {
   font-weight: bold;
   z-index: 1000;
   pointer-events: none;
+}
+
+.user-location-marker {
+  background-color: orange;
+  border-radius: 50%;
 }
 </style>

@@ -122,7 +122,7 @@ onMounted(() => {
   setTimeout(() => {
     updateSocialProofData();
     scheduleNextNotification();
-  }, 5000); // Start first notification after 5 seconds
+  }, 30000); // Start first notification after 5 seconds
 });
 
 onBeforeUnmount(() => {
@@ -147,7 +147,7 @@ onBeforeUnmount(() => {
   background-color: #ffffff;
   border-radius: 12px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
-  overflow: hidden;
+  oflow: hidden;
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
