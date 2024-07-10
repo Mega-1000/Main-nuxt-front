@@ -36,11 +36,6 @@ onMounted(async () => {
   userCoordinates.value = await getCoordinatesFromZipcode(userZipcode);
 
   const map = L.map(mapContainer.value, {
-    zoomControl: false,
-    scrollWheelZoom: false,
-    doubleClickZoom: false,
-    dragging: false,
-    touchZoom: false
   }).setView([52.1, 19.4], 6)
 
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -85,33 +80,7 @@ onMounted(async () => {
   } catch (error) {
     console.error('Failed to load data:', error)
   }
-
-  // Add event listeners to control map interactions based on touch points
-  mapContainer.value.addEventListener('touchstart', (e) => {
-    if (e.touches.length === 2) {
-      map.touchZoom.enable()
-      map.dragging.enable()
-      // overlay.value.style.display = 'none'
-    }
-  })
-
-  mapContainer.value.addEventListener('touchend', (e) => {
-    if (e.touches.length < 2) {
-      map.touchZoom.disable()
-      map.dragging.disable()
-      // overlay.value.style.display = 'flex'
-    }
-  })
-
-  // Disable interactions if fewer than two touches are detected
-  mapContainer.value.addEventListener('touchmove', (e) => {
-    if (e.touches.length < 2) {
-      map.touchZoom.disable()
-      map.dragging.disable()
-      // overlay.value.style.display = 'flex'
-    }
-  })
-})
+});
 </script>
 
 <style scoped>
