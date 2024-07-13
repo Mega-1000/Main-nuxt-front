@@ -84,7 +84,7 @@ export default {
     }
   },
   methods: {
-    hadleSelect(type) {
+    handleSelect(type) {
       this.selected = type;
       this.$emit('update:modelValue', type);
       this.isOpen = false;
