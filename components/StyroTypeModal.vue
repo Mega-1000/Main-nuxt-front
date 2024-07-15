@@ -3,7 +3,7 @@
     Wybierz rodzaj styropianu
     <button
         @click="isOpen = true"
-        class="w-full px-6 py-3 text-left bg-white border rounded-lg shadow-md hover:shadow-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        class="px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
     >
       <span v-if="selected" class="font-medium text-gray-800">{{ selected }}</span>
       <span v-else class="text-gray-500">Wybierz rodzaj styropianu</span>
