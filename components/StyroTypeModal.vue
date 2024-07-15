@@ -1,5 +1,6 @@
 <template>
   <div>
+    Wybierz rodzaj styropianu
     <button
         @click="isOpen = true"
         class="w-full px-6 py-3 text-left bg-white border rounded-lg shadow-md hover:shadow-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -47,6 +48,7 @@
                       :key="type"
                       class="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer transform hover:-translate-y-1"
                       :class="{ 'ring-2 ring-green-500': selected === type }"
+                      style="margin-left: 2px"
                       @click="handleSelect(type)"
                   >
                     <h4 class="text-lg font-semibold mb-2 text-gray-800">{{ type }}</h4>
