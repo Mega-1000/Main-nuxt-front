@@ -126,6 +126,13 @@ const products = [
     url_for_website: '/storage/products/neotherm_fasada_033_1.jpg',
     purchases: 3
   },
+  {
+    id: 109074,
+    name: 'Izoterm fasada 045',
+    gross_selling_price_calculated_unit: 156.25,
+    url_for_website: '/izoterm_fasada_045_1.jpg',
+    purchases: 3
+  },
 ]
 
 const playVideo  = () => {
@@ -138,92 +145,127 @@ const playVideo  = () => {
   <div>
     <AskUserForZipCodeStyrofoarms v-if="showZipCodeModal" />
     <main>
-      <!-- Hero Section -->
-      <section class="hero py-8 md:py-8 px-4 bg-gradient-to-r from-emerald-600 to-emerald-800 text-white relative overflow-hidden">
-        <div class="container mx-auto text-center relative z-10">
-          <h1 class="text-4xl md:text-6xl font-extrabold mb-6 mt-4 animate-fade-in-up didact-gothic-regular">
-            Przez ostatnie 12 miesięcy <pm>2968</pm> użytkowników stworzyło <em class="p-0">przetarg</em> i oszczędziło na styropianie!
-          </h1>
-          <p class="text-xl md:text-2xl mb-8 animate-fade-in-up animation-delay-300">
-            Dołącz do zadowolonych klientów i skorzystaj z <em>DARMOWEJ DOSTAWY</em> na wszystkie zamówienia!
-          </p>
-          <NuxtLink
-              href="/przetargi-styropianow"
-              class="create-auction-btn block w-fit mx-auto my-6 bg-white text-emerald-800 font-bold py-4 px-8 rounded-full transition-all duration-300 hover:bg-yellow-300 hover:text-emerald-800 hover:scale-105 shadow-lg hover:shadow-xl animate-pulse"
-          >
-            <div class="flex gap-3">
-              <div>
-                Stwórz przetarg teraz! - niczego nie zobowiązuje!
-              </div>
-            </div>
-          </NuxtLink>
-          <p class="text-sm md:text-base mt-4 text-emerald-200 animate-fade-in-up animation-delay-600">
-            Już ponad 5000 klientów zaoszczędziło dzięki naszym przetargom!
-          </p>
+      <section class="relative py-20 overflow-hidden bg-gradient-to-br from-emerald-600 to-emerald-900">
+        <div class="absolute inset-0">
+          <svg class="absolute bottom-0 left-0" viewBox="0 0 1440 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-opacity="0.1" fill="#fff" d="M0,192L48,197.3C96,203,192,213,288,229.3C384,245,480,267,576,250.7C672,235,768,181,864,181.3C960,181,1056,235,1152,234.7C1248,235,1344,181,1392,154.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+          </svg>
         </div>
-        <OpinionStars class="animate-fade-in-up animation-delay-900 mt-4" />
-        <div class="absolute inset-0 bg-emerald-700 opacity-20 animate-wave"></div>
+
+        <div class="container mx-auto px-4 relative z-10">
+          <div class="text-center">
+            <h1 class="text-4xl md:text-6xl font-extrabold text-white mb-6 animate-fade-in-down didact-gothic-regular">
+              Przez ostatnie 12 miesięcy <span class="text-yellow-300"><pm>2968</pm></span> użytkowników stworzyło <em class="not-italic bg-emerald-700 px-2 py-1 rounded">przetarg</em> i oszczędziło na styropianie!
+            </h1>
+            <p class="text-xl md:text-2xl text-emerald-100 mb-10 animate-fade-in-up animation-delay-300">
+              Dołącz do zadowolonych klientów i skorzystaj z <em class="not-italic font-bold underline decoration-yellow-300 decoration-2 underline-offset-2">DARMOWEJ DOSTAWY</em> na wszystkie zamówienia!
+            </p>
+            <NuxtLink
+                href="/przetargi-styropianow"
+                class="inline-block bg-white text-emerald-800 font-bold py-4 px-8 rounded-full transition-all duration-300 hover:bg-yellow-300 hover:text-emerald-900 transform hover:scale-105 shadow-lg hover:shadow-xl animate-pulse"
+            >
+        <span class="flex items-center gap-2">
+          Stwórz przetarg teraz!
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </span>
+            </NuxtLink>
+            <p class="text-sm md:text-base mt-6 text-emerald-200 animate-fade-in-up animation-delay-600">
+              Już ponad 5000 klientów zaoszczędziło dzięki naszym przetargom!
+            </p>
+          </div>
+          <OpinionStars class="animate-fade-in-up animation-delay-900 mt-8" />
+        </div>
       </section>
 
       <!-- Contact Card Section -->
-      <section class="my-3 bg-gray-100 py-8 animate-fade-in-up">
-        <div class="w-[100%] md:w-[70%] mx-auto">
-          <div class="contact-card bg-white rounded-lg shadow-lg p-4 md:p-8 hover:shadow-xl transition-shadow duration-300">
-            <h3 class="text-xl md:text-2xl font-bold mb-2 md:mb-4"><em> Skorzystaj z pomocy specjalisty </em></h3>
-            <p class="text-gray-600">Telefon: <span class="font-bold"><pm>+48 576 205 389</pm></span></p>
-            <p class="text-gray-600">Godziny pracy: <span class="font-bold">6:30 - 22:00</span></p>
-            <p class="text-emerald-600 font-semibold mt-4">Już ponad 5000 klientów skorzystało z naszego doradztwa!</p>
+      <section class="py-16 bg-gray-100 animate-fade-in-up">
+        <div class="container mx-auto px-4">
+          <div class="max-w-3xl mx-auto bg-white rounded-2xl shadow-2xl overflow-hidden">
+            <div class="md:flex">
+              <div class="md:flex-shrink-0">
+                <img class="h-48 w-full object-cover md:w-48" src="/path/to/contact-image.jpg" alt="Contact specialist">
+              </div>
+              <div class="p-8">
+                <h3 class="text-2xl font-bold text-gray-800 mb-4">
+                  <em class="not-italic text-emerald-600">Skorzystaj z pomocy specjalisty</em>
+                </h3>
+                <div class="flex items-center mb-4">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-emerald-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                  </svg>
+                  <span class="text-gray-600">Telefon: <span class="font-bold text-gray-800"><pm>+48 576 205 389</pm></span></span>
+                </div>
+                <div class="flex items-center mb-6">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-emerald-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span class="text-gray-600">Godziny pracy: <span class="font-bold text-gray-800">6:30 - 22:00</span></span>
+                </div>
+                <p class="text-emerald-600 font-semibold">
+                  Już ponad <span class="text-2xl font-bold">5000</span> klientów skorzystało z naszego doradztwa!
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
       <!-- Popular Products Section -->
-      <div class="mx-auto w-full md:w-[70%] my-8 animate-fade-in-up">
-        <div class="font-extrabold text-xl md:text-2xl my-4 md:my-8">
-          Najpopularniejsze produkty w <em> najlepszych </em> cenach 🔥
-        </div>
-        <div class="flex overflow-auto scrolling-wrapper md:justify-between mt-4" ref="productCarousel">
-          <nuxt-link
-              v-for="product in products"
-              :key="product.id"
-              :href="`/singleProduct/${product.id}`"
-              class="flex-shrink-0 bg-white shadow-md rounded-lg overflow-hidden mb-4 md:mb-0 w-fit md:w-auto mx-2 hover:shadow-xl transition-shadow duration-300"
-          >
-            <img
-                :src="`https://admin.mega1000.pl${product.url_for_website}`"
-                :alt="product.name"
-                class="h-48 object-cover"
-            />
-            <div class="px-4 py-3">
-              <h3 class="text-lg font-semibold text-gray-900">{{ product.name }}</h3>
-              <p class="text-red-500 font-extrabold text-xl md:text-2xl" style="text-shadow: -0.5px 0 black, 0 1px black, 1px 0 black, 0 -0.5px black;">
-                {{ product.gross_selling_price_calculated_unit }}PLN/M3
-              </p>
-              <span class="font-extrabold">
-                {{ product.purchases }} zamówień dzisiaj!
-              </span>
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 animate-fade-in-up">
+        <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-8">
+          Najpopularniejsze produkty w <span class="text-emerald-600">najlepszych</span> cenach 🔥
+        </h2>
+
+        <div class="relative">
+          <div class="flex overflow-x-auto snap-x snap-mandatory scrollbar-hide space-x-6 pb-6" ref="productCarousel">
+            <div v-for="product in products" :key="product.id" class="snap-start flex-shrink-0 w-64 md:w-72">
+              <a :href="`/singleProduct/${product.id}`" class="block bg-white rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300">
+                <div class="relative">
+                  <img :src="`https://admin.mega1000.pl${product.url_for_website}`" :alt="product.name" class="w-full h-48 object-cover rounded-t-xl" />
+                  <div class="absolute top-0 right-0 bg-red-500 text-white text-sm font-bold px-3 py-1 m-2 rounded-full">
+                    HOT
+                  </div>
+                </div>
+                <div class="p-4">
+                  <h3 class="text-lg font-semibold text-gray-900 mb-2 line-clamp-2">{{ product.name }}</h3>
+                  <p class="text-emerald-600 font-extrabold text-2xl mb-2">
+                    {{ product.gross_selling_price_calculated_unit }} PLN/M<sup>3</sup>
+                  </p>
+                  <div class="flex items-center justify-between">
+                    <span class="text-sm font-medium text-gray-500">{{ product.purchases }} zamówień dzisiaj!</span>
+                    <svg class="w-6 h-6 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                  </div>
+                </div>
+              </a>
             </div>
-          </nuxt-link>
+          </div>
+          <div class="absolute top-1/2 -left-4 -translate-y-1/2">
+            <button class="bg-white rounded-full p-2 shadow-md hover:bg-gray-100" @click="scrollCarousel('left')">
+              <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+            </button>
+          </div>
+          <div class="absolute top-1/2 -right-4 -translate-y-1/2">
+            <button class="bg-white rounded-full p-2 shadow-md hover:bg-gray-100" @click="scrollCarousel('right')">
+              <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+            </button>
+          </div>
         </div>
 
-        <a class="text-center mt-8 text-lg md:text-xl w-fit mx-auto flex gap-2 align-center animate-bounce" href="#price-table">
-          <div>
+        <div class="mt-12 text-center">
+          <a href="#price-table" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-emerald-600 hover:bg-emerald-700 transition-colors duration-300">
             Zobacz tabelę cen
-          </div>
-          <div>
-            <svg xmlns="http://www.w3.org/2000/svg" style="font-weight: bolder; float: right" width="20" height="20" md:width="26" md:height="26" fill="currentColor" class="bi bi-arrow-down" viewBox="0 0 16 16">
-              <path fill-rule="evenodd" d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1"/>
-            </svg>
-          </div>
-        </a>
+            <svg class="ml-2 -mr-1 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          </a>
+        </div>
       </div>
-
 
       <div class="hero py-2 px-2 md:py-4 md:px-4 bg-gradient-to-r from-emerald-600 to-emerald-800 text-white">
         <!-- Kupuj z płatnością przy odbiorze! Bez rytzyka -->
         <div class="container mx-auto text-center relative z-10">
           <h1 class="text-4xl md:text-6xl font-extrabold mb-6 mt-4 animate-fade-in-up didact-gothic-regular">
-             Płatność przy odbiorze! Bez ryzyka!
+            Płatność przy odbiorze! Bez ryzyka!
           </h1>
           <p class="text-xl md text-2xl mb-8 animate-fade-in-up animation-delay-300">
             Zamówienia realizowane są również z opcją płatności przy odbiorze, lub bezpośrednio od fabryki <br> Nie musisz obawiać się o swoje pieniądze!
@@ -412,6 +454,9 @@ const playVideo  = () => {
 
 
 <style scoped>
+* {
+  scroll-behavior: smooth;
+}
 /* ... (poprzednie style) */
 
 .animate-fade-in-up {
