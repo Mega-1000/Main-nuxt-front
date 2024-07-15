@@ -4,11 +4,11 @@
       <h2 class="text-xl md:text-2xl font-bold mb-4">Masz jakieś pytania? Jesteśmy do twojej dyspozycji! <em> 576 205 389 </em></h2>
 
       <span class="text-xl md:text-lg font-bold mb-4">
-        nie wiesz ile paczek potrzebujesz wylicz je
+        Nie wiesz ile paczek potrzebujesz zkożystaj z naszego
       </span>
 
       <button @click="showCalculator = true" class="mb-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-        Kalkulator ilości
+        Kalkulatora styropianu
       </button>
 
       <div ref="parent" class="space-y-4">
