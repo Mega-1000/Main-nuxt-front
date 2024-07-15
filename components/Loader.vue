@@ -51,22 +51,23 @@ onUnmounted(() => {
 
 <style scoped>
 .loader-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 400px;
-  width: 100%;
   background: linear-gradient(135deg, #f0fff4 0%, #e6fffa 100%);
   font-family: 'Arial', sans-serif;
-  border-radius: 1rem;
-  padding: 2rem;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  z-index: 9999;
 }
 
 .loader {
-  width: 100px;
-  height: 100px;
+  width: 150px;
+  height: 150px;
   position: relative;
   perspective: 1000px;
   margin-bottom: 2rem;
@@ -82,8 +83,8 @@ onUnmounted(() => {
 
 .face {
   position: absolute;
-  width: 100px;
-  height: 100px;
+  width: 150px;
+  height: 150px;
   background: rgba(255, 255, 255, 0.9);
   border: 2px solid #10b981;
   box-shadow: 0 0 10px rgba(16, 185, 129, 0.2);
@@ -102,12 +103,12 @@ onUnmounted(() => {
   transform: rotate(45deg);
 }
 
-.front  { transform: rotateY(0deg) translateZ(50px); }
-.back   { transform: rotateY(180deg) translateZ(50px); }
-.right  { transform: rotateY(90deg) translateZ(50px); }
-.left   { transform: rotateY(-90deg) translateZ(50px); }
-.top    { transform: rotateX(90deg) translateZ(50px); }
-.bottom { transform: rotateX(-90deg) translateZ(50px); }
+.front  { transform: rotateY(0deg) translateZ(75px); }
+.back   { transform: rotateY(180deg) translateZ(75px); }
+.right  { transform: rotateY(90deg) translateZ(75px); }
+.left   { transform: rotateY(-90deg) translateZ(75px); }
+.top    { transform: rotateX(90deg) translateZ(75px); }
+.bottom { transform: rotateX(-90deg) translateZ(75px); }
 
 @keyframes rotate {
   0%, 100% { transform: rotate3d(1, 1, 1, 0deg); }
@@ -122,21 +123,21 @@ onUnmounted(() => {
 }
 
 .title {
-  font-size: 2rem;
+  font-size: 3rem;
   color: #047857;
   margin-bottom: 0.5rem;
   text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
 }
 
 .subtitle {
-  font-size: 1rem;
+  font-size: 1.5rem;
   color: #065f46;
   margin-bottom: 1rem;
 }
 
 .fact {
   font-style: italic;
-  font-size: 1rem;
+  font-size: 1.25rem;
   color: #059669;
   background: rgba(255, 255, 255, 0.8);
   padding: 1rem;
