@@ -260,9 +260,9 @@ const playVideo  = () => {
             <span>Stwórz przetarg - do niczego nie zobowiązuje!</span>
           </span>
             </NuxtLink>
-            <div v-if="isLoading" class="flex justify-center items-center h-40 mt-20">
-              <Loader :show-loader="isLoading" />
-            </div>
+<!--            <div v-if="isLoading" class="flex justify-center items-center h-40 mt-20">-->
+<!--              <Loader :show-loader="isLoading" />-->
+<!--            </div>-->
             <iframe
                 ref="priceTable"
                 title="Tabelka cen styropianów"
