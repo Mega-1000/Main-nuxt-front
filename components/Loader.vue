@@ -1,7 +1,7 @@
 <template>
   <div v-if="showLoader" class="loader-container">
     <div class="loader">
-      <div class="styrofoam-pack">
+      <div class="styrofoam-cube">
         <div v-for="face in ['front', 'back', 'right', 'left', 'top', 'bottom']" :key="face" :class="['face', face]">
           <div class="inner-face"></div>
         </div>
@@ -55,35 +55,38 @@ onUnmounted(() => {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
-  width: 100vw;
-  background: linear-gradient(135deg, #f6f8f9 0%, #e5ebee 100%);
+  min-height: 400px;
+  width: 100%;
+  background: linear-gradient(135deg, #f0fff4 0%, #e6fffa 100%);
   font-family: 'Arial', sans-serif;
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
 
 .loader {
-  width: 200px;
-  height: 200px;
+  width: 100px;
+  height: 100px;
   position: relative;
   perspective: 1000px;
-  margin-bottom: 40px;
+  margin-bottom: 2rem;
 }
 
-.styrofoam-pack {
+.styrofoam-cube {
   width: 100%;
   height: 100%;
   position: relative;
   transform-style: preserve-3d;
-  animation: rotate 12s linear infinite;
+  animation: rotate 8s ease-in-out infinite;
 }
 
 .face {
   position: absolute;
-  width: 200px;
-  height: 200px;
-  background: rgba(255, 255, 255, 0.8);
-  border: 2px solid #e0e0e0;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  width: 100px;
+  height: 100px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 2px solid #10b981;
+  box-shadow: 0 0 10px rgba(16, 185, 129, 0.2);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -93,22 +96,24 @@ onUnmounted(() => {
 .inner-face {
   width: 80%;
   height: 80%;
-  background: linear-gradient(45deg, #f0f0f0, #ffffff);
+  background: linear-gradient(45deg, #ecfdf5, #ffffff);
   border-radius: 10px;
-  box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.1);
+  box-shadow: inset 0 0 15px rgba(16, 185, 129, 0.2);
   transform: rotate(45deg);
 }
 
-.front  { transform: rotateY(0deg) translateZ(100px); }
-.back   { transform: rotateY(180deg) translateZ(100px); }
-.right  { transform: rotateY(90deg) translateZ(100px); }
-.left   { transform: rotateY(-90deg) translateZ(100px); }
-.top    { transform: rotateX(90deg) translateZ(100px); }
-.bottom { transform: rotateX(-90deg) translateZ(100px); }
+.front  { transform: rotateY(0deg) translateZ(50px); }
+.back   { transform: rotateY(180deg) translateZ(50px); }
+.right  { transform: rotateY(90deg) translateZ(50px); }
+.left   { transform: rotateY(-90deg) translateZ(50px); }
+.top    { transform: rotateX(90deg) translateZ(50px); }
+.bottom { transform: rotateX(-90deg) translateZ(50px); }
 
 @keyframes rotate {
-  0% { transform: rotateX(0deg) rotateY(0deg); }
-  100% { transform: rotateX(360deg) rotateY(360deg); }
+  0%, 100% { transform: rotate3d(1, 1, 1, 0deg); }
+  25% { transform: rotate3d(1, 1, 1, 90deg); }
+  50% { transform: rotate3d(1, 1, 1, 180deg); }
+  75% { transform: rotate3d(1, 1, 1, 270deg); }
 }
 
 .loader-text {
@@ -117,32 +122,32 @@ onUnmounted(() => {
 }
 
 .title {
-  font-size: 2.5em;
-  color: #2c3e50;
-  margin-bottom: 10px;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+  font-size: 2rem;
+  color: #047857;
+  margin-bottom: 0.5rem;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
 }
 
 .subtitle {
-  font-size: 1.2em;
-  color: #34495e;
-  margin-bottom: 20px;
+  font-size: 1rem;
+  color: #065f46;
+  margin-bottom: 1rem;
 }
 
 .fact {
   font-style: italic;
-  font-size: 1.1em;
-  color: #3498db;
+  font-size: 1rem;
+  color: #059669;
   background: rgba(255, 255, 255, 0.8);
-  padding: 15px;
-  border-radius: 10px;
+  padding: 1rem;
+  border-radius: 0.5rem;
   box-shadow: 0 4px 6px rgba(0,0,0,0.1);
   transition: all 0.5s ease;
   animation: fadeInOut 5s ease-in-out infinite;
 }
 
 @keyframes fadeInOut {
-  0%, 100% { opacity: 0; transform: translateY(20px); }
+  0%, 100% { opacity: 0; transform: translateY(10px); }
   50% { opacity: 1; transform: translateY(0); }
 }
 </style>
