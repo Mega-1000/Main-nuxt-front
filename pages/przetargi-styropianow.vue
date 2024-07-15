@@ -192,20 +192,75 @@
       </div>
     </div>
 
-    <div class="modal-backdrop" v-if="showUserInfoModal">
-      <div class="modal-content">
-        <div class="p-4">
-          <h2 class="text-xl font-bold mb-4">Powiedz nam trochę o sobie...</h2>
-          <TextInput @input="userInfo.email = $event" label="Email" class="mb-4" />
-          <TextInput @input="userInfo.phone = $event" label="Numer telefonu" class="mb-4" />
-          <TextInput @input="userInfo.zipCode = $event" :value="defaultZipCode" label="Kod pocztowy" class="mb-4" />
-          <SubmitButton @click="confirmAuction" :disabled="loading" class="bg-green-500 text-white">
-            <span v-if="!loading">Zatwierdź</span>
-            <span v-else>Ładowanie...</span>
-          </SubmitButton>
+    <Transition
+        enter-active-class="transition ease-out duration-300"
+        enter-from-class="opacity-0 scale-95"
+        enter-to-class="opacity-100 scale-100"
+        leave-active-class="transition ease-in duration-200"
+        leave-from-class="opacity-100 scale-100"
+        leave-to-class="opacity-0 scale-95"
+    >
+      <div v-if="showUserInfoModal" class="fixed inset-0 z-50 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+          <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+          <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+          <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+            <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+              <div class="sm:flex sm:items-start">
+                <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
+                  <h3 class="text-2xl leading-6 font-bold text-gray-900 mb-6" id="modal-title">
+                    Powiedz nam trochę o sobie...
+                  </h3>
+                  <div class="mt-4 space-y-6">
+                    <TextInput
+                        @input="userInfo.email = $event"
+                        label="Email"
+                        placeholder="jan.kowalski@example.com"
+                        type="email"
+                    />
+                    <TextInput
+                        @input="userInfo.phone = $event"
+                        label="Numer telefonu"
+                        placeholder="123 456 789"
+                        type="tel"
+                    />
+                    <TextInput
+                        @input="userInfo.zipCode = $event"
+                        :value="defaultZipCode"
+                        label="Kod pocztowy"
+                        placeholder="00-000"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+              <SubmitButton
+                  @click="confirmAuction"
+                  :disabled="loading"
+                  class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm"
+              >
+                <span v-if="!loading">Zatwierdź</span>
+                <span v-else class="flex items-center">
+                <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Ładowanie...
+              </span>
+              </SubmitButton>
+              <button
+                  @click="closeModal"
+                  type="button"
+                  class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
+              >
+                Anuluj
+              </button>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+    </Transition>
     <div v-if="loading" class="fixed top-0 left-0 w-screen h-screen flex justify-center items-center bg-gray-500 bg-opacity-50">
       <Loader :showLoader="loading" />
     </div>
