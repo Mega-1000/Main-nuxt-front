@@ -261,6 +261,7 @@ const endTutorial = () => {
                       <img :src="`https://admin.mega1000.pl${result.url_for_website}`" class="h-16 w-16 object-cover rounded-full mr-4" />
                       <div>
                         <p class="text-sm font-medium text-gray-900">{{ result.name }}</p>
+                        {{ result.symbol }}
                         <p class="text-sm text-gray-500">{{ result.price.gross_price_of_packing }} PLN</p>
                         <div class="star-rating">
                           <span v-for="i in 5" :key="i" class="star" :class="{ 'star-active': i <= result.meanOpinion ?? 0 }">★</span>
