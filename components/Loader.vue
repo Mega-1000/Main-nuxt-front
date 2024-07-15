@@ -2,17 +2,15 @@
   <div v-if="showLoader" class="loader-container">
     <div class="loader">
       <div class="styrofoam-pack">
-        <div class="face front"></div>
-        <div class="face back"></div>
-        <div class="face right"></div>
-        <div class="face left"></div>
-        <div class="face top"></div>
-        <div class="face bottom"></div>
+        <div v-for="face in ['front', 'back', 'right', 'left', 'top', 'bottom']" :key="face" :class="['face', face]">
+          <div class="inner-face"></div>
+        </div>
       </div>
     </div>
-    <div class="loader-text mt-10">
-      <p>Ładowanie, prosimy poczekać... Ale czekanie ci się opłaci :)</p>
-      <p class="fact">{{ currentFact }}</p>
+    <div class="loader-text">
+      <h2 class="title">Ładowanie...</h2>
+      <p class="subtitle">Przygotowujemy coś wyjątkowego dla Ciebie!</p>
+      <p class="fact" :key="currentFact">{{ currentFact }}</p>
     </div>
   </div>
 </template>
@@ -57,10 +55,10 @@ onUnmounted(() => {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100%;
-  width: 100%;
-  position: relative;
-  background-color: rgba(255, 255, 255, 0.9);
+  height: 100vh;
+  width: 100vw;
+  background: linear-gradient(135deg, #f6f8f9 0%, #e5ebee 100%);
+  font-family: 'Arial', sans-serif;
 }
 
 .loader {
@@ -68,7 +66,7 @@ onUnmounted(() => {
   height: 200px;
   position: relative;
   perspective: 1000px;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
 }
 
 .styrofoam-pack {
@@ -76,16 +74,29 @@ onUnmounted(() => {
   height: 100%;
   position: relative;
   transform-style: preserve-3d;
-  animation: rotate 10s linear infinite;
+  animation: rotate 12s linear infinite;
 }
 
 .face {
   position: absolute;
   width: 200px;
   height: 200px;
+  background: rgba(255, 255, 255, 0.8);
+  border: 2px solid #e0e0e0;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.inner-face {
+  width: 80%;
+  height: 80%;
   background: linear-gradient(45deg, #f0f0f0, #ffffff);
-  border: 1px solid #e0e0e0;
-  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.1);
+  transform: rotate(45deg);
 }
 
 .front  { transform: rotateY(0deg) translateZ(100px); }
@@ -101,21 +112,37 @@ onUnmounted(() => {
 }
 
 .loader-text {
-  font-size: 1.2em;
-  color: #333;
   text-align: center;
   max-width: 80%;
 }
 
+.title {
+  font-size: 2.5em;
+  color: #2c3e50;
+  margin-bottom: 10px;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+}
+
+.subtitle {
+  font-size: 1.2em;
+  color: #34495e;
+  margin-bottom: 20px;
+}
+
 .fact {
   font-style: italic;
+  font-size: 1.1em;
   color: #3498db;
-  margin-top: 10px;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  transition: all 0.5s ease;
   animation: fadeInOut 5s ease-in-out infinite;
 }
 
 @keyframes fadeInOut {
-  0%, 100% { opacity: 0; }
-  50% { opacity: 1; }
+  0%, 100% { opacity: 0; transform: translateY(20px); }
+  50% { opacity: 1; transform: translateY(0); }
 }
 </style>
