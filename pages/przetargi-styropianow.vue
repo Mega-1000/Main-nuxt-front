@@ -99,7 +99,7 @@ import SubmitButton from "../components/SubmitButton.vue";
 import Swal from "sweetalert2";
 import Cookies from "universal-cookie/cjs/Cookies";
 import StyroTypeModal from "~/components/StyroTypeModal.vue";
-import CalculatorModal from "~/components/CalculatorModal.vue";
+import CalculatorModal from "~/components/RawCalculatorModal.vue";
 import QuotesModal from "~/components/QuotesModal.vue";
 import UserInfoModal from "~/components/UserInfoModal.vue";
 
