@@ -240,28 +240,33 @@ const playVideo  = () => {
       </div>
 
       <!-- Price Table Section -->
-      <section class="py-16 px-4 bg-gradient-to-b from-emerald-50 to-white" id="price-table">
-        <div class="container mx-auto relative max-w-5xl">
-          <h2 class="text-3xl md:text-4xl font-extrabold mb-12 text-center text-emerald-600 animate-fade-in-up">
+      <section class="py-20 px-4 bg-gradient-to-b from-emerald-100 to-white" id="price-table">
+        <div class="container mx-auto relative max-w-6xl">
+          <h2 class="text-4xl md:text-5xl font-extrabold mb-12 text-center text-emerald-700 animate-fade-in-up">
             Wybierz styropian z tabeli, kliknij cenę - dodasz do koszyka
           </h2>
-          <div class="bg-white rounded-2xl shadow-2xl p-6 md:p-10 animate-fade-in-up animation-delay-300">
-            <p class="text-lg md:text-xl mb-8 text-gray-700 leading-relaxed">
+          <div class="bg-white rounded-3xl shadow-2xl p-8 md:p-12 animate-fade-in-up animation-delay-300">
+            <p class="text-xl md:text-2xl mb-10 text-gray-700 leading-relaxed">
               Oprócz znalezienia najtańszej hurtowni w Polsce która dostarczy ci ten styropian wraz z gratisowym transportem dokonamy także przetargu dla wszystkich pozostałych 50 producentów dla porównania.
             </p>
-            <p class="text-emerald-700 font-bold text-xl mb-8 text-center">
-              98% naszych klientów zaoszczędziło na zakupie styropianu przez przetarg!
-            </p>
+            <div class="bg-emerald-100 rounded-2xl p-6 mb-10">
+              <p class="text-emerald-800 font-bold text-2xl text-center">
+                98% naszych klientów zaoszczędziło na zakupie styropianu przez przetarg!
+              </p>
+            </div>
             <NuxtLink
                 to="/przetargi-styropianow"
-                class="create-auction-btn block w-full md:w-fit mx-auto my-8 bg-emerald-500 text-white font-bold py-4 px-8 rounded-full transition-all duration-300 hover:bg-emerald-600 hover:scale-105 shadow-lg hover:shadow-xl text-center"
+                class="create-auction-btn block w-full md:w-fit mx-auto my-10 bg-emerald-600 text-white font-bold py-5 px-10 rounded-full transition-all duration-300 hover:bg-emerald-700 hover:scale-105 shadow-lg hover:shadow-xl text-center text-lg"
             >
-          <span class="flex gap-3 items-center justify-center">
-            <span>Stwórz przetarg - do niczego nie zobowiązuje!</span>
-          </span>
+        <span class="flex gap-3 items-center justify-center">
+          <span>Stwórz przetarg - do niczego nie zobowiązuje!</span>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </span>
             </NuxtLink>
-            <div v-if="isLoading" class="flex justify-center items-center h-40 mt-20">
-              // loader
+            <div v-if="isLoading" class="flex justify-center items-center h-40 mt-10">
+              <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-emerald-600"></div>
             </div>
             <iframe
                 ref="priceTable"
@@ -273,9 +278,9 @@ const playVideo  = () => {
                 @load="onIframeLoad"
                 @error="onIframeError"
             ></iframe>
-            <div class="mt-6 text-center">
+            <div class="mt-8 text-center">
               <span class="text-gray-700">Nie wiesz jak korzystać z tabeli cen?</span>
-              <NuxtLink class="text-emerald-600 hover:text-emerald-700 ml-2 font-semibold" to="/tabela-cen-instrukcje">Kliknij tutaj</NuxtLink>
+              <NuxtLink class="text-emerald-600 hover:text-emerald-700 ml-2 font-semibold underline" to="/tabela-cen-instrukcje">Kliknij tutaj</NuxtLink>
             </div>
           </div>
         </div>
