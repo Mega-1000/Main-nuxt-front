@@ -74,8 +74,8 @@
             </div>
             <div class="bg-gray-100 p-4 rounded-lg">
               <p class="font-medium">Wyniki:</p>
-              <p>Objętość: <strong>{{ (calculatedVolume ?? 0).toFixed(2) }} m³</strong></p>
-              <p>Powierzchnia: <strong>{{ (calculatedArea ?? 0).toFixed(2) }} m²</strong></p>
+              <p>Objętość: <strong>{{ (calculatedVolume ?? 0)?.toFixed(2) }} m³</strong></p>
+              <p>Powierzchnia: <strong>{{ (calculatedArea ?? 0)?.toFixed(2) }} m²</strong></p>
               <p>Ilość opakowań: <strong>{{ Math.ceil(calculatedPackages ?? 0) }} op.</strong></p>
             </div>
           </div>
