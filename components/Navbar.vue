@@ -160,40 +160,39 @@ const endTutorial = () => {
 
 <template>
   <Popup />
-  <nav class="bg-gray-200 border-b border-gray-200 shadow-lg">
-    <div class="max-w-7xl mx-auto lg:px-8">
-      <div class="flex items-center justify-between h-16">
+  <nav class="bg-white border-b border-gray-100 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
         <!-- Logo -->
         <div class="flex items-center">
-          <div class="flex-shrink-0">
-            <NuxtLink href="/">
-              <img src="/logo.webp" alt="" class="w-[45px]">
-            </NuxtLink>
-          </div>
+          <NuxtLink href="/" class="flex-shrink-0">
+            <img src="/logo.webp" alt="EPH Polska" class="w-12 h-12 object-contain">
+          </NuxtLink>
+        </div>
 
-          <!-- Desktop Navigation Links -->
-          <div class="hidden md:ml-6 md:flex md:space-x-8">
-            <div ref="settingsLink" v-if="showShopLink">
-              <NuxtLink v-if="!isVisibilityLimited" href="/" class="nav-link">Sklep</NuxtLink>
-            </div>
-            <NuxtLink v-if="userToken && !isVisibilityLimited" href="/account" class="nav-link">Konto</NuxtLink>
-            <NuxtLink href="/przetargi-styropianow" class="nav-link">Stwórz przetarg</NuxtLink>
-            <NuxtLink v-if="userToken && !isVisibilityLimited" href="/" @click.prevent="logOut" class="nav-link">Wyloguj</NuxtLink>
-            <NuxtLink v-else href="/login" class="nav-link">Zaloguj</NuxtLink>
-            <NuxtLink href="/faq" class="nav-link">FAQ</NuxtLink>
-            <a href="tel:507 925 963" class="nav-link" style="font-weight: bold; color: red">Infolinia 7/24 507 925 963</a>
+        <!-- Desktop Navigation Links -->
+        <div class="hidden md:flex items-center space-x-8">
+          <div ref="settingsLink" v-if="showShopLink">
+            <NuxtLink v-if="!isVisibilityLimited" href="/" class="nav-link">Sklep</NuxtLink>
           </div>
+          <NuxtLink v-if="userToken && !isVisibilityLimited" href="/account" class="nav-link">Konto</NuxtLink>
+          <NuxtLink href="/przetargi-styropianow" class="nav-link">Stwórz przetarg</NuxtLink>
+          <NuxtLink v-if="userToken && !isVisibilityLimited" href="/" @click.prevent="logOut" class="nav-link">Wyloguj</NuxtLink>
+          <NuxtLink v-else href="/login" class="nav-link">Zaloguj</NuxtLink>
+          <NuxtLink href="/faq" class="nav-link">FAQ</NuxtLink>
+          <a href="tel:507 925 963" class="nav-link font-bold text-red-600">Infolinia 7/24 507 925 963</a>
         </div>
 
         <!-- Search Bar and Cart -->
-        <div class="flex items-center">
-          <div class="relative md:mr-4" ref="navigationLink">
-            <input type="search" v-model="searchQuery" @input="searchProduct()" class="search-input border shadow" placeholder="Wyszukaj produkt" />
+        <div class="flex items-center space-x-6">
+          <div class="relative" ref="navigationLink">
+            <input type="search" v-model="searchQuery" @input="searchProduct()" class="search-input" placeholder="Wyszukaj produkt" />
+            <Icon name="heroicons:magnifying-glass" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
           </div>
 
           <div ref="profileLink">
-            <NuxtLink href="/koszyk.html" class="relative inline-flex items-center text-sm font-medium text-gray-900 hover:text-gray-700 focus:outline-none focus:text-gray-700 transition duration-150 ease-in-out">
-              <Icon name="clarity:shopping-cart-solid" size="40" class="text-cyan-500" />
+            <NuxtLink href="/koszyk.html" class="relative inline-flex items-center">
+              <Icon name="heroicons:shopping-cart" size="28" class="text-gray-600 hover:text-cyan-500 transition-colors duration-200" />
               <span v-if="productsCart.products.length > 0" class="cart-count">
                 {{ productsCart.products.length > 9 ? '9+' : productsCart.products.length }}
               </span>
@@ -202,230 +201,189 @@ const endTutorial = () => {
         </div>
 
         <!-- Mobile Menu Toggle -->
-        <div class="md:hidden flex items-center mr-2">
-          <button @click="showMenu = !showMenu" class="mobile-menu-toggle">
-            <svg :class="{ 'hidden': showMenu, 'inline-flex': !showMenu }" class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-              <path class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-            <svg :class="{ 'hidden': !showMenu, 'inline-flex': showMenu }" class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-              <path class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-            </svg>
+        <div class="md:hidden">
+          <button @click="toggleMenu" class="mobile-menu-toggle">
+            <Icon :name="showMenu ? 'heroicons:x-mark' : 'heroicons:bars-3'" size="28" class="text-gray-600" />
           </button>
         </div>
       </div>
 
       <!-- Mobile Menu -->
-      <div :class="{ 'hidden': !showMenu, 'block': showMenu }" class="md:hidden">
-        <div class="pt-2 pb-3">
+      <transition name="slide-fade">
+        <div v-if="showMenu" class="md:hidden mt-2 pb-3 space-y-1">
           <NuxtLink v-if="!isVisibilityLimited && showShopLink" href="/" class="mobile-nav-link">Sklep</NuxtLink>
-          <template v-for="page in customPages" v-if="!isVisibilityLimited">
-            <NuxtLink :href="buildCustomLink(page.id)" class="mobile-nav-link">{{ page.title }}</NuxtLink>
-          </template>
           <NuxtLink v-if="userToken && !isVisibilityLimited" href="/account" class="mobile-nav-link">Konto</NuxtLink>
           <NuxtLink href="/Complaint" class="mobile-nav-link">Zgłoś reklamację</NuxtLink>
           <NuxtLink v-if="userToken && !isVisibilityLimited" href="/" @click.prevent="logOut" class="mobile-nav-link">Wyloguj</NuxtLink>
           <NuxtLink v-else href="/login" class="mobile-nav-link">Zaloguj</NuxtLink>
           <NuxtLink href="/faq" class="mobile-nav-link">FAQ</NuxtLink>
-          <a href="tel:507 925 963" class="mobile-nav-link" style="font-weight: bold; color: red">Infolinia 7/24 507 925 963</a>
+          <a href="tel:507 925 963" class="mobile-nav-link font-bold text-red-600">Infolinia 7/24 507 925 963</a>
         </div>
-      </div>
+      </transition>
     </div>
 
     <!-- Search Results Modal -->
-    <div v-if="searchResults.length > 0" class="search-results-modal" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
-      <div class="absolute inset-0 overflow-hidden">
-        <div class="absolute inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
-        <div class="fixed inset-y-0 right-0 pl-10 max-w-full flex">
-          <div class="relative w-screen max-w-md">
-            <div class="h-full flex flex-col py-6 bg-white shadow-xl overflow-y-scroll">
-              <div class="px-4 sm:px-6">
-                <div class="flex items-start justify-between">
-                  <h2 class="text-lg font-medium text-gray-900" id="slide-over-title">Wyniki wyszukiwania</h2>
-                  <div class="ml-3 h-7 flex items-center">
+    <transition name="fade">
+      <div v-if="searchResults.length > 0" class="search-results-modal" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
+        <div class="absolute inset-0 overflow-hidden">
+          <div class="absolute inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+          <div class="fixed inset-y-0 right-0 pl-10 max-w-full flex">
+            <div class="relative w-screen max-w-md">
+              <div class="h-full flex flex-col py-6 bg-white shadow-xl overflow-y-scroll">
+                <div class="px-4 sm:px-6">
+                  <div class="flex items-start justify-between">
+                    <h2 class="text-lg font-medium text-gray-900" id="slide-over-title">Wyniki wyszukiwania</h2>
                     <button @click="searchResults = []" class="close-button">
-                      <span class="sr-only">Zamknij</span>
-                      <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                      </svg>
+                      <Icon name="heroicons:x-mark" size="24" class="text-gray-400 hover:text-gray-500" />
                     </button>
                   </div>
+                  <input type="search" class="search-input mt-4" v-model="searchQuery" @input="searchProduct()" placeholder="Wyszukaj produkt" />
                 </div>
 
-                <input type="search" class="search-input border shadow" v-model="searchQuery" @input="searchProduct()" />
-              </div>
-
-              <div class="mt-6 relative flex-1 px-4 sm:px-6">
-                <ul>
-                  <li v-for="result in searchResults" :key="result.id" class="py-4 border-b border-gray-200">
-                    <NuxtLink class="flex items-center" :href="`/singleProduct/${result.id}`" @click="searchResults = []">
-                      <img :src="`https://admin.mega1000.pl${result.url_for_website}`" class="h-16 w-16 object-cover rounded-full mr-4" />
-                      <div>
-                        <p class="text-sm font-medium text-gray-900">{{ result.name }}</p>
-                        {{ result.symbol }}
-                        <p class="text-sm text-gray-500">{{ result.price.gross_price_of_packing }} PLN</p>
-                        <div class="star-rating">
-                          <span v-for="i in 5" :key="i" class="star" :class="{ 'star-active': i <= result.meanOpinion ?? 0 }">★</span>
-                          <p>Ocena: {{ result.meanOpinion?.toFixed(1) ?? 0 }} / 5</p>
+                <div class="mt-6 relative flex-1 px-4 sm:px-6">
+                  <ul class="space-y-4">
+                    <li v-for="result in searchResults" :key="result.id" class="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200">
+                      <NuxtLink class="flex items-center p-4" :href="`/singleProduct/${result.id}`" @click="searchResults = []">
+                        <img :src="`https://admin.mega1000.pl${result.url_for_website}`" class="h-16 w-16 object-cover rounded-md mr-4" />
+                        <div>
+                          <p class="text-sm font-medium text-gray-900">{{ result.name }}</p>
+                          <p class="text-xs text-gray-500">{{ result.symbol }}</p>
+                          <p class="text-sm font-semibold text-cyan-600 mt-1">{{ result.price.gross_price_of_packing }} PLN</p>
+                          <div class="flex items-center mt-1">
+                            <div class="flex">
+                              <Icon v-for="i in 5" :key="i" :name="i <= Math.round(result.meanOpinion ?? 0) ? 'heroicons:star-solid' : 'heroicons:star'" class="w-4 h-4" :class="i <= Math.round(result.meanOpinion ?? 0) ? 'text-yellow-400' : 'text-gray-300'" />
+                            </div>
+                            <p class="ml-2 text-xs text-gray-600">{{ (result.meanOpinion ?? 0).toFixed(1) }} / 5</p>
+                          </div>
                         </div>
-                      </div>
-                    </NuxtLink>
-                  </li>
-                </ul>
+                      </NuxtLink>
+                    </li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </transition>
 
     <!-- No Results Message -->
-    <div v-if="noResultsMessage" class="no-results-message text-red-500 px-8">
-      <p>{{ noResultsMessage }}</p>
-    </div>
+    <transition name="fade">
+      <div v-if="noResultsMessage" class="fixed inset-x-0 top-20 flex justify-center">
+        <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded-md shadow-md">
+          <p>{{ noResultsMessage }}</p>
+        </div>
+      </div>
+    </transition>
 
     <div class="ml-4 flex-shrink-0">
       <NavbarShipmentCostTable />
     </div>
   </nav>
   <SocialProof />
+  <!-- Tutorial Overlay -->
+  <transition name="fade">
+    <div v-if="tutorialActive" class="tutorial-overlay">
+      <div class="tutorial-modal-container">
+        <div class="tutorial-highlight" :style="tutorialHighlightStyle"></div>
+        <div class="tutorial-modal">
+          <h3 class="text-xl font-bold mb-2">{{ tutorialTitle }}</h3>
+          <p class="mb-4">{{ tutorialDescription }}</p>
+          <div class="flex justify-between">
+            <button @click="endTutorial" class="px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 transition-colors duration-200">Pomiń</button>
+            <button @click="nextTutorialStep" class="px-4 py-2 bg-cyan-500 text-white rounded hover:bg-cyan-600 transition-colors duration-200">{{ tutorialNextButtonText }}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </transition>
 </template>
 
 <style scoped>
 /* Navigation Links */
 .nav-link {
-  @apply inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-900 hover:border-gray-300 focus:outline-none focus:border-gray-700 transition duration-150 ease-in-out;
+  @apply inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-600 hover:text-gray-900 hover:border-cyan-500 focus:outline-none focus:text-gray-900 focus:border-cyan-500 transition duration-150 ease-in-out;
 }
 
 /* Search Input */
 .search-input {
-  @apply block md:pl-4 md:pr-12 sm:text-sm sm:leading-5 border-gray-300 rounded-md p-2 w-full;
+  @apply block w-full pl-4 pr-10 py-2 border border-gray-300 rounded-full text-sm focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition duration-150 ease-in-out;
 }
 
 /* Cart Count */
 .cart-count {
-  @apply ml-2 bg-red-500 text-white rounded-full px-2 py-1 text-xs;
+  @apply absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center;
 }
 
 /* Mobile Menu Toggle */
 .mobile-menu-toggle {
-  @apply inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out;
+  @apply inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-cyan-500;
 }
 
 /* Mobile Navigation Links */
 .mobile-nav-link {
-  @apply block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out;
+  @apply block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-50 transition duration-150 ease-in-out;
 }
 
 /* Search Results Modal */
 .search-results-modal {
-  @apply fixed inset-0 overflow-hidden;
-  z-index: 10000;
+  @apply fixed inset-0 overflow-hidden z-50;
 }
 
 /* Close Button */
 .close-button {
-  @apply bg-white rounded-md text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500;
+  @apply bg-white rounded-md text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-cyan-500;
 }
 
-/* Star Rating */
-.star {
-  @apply text-gray-300;
-  font-size: 1.25rem;
-  line-height: 1;
-}
-
-.star-active {
-  @apply text-yellow-400;
-}
-
-.user-dashboard {
-  display: flex;
-}
-
-.sidebar {
-  width: 200px;
-  background-color: #f1f1f1;
-  padding: 20px;
-}
-
-.logo {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-nav ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-nav a {
-  display: block;
-  padding: 10px;
-  text-decoration: none;
-  color: #333;
-}
-
-.main-content {
-  flex: 1;
-  padding: 20px;
-}
-
-/* Styles for the tutorial modals */
+/* Tutorial Styles */
 .tutorial-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.7);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 887;
-}
-
-.tutorial-modal {
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 4px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-  max-width: 500px;
-  text-align: center;
-  position: relative;
-  z-index: 900;
+  @apply fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50;
 }
 
 .tutorial-modal-container {
-  position: relative;
+  @apply relative;
 }
 
 .tutorial-highlight {
-  position: absolute;
-  background-color: rgba(255, 255, 0, 0.2);
-  border-radius: 4px;
+  @apply absolute bg-yellow-200 bg-opacity-20 rounded-md;
+  animation: pulse 2s infinite;
 }
 
-.tutorial-highlight::before {
-  content: "";
-  position: absolute;
-  top: -10px;
-  left: -10px;
-  right: -10px;
-  bottom: -10px;
-  border: 2px dashed #ff0;
-  border-radius: 6px;
-  animation: highlight 1s infinite;
+.tutorial-modal {
+  @apply bg-white p-6 rounded-lg shadow-xl max-w-md mx-auto z-10;
 }
 
-@keyframes highlight {
+@keyframes pulse {
   0% {
-    box-shadow: 0 0 0 0 rgba(255, 255, 0, 0.5);
+    box-shadow: 0 0 0 0 rgba(250, 204, 21, 0.4);
   }
-  50% {
-    box-shadow: 0 0 0 10px rgba(255,255, 0, 0);
+  70% {
+    box-shadow: 0 0 0 10px rgba(250, 204, 21, 0);
   }
   100% {
-    box-shadow: 0 0 0 0 rgba(255, 255, 0, 0.5);
+    box-shadow: 0 0 0 0 rgba(250, 204, 21, 0);
   }
+}
+
+/* Transitions */
+.slide-fade-enter-active,
+.slide-fade-leave-active {
+  transition: all 0.3s ease;
+}
+
+.slide-fade-enter-from,
+.slide-fade-leave-to {
+  transform: translateY(-20px);
+  opacity: 0;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>
