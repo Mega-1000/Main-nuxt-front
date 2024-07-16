@@ -142,12 +142,13 @@ const playVideo  = () => {
 }
 </script>
 <template>
-  <div>
+  <div class="font-sans">
     <AskUserForZipCodeStyrofoarms v-if="showZipCodeModal" />
     <main>
-      <section class="relative py-20 overflow-hidden bg-gradient-to-br from-emerald-600 to-emerald-900">
+      <!-- Hero Section -->
+      <section class="relative py-24 overflow-hidden bg-gradient-to-br from-emerald-600 to-emerald-900">
         <div class="absolute inset-0">
-          <svg class="absolute bottom-0 left-0" viewBox="0 0 1440 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg class="absolute bottom-0 left-0 w-full" viewBox="0 0 1440 320" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path fill-opacity="0.1" fill="#fff" d="M0,192L48,197.3C96,203,192,213,288,229.3C384,245,480,267,576,250.7C672,235,768,181,864,181.3C960,181,1056,235,1152,234.7C1248,235,1344,181,1392,154.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
           </svg>
         </div>
@@ -155,7 +156,7 @@ const playVideo  = () => {
         <div class="container mx-auto px-4 relative z-10">
           <div class="text-center">
             <h1 class="text-4xl md:text-6xl font-extrabold text-white mb-6 animate-fade-in-down didact-gothic-regular">
-              Przez ostatnie 12 miesięcy <span class="text-yellow-300"><pm>2968</pm></span> użytkowników stworzyło <em class="not-italic bg-emerald-700 px-2 py-1 rounded">przetarg</em> i oszczędziło na styropianie!
+              Przez ostatnie 12 miesięcy <span class="text-yellow-300 animate-pulse"><pm>2968</pm></span> użytkowników stworzyło <em class="not-italic bg-emerald-700 px-2 py-1 rounded animate-bounce">przetarg</em> i oszczędziło na styropianie!
             </h1>
             <p class="text-xl md:text-2xl text-emerald-100 mb-10 animate-fade-in-up animation-delay-300">
               Dołącz do zadowolonych klientów i skorzystaj z <em class="not-italic font-bold underline decoration-yellow-300 decoration-2 underline-offset-2">DARMOWEJ DOSTAWY</em> na wszystkie zamówienia!
@@ -164,46 +165,46 @@ const playVideo  = () => {
                 href="/przetargi-styropianow"
                 class="inline-block bg-white text-emerald-800 font-bold py-4 px-8 rounded-full transition-all duration-300 hover:bg-yellow-300 hover:text-emerald-900 transform hover:scale-105 shadow-lg hover:shadow-xl animate-pulse"
             >
-        <span class="flex items-center gap-2">
-          Stwórz przetarg teraz!
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-          </svg>
-        </span>
+              <span class="flex items-center gap-2">
+                Stwórz przetarg teraz!
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </span>
             </NuxtLink>
             <p class="text-sm md:text-base mt-6 text-emerald-200 animate-fade-in-up animation-delay-600">
               Już ponad 5000 klientów zaoszczędziło dzięki naszym przetargom!
             </p>
           </div>
-          <OpinionStars class="animate-fade-in-up animation-delay-900 mt-8" />
+          <OpinionStars class="animate-fade-in-up animation-delay-900 mt-8 text-white" />
         </div>
       </section>
 
       <!-- Contact Card Section -->
-      <section class="my-3 bg-gray-100 py-8 animate-fade-in-up">
-        <div class="w-[100%] md:w-[70%] mx-auto">
-          <div class="contact-card bg-white rounded-lg shadow-lg p-4 md:p-8 hover:shadow-xl transition-shadow duration-300">
-            <h3 class="text-xl md:text-2xl font-bold mb-2 md:mb-4"><em> Skorzystaj z pomocy specjalisty </em></h3>
-            <p class="text-gray-600">Telefon: <span class="font-bold"><pm>+48 576 205 389</pm></span></p>
-            <p class="text-gray-600">Godziny pracy: <span class="font-bold">6:30 - 22:00</span></p>
-            <p class="text-emerald-600 font-semibold mt-4">Już ponad 5000 klientów skorzystało z naszego doradztwa!</p>
+      <section class="my-3 bg-gray-100 py-12 animate-fade-in-up">
+        <div class="w-full md:w-3/4 lg:w-2/3 mx-auto">
+          <div class="contact-card bg-white rounded-lg shadow-lg p-8 hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-1">
+            <h3 class="text-2xl md:text-3xl font-bold mb-4"><em class="text-emerald-600">Skorzystaj z pomocy specjalisty</em></h3>
+            <p class="text-gray-600 text-lg">Telefon: <span class="font-bold text-emerald-700"><pm>+48 576 205 389</pm></span></p>
+            <p class="text-gray-600 text-lg">Godziny pracy: <span class="font-bold">6:30 - 22:00</span></p>
+            <p class="text-emerald-600 font-semibold mt-6 text-xl">Już ponad 5000 klientów skorzystało z naszego doradztwa!</p>
           </div>
         </div>
       </section>
 
       <!-- Popular Products Section -->
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 animate-fade-in-up">
-        <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-8">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 animate-fade-in-up">
+        <h2 class="text-3xl md:text-5xl font-extrabold text-gray-900 mb-12 text-center">
           Najpopularniejsze produkty w <span class="text-emerald-600">najlepszych</span> cenach 🔥
         </h2>
 
         <div class="relative">
           <div class="flex overflow-x-auto snap-x snap-mandatory scrollbar-hide space-x-6 pb-6" ref="productCarousel">
             <div v-for="product in products" :key="product.id" class="snap-start flex-shrink-0 w-64 md:w-72">
-              <a :href="`/singleProduct/${product.id}`" class="block bg-white rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300">
+              <a :href="`/singleProduct/${product.id}`" class="block bg-white rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-2 transition-all duration-300">
                 <div class="relative">
                   <img :src="`https://admin.mega1000.pl${product.url_for_website}`" :alt="product.name" class="w-full h-48 object-cover rounded-t-xl" />
-                  <div class="absolute top-0 right-0 bg-red-500 text-white text-sm font-bold px-3 py-1 m-2 rounded-full">
+                  <div class="absolute top-0 right-0 bg-red-500 text-white text-sm font-bold px-3 py-1 m-2 rounded-full animate-pulse">
                     HOT
                   </div>
                 </div>
@@ -214,63 +215,64 @@ const playVideo  = () => {
                   </p>
                   <div class="flex items-center justify-between">
                     <span class="text-sm font-medium text-gray-500">{{ product.purchases }} zamówień dzisiaj!</span>
-                    <svg class="w-6 h-6 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    <svg class="w-6 h-6 text-emerald-500 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                   </div>
                 </div>
               </a>
             </div>
           </div>
           <div class="absolute top-1/2 -left-4 -translate-y-1/2">
-            <button class="bg-white rounded-full p-2 shadow-md hover:bg-gray-100" @click="scrollCarousel('left')">
+            <button class="bg-white rounded-full p-2 shadow-md hover:bg-gray-100 transition-colors duration-300" @click="scrollCarousel('left')">
               <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
             </button>
           </div>
           <div class="absolute top-1/2 -right-4 -translate-y-1/2">
-            <button class="bg-white rounded-full p-2 shadow-md hover:bg-gray-100" @click="scrollCarousel('right')">
+            <button class="bg-white rounded-full p-2 shadow-md hover:bg-gray-100 transition-colors duration-300" @click="scrollCarousel('right')">
               <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
             </button>
           </div>
         </div>
 
-        <div class="mt-12 text-center">
-          <a href="#price-table" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-emerald-600 hover:bg-emerald-700 transition-colors duration-300">
+        <div class="mt-16 text-center">
+          <a href="#price-table" class="inline-flex items-center px-8 py-4 border border-transparent text-lg font-medium rounded-full text-white bg-emerald-600 hover:bg-emerald-700 transition-colors duration-300 transform hover:scale-105">
             Zobacz tabelę cen
-            <svg class="ml-2 -mr-1 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            <svg class="ml-2 -mr-1 w-5 h-5 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
           </a>
         </div>
       </div>
 
-      <div class="hero py-2 px-2 md:py-4 md:px-4 bg-gradient-to-r from-emerald-600 to-emerald-800 text-white">
-        <!-- Kupuj z płatnością przy odbiorze! Bez rytzyka -->
+      <!-- Payment Section -->
+      <div class="hero py-16 px-4 bg-gradient-to-r from-emerald-600 to-emerald-800 text-white">
         <div class="container mx-auto text-center relative z-10">
-          <h1 class="text-4xl md:text-6xl font-extrabold mb-6 mt-4 animate-fade-in-up didact-gothic-regular">
+          <h1 class="text-4xl md:text-6xl font-extrabold mb-8 animate-fade-in-up didact-gothic-regular">
             Płatność przy odbiorze! Bez ryzyka!
           </h1>
-          <p class="text-xl md text-2xl mb-8 animate-fade-in-up animation-delay-300">
+          <p class="text-xl md:text-2xl mb-12 animate-fade-in-up animation-delay-300">
             Zamówienia realizowane są również z opcją płatności przy odbiorze, lub bezpośrednio od fabryki <br> Nie musisz obawiać się o swoje pieniądze!
           </p>
 
-          <NuxtLink href="/przetargi-styropianow" class="create-auction-btn block w-fit mx-auto my-6 bg-emerald-500 text-white font-bold py-4 px-8 rounded-full transition-all duration-300 hover:bg-emerald-700 hover:scale-105 shadow-lg hover:shadow-xl animate-pulse">
-            <div class="flex gap-3 items-center">
-              <div>
-                Stwórz przetarg i kup bezpośrednio od producenta!
-              </div>
-            </div>
+          <NuxtLink href="/przetargi-styropianow" class="create-auction-btn inline-block bg-white text-emerald-700 font-bold py-4 px-8 rounded-full transition-all duration-300 hover:bg-yellow-300 hover:text-emerald-800 transform hover:scale-105 shadow-lg hover:shadow-xl animate-pulse">
+            <span class="flex items-center gap-3">
+              Stwórz przetarg i kup bezpośrednio od producenta!
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </span>
           </NuxtLink>
         </div>
       </div>
 
       <!-- Price Table Section -->
-      <section class="py-20 px-4 bg-gradient-to-b from-emerald-100 to-white" id="price-table">
+      <section class="py-24 md:px-4 bg-gradient-to-b from-emerald-100 to-white" id="price-table">
         <div class="container mx-auto relative max-w-6xl">
           <h2 class="text-4xl md:text-5xl font-extrabold mb-12 text-center text-emerald-700 animate-fade-in-up">
             Wybierz styropian z tabeli, kliknij cenę - dodasz do koszyka
           </h2>
-          <div class="bg-white rounded-3xl shadow-2xl p-8 md:p-12 animate-fade-in-up animation-delay-300">
+          <div class="bg-white rounded-3xl shadow-2xl p-4 md:p-8 md:p-12 animate-fade-in-up animation-delay-300 transform hover:scale-105 transition-transform duration-500">
             <p class="text-xl md:text-2xl mb-10 text-gray-700 leading-relaxed">
               Oprócz znalezienia najtańszej hurtowni w Polsce która dostarczy ci ten styropian wraz z gratisowym transportem dokonamy także przetargu dla wszystkich pozostałych 50 producentów dla porównania.
             </p>
-            <div class="bg-emerald-100 rounded-2xl p-6 mb-10">
+            <div class="bg-emerald-100 rounded-2xl p-6 mb-10 transform hover:scale-105 transition-transform duration-300">
               <p class="text-emerald-800 font-bold text-2xl text-center">
                 98% naszych klientów zaoszczędziło na zakupie styropianu przez przetarg!
               </p>
@@ -279,12 +281,12 @@ const playVideo  = () => {
                 to="/przetargi-styropianow"
                 class="create-auction-btn block w-full md:w-fit mx-auto my-10 bg-emerald-600 text-white font-bold py-5 px-10 rounded-full transition-all duration-300 hover:bg-emerald-700 hover:scale-105 shadow-lg hover:shadow-xl text-center text-lg"
             >
-        <span class="flex gap-3 items-center justify-center">
-          <span>Stwórz przetarg - do niczego nie zobowiązuje!</span>
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-          </svg>
-        </span>
+              <span class="flex gap-3 items-center justify-center">
+                <span>Stwórz przetarg - do niczego nie zobowiązuje!</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </span>
             </NuxtLink>
             <div v-if="isLoading" class="flex justify-center items-center h-40 mt-10">
               <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-emerald-600"></div>
@@ -307,35 +309,38 @@ const playVideo  = () => {
         </div>
       </section>
 
-      <section class="py-10 px-4 animate-fade-in-up">
+      <section class="py-16 px-4 animate-fade-in-up bg-gray-50">
         <div class="mx-auto max-w-screen-xl">
           <LogosSection />
         </div>
       </section>
 
+      <FastShipping />
 
-      <!-- Styro Helper Section -->
-    <FastShipping />
-
-      <section class="py-16 px-4 bg-emerald-50 animate-fade-in-up">
+      <!-- Testimonials Section -->
+      <section class="py-24 px-4 bg-emerald-50 animate-fade-in-up">
         <div class="container mx-auto">
-          <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center text-emerald-800">
+          <h2 class="text-4xl md:text-5xl font-bold mb-16 text-center text-emerald-800">
             Co mówią nasi klienci
           </h2>
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
             <div v-for="(testimonial, index) in testimonials" :key="index"
-                 class="bg-white rounded-lg shadow-lg p-6 transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
-              <div class="flex items-center mb-4">
-                <img :src="testimonial.avatar" :alt="testimonial.name" class="w-12 h-12 rounded-full mr-4">
+                 class="bg-white rounded-lg shadow-lg p-8 transition-all duration-300 hover:shadow-xl hover:-translate-y-2">
+              <div class="flex items-center mb-6">
+                <img :src="testimonial.avatar" :alt="testimonial.name" class="w-16 h-16 rounded-full mr-4 border-4 border-emerald-300">
                 <div>
-                  <h3 class="font-bold text-lg">{{ testimonial.name }}</h3>
+                  <h3 class="font-bold text-xl text-emerald-700">{{ testimonial.name }}</h3>
                   <p class="text-emerald-600">{{ testimonial.location }}</p>
                 </div>
               </div>
-              <p class="text-gray-600 italic mb-4">"{{ testimonial.quote }}"</p>
+              <p class="text-gray-700 italic mb-6 text-lg">"{{ testimonial.quote }}"</p>
               <div class="flex items-center">
-                <span class="text-yellow-400 mr-1">★</span>
-                <span class="font-bold">{{ testimonial.rating }}/5</span>
+                <span v-for="i in 5" :key="i" class="text-yellow-400 mr-1">
+                  <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                    <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                  </svg>
+                </span>
+                <span class="font-bold text-emerald-700 ml-2">{{ testimonial.rating }}/5</span>
               </div>
             </div>
           </div>
@@ -345,49 +350,49 @@ const playVideo  = () => {
       <StyroTree />
 
       <!-- Pickup Points Section -->
-      <section class="py-10 px-4 md:py-20 bg-gray-100 animate-fade-in-up">
+      <section class="py-24 px-4 bg-gray-100 animate-fade-in-up">
         <div class="container mx-auto text-center">
-          <h2 class="text-2xl md:text-5xl font-bold mb-4 md:mb-10">
-            Odbiór w jednym z <em>100</em> punktów
+          <h2 class="text-3xl md:text-5xl font-bold mb-8 text-emerald-800">
+            Odbiór w jednym z <em class="text-emerald-600">100</em> punktów
           </h2>
-          <h4 class="text-emerald-500 font-bold text-sm md:text-lg">
+          <h4 class="text-emerald-500 font-bold text-lg md:text-xl mb-4">
             Kliknij na punkt aby sprawdzić dostępne w nim produkty
           </h4>
-          <p class="text-gray-700 mt-4">
+          <p class="text-gray-700 mb-12 text-lg">
             Ponad 10,000 zadowolonych klientów skorzystało z naszej sieci punktów odbioru!
           </p>
-          <MagasinesMap />
+          <MagasinesMap class="shadow-2xl rounded-lg overflow-hidden" />
         </div>
       </section>
 
       <!-- Referral Section -->
-      <section class="py-10 px-4 md:py-20 bg-emerald-600 text-white animate-fade-in-up">
+      <section class="py-24 px-4 bg-gradient-to-br from-emerald-600 to-emerald-800 text-white animate-fade-in-up">
         <div class="container mx-auto text-center">
-          <h2 class="text-2xl md:text-5xl font-bold mb-4 md:mb-10">Polecaj i oszczędzaj!</h2>
-          <p class="text-sm md:text-lg mb-4 md:mb-10">
+          <h2 class="text-4xl md:text-5xl font-bold mb-8">Polecaj i oszczędzaj!</h2>
+          <p class="text-xl mb-12 max-w-3xl mx-auto">
             Zaproś znajomych, a otrzymasz 30 zł zniżki za każdego nowego użytkownika! Proste i korzystne.
           </p>
-          <p class="text-lg md:text-xl font-bold mb-6">
+          <p class="text-2xl font-bold mb-12 animate-pulse">
             Już ponad 5000 klientów skorzystało z programu poleceń!
           </p>
-          <a href="https://mega1000.pl/polec-znajomego" class="bg-white text-emerald-600 font-medium py-3 px-6 rounded-full inline-block transition-all duration-300 hover:bg-yellow-300 hover:text-emerald-800 hover:scale-105 shadow-lg hover:shadow-xl">
+          <a href="https://mega1000.pl/polec-znajomego" class="bg-white text-emerald-700 font-bold py-4 px-8 rounded-full inline-block transition-all duration-300 hover:bg-yellow-300 hover:text-emerald-800 hover:scale-105 shadow-lg hover:shadow-xl text-lg">
             Sprawdź swój panel poleceń
           </a>
         </div>
       </section>
 
       <!-- Contact Section -->
-      <section class="py-10 px-4 md:py-20 bg-gray-100 animate-fade-in-up">
+      <section class="py-24 px-4 bg-gray-100 animate-fade-in-up">
         <div class="container mx-auto">
-          <h2 class="text-2xl md:text-5xl font-bold mb-4 md:mb-10 text-center">Skontaktuj się z nami</h2>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
-            <div class="contact-card bg-white rounded-lg shadow-lg p-4 md:p-8 hover:shadow-xl transition-shadow duration-300">
-              <h3 class="text-xl md:text-2xl font-bold mb-2 md:mb-4">Zadzwoń</h3>
-              <p class="text-gray-600">Telefon: <span class="font-bold">+48 507 925 963</span></p>
+          <h2 class="text-4xl md:text-5xl font-bold mb-16 text-center text-emerald-800">Skontaktuj się z nami</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+            <div class="contact-card bg-white rounded-lg shadow-xl p-8 hover:shadow-2xl transition-shadow duration-300 transform hover:-translate-y-2">
+              <h3 class="text-2xl md:text-3xl font-bold mb-6 text-emerald-700">Zadzwoń</h3>
+              <p class="text-gray-700 text-xl">Telefon: <span class="font-bold text-emerald-600">+48 507 925 963</span></p>
             </div>
-            <div class="contact-card bg-white rounded-lg shadow-lg p-4 md:p-8 hover:shadow-xl transition-shadow duration-300">
-              <h3 class="text-xl md:text-2xl font-bold mb-2 md:mb-4">Napisz</h3>
-              <p class="text-gray-600">E-mail: <span class="font-bold">styropiany@ephpolska.pl</span></p>
+            <div class="contact-card bg-white rounded-lg shadow-xl p-8 hover:shadow-2xl transition-shadow duration-300 transform hover:-translate-y-2">
+              <h3 class="text-2xl md:text-3xl font-bold mb-6 text-emerald-700">Napisz</h3>
+              <p class="text-gray-700 text-xl">E-mail: <span class="font-bold text-emerald-600">styropiany@ephpolska.pl</span></p>
             </div>
           </div>
         </div>
@@ -395,32 +400,32 @@ const playVideo  = () => {
     </main>
   </div>
 
-  <section class="py-16 px-4 bg-gradient-to-br from-emerald-500 to-emerald-700 text-white overflow-hidden relative animate-fade-in-up">
+  <section class="py-24 px-4 bg-gradient-to-br from-emerald-500 to-emerald-700 text-white overflow-hidden relative animate-fade-in-up">
     <div class="container mx-auto relative z-10">
-      <h2 class="text-4xl md:text-5xl font-bold mb-8 text-center">
+      <h2 class="text-4xl md:text-6xl font-bold mb-16 text-center">
         Gwarancja najniższej ceny
       </h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div class="bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg rounded-lg p-6 shadow-lg transform hover:scale-105 transition-transform duration-300">
-          <div class="text-5xl mb-4">💰</div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+        <div class="bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg rounded-lg p-8 shadow-lg transform hover:scale-105 transition-transform duration-300">
+          <div class="text-6xl mb-6">💰</div>
           <h3 class="text-2xl font-semibold mb-4">Oszczędzasz pieniądze</h3>
-          <p>Gwarantujemy, że znajdziesz u nas najniższe ceny na rynku. Jeśli znajdziesz taniej, wyrównamy cenę!</p>
+          <p class="text-lg">Gwarantujemy, że znajdziesz u nas najniższe ceny na rynku. Jeśli znajdziesz taniej, wyrównamy cenę!</p>
         </div>
-        <div class="bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg rounded-lg p-6 shadow-lg transform hover:scale-105 transition-transform duration-300">
-          <div class="text-5xl mb-4">🛡️</div>
+        <div class="bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg rounded-lg p-8 shadow-lg transform hover:scale-105 transition-transform duration-300">
+          <div class="text-6xl mb-6">🛡️</div>
           <h3 class="text-2xl font-semibold mb-4">Pewność zakupu</h3>
-          <p>Nasza gwarancja daje Ci pewność, że dokonujesz najlepszego wyboru cenowego na rynku.</p>
+          <p class="text-lg">Nasza gwarancja daje Ci pewność, że dokonujesz najlepszego wyboru cenowego na rynku.</p>
         </div>
-        <div class="bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg rounded-lg p-6 shadow-lg transform hover:scale-105 transition-transform duration-300">
-          <div class="text-5xl mb-4">🤝</div>
+        <div class="bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg rounded-lg p-8 shadow-lg transform hover:scale-105 transition-transform duration-300">
+          <div class="text-6xl mb-6">🤝</div>
           <h3 class="text-2xl font-semibold mb-4">Uczciwe warunki</h3>
-          <p>Bez ukrytych kosztów czy haczyków. Nasza gwarancja jest prosta i przejrzysta.</p>
+          <p class="text-lg">Bez ukrytych kosztów czy haczyków. Nasza gwarancja jest prosta i przejrzysta.</p>
         </div>
       </div>
-      <div class="mt-12 text-center">
+      <div class="mt-16 text-center">
         <NuxtLink
             to="/gwarancja-najnizszej-ceny"
-            class="bg-white text-emerald-700 font-bold py-3 px-8 rounded-full inline-block transition-all duration-300 hover:bg-yellow-300 hover:text-emerald-800 hover:scale-105 shadow-lg hover:shadow-xl"
+            class="bg-white text-emerald-700 font-bold py-4 px-10 rounded-full inline-block transition-all duration-300 hover:bg-yellow-300 hover:text-emerald-800 hover:scale-105 shadow-lg hover:shadow-xl text-xl"
         >
           Dowiedz się więcej
         </NuxtLink>
@@ -434,10 +439,9 @@ const playVideo  = () => {
 body {
   scroll-behavior: smooth;
 }
-/* ... (poprzednie style) */
 
 .animate-fade-in-up {
-  animation: fadeInUp 0.6s ease-out forwards;
+  animation: fadeInUp 0.8s ease-out forwards;
   opacity: 0;
 }
 
@@ -456,7 +460,7 @@ body {
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(30px);
   }
   to {
     opacity: 1;
@@ -465,7 +469,7 @@ body {
 }
 
 .animate-wave {
-  animation: wave 8s linear infinite;
+  animation: wave 10s linear infinite;
   background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
   background-size: 200% 100%;
 }
@@ -484,7 +488,7 @@ body {
     box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7);
   }
   70% {
-    box-shadow: 0 0 0 10px rgba(255, 255, 255, 0);
+    box-shadow: 0 0 0 15px rgba(255, 255, 255, 0);
   }
   100% {
     box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
@@ -492,12 +496,14 @@ body {
 }
 
 pm {
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(15%, #f99d9d), color-stop(94%, #f5d3d3));
   background: linear-gradient(-180deg, #f99d9d 15%, #f5d3d3 94%);
-  padding: 2px;
+  padding: 2px 6px;
   font-style: normal;
   color: #343a40;
   border-radius: 4px;
   overflow: hidden;
+  display: inline-block;
+  transform: skew(-5deg);
+  box-shadow: 2px 2px 4px rgba(0,0,0,0.1);
 }
 </style>
