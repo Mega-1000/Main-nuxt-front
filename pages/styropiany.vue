@@ -131,7 +131,7 @@ const products = [
     name: 'Izoterm fasada 045',
     gross_selling_price_calculated_unit: 156.25,
     url_for_website: '/izoterm_fasada_045_1.jpg',
-    purchases: 3
+    purchases: 2
   },
 ]
 
@@ -430,10 +430,8 @@ const playVideo  = () => {
   </section>
 </template>
 
-
-
-<style scoped>
-* {
+<style>
+body {
   scroll-behavior: smooth;
 }
 /* ... (poprzednie style) */
