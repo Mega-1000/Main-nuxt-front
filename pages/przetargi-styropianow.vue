@@ -385,7 +385,7 @@ const confirmAuction = async () => {
     window.dispatchEvent(new CustomEvent('token-refreshed'));
 
     await Swal.fire('Zapytanie zostało stworzone pomyślnie!', 'Po kliknięciu "OK" Przeniesiemy cię do konta z możliwością zarządzania twoimi zapytaniami', 'info');
-    await trackEvent('purchase', 'styropian', 'Stworzenie przetargu', 5);
+    await trackEvent('conversion_event_request_quote', 'styropian', 'Stworzenie przetargu', 5);
     await router.push('/account');
 
     selections.length = 0;
