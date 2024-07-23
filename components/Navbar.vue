@@ -40,7 +40,7 @@ useSeoMeta({
 })
 
 onMounted(async () => {
-  showTutorial();
+  // showTutorial();
   const cookies = new Cookies();
   userToken.value = cookies.get("token");
 
@@ -148,7 +148,7 @@ const nextTutorialStep = () => {
     tutorialActive.value = false;
   } else {
     tutorialStep.value++;
-    showTutorial();
+    // showTutorial();
   }
 };
 
