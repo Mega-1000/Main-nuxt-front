@@ -99,6 +99,8 @@ const submitForm = () => {
   }
 
   localStorage.setItem('formSubmitted', 'true');
+
+  Swal.fire('Pomyślnie wysłano formularz! Konsultant który został ci przydzielony to: 00137', '', 'success');
 }
 
 const onIframeLoad = () => {
@@ -286,7 +288,7 @@ const playVideo  = () => {
                 Zostaw numer - oddzwonimy w ciągu <span class="font-bold underline decoration-yellow-400 decoration-4">5 minut</span> z darmową konsultacją!
               </p>
 
-              <form class="max-w-2xl mx-auto mb-12" @submit="submitForm">
+              <form class="max-w-2xl mx-auto mb-12" @submit.prevent="submitForm">
                 <div class="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-4">
                   <div class="w-full sm:w-2/3">
                     <input type="tel" placeholder="Twój numer telefonu" v-model="phoneNumber" required
