@@ -46,60 +46,137 @@ const handleSubmit = async (e: Event) => {
 </script>
 
 <template>
-  <div
-    class="w-screen max-w-sm md:max-w-md lg:max-w-2xl xl:max-w-4xl p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8"
-  >
-    <form class="space-y-6" @submit="handleSubmit">
-      <h5 class="text-xl xl:text-2xl font-medium text-gray-900">
-        Zaloguj się na swoje konto
-      </h5>
-      <p>
-        Uwaga! Jeżeli złożyłeś już zamówienie, możesz zalogować się na swoje konto. Jako hasło użyj numeru telefonu podanego przy składaniu zamówienia
-      </p>
-      <div>
-        <label
-          for="email"
-          class="block mb-2 text-sm lg:text-lg font-medium text-gray-900"
-          >Email</label
-        >
+  <div class="login-container">
+    <form class="login-form" @submit="handleSubmit">
+      <h1 class="login-title">Zaloguj się</h1>
+
+      <div class="input-container">
+        <label for="email" class="input-label">Email</label>
         <input
-          type="email"
-          name="email"
-          id="email"
-          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm lg:text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-          placeholder="name@company.com"
-          required
-          v-model="emailInput"
-          :disabled="loading"
+            type="email"
+            name="email"
+            id="email"
+            class="login-input"
+            placeholder="name@company.com"
+            required
+            v-model="emailInput"
+            :disabled="loading"
         />
+        <div class="input-gradient"></div> </div>
+
+      <div class="input-container">
+        <label for="password" class="input-label">Hasło</label>
+        <div class="password-container">
+          <input
+              type="password"
+              name="password"
+              id="password"
+              class="login-input"
+              placeholder="•••••••••"
+              required
+              v-model="passwordInput"
+              :disabled="loading"
+          />
+          <span class="password-toggle" :class="{ active: showPassword }">
+            <i class="fas fa-eye"></i> </span>
+        </div>
       </div>
-      <div>
-        <label
-          for="password"
-          class="block mb-2 text-sm lg:text-lg font-medium text-gray-900"
-          >Hasło (w domyśle numer telefonu)</label
-        >
-        <input
-          type="password"
-          name="password"
-          id="password"
-          placeholder="•••••••••"
-          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm lg:text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-          required
-          v-model="passwordInput"
-          :disabled="loading"
-        />
+
+      <p class="error-message" v-if="errorMessage">{{ errorMessage }}</p>
+
+      <div class="remember-me">
+        <input type="checkbox" id="remember-me">
+        <label for="remember-me">Pamiętaj mnie</label>
       </div>
-      <p class="mt-2 text-sm text-red-600">
-        {{ errorMessage }}
-      </p>
-      <button
-        type="submit"
-        :disabled="loading"
-        class="w-full text-white bg-cyan-400 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm lg:text-lg px-5 py-2.5 text-center"
-      >
+
+      <button type="submit" class="login-button" :disabled="loading">
         Zaloguj się
       </button>
     </form>
   </div>
 </template>
+
+<style scoped>
+/* Global Styles */
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: Arial, sans-serif; /* Replace with your preferred font */
+  background-color: #f5f5f5; /* Light background */
+}
+
+/* Login Container */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Login Form */
+.login-form {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 40px;
+  width: 350px;
+}
+
+/* Login Title */
+.login-title {
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+/* Input Container */
+.input-container {
+  margin-bottom: 20px;
+  position: relative;
+}
+
+/* Input Label */
+.input-label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 14px;
+  color: #666;
+}
+
+/* Login Input */
+.login-input {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  outline: none;
+}
+
+/* Error Message */
+.error-message {
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+/* Remember Me */
+.remember-me {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+/* Login Button */
+.login-button {
+  background-color: #4285f4;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 12px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  width: 100%;
+}
+</style>
