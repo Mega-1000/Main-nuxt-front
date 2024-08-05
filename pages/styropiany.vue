@@ -7,14 +7,14 @@ import Swal from 'sweetalert2'
 const showZipCodeModal = !localStorage.getItem('zipCode');
 const { $shopApi: shopApi } = useNuxtApp();
 const description = ref('');
-const isLoading = ref(true);
+const isLoading = ref(false);
 const iframeSrc = 'https://admin.mega1000.pl/auctions/display-prices-table?zip-code=' + localStorage.getItem('zipCode');
 const tutorialVideo = ref(null);
 const productCarousel = ref(null)
 let carouselInterval = null
 const show = ref(false);
 const phoneNumber = ref('');
-const loading = ref(true);
+const loading = ref(false);
 const testimonials = [
   {
     name: "Anna Kowalska",
@@ -160,7 +160,7 @@ const playVideo  = () => {
 }
 </script>
 <template>
-  <div v-if="loading" class="fixed top-0 left-0 w-screen h-screen flex justify-center items-center bg-gray-500 bg-opacity-50">
+  <div v-if="loading" style="z-index: 1000" class="fixed top-0 left-0 w-screen h-screen flex justify-center items-center bg-gray-500 bg-opacity-50">
     <Loader :showLoader="loading" />
   </div>
 
