@@ -14,6 +14,7 @@ const productCarousel = ref(null)
 let carouselInterval = null
 const show = ref(false);
 const phoneNumber = ref('');
+const loading = ref(true);
 const testimonials = [
   {
     name: "Anna Kowalska",
@@ -91,15 +92,17 @@ const handleIframeMessage = (event) => {
   }
 };
 
-const submitForm = () => {
+const submitForm = async () => {
+  loading.value = true;
   if (phoneNumber.value) {
-    shopApi.post('api/contact-approach/create', {
+    await shopApi.post('api/contact-approach/create', {
       phone_number: phoneNumber.value,
       referred_by_user_id: 57352,
     });
   }
 
   localStorage.setItem('formSubmitted', 'true');
+  loading.value = false;
 
   Swal.fire('Pomyślnie wysłano formularz! Konsultant który został ci przydzielony to: 00137', '', 'success');
 }
@@ -157,6 +160,10 @@ const playVideo  = () => {
 }
 </script>
 <template>
+  <div v-if="loading" class="fixed top-0 left-0 w-screen h-screen flex justify-center items-center bg-gray-500 bg-opacity-50">
+    <Loader :showLoader="loading" />
+  </div>
+
   <div class="font-sans">
     <AskUserForZipCodeStyrofoarms v-if="showZipCodeModal" />
     <main>
