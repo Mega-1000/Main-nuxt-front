@@ -419,6 +419,24 @@ const playVideo  = () => {
         </div>
       </section>
 
+      <section class="py-6 px-2 md:py-10 md:px-4 bg-gray-100" id="videos">
+        <div class="container w-full md:w-[70%] mx-auto">
+          <span class="text-xl w-fit font-bold">
+            Obejżyj filmy poradnikowe przygotowane dla ciebie 📽
+          </span>
+          <div class="flex flex-wrap justify-center gap-4 md:gap-10 mt-4">
+            <iframe class="w-full md:w-[500px] h-[200px] md:h-[315px]" src="https://www.youtube.com/embed/SEtNw6AJ9jg?si=UeQ9mJtyiZ3NiR1h" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <iframe class="w-full md:w-[500px] h-[200px] md:h-[315px]" src="https://www.youtube.com/embed/nbdtJYp19p4?si=7t_T5hD-JRyiQOWM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <iframe class="w-full md:w-[500px] h-[200px] md:h-[315px]" src="https://www.youtube.com/embed/6wgnCDapJIg?si=KlRt4yVkaCdIeN2E" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          </div>
+          <div v-html="description"></div>
+
+          <NuxtLink href="/przetargi-styropianow" class="block w-fit mx-auto my-[20px] bg-white text-emerald-800 font-bold py-3 px-6 rounded-full transition-all duration-300 hover:bg-emerald-800 hover:text-white hover:scale-105">
+            Stwórz przetarg
+          </NuxtLink>
+        </div>
+      </section>
+
       <StyroTree />
 
       <!-- Pickup Points Section -->
@@ -454,21 +472,21 @@ const playVideo  = () => {
       </section>
 
       <!-- Contact Section -->
-      <section class="py-24 px-4 bg-gray-100 animate-fade-in-up">
-        <div class="container mx-auto">
-          <h2 class="text-4xl md:text-5xl font-bold mb-16 text-center text-emerald-800">Skontaktuj się z nami</h2>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-            <div class="contact-card bg-white rounded-lg shadow-xl p-8 hover:shadow-2xl transition-shadow duration-300 transform hover:-translate-y-2">
-              <h3 class="text-2xl md:text-3xl font-bold mb-6 text-emerald-700">Zadzwoń</h3>
-              <p class="text-gray-700 text-xl">Telefon: <span class="font-bold text-emerald-600">+48 507 925 963</span></p>
-            </div>
-            <div class="contact-card bg-white rounded-lg shadow-xl p-8 hover:shadow-2xl transition-shadow duration-300 transform hover:-translate-y-2">
-              <h3 class="text-2xl md:text-3xl font-bold mb-6 text-emerald-700">Napisz</h3>
-              <p class="text-gray-700 text-xl">E-mail: <span class="font-bold text-emerald-600">styropiany@ephpolska.pl</span></p>
-            </div>
-          </div>
-        </div>
-      </section>
+<!--      <section class="py-24 px-4 bg-gray-100 animate-fade-in-up">-->
+<!--        <div class="container mx-auto">-->
+<!--          <h2 class="text-4xl md:text-5xl font-bold mb-16 text-center text-emerald-800">Skontaktuj się z nami</h2>-->
+<!--          <div class="grid grid-cols-1 md:grid-cols-2 gap-12">-->
+<!--            <div class="contact-card bg-white rounded-lg shadow-xl p-8 hover:shadow-2xl transition-shadow duration-300 transform hover:-translate-y-2">-->
+<!--              <h3 class="text-2xl md:text-3xl font-bold mb-6 text-emerald-700">Zadzwoń</h3>-->
+<!--              <p class="text-gray-700 text-xl">Telefon: <span class="font-bold text-emerald-600">+48 507 925 963</span></p>-->
+<!--            </div>-->
+<!--            <div class="contact-card bg-white rounded-lg shadow-xl p-8 hover:shadow-2xl transition-shadow duration-300 transform hover:-translate-y-2">-->
+<!--              <h3 class="text-2xl md:text-3xl font-bold mb-6 text-emerald-700">Napisz</h3>-->
+<!--              <p class="text-gray-700 text-xl">E-mail: <span class="font-bold text-emerald-600">styropiany@ephpolska.pl</span></p>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </section>-->
     </main>
   </div>
 

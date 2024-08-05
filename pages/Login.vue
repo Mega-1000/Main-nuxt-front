@@ -51,7 +51,7 @@
 </script>
 
 <template>
-  <div class="flex py-20 xl:py-40">
+  <div class="flex py-10">
     <div class="m-auto">
       <LoginForm class="max-w-[90vw]" @login-failed="showFinishRegistration($event)" v-if="registering === false"  />
       <FinishRegistrationForm class="max-w-[90vw]" @submit="register" @cancel="cancelRegistration" v-else />
