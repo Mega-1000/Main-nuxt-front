@@ -181,16 +181,34 @@ const playVideo  = () => {
       </section>
 
       <!-- Contact Card Section -->
-      <section class="my-3 bg-gray-100 py-12 animate-fade-in-up">
+      <section class="my-8 bg-gradient-to-r from-emerald-500 to-teal-600 py-16 animate-fade-in-up">
         <div class="w-full md:w-3/4 lg:w-2/3 mx-auto">
-          <div class="contact-card bg-white rounded-lg shadow-lg p-8 hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-1">
-            <h3 class="text-2xl md:text-3xl font-bold mb-4"><em class="text-emerald-600">Skorzystaj z pomocy specjalisty</em></h3>
-            <p class="text-gray-600 text-lg">Telefon: <span class="font-bold text-emerald-700"><pm>+48 576 205 389</pm></span></p>
-            <p class="text-gray-600 text-lg">Godziny pracy: <span class="font-bold">6:30 - 22:00</span></p>
-            <p class="text-emerald-600 font-semibold mt-6 text-xl">Już ponad 5000 klientów skorzystało z naszego doradztwa!</p>
+          <div class="contact-card bg-white rounded-2xl shadow-2xl p-8 hover:shadow-3xl transition-all duration-300 transform hover:-translate-y-2">
+            <h3 class="text-3xl md:text-4xl font-bold mb-6 text-center">
+              <span class="bg-clip-text text-transparent bg-gradient-to-r from-emerald-600 to-teal-700">Skorzystaj z pomocy specjalisty</span>
+            </h3>
+            <div class="flex flex-col md:flex-row justify-between items-center mb-8">
+              <div>
+                <p class="text-gray-700 text-xl mb-2">Telefon: <span class="font-bold text-emerald-700">+48 576 205 389</span></p>
+                <p class="text-gray-700 text-xl">Godziny pracy: <span class="font-bold">6:30 - 22:00</span></p>
+              </div>
+              <p class="text-emerald-600 font-semibold mt-4 md:mt-0 text-2xl text-center md:text-right">Już ponad 5000 zadowolonych klientów!</p>
+            </div>
+            <form class="mt-8">
+              <div class="mb-6">
+                <label for="phone" class="block text-gray-700 text-lg font-semibold mb-2">Twój numer telefonu:</label>
+                <input type="tel" id="phone" name="phone" placeholder="Np. 123 456 789" required
+                       class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-emerald-500 focus:ring focus:ring-emerald-200 transition-all duration-300"
+                >
+              </div>
+              <button type="submit" class="w-full bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-bold py-3 px-6 rounded-lg hover:from-emerald-600 hover:to-teal-700 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg">
+                Zamów kontakt
+              </button>
+            </form>
           </div>
         </div>
       </section>
+
 
       <!-- Popular Products Section -->
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 animate-fade-in-up">
