@@ -2,6 +2,7 @@
 import { ref, onMounted, onUnmounted } from 'vue';
 import MagasinesMap from '~/components/MagasinesMap.vue';
 import { loadFull } from "tsparticles";
+import Swal from 'sweetalert2'
 
 const showZipCodeModal = !localStorage.getItem('zipCode');
 const { $shopApi: shopApi } = useNuxtApp();
