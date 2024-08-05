@@ -28,6 +28,7 @@
     "@nuxt/types": "^2.16.0",
     "@nuxtjs/axios": "^5.13.6",
     "@productdevbook/chatwoot": "^1.5.0",
+    "@tsparticles/vue3": "^3.0.1",
     "@vueuse/core": "^10.9.0",
     "axios": "^1.2.4",
     "axios-token-interceptor": "^0.2.0",
@@ -47,8 +48,10 @@
     "reveal.js": "^5.1.0",
     "sweetalert2": "^11.7.3",
     "three": "^0.165.0",
+    "tsparticles": "^3.5.0",
     "universal-cookie": "^4.0.4",
     "vue-file-base64": "^1.0.2",
+    "vue3-particles": "^2.12.0",
     "vuedraggable": "^4.1.0"
   }
 }

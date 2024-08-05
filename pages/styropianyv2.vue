@@ -11,8 +11,99 @@ const iframeSrc = 'https://admin.mega1000.pl/auctions/display-prices-table?zip-c
 const tutorialVideo = ref(null);
 const productCarousel = ref(null)
 let carouselInterval = null
-const show = ref(false);
-const phoneNumber = ref('');
+const clientCount = ref(2968)
+const particlesContainer = ref(null)
+
+const stats = [
+  { value: '30%', label: 'Średnia oszczędność', gradient: 'bg-gradient-to-r from-blue-400 to-emerald-400' },
+  { value: '5000+', label: 'Zadowolonych klientów', gradient: 'bg-gradient-to-r from-purple-400 to-pink-400' },
+  { value: '48h', label: 'Szybka dostawa', gradient: 'bg-gradient-to-r from-yellow-400 to-red-400' }
+]
+
+const blobs = [
+  { classes: 'top-1/4 left-10 bg-blue-500' },
+  { classes: 'top-1/2 left-1/2 bg-purple-500' },
+  { classes: 'bottom-1/4 right-10 bg-emerald-500' }
+]
+
+const particlesInit = async engine => {
+  await loadFull(engine);
+};
+
+const particlesOptions = {
+  background: {
+    color: {
+      value: "transparent",
+    },
+  },
+  fpsLimit: 120,
+  interactivity: {
+    events: {
+      onClick: {
+        enable: true,
+        mode: "push",
+      },
+      onHover: {
+        enable: true,
+        mode: "repulse",
+      },
+      resize: true,
+    },
+    modes: {
+      push: {
+        quantity: 4,
+      },
+      repulse: {
+        distance: 200,
+        duration: 0.4,
+      },
+    },
+  },
+  particles: {
+    color: {
+      value: "#ffffff",
+    },
+    links: {
+      color: "#ffffff",
+      distance: 150,
+      enable: true,
+      opacity: 0.5,
+      width: 1,
+    },
+    collisions: {
+      enable: true,
+    },
+    move: {
+      direction: "none",
+      enable: true,
+      outModes: {
+        default: "bounce",
+      },
+      random: false,
+      speed: 1,
+      straight: false,
+    },
+    number: {
+      density: {
+        enable: true,
+        area: 800,
+      },
+      value: 80,
+    },
+    opacity: {
+      value: 0.5,
+    },
+    shape: {
+      type: "circle",
+    },
+    size: {
+      value: { min: 1, max: 5 },
+    },
+  },
+  detectRetina: true,
+};
+
+
 const testimonials = [
   {
     name: "Anna Kowalska",
@@ -90,17 +181,6 @@ const handleIframeMessage = (event) => {
   }
 };
 
-const submitForm = () => {
-  if (phoneNumber.value) {
-    shopApi.post('api/contact-approach/create', {
-      phone_number: phoneNumber.value,
-      referred_by_user_id: 57352,
-    });
-  }
-
-  localStorage.setItem('formSubmitted', 'true');
-}
-
 const onIframeLoad = () => {
   isLoading.value = false;
 };
@@ -158,37 +238,57 @@ const playVideo  = () => {
     <AskUserForZipCodeStyrofoarms v-if="showZipCodeModal" />
     <main>
       <!-- Hero Section -->
-      <section class="relative py-24 overflow-hidden bg-gradient-to-br from-emerald-600 to-emerald-900">
-        <div class="absolute inset-0">
-          <svg class="absolute bottom-0 left-0 w-full" viewBox="0 0 1440 320" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path fill-opacity="0.1" fill="#fff" d="M0,192L48,197.3C96,203,192,213,288,229.3C384,245,480,267,576,250.7C672,235,768,181,864,181.3C960,181,1056,235,1152,234.7C1248,235,1344,181,1392,154.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+      <section class="bg-gradient-to-br from-gray-900 to-gray-800 min-h-screen flex items-center justify-center overflow-hidden relative">
+        <!-- Enhanced abstract background -->
+        <div class="absolute inset-0 opacity-30">
+          <svg class="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:rgb(59,130,246);stop-opacity:0.7" />
+                <stop offset="50%" style="stop-color:rgb(139,92,246);stop-opacity:0.7" />
+                <stop offset="100%" style="stop-color:rgb(16,185,129);stop-opacity:0.7" />
+              </linearGradient>
+            </defs>
+            <path d="M0,0 C20,40 80,40 100,0 L100,100 0,100 Z" fill="url(#grad)" />
           </svg>
         </div>
 
-        <div class="container mx-auto px-4 relative z-10">
-          <div class="text-center">
-            <h1 class="text-4xl md:text-6xl font-extrabold text-white mb-6 animate-fade-in-down didact-gothic-regular">
-              Przez ostatnie 12 miesięcy <span class="text-yellow-300 animate-pulse"><pm>2968</pm></span> użytkowników stworzyło <em class="not-italic bg-emerald-700 px-2 py-1 rounded animate-bounce">przetarg</em> i oszczędziło na styropianie!
-            </h1>
-            <p class="text-xl md:text-2xl text-emerald-100 mb-10 animate-fade-in-up animation-delay-300">
-              Dołącz do zadowolonych klientów i skorzystaj z <em class="not-italic font-bold underline decoration-yellow-300 decoration-2 underline-offset-2">DARMOWEJ DOSTAWY</em> na wszystkie zamówienia!
-            </p>
-            <NuxtLink
-                href="/przetargi-styropianow"
-                class="inline-block bg-white text-emerald-800 font-bold py-4 px-8 rounded-full transition-all duration-300 hover:bg-yellow-300 hover:text-emerald-900 transform hover:scale-105 shadow-lg hover:shadow-xl animate-pulse"
-            >
-              <span class="flex items-center gap-2">
-                Stwórz przetarg teraz!
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
-              </span>
-            </NuxtLink>
-            <p class="text-sm md:text-base mt-6 text-emerald-200 animate-fade-in-up animation-delay-600">
-              Już ponad 5000 klientów zaoszczędziło dzięki naszym przetargom!
-            </p>
+        <!-- Animated particles background -->
+        <client-only>
+          <div class="absolute inset-0">
+            <div ref="particlesContainer"></div>
           </div>
-          <OpinionStars class="animate-fade-in-up animation-delay-900 mt-8 text-white" />
+        </client-only>
+
+        <div class="container mx-auto px-4 relative z-10">
+          <div class="max-w-5xl mx-auto">
+            <h1 class="text-6xl md:text-8xl font-extrabold text-white mb-8 leading-tight animate-fade-in-down tracking-tighter">
+              Oszczędzaj na <br><span class="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-purple-400 to-emerald-400 animate-gradient-x">styropianie</span>
+            </h1>
+            <p class="text-2xl md:text-3xl text-gray-300 mb-12 animate-fade-in-up animation-delay-300 max-w-2xl">
+              Dołącz do <span class="font-bold text-emerald-400 animate-pulse">{{ clientCount }}</span> zadowolonych klientów i otrzymaj wyceny bezpośrednio od ponad 50 producentów w 24 godziny!
+            </p>
+
+            <div class="flex flex-col sm:flex-row items-center gap-6 mb-16">
+              <NuxtLink
+                  to="/przetargi-styropianow"
+                  class="inline-block bg-gradient-to-r from-emerald-500 to-blue-500 text-white font-bold text-xl py-5 px-10 rounded-full transition-all duration-300 hover:from-emerald-400 hover:to-blue-400 transform hover:scale-105 hover:-translate-y-1 shadow-lg hover:shadow-xl animate-bounce"
+              >
+                Stwórz przetarg
+              </NuxtLink>
+              <a href="tel:+48123456789" class="text-gray-300 hover:text-white transition-colors text-xl group">
+                <span class="group-hover:hidden">+48 576 205 389</span>
+                <span class="hidden group-hover:inline">Zadzwoń teraz!</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Enhanced floating elements -->
+        <div v-for="(blob, index) in blobs" :key="index"
+             class="absolute w-32 h-32 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"
+             :class="blob.classes"
+             :style="{ animationDelay: `${index * 2000}ms` }">
         </div>
       </section>
 
@@ -286,10 +386,10 @@ const playVideo  = () => {
                 Zostaw numer - oddzwonimy w ciągu <span class="font-bold underline decoration-yellow-400 decoration-4">5 minut</span> z darmową konsultacją!
               </p>
 
-              <form class="max-w-2xl mx-auto mb-12" @submit="submitForm">
+              <form class="max-w-2xl mx-auto mb-12">
                 <div class="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-4">
                   <div class="w-full sm:w-2/3">
-                    <input type="tel" placeholder="Twój numer telefonu" v-model="phoneNumber" required
+                    <input type="tel" placeholder="Twój numer telefonu" required
                            class="w-full px-6 py-4 text-lg text-gray-900 placeholder-gray-500 bg-white rounded-full focus:outline-none focus:ring-4 focus:ring-yellow-400 transition duration-300 ease-in-out"
                     />
                   </div>
@@ -315,11 +415,11 @@ const playVideo  = () => {
             </div>
 
             <!-- Bottom curve -->
-<!--            <div class="absolute bottom-0 inset-x-0">-->
-<!--              <svg viewBox="0 0 224 12" fill="white" class="w-full -mb-1 text-white" preserveAspectRatio="none">-->
-<!--                <path d="M0,0 C48.8902582,6.27314026 86.2235915,9.40971039 112,9.40971039 C137.776408,9.40971039 175.109742,6.27314026 224,0 L224,12.0441132 L0,12.0441132 L0,0 Z"></path>-->
-<!--              </svg>-->
-<!--            </div>-->
+            <!--            <div class="absolute bottom-0 inset-x-0">-->
+            <!--              <svg viewBox="0 0 224 12" fill="white" class="w-full -mb-1 text-white" preserveAspectRatio="none">-->
+            <!--                <path d="M0,0 C48.8902582,6.27314026 86.2235915,9.40971039 112,9.40971039 C137.776408,9.40971039 175.109742,6.27314026 224,0 L224,12.0441132 L0,12.0441132 L0,0 Z"></path>-->
+            <!--              </svg>-->
+            <!--            </div>-->
           </div>
         </div>
       </section>
