@@ -168,7 +168,7 @@ const playVideo  = () => {
     <AskUserForZipCodeStyrofoarms v-if="showZipCodeModal" />
     <main>
       <!-- Hero Section -->
-      <section class="relative py-24 overflow-hidden bg-gradient-to-br from-emerald-600 to-emerald-900">
+      <section class="relative py-10 overflow-hidden bg-gradient-to-br from-emerald-600 to-emerald-900">
         <div class="absolute inset-0">
           <svg class="absolute bottom-0 left-0 w-full" viewBox="0 0 1440 320" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path fill-opacity="0.1" fill="#fff" d="M0,192L48,197.3C96,203,192,213,288,229.3C384,245,480,267,576,250.7C672,235,768,181,864,181.3C960,181,1056,235,1152,234.7C1248,235,1344,181,1392,154.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
@@ -204,54 +204,49 @@ const playVideo  = () => {
 
 
       <!-- Popular Products Section -->
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 animate-fade-in-up">
-        <h2 class="text-3xl md:text-5xl font-extrabold text-gray-900 mb-12 text-center">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 bg-gradient-to-b from-gray-50 to-white">
+        <h2 class="text-4xl md:text-6xl font-bold text-gray-900 mb-16 text-center leading-tight">
           Nie chcesz robić przegargu? Zobacz <span class="text-emerald-600">najczęściej</span> kupowane produkty 🔥
         </h2>
 
         <div class="relative">
-          <div class="flex overflow-x-auto snap-x snap-mandatory scrollbar-hide space-x-6 pb-6" ref="productCarousel">
-            <div v-for="product in products" :key="product.id" class="snap-start flex-shrink-0 w-64 md:w-72">
-              <a :href="`/singleProduct/${product.id}`" class="block bg-white rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-2 transition-all duration-300">
-                <div class="relative">
-                  <img :src="`https://admin.mega1000.pl${product.url_for_website}`" :alt="product.name" class="w-full h-48 object-cover rounded-t-xl" />
-                  <div class="absolute top-0 right-0 bg-red-500 text-white text-sm font-bold px-3 py-1 m-2 rounded-full animate-pulse">
+          <div class="flex overflow-x-auto snap-x snap-mandatory scrollbar-hide space-x-8 pb-12" ref="productCarousel">
+            <div v-for="product in products" :key="product.id" class="snap-start flex-shrink-0 w-72 md:w-80">
+              <a :href="`/singleProduct/${product.id}`" class="group block bg-white rounded-2xl shadow-xl hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300">
+                <div class="relative overflow-hidden rounded-t-2xl">
+                  <img :src="`https://admin.mega1000.pl${product.url_for_website}`" :alt="product.name" class="w-full h-56 object-cover transition-transform duration-300 group-hover:scale-110" />
+                  <div class="absolute top-0 right-0 bg-red-500 text-white text-sm font-bold px-4 py-2 m-4 rounded-full shadow-lg">
                     HOT
                   </div>
                 </div>
-                <div class="p-4">
-                  <h3 class="text-lg font-semibold text-gray-900 mb-2 line-clamp-2">{{ product.name }}</h3>
-                  <p class="text-emerald-600 font-extrabold text-2xl mb-2">
-                    {{ product.gross_selling_price_calculated_unit }} PLN/M<sup>3</sup>
+                <div class="p-6">
+                  <h3 class="text-xl font-bold text-gray-900 mb-3 line-clamp-2 group-hover:text-emerald-600 transition-colors">{{ product.name }}</h3>
+                  <p class="text-emerald-600 font-extrabold text-3xl mb-4">
+                    {{ product.gross_selling_price_calculated_unit }} <span class="text-lg font-semibold">PLN/M<sup>3</sup></span>
                   </p>
                   <div class="flex items-center justify-between">
                     <span class="text-sm font-medium text-gray-500">{{ product.purchases }} zamówień dzisiaj!</span>
-                    <svg class="w-6 h-6 text-emerald-500 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    <svg class="w-6 h-6 text-emerald-500 group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                   </div>
                 </div>
               </a>
             </div>
           </div>
-          <div class="absolute top-1/2 -left-4 -translate-y-1/2">
-            <button class="bg-white rounded-full p-2 shadow-md hover:bg-gray-100 transition-colors duration-300" @click="scrollCarousel('left')">
-              <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
-            </button>
-          </div>
-          <div class="absolute top-1/2 -right-4 -translate-y-1/2">
-            <button class="bg-white rounded-full p-2 shadow-md hover:bg-gray-100 transition-colors duration-300" @click="scrollCarousel('right')">
-              <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-            </button>
-          </div>
+          <button class="absolute top-1/2 -left-6 -translate-y-1/2 bg-white rounded-full p-3 shadow-lg hover:bg-gray-100 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-emerald-500" @click="scrollCarousel('left')">
+            <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+          </button>
+          <button class="absolute top-1/2 -right-6 -translate-y-1/2 bg-white rounded-full p-3 shadow-lg hover:bg-gray-100 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-emerald-500" @click="scrollCarousel('right')">
+            <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+          </button>
         </div>
 
-        <div class="mt-16 text-center">
-          <a href="#price-table" class="inline-flex items-center px-8 py-4 border border-transparent text-lg font-medium rounded-full text-white bg-emerald-600 hover:bg-emerald-700 transition-colors duration-300 transform hover:scale-105">
+        <div class=" text-center">
+          <a href="#price-table" class="inline-flex items-center px-10 py-5 text-lg font-bold rounded-full text-white bg-emerald-600 hover:bg-emerald-700 transition-all duration-300 transform hover:scale-105 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500">
             Zobacz tabelę cen
-            <svg class="ml-2 -mr-1 w-5 h-5 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            <svg class="ml-2 -mr-1 w-6 h-6 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
           </a>
         </div>
       </div>
-
       <!-- Payment Section -->
       <div class="hero py-16 px-4 bg-gradient-to-r from-emerald-600 to-emerald-800 text-white">
         <div class="container mx-auto text-center relative z-10">
