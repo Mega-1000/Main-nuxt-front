@@ -1,7 +1,6 @@
 <template>
   <div class="w-full sm:w-[90%] md:w-[80%] lg:w-[70%] mx-auto">
     <div class="bg-white rounded-lg shadow-md p-6 mt-12">
-      <h2 class="text-xl md:text-2xl font-bold mb-4">Masz jakieś pytania? Jesteśmy do twojej dyspozycji! <em> 576 205 389 </em></h2>
 
       <span class="text-xl md:text-lg font-bold mb-4">
         Nie wiesz ile paczek potrzebujesz zkożystaj z naszego

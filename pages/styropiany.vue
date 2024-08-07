@@ -126,7 +126,7 @@ const products = [
   {
     id: 99546,
     name: 'Neotherm fasada 033',
-    gross_selling_price_calculated_unit: 194,
+    gross_selling_price_calculated_unit: 190,
     url_for_website: '/storage/products/neotherm_fasada_033_1.jpg',
     purchases: 5
   },
@@ -247,24 +247,26 @@ const playVideo  = () => {
           </a>
         </div>
       </div>
-      <!-- Payment Section -->
-      <div class="hero py-16 px-4 bg-gradient-to-r from-emerald-600 to-emerald-800 text-white">
-        <div class="container mx-auto text-center relative z-10">
-          <h1 class="text-4xl md:text-6xl font-extrabold mb-8 animate-fade-in-up didact-gothic-regular">
+
+      <div class="hero bg-gradient-to-r from-emerald-600 to-emerald-700 text-white py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-3xl mx-auto">
+          <h1 class="text-3xl sm:text-4xl font-bold mb-4 text-center">
             Płatność przy odbiorze! Bez ryzyka!
           </h1>
-          <p class="text-xl md:text-2xl mb-12 animate-fade-in-up animation-delay-300">
-            Zamówienia realizowane są również z opcją płatności przy odbiorze, lub bezpośrednio od fabryki <br> Nie musisz obawiać się o swoje pieniądze!
+          <p class="text-lg sm:text-xl mb-8 text-center">
+            Zamówienia realizowane są również z opcją płatności przy odbiorze, lub bezpośrednio od fabryki.
+            <span class="font-semibold">Nie musisz obawiać się o swoje pieniądze!</span>
           </p>
-
-          <NuxtLink href="/przetargi-styropianow" class="create-auction-btn inline-block bg-white text-emerald-700 font-bold py-4 px-8 rounded-full transition-all duration-300 hover:bg-yellow-300 hover:text-emerald-800 transform hover:scale-105 shadow-lg hover:shadow-xl animate-pulse">
-            <span class="flex items-center gap-3">
-              Stwórz przetarg i kup bezpośrednio od producenta!
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-            </span>
-          </NuxtLink>
+          <div class="text-center">
+            <a href="/przetargi-styropianow" class="inline-block bg-yellow-400 text-emerald-800 font-bold py-3 px-6 rounded-lg transition-all duration-300 hover:bg-yellow-300 transform hover:scale-105 shadow-md hover:shadow-lg">
+                    <span class="flex items-center justify-center gap-2">
+                        Stwórz przetarg i kup od producenta!
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                        </svg>
+                    </span>
+            </a>
+          </div>
         </div>
       </div>
 
@@ -339,11 +341,6 @@ const playVideo  = () => {
             <p class="text-xl md:text-2xl mb-10 text-gray-700 leading-relaxed">
               Oprócz znalezienia najtańszej hurtowni w Polsce która dostarczy ci ten styropian wraz z gratisowym transportem dokonamy także przetargu dla wszystkich pozostałych 50 producentów dla porównania.
             </p>
-            <div class="bg-emerald-100 rounded-2xl p-6 mb-10 transform hover:scale-105 transition-transform duration-300">
-              <p class="text-emerald-800 font-bold text-2xl text-center">
-                98% naszych klientów zaoszczędziło na zakupie styropianu przez przetarg!
-              </p>
-            </div>
             <NuxtLink
                 to="/przetargi-styropianow"
                 class="create-auction-btn block w-full md:w-fit mx-auto my-10 bg-emerald-600 text-white font-bold py-5 px-10 rounded-full transition-all duration-300 hover:bg-emerald-700 hover:scale-105 shadow-lg hover:shadow-xl text-center text-lg"
@@ -414,24 +411,6 @@ const playVideo  = () => {
         </div>
       </section>
 
-      <section class="py-6 px-2 md:py-10 md:px-4 bg-gray-100" id="videos">
-        <div class="container w-full md:w-[70%] mx-auto">
-          <span class="text-xl w-fit font-bold">
-            Obejżyj filmy poradnikowe przygotowane dla ciebie 📽
-          </span>
-          <div class="flex flex-wrap justify-center gap-4 md:gap-10 mt-4">
-            <iframe class="w-full md:w-[500px] h-[200px] md:h-[315px]" src="https://www.youtube.com/embed/SEtNw6AJ9jg?si=UeQ9mJtyiZ3NiR1h" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-            <iframe class="w-full md:w-[500px] h-[200px] md:h-[315px]" src="https://www.youtube.com/embed/nbdtJYp19p4?si=7t_T5hD-JRyiQOWM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-            <iframe class="w-full md:w-[500px] h-[200px] md:h-[315px]" src="https://www.youtube.com/embed/6wgnCDapJIg?si=KlRt4yVkaCdIeN2E" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-          </div>
-          <div v-html="description"></div>
-
-          <NuxtLink href="/przetargi-styropianow" class="block w-fit mx-auto my-[20px] bg-white text-emerald-800 font-bold py-3 px-6 rounded-full transition-all duration-300 hover:bg-emerald-800 hover:text-white hover:scale-105">
-            Stwórz przetarg
-          </NuxtLink>
-        </div>
-      </section>
-
       <StyroTree />
 
       <!-- Pickup Points Section -->
@@ -473,7 +452,7 @@ const playVideo  = () => {
 <!--          <div class="grid grid-cols-1 md:grid-cols-2 gap-12">-->
 <!--            <div class="contact-card bg-white rounded-lg shadow-xl p-8 hover:shadow-2xl transition-shadow duration-300 transform hover:-translate-y-2">-->
 <!--              <h3 class="text-2xl md:text-3xl font-bold mb-6 text-emerald-700">Zadzwoń</h3>-->
-<!--              <p class="text-gray-700 text-xl">Telefon: <span class="font-bold text-emerald-600">+48 507 925 963</span></p>-->
+<!--              <p class="text-gray-700 text-xl">Telefon: <span class="font-bold text-emerald-600">+48 576 205 389</span></p>-->
 <!--            </div>-->
 <!--            <div class="contact-card bg-white rounded-lg shadow-xl p-8 hover:shadow-2xl transition-shadow duration-300 transform hover:-translate-y-2">-->
 <!--              <h3 class="text-2xl md:text-3xl font-bold mb-6 text-emerald-700">Napisz</h3>-->

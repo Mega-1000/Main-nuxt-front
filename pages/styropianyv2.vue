@@ -550,7 +550,7 @@ const playVideo  = () => {
           <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
             <div class="contact-card bg-white rounded-lg shadow-xl p-8 hover:shadow-2xl transition-shadow duration-300 transform hover:-translate-y-2">
               <h3 class="text-2xl md:text-3xl font-bold mb-6 text-emerald-700">Zadzwoń</h3>
-              <p class="text-gray-700 text-xl">Telefon: <span class="font-bold text-emerald-600">+48 507 925 963</span></p>
+              <p class="text-gray-700 text-xl">Telefon: <span class="font-bold text-emerald-600">+48 576 205 389</span></p>
             </div>
             <div class="contact-card bg-white rounded-lg shadow-xl p-8 hover:shadow-2xl transition-shadow duration-300 transform hover:-translate-y-2">
               <h3 class="text-2xl md:text-3xl font-bold mb-6 text-emerald-700">Napisz</h3>
