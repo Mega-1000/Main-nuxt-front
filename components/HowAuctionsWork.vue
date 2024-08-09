@@ -29,9 +29,9 @@ import { ref } from 'vue'
 import { FileText, Send, Mail, ShoppingCart } from 'lucide-vue-next'
 
 const steps = ref([
-  { icon: FileText, title: "Tworzysz przetarg", description: "Określ potrzeby" },
-  { icon: Send, title: "Wysyłamy zapytania", description: "Do fabryk" },
-  { icon: Mail, title: "Otrzymujesz wyceny", description: "Porównaj oferty" },
-  { icon: ShoppingCart, title: "Składasz zamówienie", description: "Oszczędzasz" }
+  { icon: FileText, title: "Tworzysz przetarg", description: "Określaś potrzeby do twojej bydowy" },
+  { icon: Send, title: "Wysyłamy zapytania", description: "Do ponad 50 fabryk" },
+  { icon: Mail, title: "Otrzymujesz wyceny", description: "Porównaj oferty od większości prodycentów w polsce" },
+  { icon: ShoppingCart, title: "Składasz zamówienie", description: "Gwarantujemy najniższą cenę na rynku a jak znajdziesz taniej zwrócimy ci różnicę" }
 ])
 </script>
