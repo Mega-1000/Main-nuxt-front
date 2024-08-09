@@ -1,7 +1,9 @@
 <template>
+
+  <HowAuctionsWork />
+
   <div class="w-full sm:w-[90%] md:w-[80%] lg:w-[70%] mx-auto">
     <div class="bg-white rounded-lg shadow-md p-6 mt-12">
-
       <span class="text-xl md:text-lg font-bold mb-4">
         Nie wiesz ile paczek potrzebujesz zkożystaj z naszego
       </span>
@@ -273,6 +275,7 @@ import SubmitButton from "../components/SubmitButton.vue";
 import Swal from "sweetalert2";
 import Cookies from "universal-cookie/cjs/Cookies";
 import StyroTypeModal from "~/components/StyroTypeModal.vue";
+import HowAuctionsWork from "~/components/HowAuctionsWork.vue";
 import axios from "axios";
 import {trackEvent} from "~/utils/trackEvent";
 
