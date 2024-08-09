@@ -1,17 +1,29 @@
 <template>
+  <div class="w-full sm:w-[90%] md:w-[80%] lg:w-[70%] mx-auto my-8">
+    <div class="bg-gradient-to-br from-red-500 to-pink-600 rounded-2xl shadow-2xl overflow-hidden">
+      <div class="p-8 sm:p-10">
+        <h2 class="text-3xl sm:text-4xl font-bold text-white mb-6 leading-tight">
+          Nie wiesz ile paczek potrzebujesz?
+        </h2>
+        <p class="text-xl text-white mb-8 opacity-90">
+          Skorzystaj z naszego kalkulatora styropianu i oblicz dokładną ilość potrzebnego materiału.
+        </p>
+        <button
+            @click="openCalculator"
+            class="group flex items-center space-x-3 bg-white text-red-600 hover:bg-red-100 transition-colors duration-300 font-semibold py-3 px-6 rounded-full shadow-lg hover:shadow-xl"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 group-hover:animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+          </svg>
 
-  <HowAuctionsWork />
+          <span @click="showCalculator = true">Otwórz Kalkulator</span>
+        </button>
+      </div>
+    </div>
+  </div>
 
   <div class="w-full sm:w-[90%] md:w-[80%] lg:w-[70%] mx-auto">
     <div class="bg-white rounded-lg shadow-md p-6 mt-12">
-      <span class="text-xl md:text-lg font-bold mb-4">
-        Nie wiesz ile paczek potrzebujesz zkożystaj z naszego
-      </span>
-
-      <button @click="showCalculator = true" class="mb-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-        Kalkulatora styropianu
-      </button>
-
       <div ref="parent" class="space-y-4">
         <div v-for="(selection, index) in selections" :key="index" class="flex flex-col sm:flex-row items-center gap-2">
           <div class="flex flex-col w-full sm:w-1/3">
@@ -98,6 +110,9 @@
         <span v-else>Ładowanie...</span>
       </SubmitButton>
     </div>
+
+<!--    <HowAuctionsWork />-->
+
 
     <OpinionStars class="mt-3 text-black" />
     <div class="mt-12">

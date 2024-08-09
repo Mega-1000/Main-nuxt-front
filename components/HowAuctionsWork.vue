@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full sm:w-[90%] md:w-[80%] lg:w-[70%] mx-auto my-8">
+  <div class="hidden md:block  mx-auto my-8">
     <div class="bg-gradient-to-r from-green-600 to-emerald-700  rounded-xl shadow-lg overflow-hidden">
       <div class="p-6 sm:p-8">
         <h2 class="text-3xl font-bold mb-6 text-white text-center">
@@ -29,9 +29,9 @@ import { ref } from 'vue'
 import { FileText, Send, Mail, ShoppingCart } from 'lucide-vue-next'
 
 const steps = ref([
-  { icon: FileText, title: "Tworzysz przetarg", description: "Określaś potrzeby do twojej bydowy" },
+  { icon: FileText, title: "Tworzysz przetarg", description: "Określaś potrzeby do twojej budowy" },
   { icon: Send, title: "Wysyłamy zapytania", description: "Do ponad 50 fabryk" },
-  { icon: Mail, title: "Otrzymujesz wyceny", description: "Porównaj oferty od większości prodycentów w polsce" },
+  { icon: Mail, title: "Otrzymujesz wyceny", description: "Porównaj oferty od większości producentów w polsce" },
   { icon: ShoppingCart, title: "Składasz zamówienie", description: "Gwarantujemy najniższą cenę na rynku a jak znajdziesz taniej zwrócimy ci różnicę" }
 ])
 </script>
