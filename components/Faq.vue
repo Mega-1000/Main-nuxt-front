@@ -19,7 +19,7 @@ const categoryQuestions = computed(() => {
 });
 
 onMounted(async () => {
-  await loginFromGetParams(false);
+  // await loginFromGetParams(false);
 
   // await router.push({ query: { showFaq: true } });
   // await checkIfUserIsLoggedIn('Aby połączyć się z konsultanmem konieczne jest posiadanie konta, jeśli go nie posiadasz wypełnij pola poniżej to ci je założymy');
