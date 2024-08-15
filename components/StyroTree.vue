@@ -65,8 +65,8 @@ const styrofoamTypes = [
     icon: 'icon-foundation',
     description: 'Stosowany do izolacji fundamentów i ścian piwnic.',
     subtypes: [
-      { name: 'EPS 100', explanation: 'Standardowa ochrona dla typowych warunków gruntowych.' },
-      { name: 'EPS 200', explanation: 'Wzmocniona ochrona dla trudnych warunków gruntowych i większych obciążeń.' }
+      { name: 'Wodoodporny EPS 100', explanation: 'Standardowa ochrona dla typowych warunków gruntowych.' },
+      { name: 'Wodoodporny EPS 200', explanation: 'Wzmocniona ochrona dla trudnych warunków gruntowych i większych obciążeń.' }
     ]
   }
 ];

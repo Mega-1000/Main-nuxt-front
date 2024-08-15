@@ -445,58 +445,41 @@ const playVideo  = () => {
         </div>
       </section>
 
-      <!-- Contact Section -->
-<!--      <section class="py-24 px-4 bg-gray-100 animate-fade-in-up">-->
-<!--        <div class="container mx-auto">-->
-<!--          <h2 class="text-4xl md:text-5xl font-bold mb-16 text-center text-emerald-800">Skontaktuj się z nami</h2>-->
-<!--          <div class="grid grid-cols-1 md:grid-cols-2 gap-12">-->
-<!--            <div class="contact-card bg-white rounded-lg shadow-xl p-8 hover:shadow-2xl transition-shadow duration-300 transform hover:-translate-y-2">-->
-<!--              <h3 class="text-2xl md:text-3xl font-bold mb-6 text-emerald-700">Zadzwoń</h3>-->
-<!--              <p class="text-gray-700 text-xl">Telefon: <span class="font-bold text-emerald-600">+48 576 205 389</span></p>-->
-<!--            </div>-->
-<!--            <div class="contact-card bg-white rounded-lg shadow-xl p-8 hover:shadow-2xl transition-shadow duration-300 transform hover:-translate-y-2">-->
-<!--              <h3 class="text-2xl md:text-3xl font-bold mb-6 text-emerald-700">Napisz</h3>-->
-<!--              <p class="text-gray-700 text-xl">E-mail: <span class="font-bold text-emerald-600">styropiany@ephpolska.pl</span></p>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </section>-->
+      <section class="py-24 px-4 text-black overflow-hidden relative animate-fade-in-up">
+        <div class="container mx-auto relative z-10">
+          <h2 class="text-4xl md:text-6xl font-bold mb-16 text-center">
+            Gwarancja najniższej ceny
+          </h2>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+            <div class="bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg rounded-lg p-8 shadow-lg transform hover:scale-105 transition-transform duration-300">
+              <div class="text-6xl mb-6">💰</div>
+              <h3 class="text-2xl font-semibold mb-4">Oszczędzasz pieniądze</h3>
+              <p class="text-lg">Gwarantujemy, że znajdziesz u nas najniższe ceny na rynku. Jeśli znajdziesz taniej, wyrównamy cenę!</p>
+            </div>
+            <div class="bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg rounded-lg p-8 shadow-lg transform hover:scale-105 transition-transform duration-300">
+              <div class="text-6xl mb-6">🛡️</div>
+              <h3 class="text-2xl font-semibold mb-4">Pewność zakupu</h3>
+              <p class="text-lg">Nasza gwarancja daje Ci pewność, że dokonujesz najlepszego wyboru cenowego na rynku.</p>
+            </div>
+            <div class="bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg rounded-lg p-8 shadow-lg transform hover:scale-105 transition-transform duration-300">
+              <div class="text-6xl mb-6">🤝</div>
+              <h3 class="text-2xl font-semibold mb-4">Uczciwe warunki</h3>
+              <p class="text-lg">Bez ukrytych kosztów czy haczyków. Nasza gwarancja jest prosta i przejrzysta.</p>
+            </div>
+          </div>
+          <div class="mt-16 text-center">
+            <NuxtLink
+                to="/przetargi-styropianow"
+                class="bg-white text-emerald-700 font-bold py-4 px-10 rounded-full inline-block transition-all duration-300 hover:bg-yellow-300 hover:text-emerald-800 hover:scale-105 shadow-lg hover:shadow-xl text-xl"
+            >
+              Jeszcze się zastanawiasz? Stwórz przetarg!
+            </NuxtLink>
+          </div>
+        </div>
+        <div class="absolute inset-0 bg-emerald-600 opacity-20 animate-wave"></div>
+      </section>
     </main>
   </div>
-
-  <section class="py-24 px-4 bg-gradient-to-br from-emerald-500 to-emerald-700 text-white overflow-hidden relative animate-fade-in-up">
-    <div class="container mx-auto relative z-10">
-      <h2 class="text-4xl md:text-6xl font-bold mb-16 text-center">
-        Gwarancja najniższej ceny
-      </h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
-        <div class="bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg rounded-lg p-8 shadow-lg transform hover:scale-105 transition-transform duration-300">
-          <div class="text-6xl mb-6">💰</div>
-          <h3 class="text-2xl font-semibold mb-4">Oszczędzasz pieniądze</h3>
-          <p class="text-lg">Gwarantujemy, że znajdziesz u nas najniższe ceny na rynku. Jeśli znajdziesz taniej, wyrównamy cenę!</p>
-        </div>
-        <div class="bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg rounded-lg p-8 shadow-lg transform hover:scale-105 transition-transform duration-300">
-          <div class="text-6xl mb-6">🛡️</div>
-          <h3 class="text-2xl font-semibold mb-4">Pewność zakupu</h3>
-          <p class="text-lg">Nasza gwarancja daje Ci pewność, że dokonujesz najlepszego wyboru cenowego na rynku.</p>
-        </div>
-        <div class="bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg rounded-lg p-8 shadow-lg transform hover:scale-105 transition-transform duration-300">
-          <div class="text-6xl mb-6">🤝</div>
-          <h3 class="text-2xl font-semibold mb-4">Uczciwe warunki</h3>
-          <p class="text-lg">Bez ukrytych kosztów czy haczyków. Nasza gwarancja jest prosta i przejrzysta.</p>
-        </div>
-      </div>
-      <div class="mt-16 text-center">
-        <NuxtLink
-            to="/gwarancja-najnizszej-ceny"
-            class="bg-white text-emerald-700 font-bold py-4 px-10 rounded-full inline-block transition-all duration-300 hover:bg-yellow-300 hover:text-emerald-800 hover:scale-105 shadow-lg hover:shadow-xl text-xl"
-        >
-          Dowiedz się więcej
-        </NuxtLink>
-      </div>
-    </div>
-    <div class="absolute inset-0 bg-emerald-600 opacity-20 animate-wave"></div>
-  </section>
 </template>
 
 <style>
