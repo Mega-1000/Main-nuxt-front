@@ -114,11 +114,11 @@ export default {
 
     const getApplicationInfo = (category) => {
       switch (category) {
-        case 'styropiany elewacyjne':
+        case '100.styropiany elewacyjne':
           return 'Izolacja ścian zewnętrznych';
-        case 'styropiany podłogowe':
+        case '10.styropiany podłogowe':
           return 'Izolacja podłóg i dachów';
-        case 'styropiany wodoodporne':
+        case '10.styropiany wodoodporne':
           return 'Izolacja w miejscach narażonych na wilgoć';
         default:
           return '';
