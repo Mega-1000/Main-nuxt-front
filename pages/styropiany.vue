@@ -365,7 +365,7 @@ const playVideo  = () => {
                 @load="onIframeLoad"
                 @error="onIframeError"
             ></iframe>
-            <div class="mt text-center">
+            <div class="mt text-center mt-8">
               <span class="text-gray-700">Nie wiesz jak korzystać z tabeli cen?</span>
               <NuxtLink class="text-emerald-600 hover:text-emerald-700 ml-2 font-semibold underline" to="/tabela-cen-instrukcje">Kliknij tutaj</NuxtLink>
             </div>
@@ -382,7 +382,7 @@ const playVideo  = () => {
       <FastShipping />
 
       <!-- Testimonials Section -->
-      <section class="py-24 px-4 bg-emerald-50 animate-fade-in-up">
+      <section class="py-12 px-4 bg-emerald-50 animate-fade-in-up">
         <div class="container mx-auto">
           <h2 class="text-4xl md:text-5xl font-bold mb-16 text-center text-emerald-800">
             Co mówią nasi klienci
@@ -414,7 +414,7 @@ const playVideo  = () => {
       <StyroTree />
 
       <!-- Pickup Points Section -->
-      <section class="py-24 px-4 bg-gray-100 animate-fade-in-up">
+      <section class="py-10 px-4 bg-gray-100 animate-fade-in-up">
         <div class="container mx-auto text-center">
           <h2 class="text-3xl md:text-5xl font-bold mb-8 text-emerald-800">
             Odbiór w jednym z <em class="text-emerald-600">100</em> punktów
@@ -455,7 +455,7 @@ const playVideo  = () => {
         <div class="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-emerald-800 to-transparent"></div>
       </section>
 
-      <section class="py-24 px-4 text-black overflow-hidden relative animate-fade-in-up">
+      <section class="py-10 px-4 text-black overflow-hidden relative animate-fade-in-up">
         <div class="container mx-auto relative z-10">
           <h2 class="text-4xl md:text-6xl font-bold mb-16 text-center">
             Gwarancja najniższej ceny

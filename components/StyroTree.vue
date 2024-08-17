@@ -1,5 +1,5 @@
 <template>
-  <section class="styrofoam-tree py-16 px-4 bg-emerald-50 animate-fade-in-up">
+  <section class="styrofoam-tree py-10 px-4 bg-emerald-50 animate-fade-in-up">
     <div class="container mx-auto">
       <h2 class="text-3xl md:text-5xl font-bold mb-12 text-center text-emerald-800">
         Klasyfikacja Styropianu
