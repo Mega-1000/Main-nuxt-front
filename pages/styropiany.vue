@@ -332,7 +332,7 @@ const playVideo  = () => {
       </section>
 
       <!-- Price Table Section -->
-      <section class="py-24 md:px-4 bg-gradient-to-b from-emerald-100 to-white" id="price-table">
+      <section class="py-8 md:px-4 bg-gradient-to-b from-emerald-100 to-white" id="price-table">
         <div class="container mx-auto relative max-w-6xl">
           <h2 class="text-4xl md:text-5xl font-extrabold mb-12 text-center text-emerald-700 animate-fade-in-up">
             Wybierz styropian z tabeli, kliknij cenę - dodasz do koszyka
@@ -365,7 +365,7 @@ const playVideo  = () => {
                 @load="onIframeLoad"
                 @error="onIframeError"
             ></iframe>
-            <div class="mt-8 text-center">
+            <div class="mt text-center">
               <span class="text-gray-700">Nie wiesz jak korzystać z tabeli cen?</span>
               <NuxtLink class="text-emerald-600 hover:text-emerald-700 ml-2 font-semibold underline" to="/tabela-cen-instrukcje">Kliknij tutaj</NuxtLink>
             </div>
@@ -373,7 +373,7 @@ const playVideo  = () => {
         </div>
       </section>
 
-      <section class="py-16 px-4 animate-fade-in-up bg-gray-50">
+      <section class="px-4 animate-fade-in-up bg-gray-50">
         <div class="mx-auto max-w-screen-xl">
           <LogosSection />
         </div>
@@ -430,19 +430,29 @@ const playVideo  = () => {
       </section>
 
       <!-- Referral Section -->
-      <section class="py-24 px-4 bg-gradient-to-br from-emerald-600 to-emerald-800 text-white animate-fade-in-up">
-        <div class="container mx-auto text-center">
-          <h2 class="text-4xl md:text-5xl font-bold mb-8">Polecaj i oszczędzaj!</h2>
-          <p class="text-xl mb-12 max-w-3xl mx-auto">
-            Zaproś znajomych, a otrzymasz 30 zł zniżki za każdego nowego użytkownika! Proste i korzystne.
+      <section class="relative py-12 px-4 bg-gradient-to-br from-emerald-600 to-emerald-800 text-white overflow-hidden">
+        <div class="absolute inset-0 bg-pattern opacity-10"></div>
+        <div class="container mx-auto text-center relative z-10">
+          <h2 class="text-5xl md:text-7xl font-extrabold mb-8 tracking-tight animate-fade-in-up">
+            Polecaj i <span class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 to-yellow-500">oszczędzaj!</span>
+          </h2>
+          <p class="text-xl md:text-2xl mb-12 max-w-3xl mx-auto leading-relaxed animate-fade-in-up animation-delay-200">
+            Zaproś znajomych, a otrzymasz <span class="font-bold text-yellow-300">30 zł zniżki</span> za każdego nowego użytkownika! Proste i korzystne.
           </p>
-          <p class="text-2xl font-bold mb-12 animate-pulse">
-            Już ponad 5000 klientów skorzystało z programu poleceń!
-          </p>
-          <a href="https://mega1000.pl/polec-znajomego" class="bg-white text-emerald-700 font-bold py-4 px-8 rounded-full inline-block transition-all duration-300 hover:bg-yellow-300 hover:text-emerald-800 hover:scale-105 shadow-lg hover:shadow-xl text-lg">
-            Sprawdź swój panel poleceń
+          <div class="mb-16 animate-fade-in-up animation-delay-400">
+      <span class="inline-block bg-emerald-700 rounded-full px-6 py-3 text-lg font-semibold">
+        Już ponad <span class="text-yellow-300 font-bold animate-pulse">5000+</span> zadowolonych klientów!
+      </span>
+          </div>
+          <a href="https://mega1000.pl/polec-znajomego" class="group relative inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-emerald-800 bg-white rounded-full overflow-hidden transition-all duration-300 ease-out hover:scale-105 hover:shadow-xl">
+            <span class="absolute inset-0 w-full h-full bg-gradient-to-br from-yellow-300 to-yellow-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-out"></span>
+            <span class="relative z-10 flex items-center">
+        Sprawdź swój panel poleceń
+        <svg class="w-5 h-5 ml-2 transition-transform duration-300 ease-out group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg>
+      </span>
           </a>
         </div>
+        <div class="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-emerald-800 to-transparent"></div>
       </section>
 
       <section class="py-24 px-4 text-black overflow-hidden relative animate-fade-in-up">
@@ -586,5 +596,32 @@ pm {
 
 .animate-blob {
   animation: blob 7s infinite;
+}
+
+.bg-pattern {
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.6s ease-out forwards;
+}
+
+.animation-delay-200 {
+  animation-delay: 0.2s;
+}
+
+.animation-delay-400 {
+  animation-delay: 0.4s;
 }
 </style>
