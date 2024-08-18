@@ -400,7 +400,7 @@ const confirmAuction = async () => {
     window.dispatchEvent(new CustomEvent('token-refreshed'));
 
     await trackEvent('conversion_event_request_quote', 'styropian', 'Stworzenie przetargu', 5);
-    await router.push('/przetarg-zostal-stworzony?email=' + userInfo.value.email + '&chatToken' + res.data.access_token + '&orderId=' + res.data.id);
+    await router.push('/przetarg-zostal-stworzony?email=' + userInfo.value.email + '&chatToken=' + res.data.access_token + '&orderId=' + res.data.id);
 
     selections.length = 0;
   } catch (error) {
