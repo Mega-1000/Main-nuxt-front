@@ -290,8 +290,6 @@ import SubmitButton from "../components/SubmitButton.vue";
 import Swal from "sweetalert2";
 import Cookies from "universal-cookie/cjs/Cookies";
 import StyroTypeModal from "~/components/StyroTypeModal.vue";
-import HowAuctionsWork from "~/components/HowAuctionsWork.vue";
-import axios from "axios";
 import {trackEvent} from "~/utils/trackEvent";
 
 const { $shopApi: shopApi } = useNuxtApp();
@@ -368,20 +366,20 @@ const saveAuction = async () => {
     }));
 
     if (auctionData.length === 0) {
-      alert('Musisz dodać ilość styropianu');
+      Swal.alert('Musisz dodać ilość styropianu', '', 'info');
       return;
     }
 
     const totalQuantity = auctionData.reduce((sum, item) => sum + item.quantity, 0);
     if (totalQuantity < 66) {
-      alert('Ilość końcowa musi być większa niż 66 paczek');
+      Swal.alert('Ilość końcowa musi być większa niż 66 paczek', 'Jeśli potrzebujesz ilości mniejszej niż 66 paczek musisz odebrać zamówienie osobiście! W takim przypadku stwórz zamówienie przez sklep.', 'info');
       return;
     }
 
     showUserInfoModal.value = true;
   } catch (error) {
     console.error('Error saving auction:', error);
-    alert('Wystąpił błąd. Administrator się z tobą skontaktuje');
+    Swal.alert('Wystąpił błąd po naszej stronie, prosimy o kontakt pod numer 576 205 389.', '', 'error');
   }
 };
 
@@ -403,7 +401,7 @@ const confirmAuction = async () => {
 
     await Swal.fire('Zapytanie zostało stworzone pomyślnie!', 'Po kliknięciu "OK" Przeniesiemy cię do konta z możliwością zarządzania twoimi zapytaniami', 'info');
     await trackEvent('conversion_event_request_quote', 'styropian', 'Stworzenie przetargu', 5);
-    await router.push('/account');
+    await router.push('/przetarg-zostal-stworzony');
 
     selections.length = 0;
   } catch (error) {

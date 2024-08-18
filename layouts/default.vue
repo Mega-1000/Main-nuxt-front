@@ -8,7 +8,7 @@ onMounted(() => {
   if (lastSegment === 'no-layout') {
     isNoLayout.value = true;
   }
-});
+
 </script>
 
 <template>
