@@ -6,7 +6,7 @@
         Sukces!
       </h1>
       <p class="text-4xl font-light text-green-100 mb-12 animate-fade-in-up">
-        Twój przetarg jest <span class="font-bold underline decoration-wavy decoration-yellow-300">gotowy do podboju rynku!</span>
+        Twój przetarg jest <span class="font-bold underline decoration-wavy decoration-yellow-300">gotowy do podboju rynku!</span> Wysłaliśmy aż 32 wiadomości do fakbryk z prośbą o wycenę.
       </p>
 
       <div class="relative mb-16 animate-fade-in-up" style="animation-delay: 0.5s;">
@@ -33,23 +33,23 @@
       </div>
 
       <div class="flex flex-wrap justify-center gap-6 animate-fade-in-up mb-8" style="animation-delay: 1.5s;">
-        <button @click="goToAuction" class="action-button group">
+        <NuxtLink href="/account" class="action-button group">
           <span class="relative z-10 group-hover:text-white transition-colors duration-300">Przejdź do konta</span>
           <div class="button-bg"></div>
           <div class="button-sparkle"></div>
-        </button>
+        </NuxtLink>
 
-        <button @click="goToAuction" class="action-button group">
+        <a :href="`http://admin.mega1000.pl/auctions/${orderId}/end`" class="action-button group">
           <span class="relative z-10 group-hover:text-white transition-colors duration-300">Tabela wycen live</span>
           <div class="button-bg"></div>
           <div class="button-sparkle"></div>
-        </button>
+        </a>
 
-        <button @click="goToAuction" class="action-button group">
+        <a :href="`http://admin.mega1000.pl/chat/${chatAccessToken}`" class="action-button group">
           <span class="relative z-10 group-hover:text-white transition-colors duration-300">Dyskusja</span>
           <div class="button-bg"></div>
           <div class="button-sparkle"></div>
-        </button>
+        </a>
       </div>
     </div>
 
@@ -70,9 +70,13 @@ import { useRouter, useRoute } from 'vue-router';
 const router = useRouter();
 const route = useRoute();
 const email = ref('');
+const chatAccessToken = ref('');
+const orderId = ref('');
 
 onMounted(() => {
   email.value = route.query.email || 'uzytkownik@example.com';
+  chatAccessToken.value = route.query.chatToken;
+  orderId.value = route.query.orderId;
 });
 
 const goToAuction = () => {
