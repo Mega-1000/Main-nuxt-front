@@ -10,7 +10,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <footer class="z-20 mt-10 p-4 w-full bg-slate-100 border-t border-gray-200 shadow">
+  <footer class="z-20 p-4 w-full bg-slate-100 border-t border-gray-200 shadow">
     <div class="container mx-auto">
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         <div class="flex flex-col">

@@ -14,8 +14,8 @@ onMounted(() => {
 
 <template>
   <Navbar v-if="!isNoLayout" />
-  <NuxtPage class="mb-40" />
-  <Footer class="mt-20" v-if="!isNoLayout" />
+  <NuxtPage />
+  <Footer v-if="!isNoLayout" />
 </template>
 
 <style>

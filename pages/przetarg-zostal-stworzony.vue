@@ -1,29 +1,29 @@
 <template>
   <div class="min-h-screen bg-gradient-to-br from-emerald-400 via-green-500 to-teal-600 flex items-center justify-center overflow-hidden relative">
-    <div class="absolute inset-0 bg-pattern opacity-5"></div>
+    <div class="absolute inset-0 bg-pattern opacity-10"></div>
     <div class="text-center z-10 px-4 max-w-4xl mx-auto">
-      <h1 class="text-8xl font-extrabold text-white mb-8 tracking-tight animate-title-reveal">
+      <h1 class="text-9xl font-extrabold text-white mb-8 tracking-tight animate-title-reveal">
         Sukces!
       </h1>
-      <p class="text-3xl font-light text-green-100 mb-12 animate-fade-in-up">
-        Twoja aukcja jest <span class="font-bold underline decoration-wavy decoration-yellow-300">gotowa do podboju rynku!</span>
+      <p class="text-4xl font-light text-green-100 mb-12 animate-fade-in-up">
+        Twój przetarg jest <span class="font-bold underline decoration-wavy decoration-yellow-300">gotowy do podboju rynku!</span>
       </p>
 
       <div class="relative mb-16 animate-fade-in-up" style="animation-delay: 0.5s;">
         <div class="absolute inset-0 animate-ping-slow">
-          <svg class="w-32 h-32 mx-auto text-green-200 opacity-75" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <svg class="w-40 h-40 mx-auto text-green-200 opacity-75" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
           </svg>
         </div>
-        <svg class="w-32 h-32 mx-auto text-white relative animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <svg class="w-40 h-40 mx-auto text-white relative animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
         </svg>
       </div>
 
       <div class="mb-12 animate-fade-in-up" style="animation-delay: 1s;">
-        <p class="text-xl text-white mb-4">Szczegóły aukcji zostały wysłane na Twój adres email:</p>
+        <p class="text-2xl text-white mb-4">Szczegóły aukcji zostały wysłane na Twój adres email:</p>
         <div class="relative inline-block">
-          <span class="text-2xl font-semibold text-yellow-300">uzytkownik@example.com</span>
+          <span class="text-3xl font-semibold text-yellow-300">{{ email }}</span>
           <div class="absolute -top-16 -right-16 animate-fly-out">
             <svg class="w-16 h-16 text-white transform rotate-45" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
               <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"></path>
@@ -32,15 +32,25 @@
         </div>
       </div>
 
-      <button @click="goToAuction" class="group relative px-10 py-5 bg-white text-green-600 rounded-full font-bold text-2xl shadow-2xl hover:shadow-3xl transform hover:scale-105 transition duration-300 ease-in-out animate-pulse overflow-hidden">
-        <span class="relative z-10 group-hover:text-white transition-colors duration-300">Zobacz swoją aukcję teraz!</span>
-        <div class="absolute inset-0 bg-gradient-to-r from-yellow-400 via-green-500 to-teal-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out origin-left"></div>
-        <div class="absolute inset-0 bg-white opacity-25 animate-sparkle"></div>
-      </button>
+      <div class="flex flex-wrap justify-center gap-6 animate-fade-in-up" style="animation-delay: 1.5s;">
+        <button @click="goToAuction" class="action-button group">
+          <span class="relative z-10 group-hover:text-white transition-colors duration-300">Przejdź do konta</span>
+          <div class="button-bg"></div>
+          <div class="button-sparkle"></div>
+        </button>
 
-      <p class="mt-8 text-lg text-green-100 animate-fade-in-up" style="animation-delay: 1.5s;">
-        Nie czekaj! Każda sekunda to potencjalny klient.
-      </p>
+        <button @click="goToAuction" class="action-button group">
+          <span class="relative z-10 group-hover:text-white transition-colors duration-300">Tabela wycen live</span>
+          <div class="button-bg"></div>
+          <div class="button-sparkle"></div>
+        </button>
+
+        <button @click="goToAuction" class="action-button group">
+          <span class="relative z-10 group-hover:text-white transition-colors duration-300">Dyskusja</span>
+          <div class="button-bg"></div>
+          <div class="button-sparkle"></div>
+        </button>
+      </div>
     </div>
 
     <div class="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-green-900 to-transparent opacity-20"></div>
@@ -54,41 +64,32 @@
 </template>
 
 <script setup>
+import { ref, onMounted } from 'vue';
+import { useRouter, useRoute } from 'vue-router';
+
 const router = useRouter();
+const route = useRoute();
+const email = ref('');
+
+onMounted(() => {
+  email.value = route.query.email || 'uzytkownik@example.com';
+});
 
 const goToAuction = () => {
-  // Replace with the actual route to the auction page
   router.push('/aukcja');
 };
 </script>
 
 <style scoped>
 @keyframes gradientAnimation {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 .bg-gradient {
-  background: linear-gradient(
-      -45deg,
-      #4ade80,
-      #22c55e,
-      #14b8a6,
-      #0d9488,
-      #22c55e
-  );
+  background: linear-gradient(-45deg, #4ade80, #22c55e, #14b8a6, #0d9488, #22c55e);
   background-size: 400% 400%;
-  animation: gradientAnimation 15s ease infinite;
-}
-
-.animate-gradient {
   animation: gradientAnimation 15s ease infinite;
 }
 
@@ -107,8 +108,8 @@ const goToAuction = () => {
 }
 
 @keyframes titleReveal {
-  0% { opacity: 0; transform: translateY(-50px); }
-  100% { opacity: 1; transform: translateY(0); }
+  0% { opacity: 0; transform: translateY(-50px) scale(0.8); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 @keyframes flyOut {
@@ -117,38 +118,27 @@ const goToAuction = () => {
   100% { opacity: 0; transform: translate(100px, -100px) rotate(45deg); }
 }
 
-.animate-float {
-  animation: float 6s ease-in-out infinite;
-}
-
-.animate-sparkle {
-  animation: sparkle 2s ease-in-out infinite;
-}
-
-.animate-ping-slow {
-  animation: ping 3s cubic-bezier(0, 0, 0.2, 1) infinite;
-}
-
-.animate-title-reveal {
-  animation: titleReveal 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-}
-
-.animate-fade-in-up {
-  animation: fadeInUp 1s ease-out forwards;
-}
-
-.animate-fly-out {
-  animation: flyOut 3s ease-out infinite;
-}
+.animate-float { animation: float 6s ease-in-out infinite; }
+.animate-sparkle { animation: sparkle 2s ease-in-out infinite; }
+.animate-ping-slow { animation: ping 3s cubic-bezier(0, 0, 0.2, 1) infinite; }
+.animate-title-reveal { animation: titleReveal 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards; }
+.animate-fade-in-up { animation: fadeInUp 1s ease-out forwards; }
+.animate-fly-out { animation: flyOut 3s ease-out infinite; }
 
 @keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.action-button {
+  @apply px-10 py-5 bg-white text-green-600 rounded-full font-bold text-2xl shadow-2xl hover:shadow-lg transform hover:scale-105 transition duration-300 ease-in-out overflow-hidden relative;
+}
+
+.button-bg {
+  @apply absolute inset-0 bg-gradient-to-r from-yellow-400 via-green-500 to-teal-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out origin-left;
+}
+
+.button-sparkle {
+  @apply absolute inset-0 bg-white opacity-25 animate-sparkle;
 }
 </style>
