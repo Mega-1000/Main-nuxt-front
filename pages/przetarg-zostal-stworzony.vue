@@ -32,7 +32,7 @@
         </div>
       </div>
 
-      <div class="flex flex-wrap justify-center gap-6 animate-fade-in-up" style="animation-delay: 1.5s;">
+      <div class="flex flex-wrap justify-center gap-6 animate-fade-in-up mb-8" style="animation-delay: 1.5s;">
         <button @click="goToAuction" class="action-button group">
           <span class="relative z-10 group-hover:text-white transition-colors duration-300">Przejdź do konta</span>
           <div class="button-bg"></div>
