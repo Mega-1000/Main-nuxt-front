@@ -61,8 +61,13 @@ onMounted(() => {
       </div>
 
       <div class="mt-8 pt-4 border-t border-gray-200 text-center">
-        <p class="text-xs text-gray-500">
-          © {{ new Date().getFullYear() }} EPH - ELEKTRONICZNA PLATFORMA HANDLOWA. Wszystkie prawa zastrzeżone.
+        <p class="text text-gray-500">
+          <span style="margin-top: 20px">
+            © {{ new Date().getFullYear() }} EPH - ELEKTRONICZNA PLATFORMA HANDLOWA. Wszystkie prawa zastrzeżone. Systemy informatyczne są wspierane i rozwijane przez
+          </span>
+          <a href="https://www.soft-synergy.com/" style="color: #1e40af;">
+            Soft Synergy <img src="https://www.soft-synergy.com/assets/images/logo-dark.png" alt="Soft synergy logo" style="height: 30px; display: inline; width: 30px">
+          </a>
         </p>
       </div>
     </div>
