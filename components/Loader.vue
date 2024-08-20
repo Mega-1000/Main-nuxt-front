@@ -26,11 +26,21 @@ const props = defineProps({
 });
 
 const facts = [
-  "Styropian składa się w 98% z powietrza!",
-  "Styropian jest odporny na wilgoć i pleśń.",
-  "Styropian może być w 100% poddany recyklingowi.",
-  "Styropian został wynaleziony przypadkowo w 1941 roku.",
-  "Styropian jest doskonałym izolatorem dźwięku.",
+  "Czy wiesz, że styropian składa się w 98% z powietrza? To jak nadmuchana kanapka izolacyjna!",
+  "Styropian jest tak odporny na wilgoć, że mógłby przetrwać potop… gdyby tylko nie był taki lekki!",
+  "Styropian można poddać recyklingowi w 100%. To jak Feniks materiałów budowlanych - zawsze się odrodzi!",
+  "Styropian został wynaleziony przypadkowo w 1941 roku. Ktoś chciał zrobić gumę, a stworzył 'powietrzną poduszkę'!",
+  "Styropian jest tak dobrym izolatorem dźwięku, że nawet sąsiad grający na perkusji o 3 nad ranem staje się znośny!",
+  "Gdyby pingwiny znały styropian, Antarktyda byłaby pełna przytulnych igloo!",
+  "Styropian jest tak lekki, że gdyby zrobić z niego łódkę, mogłaby pływać po chmurach!",
+  "Styropian rozszerza się i kurczy wraz z temperaturą. To jak oddychający sweter dla twojego domu!",
+  "Gdyby styropian był superbohaterem, jego supermoce to: lekkość, izolacja i niezniszczalność!",
+  "Styropian jest tak wszechstronny, że można z niego zrobić wszystko: od kubków po elementy rakiet kosmicznych. Dosłownie - NASA go używa!",
+  "Styropian to ulubiony materiał filmowców do tworzenia 'kamiennych' dekoracji. Następnym razem, gdy zobaczysz bohatera rzucającego głazem, pomyśl: 'Ale lekki ten kamień!'",
+  "Gdyby ryby odkryły styropian, podwodne miasta wyglądałyby jak pływające torty weselne!",
+  "Styropian jest tak dobrym izolatorem, że gdyby pingwiny go odkryły, Antarktyda zamieniłaby się w tropikalny raj!",
+  "Styropian jest odporny na bakterie. To jak naturalny antybiotyk dla twojego domu!",
+  "Gdyby domy były z styropianu, trzęsienia ziemi byłyby jak kołysanka dla budynków!"
 ];
 
 const currentFact = ref(facts[0]);
