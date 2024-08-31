@@ -404,8 +404,14 @@ const confirmAuction = async () => {
 
     selections.length = 0;
   } catch (error) {
-    console.error('Error saving auction:', error);
-    alert('Wystąpił błąd podczas zapisywania przetargu. Proszę spróbować ponownie.');
+    // if code is 400 then then get 'error' property from data
+    if (error.response.status === 400) {
+      window.location.href = error.response.data.error;
+    } else {
+      console.error('Error saving auction:', error);
+      alert('Wystąpił błąd podczas zapisywania przetargu. Proszę spróbować ponownie.');
+    }
+
   } finally {
     loading.value = false;
   }
