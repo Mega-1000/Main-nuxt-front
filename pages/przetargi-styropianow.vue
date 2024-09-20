@@ -366,20 +366,20 @@ const saveAuction = async () => {
     }));
 
     if (auctionData.length === 0) {
-      Swal.alert('Musisz dodać ilość styropianu', '', 'info');
+      Swal.fire('Musisz dodać ilość styropianu', '', 'info');
       return;
     }
 
     const totalQuantity = auctionData.reduce((sum, item) => sum + item.quantity, 0);
     if (totalQuantity < 66) {
-      Swal.alert('Ilość końcowa musi być większa niż 66 paczek', 'Jeśli potrzebujesz ilości mniejszej niż 66 paczek musisz odebrać zamówienie osobiście! W takim przypadku stwórz zamówienie przez sklep.', 'info');
+      Swal.fire('Ilość końcowa musi być większa niż 66 paczek', 'Jeśli potrzebujesz ilości mniejszej niż 66 paczek musisz odebrać zamówienie osobiście! W takim przypadku stwórz zamówienie przez sklep.', 'info');
       return;
     }
 
     showUserInfoModal.value = true;
   } catch (error) {
     console.error('Error saving auction:', error);
-    Swal.alert('Wystąpił błąd po naszej stronie, prosimy o kontakt pod numer 576 205 389.', '', 'error');
+    Swal.fire('Wystąpił błąd po naszej stronie, prosimy o kontakt pod numer 576 205 389.', '', 'error');
   }
 };
 
@@ -404,7 +404,6 @@ const confirmAuction = async () => {
 
     selections.length = 0;
   } catch (error) {
-    // if code is 400 then then get 'error' property from data
     if (error.response.status === 400) {
       window.location.href = error.response.data.error;
     } else {
