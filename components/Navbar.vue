@@ -180,6 +180,7 @@ const endTutorial = () => {
           <NuxtLink v-if="userToken && !isVisibilityLimited" href="/" @click.prevent="logOut" class="nav-link">Wyloguj</NuxtLink>
           <NuxtLink v-else href="/login" class="nav-link">Zaloguj</NuxtLink>
           <NuxtLink href="/faq" class="nav-link">FAQ</NuxtLink>
+          <NuxtLink href="/regulamin" class="nav-link">Regulamin</NuxtLink>
           <a href="tel:576 205 389" class="nav-link font-bold text-red-600">Infolinia 7/24 576 205 389</a>
         </div>
 
@@ -217,6 +218,7 @@ const endTutorial = () => {
           <NuxtLink v-if="userToken && !isVisibilityLimited" href="/" @click.prevent="logOut" class="mobile-nav-link">Wyloguj</NuxtLink>
           <NuxtLink v-else href="/login" class="mobile-nav-link">Zaloguj</NuxtLink>
           <NuxtLink href="/faq" class="mobile-nav-link">FAQ</NuxtLink>
+          <NuxtLink href="/regulamin" class="mobile-nav-link">Regulamin</NuxtLink>
           <a href="tel:576 205 389" class="mobile-nav-link font-bold text-red-600">Infolinia 7/24 576 205 389</a>
         </div>
       </transition>
