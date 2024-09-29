@@ -379,7 +379,7 @@ const saveAuction = async () => {
     showUserInfoModal.value = true;
   } catch (error) {
     console.error('Error saving auction:', error);
-    Swal.fire('Wystąpił błąd po naszej stronie, prosimy o kontakt pod numer 576 205 389.', '', 'error');
+    Swal.fire('Wystąpił błąd po naszej stronie, prosimy o kontakt pod numer 691 801 594.', '', 'error');
   }
 };
 

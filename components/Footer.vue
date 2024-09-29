@@ -52,7 +52,7 @@ onMounted(() => {
         <div class="flex flex-col">
           <h3 class="text-lg font-semibold mb-2">Kontakt</h3>
           <p class="text-sm text-gray-600 mb-2">
-            Infolinia: <a href="tel:576205389" class="text-blue-600 hover:underline">576 205 389</a>
+            Infolinia: <a href="tel:576205389" class="text-blue-600 hover:underline">691 801 594</a>
           </p>
           <div @click="zipCodeChangeModalShown = true" v-if="zipCode && !zipCodeChangeModalShown" class="cursor-pointer text-sm text-gray-600 hover:text-blue-600">
             Zmień swój kod pocztowy, aktualnie: {{ zipCode }}

@@ -181,7 +181,7 @@ const endTutorial = () => {
           <NuxtLink v-else href="/login" class="nav-link">Zaloguj</NuxtLink>
           <NuxtLink href="/faq" class="nav-link">FAQ</NuxtLink>
           <NuxtLink href="/regulamin" class="nav-link">Regulamin</NuxtLink>
-          <a href="tel:576 205 389" class="nav-link font-bold text-red-600">Infolinia 7/24 576 205 389</a>
+          <a href="tel:691 801 594" class="nav-link font-bold text-red-600">Infolinia 7/24 691 801 594</a>
         </div>
 
         <!-- Search Bar and Cart -->
@@ -219,7 +219,7 @@ const endTutorial = () => {
           <NuxtLink v-else href="/login" class="mobile-nav-link">Zaloguj</NuxtLink>
           <NuxtLink href="/faq" class="mobile-nav-link">FAQ</NuxtLink>
           <NuxtLink href="/regulamin" class="mobile-nav-link">Regulamin</NuxtLink>
-          <a href="tel:576 205 389" class="mobile-nav-link font-bold text-red-600">Infolinia 7/24 576 205 389</a>
+          <a href="tel:691 801 594" class="mobile-nav-link font-bold text-red-600">Infolinia 7/24 691 801 594</a>
         </div>
       </transition>
     </div>

@@ -277,7 +277,7 @@ const playVideo  = () => {
                 Stwórz przetarg
               </NuxtLink>
               <a href="tel:+48123456789" class="text-gray-300 hover:text-white transition-colors text-xl group">
-                <span class="group-hover:hidden">+48 576 205 389</span>
+                <span class="group-hover:hidden">+48 691 801 594</span>
                 <span class="hidden group-hover:inline">Zadzwoń teraz!</span>
               </a>
             </div>
@@ -405,7 +405,7 @@ const playVideo  = () => {
                   <svg class="h-10 w-10 text-yellow-400 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                   </svg>
-                  <span class="text-2xl font-bold text-white">+48 576 205 389</span>
+                  <span class="text-2xl font-bold text-white">+48 691 801 594</span>
                 </div>
                 <div class="text-center sm:text-left">
                   <p class="text-lg text-yellow-200">Godziny pracy:</p>
@@ -550,7 +550,7 @@ const playVideo  = () => {
           <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
             <div class="contact-card bg-white rounded-lg shadow-xl p-8 hover:shadow-2xl transition-shadow duration-300 transform hover:-translate-y-2">
               <h3 class="text-2xl md:text-3xl font-bold mb-6 text-emerald-700">Zadzwoń</h3>
-              <p class="text-gray-700 text-xl">Telefon: <span class="font-bold text-emerald-600">+48 576 205 389</span></p>
+              <p class="text-gray-700 text-xl">Telefon: <span class="font-bold text-emerald-600">+48 691 801 594</span></p>
             </div>
             <div class="contact-card bg-white rounded-lg shadow-xl p-8 hover:shadow-2xl transition-shadow duration-300 transform hover:-translate-y-2">
               <h3 class="text-2xl md:text-3xl font-bold mb-6 text-emerald-700">Napisz</h3>
