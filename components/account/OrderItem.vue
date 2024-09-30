@@ -229,9 +229,9 @@ const markOfferAsInactive = async () => {
         Faktura proforma
       </a>
 
-      <a v-if="!isVisiblitityLimited && !(item?.chat?.auctions[0]?.end_of_auction < Date.now())" target="_blank" :href="`${config.baseUrl}/order-offer-pdf/${item.order_offers[0]?.id}`" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-md transition-colors duration-300">
-        Opis oferty
-      </a>
+<!--      <a v-if="!isVisiblitityLimited && !(item?.chat?.auctions[0]?.end_of_auction < Date.now())" target="_blank" :href="`${config.baseUrl}/order-offer-pdf/${item.order_offers[0]?.id}`" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-md transition-colors duration-300">-->
+<!--        Opis oferty-->
+<!--      </a>-->
 
       <accountActionButton type="button" @click="editCart(item.items)" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-md transition-colors duration-300">
         Edytuj zamówienie
