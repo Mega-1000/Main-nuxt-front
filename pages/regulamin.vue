@@ -20,23 +20,23 @@
     </section>
 
     <!-- Section 3: Płatności -->
-    <section className="mb-8">
-      <h2 className="text-xl font-semibold mb-2">3. Płatności</h2>
-      <p className="mb-2">3.1. Płatności za zamówienia można dokonywać poprzez metody udostępnione przez Operatora na Platformie (np. przelew bankowy, płatności online).</p>
-      <p className="mb-2">3.2. Użytkownik, finalizując zamówienie i dokonując płatności, akceptuje przedstawioną cenę oraz koszty związane z zamówieniem, jednakże Operator zastrzega możliwość naliczenia dodatkowych opłat już po dokonaniu wpłaty, w przypadkach opisanych w pkt 3.3.</p>
-      <p className="mb-2">3.3. Dodatkowe opłaty mogą zostać naliczone po złożeniu zamówienia i dokonaniu płatności w sytuacjach:</p>
-      <ul className="list-disc list-inside ml-4 mb-2">
+    <section class="mb-8">
+      <h2 class="text-xl font-semibold mb-2">3. Płatności</h2>
+      <p class="mb-2">3.1. Płatności za zamówienia można dokonywać poprzez metody udostępnione przez Operatora na Platformie (np. przelew bankowy, płatności online).</p>
+      <p class="mb-2">3.2. Użytkownik, finalizując zamówienie i dokonując płatności, akceptuje przedstawioną cenę oraz koszty związane z zamówieniem, jednakże Operator zastrzega możliwość naliczenia dodatkowych opłat już po dokonaniu wpłaty, w przypadkach opisanych w pkt 3.3.</p>
+      <p class="mb-2">3.3. Dodatkowe opłaty mogą zostać naliczone po złożeniu zamówienia i dokonaniu płatności w sytuacjach:</p>
+      <ul class="list-disc list-inside ml-4 mb-2">
         <li>gdy po przetworzeniu zamówienia wystąpią okoliczności powodujące wzrost kosztów realizacji zamówienia, np. niestandardowe wymagania logistyczne, trudne warunki dostawy (dostawa do trudno dostępnych miejsc, specjalistyczny transport),</li>
         <li>gdy nastąpiła konieczność wykonania dodatkowych usług związanych z realizacją zamówienia (np. zmiany w specyfikacji technicznej, specjalistyczne doradztwo, usługi montażowe),</li>
         <li>gdy pojawią się dodatkowe koszty wynikające ze zmiennych warunków rynkowych, np. wzrost cen surowców, koszty energii lub transportu, mających wpływ na realizację zamówienia.</li>
       </ul>
-      <p className="mb-2">3.4. Operator zobowiązuje się poinformować Użytkownika o konieczności uiszczenia dodatkowej opłaty w możliwie najszybszym czasie od momentu wystąpienia okoliczności uzasadniających tę opłatę.</p>
-      <p className="mb-2">3.5. W przypadku odmowy uiszczenia dodatkowej opłaty przez Użytkownika, Operator ma prawo:</p>
-      <ul className="list-disc list-inside ml-4 mb-2">
+      <p class="mb-2">3.4. Operator zobowiązuje się poinformować Użytkownika o konieczności uiszczenia dodatkowej opłaty w możliwie najszybszym czasie od momentu wystąpienia okoliczności uzasadniających tę opłatę.</p>
+      <p class="mb-2">3.5. W przypadku odmowy uiszczenia dodatkowej opłaty przez Użytkownika, Operator ma prawo:</p>
+      <ul class="list-disc list-inside ml-4 mb-2">
         <li>odstąpić od realizacji zamówienia z jednoczesnym zwrotem pierwotnie uiszczonej kwoty,</li>
         <li>zaproponować alternatywne warunki realizacji zamówienia.</li>
       </ul>
-      <p className="mb-2">3.6. W przypadku wyboru opcji dostawy za pobraniem, zostanie naliczona dodatkowa opłata w wysokości 100 zł.</p>
+      <p class="mb-2">3.6. W przypadku wyboru opcji dostawy za pobraniem, zostanie naliczona dodatkowa opłata w wysokości 100 zł.</p>
     </section>
 
 
