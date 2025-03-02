@@ -213,7 +213,6 @@ const goToPage = async (val: number) => {
 
 <template>
   <ReferalBanner />
-  <AskUserForZipCodeStyrofoarms v-if="askUserForZipCode" />
 
   <div
     class="md:flex justify-items-center mb-40 mx-15"

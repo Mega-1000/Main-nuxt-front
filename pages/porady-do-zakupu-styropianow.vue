@@ -18,7 +18,6 @@ onMounted(async () => {
 </script>
 
 <template>
-  <AskUserForZipCodeStyrofoarms v-if="!currentZipCode" />
   <div class="sm:w-full md:w-[70%] mx-auto text-lg">
     <div class="text-4xl">
       Jeśli chcesz wiedzieć jaki styropian wybrać lub nie wiesz jak go zamówić sprawdź tekst na dole lub kliknij <a style="color: #1e40af" href="#porady">tutaj</a>

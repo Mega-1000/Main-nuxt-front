@@ -235,7 +235,6 @@ const playVideo  = () => {
 </script>
 <template>
   <div class="font-sans">
-    <AskUserForZipCodeStyrofoarms v-if="showZipCodeModal" />
     <main>
       <!-- Hero Section -->
       <section class="bg-gradient-to-br from-gray-900 to-gray-800 min-h-screen flex items-center justify-center overflow-hidden relative">

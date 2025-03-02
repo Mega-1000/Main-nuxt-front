@@ -73,5 +73,5 @@ onMounted(() => {
     </div>
   </footer>
 
-  <AskUserForZipCodeStyrofoarms v-if="zipCodeChangeModalShown" />
+
 </template>

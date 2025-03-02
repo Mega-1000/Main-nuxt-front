@@ -1,22 +1,5 @@
 <template>
-  <div v-if="show" class="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center" style="z-index: 999999" @click="hidePopup"></div>
-  <div v-if="show" class="fixed inset-0 flex items-center justify-center" style="z-index: 999999">
-    <div class="bg-white rounded-lg shadow-lg p-8 max-w-md mx-auto relative z-100 text-center">
-      <button @click="hidePopup" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700">&times;</button>
-      <h2 class="text-2xl font-bold mb-4">
-        Gwarantujemy, że zaoszczędzisz minimalnie <em>1000zł</em>
-        <br> Skontaktujemy się z tobą w <pm>23 sekundy</pm>
-      </h2>
-      <p class="mb-4">Podaj nam swój numer telefonu:</p>
-      <input
-          type="text"
-          v-model="phoneNumber"
-          placeholder="Np. 342 234 546"
-          class="w-full p-2 mb-4 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-      />
-      <button @click="submitPhoneNumber" class="w-full py-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">Wyślij</button>
-    </div>
-  </div>
+  
 </template>
 
 <script setup>

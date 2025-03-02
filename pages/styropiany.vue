@@ -165,7 +165,6 @@ const playVideo  = () => {
   </div>
 
   <div class="font-sans">
-    <AskUserForZipCodeStyrofoarms v-if="showZipCodeModal" />
     <main>
       <!-- Hero Section -->
       <section class="relative py-10 overflow-hidden bg-gradient-to-br from-emerald-600 to-emerald-900">
