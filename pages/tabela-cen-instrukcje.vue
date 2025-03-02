@@ -32,7 +32,6 @@
         Zobacz jak to wygląda w praktyce:
       </h1>
 
-      <img src="/Zrzut%20ekranu%202024-07-16%20o%2008.04.43.png" alt="">
     </div>
   </div>
 </template>

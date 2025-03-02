@@ -5,7 +5,6 @@
         Dziękujemy za skorzystanie z naszej giełdy styropianu!
       </h2>
       <div class="bg-white rounded-lg shadow-2xl p-6 md:p-10">
-        <img src="/favicon.ico" alt="Sukces" class="w-24 h-24 mx-auto mb-6" />
 
         <p class="text-xl mb-4">Twoje zapytanie zostało przyjęte. Wkrótce otrzymasz najlepsze oferty!</p>
 

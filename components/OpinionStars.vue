@@ -20,7 +20,6 @@
     <p class="ms-1 text-sm font-medium">827 opini</p>
 
     <div>
-      <img src="/favicon.ico" alt="Giełda styropianu" class="h-10 w-10 ml-4 inline" />
     </div>
   </div>
 </template>

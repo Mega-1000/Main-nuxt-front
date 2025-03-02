@@ -87,7 +87,6 @@
 </div>
 
 <div class="mt-8 text-center">
-<img src="/favicon.ico" alt="Giełda styropianu" class="mx-auto h-24 mb-4" />
 <p class="text-white text-lg">EPH Polska pierwsza w Polsce giełda styropianu - oszczędzaj mądrze!</p>
 </div>
 </div>
