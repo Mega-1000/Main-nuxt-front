@@ -237,7 +237,7 @@ const goToPage = async (val: number) => {
         class="hidden md:block mt-10"
       />
 
-      <a href="/styropiany" target="__blank" class="rounded bg-green-500 p-8 text-white my-5 block font-bold mx-6" v-if="isMainStyrofoamLobby">
+      <!-- <a href="/styropiany" target="__blank" class="rounded bg-green-500 p-8 text-white my-5 block font-bold mx-6" v-if="isMainStyrofoamLobby">
         <div class="font-bold text-3xl">
           Kliknij aby zobaczyć porady dotyczące zakupu styropianu w najniższych cenach
         </div>
@@ -245,7 +245,7 @@ const goToPage = async (val: number) => {
         <p class="mt-2">
           Odwiedź naszą sekcję poradników, gdzie znajdziesz porównanie cen styropianu od ponad 50 producentów.
         </p>
-      </a>
+      </a> -->
 
       <div v-if="isStaff && categoryFirmId">
         <a :href="`https://new.mega1000.pl/magazyn/aktualizacja-cen/${categoryFirmId}/zaktualizuj`" target="__blank">

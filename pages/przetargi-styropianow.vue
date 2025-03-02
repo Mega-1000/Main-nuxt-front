@@ -1,6 +1,6 @@
 <template>
   <div class="w-full sm:w-[90%] md:w-[80%] lg:w-[70%] mx-auto my-8">
-    <div class="bg-gradient-to-br from-red-500 to-pink-600 rounded-2xl shadow-2xl overflow-hidden">
+    <!-- <div class="bg-gradient-to-br from-red-500 to-pink-600 rounded-2xl shadow-2xl overflow-hidden">
       <div class="p-8 sm:p-10">
         <h2 class="text-3xl sm:text-4xl font-bold text-white mb-6 leading-tight">
           Nie wiesz ile paczek potrzebujesz?
@@ -19,7 +19,7 @@
           <span @click="showCalculator = true">Otwórz Kalkulator</span>
         </button>
       </div>
-    </div>
+    </div> -->
   </div>
 
   <div class="w-full sm:w-[90%] md:w-[80%] lg:w-[70%] mx-auto">

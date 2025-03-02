@@ -49,7 +49,7 @@ const config = useRuntimeConfig().public;
 
 <template>
   <ReferalBanner />
-  <div class="bg-gradient-to-r from-emerald-800 to-teal-900 text-white py-12">
+  <!-- <div class="bg-gradient-to-r from-emerald-800 to-teal-900 text-white py-12">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex flex-col items-center">
         <h2 class="text-3xl md:text-5xl font-bold mb-4 text-white text-center">Kup styropian w najniższych cenach bezpośrednio od producentów!</h2>
@@ -67,7 +67,7 @@ const config = useRuntimeConfig().public;
         </NuxtLink>
       </div>
     </div>
-  </div>
+  </div> -->
 
   <OpinionStars class="mt-3 text-black" />
   <LogosSection />
@@ -92,7 +92,7 @@ const config = useRuntimeConfig().public;
         <div class="w-full lg:w-3/4 flex justify-center">
           <div>
             <div class="grid grid-cols-1 gap-6 p-6 sm:grid-cols-2 lg:grid-cols-3">
-              <article
+              <!-- <article
                   class="h-full w-full sm:w-auto rounded-lg bg-white p-3 shadow hover:shadow-xl transition-shadow duration-300"
               >
                   <NuxtLink to="/styropiany">
@@ -108,7 +108,7 @@ const config = useRuntimeConfig().public;
                       </h2>
                     </div>
                   </NuxtLink>
-              </article>
+              </article> -->
               <article
                   v-for="category in categories"
                   :key="category.id"

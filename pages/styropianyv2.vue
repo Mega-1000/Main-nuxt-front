@@ -294,7 +294,7 @@ const playVideo  = () => {
 
 
       <!-- Popular Products Section -->
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 animate-fade-in-up">
+      <!-- <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 animate-fade-in-up">
         <h2 class="text-3xl md:text-5xl font-extrabold text-gray-900 mb-12 text-center">
           Nie chcesz robić przegargu? Zobacz <span class="text-emerald-600">najczęściej</span> kupowane produkty 🔥
         </h2>
@@ -340,7 +340,7 @@ const playVideo  = () => {
             <svg class="ml-2 -mr-1 w-5 h-5 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
           </a>
         </div>
-      </div>
+      </div> -->
 
       <!-- Payment Section -->
       <div class="hero py-16 px-4 bg-gradient-to-r from-emerald-600 to-emerald-800 text-white">

@@ -282,7 +282,7 @@ const endTutorial = () => {
       <NavbarShipmentCostTable />
     </div>
   </nav>
-  <SocialProof />
+  <!-- <SocialProof /> -->
   <!-- Tutorial Overlay -->
   <transition name="fade">
     <div v-if="tutorialActive" class="tutorial-overlay">

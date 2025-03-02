@@ -204,7 +204,7 @@ const playVideo  = () => {
 
 
       <!-- Popular Products Section -->
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 bg-gradient-to-b from-gray-50 to-white">
+      <!-- <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 bg-gradient-to-b from-gray-50 to-white">
         <h2 class="text-4xl md:text-6xl font-bold text-gray-900 mb-16 text-center leading-tight">
           Nie chcesz robić przegargu? Zobacz <span class="text-emerald-600">najczęściej</span> kupowane produkty 🔥
         </h2>
@@ -238,7 +238,7 @@ const playVideo  = () => {
           <button class="absolute top-1/2 -right-6 -translate-y-1/2 bg-white rounded-full p-3 shadow-lg hover:bg-gray-100 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-emerald-500" @click="scrollCarousel('right')">
             <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
           </button>
-        </div>
+        </div> -->
 
         <div class=" text-center">
           <a href="#price-table" class="inline-flex items-center px-10 py-5 text-lg font-bold rounded-full text-white bg-emerald-600 hover:bg-emerald-700 transition-all duration-300 transform hover:scale-105 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500">

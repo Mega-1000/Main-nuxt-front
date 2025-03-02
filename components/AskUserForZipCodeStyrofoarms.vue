@@ -45,19 +45,16 @@ const submitZipCode = async () => {
 
 <template>
   <transition name="fade">
-    <div class="modal-backdrop" style="z-index: 100" v-if="true"> <!-- Replace v-if condition with your actual condition for showing the modal -->
+    <!-- <div class="modal-backdrop" style="z-index: 100" v-if="true">
       <div class="modal-content">
         <div class="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full" style="background-color: rgba(0, 0, 0, 0.50)">
           <div class="relative p-4 w-full max-w-2xl max-h-full mx-auto">
-            <!-- Modal content -->
             <div class="relative bg-white rounded-lg shadow">
-              <!-- Modal header -->
               <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
                 <h3 class="text-xl font-semibold text-gray-900">
                   Kod pocztowy
                 </h3>
               </div>
-              <!-- Modal body -->
               <div class="p-4 md:p-5 space-y-4">
                 <p class="text-base leading-relaxed text-gray-500">
                   Wpisz swój kod pocztowy żebyśmy mogli dobrać fabryki specjalnie dla ciebie
@@ -83,7 +80,7 @@ const submitZipCode = async () => {
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
   </transition>
 </template>
 
