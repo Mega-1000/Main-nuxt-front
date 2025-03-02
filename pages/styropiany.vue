@@ -201,7 +201,7 @@ const playVideo  = () => {
           <OpinionStars class="animate-fade-in-up animation-delay-900 mt-8 text-white" />
         </div>
       </section>
-
+    </main>
 
       <!-- Popular Products Section -->
       <!-- <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 bg-gradient-to-b from-gray-50 to-white">
@@ -488,8 +488,6 @@ const playVideo  = () => {
         </div>
         <div class="absolute inset-0 bg-emerald-600 opacity-20 animate-wave"></div>
       </section>
-    </main>
-  </div>
 </template>
 
 <style>
