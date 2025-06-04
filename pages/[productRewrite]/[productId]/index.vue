@@ -125,7 +125,7 @@ onMounted(async () => {
   }
 
   const data:any = await shopApi.get('/api/staff/isStaff');
-  if (data.data) {
+  if (data && data.data) {
     await handleStaffUser();
   }
 });

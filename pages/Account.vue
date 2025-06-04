@@ -79,7 +79,10 @@ const showTutorial = () => {
     case 1:
       tutorialTitle.value = 'Grupy zamówień';
       tutorialDescription.value = 'W tej sekcji możesz wybrać grupę zamówień. Domyślnie jest to "Aktywne".';
-      const navigationLinkRect = navigationLink.value.getBoundingClientRect();
+      const navigationLinkRect = navigationLink && navigationLink.value ? navigationLink.value.getBoundingClientRect() : null;
+      if(navigationLinkRect === null) {
+        break;
+      }
       tutorialHighlightStyle.top = navigationLinkRect.top + window.pageYOffset + 'px';
       tutorialHighlightStyle.left = navigationLinkRect.left + window.pageXOffset + 'px';
       tutorialHighlightStyle.width = navigationLinkRect.width + 'px';
