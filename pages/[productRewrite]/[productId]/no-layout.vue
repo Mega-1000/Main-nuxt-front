@@ -117,7 +117,6 @@ onMounted(async () => {
       await handleStaffUser();
     }
   } catch (e) {
-    console.log('Staff error 1', e);
   }
 });
 watch([itemsData], setupModals);
