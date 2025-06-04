@@ -18,7 +18,7 @@ onMounted(() => {
           <p class="text-sm text-gray-600 mb-2">
             EPH - ELEKTRONICZNA PLATFORMA HANDLOWA
           </p>
-          <p class="text-sm text-gray-600">NIP: 9121945342</p>
+          <p class="text-sm text-gray-600">NIP: 8993023676</p>
           <div class="mt-4 flex space-x-4">
             <a href="https://www.linkedin.com/company/eph-polska" target="_blank" class="text-gray-600 hover:text-blue-600">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-linkedin" viewBox="0 0 16 16">

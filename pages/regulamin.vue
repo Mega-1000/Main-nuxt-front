@@ -7,7 +7,7 @@
       <h2 class="text-xl font-semibold mb-2">1. Postanowienia ogólne</h2>
       <p class="mb-2">1.1. Niniejszy regulamin określa zasady korzystania z platformy internetowej do zakupu styropianu, zwanej dalej „Platformą".</p>
       <p class="mb-2">1.2. Korzystając z Platformy, Użytkownik akceptuje wszystkie postanowienia niniejszego Regulaminu.</p>
-      <p class="mb-2">1.3. Operatorem Platformy jest EPH - ELEKTRONICZNA PLATFORMA HANDLOWA, NIP: 9121945342, zwana dalej „Operatorem".</p>
+      <p class="mb-2">1.3. Operatorem Platformy jest EPH - ELEKTRONICZNA PLATFORMA HANDLOWA, NIP: 8993023676, zwana dalej „Operatorem".</p>
     </section>
 
     <!-- Section 2: Zasady korzystania z Platformy -->
