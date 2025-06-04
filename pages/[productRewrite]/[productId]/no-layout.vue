@@ -5,7 +5,7 @@ import { Modal, ModalOptions } from "flowbite";
 import Cookies from "universal-cookie";
 import emmiter from "~/helpers/emitter";
 import AskUserForZipCodeStyrofoarms from "~/components/AskUserForZipCodeStyrofoarms.vue";
-import {integer} from "vscode-languageserver-types";
+import type {integer} from "vscode-languageserver-types";
 
 const { $shopApi: shopApi, $buildImgRoute: buildImgRoute } = useNuxtApp();
 
