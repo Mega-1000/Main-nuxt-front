@@ -111,9 +111,13 @@ onMounted(async () => {
     isMainStyrofoamLobby.value = true;
   }
 
-  const data:any = await shopApi.get('/api/staff/isStaff');
-  if (data && data.data) {
-    await handleStaffUser();
+  try {
+    const { data } = await shopApi.get('/api/staff/isStaff');
+    if (data && data.data) {
+      await handleStaffUser();
+    }
+  } catch (e) {
+    console.log('Staff error 1', e);
   }
 });
 watch([itemsData], setupModals);
