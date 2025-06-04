@@ -3,7 +3,7 @@ export default defineNuxtConfig({
   modules: ["nuxt-module-hotjar"],
   vite: {
     build: {
-      sourcemap: true
-    }
-  }
+      sourcemap: true,
+    },
+  },
 })

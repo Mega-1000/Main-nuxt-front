@@ -124,12 +124,14 @@ watch([itemsData], setupModals);
 const handleStaffUser = async () => {
   isStaff.value = true;
 
-  const categoryFirmName: string = currentProduct?.value?.currentProduct?.name ?? '';
-  const matched = categoryFirmName.match(/-+([a-zA-Z]+-?[a-zA-Z]+ ?[a-zA-Z]*)/);
-  let result = matched ? matched[1] : null;
+  if(currentProduct) {
+    const categoryFirmName: string = currentProduct.value?.currentProduct?.name ?? '';
+    const matched = categoryFirmName.match(/-+([a-zA-Z]+-?[a-zA-Z]+ ?[a-zA-Z]*)/);
+    let result = matched ? matched[1] : null;
 
-  const categoryFirm: any = await shopApi.get(`/api/firm/${result}`);
-  categoryFirmId.value = categoryFirm?.data?.id
+    const categoryFirm: any = await shopApi.get(`/api/firm/${result}`);
+    categoryFirmId.value = categoryFirm?.data?.id
+  }
 }
 
 const handleCloseModal = () => {
