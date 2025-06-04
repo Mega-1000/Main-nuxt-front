@@ -176,7 +176,7 @@ const endTutorial = () => {
             <NuxtLink v-if="!isVisibilityLimited" href="/" class="nav-link">Sklep</NuxtLink>
           </div>
           <NuxtLink v-if="userToken && !isVisibilityLimited" href="/account" class="nav-link">Konto</NuxtLink>
-          <NuxtLink href="/przetargi-styropianow" class="nav-link">Stwórz przetarg</NuxtLink>
+          
           <NuxtLink v-if="userToken && !isVisibilityLimited" href="/" @click.prevent="logOut" class="nav-link">Wyloguj</NuxtLink>
           <NuxtLink v-else href="/login" class="nav-link">Zaloguj</NuxtLink>
           <NuxtLink href="/faq" class="nav-link">FAQ</NuxtLink>
