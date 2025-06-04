@@ -27,7 +27,6 @@ const tutorialDescription = ref('');
 const tutorialHighlightStyle = reactive({});
 const tutorialNextButtonText = ref('Next');
 const tutorialStep = ref(0);
-const popupRef = ref(null);
 
 const showShopLink = computed(() => {
   return route.path !== '/';
@@ -130,11 +129,13 @@ const showTutorial = () => {
     case 3:
       tutorialTitle.value = 'Sklep';
       tutorialDescription.value = 'Jeśli chcesz wrócić do sklepu i dodać inne produkty wejdź tutaj!';
-      const settingsLinkRect = settingsLink.value.getBoundingClientRect();
-      tutorialHighlightStyle.top = settingsLinkRect.top + window.pageYOffset + 'px';
-      tutorialHighlightStyle.left = settingsLinkRect.left + window.pageXOffset + 'px';
-      tutorialHighlightStyle.width = settingsLinkRect.width + 'px';
-      tutorialNextButtonText.value = 'Wszystko jasne przechodzę do strony.';
+      const settingsLinkRect = settingsLink?.value.getBoundingClientRect();
+      if(settingsLinkRect) {
+        tutorialHighlightStyle.top = settingsLinkRect.top + window.pageYOffset + 'px';
+        tutorialHighlightStyle.left = settingsLinkRect.left + window.pageXOffset + 'px';
+        tutorialHighlightStyle.width = settingsLinkRect.width + 'px';
+        tutorialNextButtonText.value = 'Wszystko jasne przechodzę do strony.';
+      }
       break;
     case 4:
       localStorage.setItem('navbarTutorialEnded', true);
@@ -176,7 +177,7 @@ const endTutorial = () => {
             <NuxtLink v-if="!isVisibilityLimited" href="/" class="nav-link">Sklep</NuxtLink>
           </div>
           <NuxtLink v-if="userToken && !isVisibilityLimited" href="/account" class="nav-link">Konto</NuxtLink>
-          
+
           <NuxtLink v-if="userToken && !isVisibilityLimited" href="/" @click.prevent="logOut" class="nav-link">Wyloguj</NuxtLink>
           <NuxtLink v-else href="/login" class="nav-link">Zaloguj</NuxtLink>
           <NuxtLink href="/faq" class="nav-link">FAQ</NuxtLink>

@@ -37,7 +37,7 @@ const submitOption = (id) => {
   if (address) {
     address.type = props.addressType;
     emit("selectAddress", { addresses: address });
-    modal.value.hide();
+    modal?.value?.hide();
   }
 };
 </script>

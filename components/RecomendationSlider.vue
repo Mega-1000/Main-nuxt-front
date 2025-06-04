@@ -60,11 +60,11 @@ const prevSlide = () => {
 };
 
 const handleResize = () => {
-  sliderWidth.value = slider.value.offsetWidth;
+  sliderWidth.value = slider?.value.offsetWidth;
 };
 
 onMounted(() => {
-  sliderWidth.value = slider.value.offsetWidth;
+  sliderWidth.value = slider?.value.offsetWidth;
   window.addEventListener('resize', handleResize);
 });
 

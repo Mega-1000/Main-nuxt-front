@@ -9,7 +9,7 @@ interface Props {
   modal: Modal | null;
   contactModal: Modal | null;
   setupModals: () => void;
-  isStaff: boolean;
+  isStaff: boolean | false;
   showModal: boolean;
   subPage: boolean | null;
   styro: boolean | null;

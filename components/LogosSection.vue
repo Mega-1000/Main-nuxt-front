@@ -37,7 +37,7 @@ onMounted(() => {
 watch(displayLogos, updateSliderWidth)
 
 function updateSliderWidth() {
-  if (slider.value) {
+  if (slider?.value) {
     const sliderWidth = slider.value.scrollWidth
     slider.value.style.setProperty('--slider-width', `${sliderWidth / 2}px`)
   }

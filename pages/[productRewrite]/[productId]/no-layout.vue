@@ -112,7 +112,7 @@ onMounted(async () => {
   }
 
   const data:any = await shopApi.get('/api/staff/isStaff');
-  if (data.data) {
+  if (data && data.data) {
     await handleStaffUser();
   }
 });
@@ -139,7 +139,7 @@ const productAmount = useProductAmount();
 
 const handleCart = () => {
   const { cart: _cart, ...product } = currentItem.value;
-  productsCart.value.addToCart(product, productAmount.value);
+  productsCart.value?.addToCart(product, productAmount.value);
   modal.value?.hide();
 
   emmiter.emit("cart:change");

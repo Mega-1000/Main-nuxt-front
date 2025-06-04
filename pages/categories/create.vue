@@ -22,12 +22,12 @@ const fetchCategories = async () => {
     };
   });
 
-  categories.value.unshift({
+  categories.value?.unshift({
     label: "-- Wybierz kategorię --",
     value: "",
   });
 
-  categories.value = categories.value.concat(
+  categories.value = categories.value?.concat(
     data.flatMap((category) => {
       return category.children.map((child) => {
         return {
@@ -41,7 +41,7 @@ const fetchCategories = async () => {
   const deepLoop = (arr) => {
     arr.forEach((item) => {
       if (item.children) {
-        categories.value = categories.value.concat(
+        categories.value = categories.value?.concat(
           item.children.map((child) => {
             return {
               label: child.name,
