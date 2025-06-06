@@ -124,7 +124,7 @@ watch([itemsData], setupModals);
 const handleStaffUser = async () => {
   isStaff.value = true;
 
-    const categoryFirmName: string = currentProduct.value?.currentProduct?.name ?? '';
+    const categoryFirmName: string = currentProduct?.value?.currentProduct?.name ?? '';
     const matched = categoryFirmName.match(/-+([a-zA-Z]+-?[a-zA-Z]+ ?[a-zA-Z]*)/);
     let result = matched ? matched[1] : null;
 
@@ -141,9 +141,9 @@ const productsCart = useProductsCart();
 const productAmount = useProductAmount();
 
 const handleCart = () => {
-  const { cart: _cart, ...product } = currentItem.value;
-  productsCart.value?.addToCart(product, productAmount.value);
-  modal.value?.hide();
+  const { cart: _cart, ...product } = currentItem?.value;
+  productsCart.value?.addToCart(product, productAmount?.value);
+  modal?.value?.hide();
 
   emmiter.emit("cart:change");
 };
@@ -159,11 +159,11 @@ const selectedMediaId = useSelectedMediaId();
 
 const handleSubmit = async (e: Event) => {
   e.preventDefault();
-  loading.value = true;
+  loading?.value = true;
 
   try {
     const res = await shopApi.post("/api/chat/getUrl", {
-      mediaId: selectedMediaId.value,
+      mediaId: selectedMediaId?.value,
       postCode: postalCodeInput,
       email: emailInput,
       phone: phoneInput,
@@ -176,7 +176,7 @@ const handleSubmit = async (e: Event) => {
     cookies.set("phone", req.phone);
     errorMessage.value = null;
     window.open(res.data.url, "_blank");
-    contactModal.value?.hide();
+    contactModal?.value?.hide();
   } catch (err: any) {
     errorMessage.value =
         err?.response?.data?.errorMessage ||

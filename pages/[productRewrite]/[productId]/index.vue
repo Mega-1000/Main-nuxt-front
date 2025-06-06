@@ -126,7 +126,7 @@ onMounted(async () => {
 
   try {
     const { data } = await shopApi.get('/api/staff/isStaff');
-    if (data && data.data) {
+    if (data && data?.data) {
       await handleStaffUser();
     }
   } catch (e) {
@@ -138,7 +138,7 @@ watch([itemsData], setupModals);
 const handleStaffUser = async () => {
   isStaff.value = true;
 
-  const categoryFirmName: string = currentProduct.value?.currentProduct?.name;
+  const categoryFirmName: string = currentProduct?.value?.currentProduct?.name;
   // const matched = categoryFirmName.match(/-+([a-zA-Z]+-?[a-zA-Z]+ ?[a-zA-Z]*)/);
   // let result = matched ? matched[1] : null;
 
@@ -147,16 +147,16 @@ const handleStaffUser = async () => {
 }
 
 const handleCloseModal = () => {
-  modal.value?.hide();
-  currentItem.value = null;
+  modal?.value?.hide();
+  currentItem?.value = null;
 };
 
 const productsCart = useProductsCart();
 const productAmount = useProductAmount();
 
 const handleCart = () => {
-  productsCart.value.addToCart(JSON.parse(localStorage.getItem('currentItem') as string), productAmount.value);
-  modal.value?.hide();
+  productsCart.value.addToCart(JSON.parse(localStorage.getItem('currentItem') as string), productAmount?.value);
+  modal?.value?.hide();
 
   emmiter.emit("cart:change");
 };
@@ -182,14 +182,14 @@ const handleSubmit = async (e: Event) => {
       phone: phoneInput,
     });
 
-    let req = JSON.parse(res.config.data);
+    let req = JSON.parse(res?.config?.data);
     const cookies = new Cookies();
-    cookies.set("email", req.email);
-    cookies.set("post_code", req.postCode);
-    cookies.set("phone", req.phone);
+    cookies.set("email", req?.email);
+    cookies.set("post_code", req?.postCode);
+    cookies.set("phone", req?.phone);
     errorMessage.value = null;
-    window.open(res.data.url, "_blank");
-    contactModal.value?.hide();
+    window.open(res?.data?.url, "_blank");
+    contactModal?.value?.hide();
   } catch (err: any) {
     errorMessage.value =
       err?.response?.data?.errorMessage ||
