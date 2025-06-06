@@ -148,7 +148,7 @@ const handleStaffUser = async () => {
 
 const handleCloseModal = () => {
   modal?.value?.hide();
-  currentItem?.value = null;
+  currentItem.value = null;
 };
 
 const productsCart = useProductsCart();
