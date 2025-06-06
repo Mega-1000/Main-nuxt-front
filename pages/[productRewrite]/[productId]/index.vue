@@ -20,6 +20,8 @@ const currentCategoriesToDisplay = ref();
 const { data: currentProduct, pending: pending1 } = await useAsyncData(
   async () => {
     try {
+      var { params, query } = useRoute();
+      var { productId } = params;
       const res = await shopApi.get(`/api/products/categories?zip-code=${localStorage.getItem('zipCode')}`);
       const currentProduct = findActiveMenu(res.data, productId as string);
       let product = { ...currentProduct };
@@ -41,6 +43,8 @@ const { data: currentProduct, pending: pending1 } = await useAsyncData(
 const { data: categoryData, pending: pending2 } = await useAsyncData(
   async () => {
     try {
+    var { params, query } = useRoute();
+    var { productId } = params;
       const res = await shopApi.get(
         `/api/categories/details/search?category=${productId}`
       );
@@ -54,7 +58,8 @@ const { data: itemsData, pending: pending3 } = await useAsyncData(
     try {
       const currentPage = query?.page as string ?? 1;
       const zipCode = localStorage.getItem('zipCode');
-
+      var { params, query } = useRoute();
+      var { productId } = params;
       const res = await shopApi.get(
         `/api/products/categories/get?page=${currentPage}&per_page=10&category_id=${productId}&zipCode=${zipCode}`
       );
