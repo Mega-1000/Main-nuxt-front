@@ -412,7 +412,7 @@ const goToPage = async (val: number) => {
               </div>
               <!-- Modal body -->
               <div class="p-6 space-y-6 w-auto">
-                <CalculatorModal v-if="modal?.value?.isVisible()" />
+                <CalculatorModal v-if="modal.value?.isVisible()" />
               </div>
               <!-- Modal footer -->
               <div
