@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { defaultImgSrc } from "~~/helpers/buildImgRoute";
 import { useAutoAnimate } from '@formkit/auto-animate/vue'
+import { log } from "console";
 
 interface Props {
   description?: string;
@@ -23,6 +24,20 @@ const checkboxes = reactive({
   image: category?.currentProduct.save_image,
 });
 
+
+category.currentProduct.youtube = (category.currentProduct.youtube) ? category.currentProduct.youtube : [];
+const youtube = category.currentProduct.youtube;
+
+var addYoutubeField = () => {
+  if(youtube.length >= 9) return;
+  youtube.push({ link: '',description: '' });
+};
+
+var removeYoutubeItem = (item: any) => {
+  youtube.splice(youtube.indexOf(item), 1);
+};
+
+
 const [parent] = useAutoAnimate();
 const router = useRouter();
 
@@ -39,6 +54,7 @@ const saveImage = async (e: any) => {
 const saveNameAndDescription = () => {
   const name = formData.value.querySelector("h4")?.innerText;
   const description = formData.value.querySelector("p")?.innerText;
+console.log(youtube);
 
   setTimeout(() => {
     shopApi.post("api/update-category", {
@@ -47,7 +63,8 @@ const saveNameAndDescription = () => {
       category: category?.currentProduct.id,
       save_name: checkboxes.name,
       save_description: checkboxes.description,
-      save_image: checkboxes.image
+      save_image: checkboxes.image,
+      youtube: youtube
     });
   }, 5)
 }
@@ -90,6 +107,25 @@ const deleteCategory = async () => {
               <input @input="saveNameAndDescription" type="checkbox" v-model="checkboxes.image"> Zapisuj zdjęcie z csv
             </div>
           </div>
+          <div class="youtubeLinks">
+            <div class="mb-1" v-for="(field, index) in youtube">
+              <div>{{ (index+1) }}
+                <button class="my-4 rounded text-white px-2 bg-red-500" @click="removeYoutubeItem(field)">
+                  x
+                </button>
+              </div>
+              <div class="form-gorup"><input class="form-control" v-model="field.link" placeholder="Link"></div>
+              <div><textarea class="form-control" v-model="field.description" placeholder="Opis filmu"></textarea></div>
+              <hr>
+            </div>
+
+            <button class="my-4 rounded text-white px-4 py-2 bg-blue-500" @click="addYoutubeField">
+              Dodaj link
+            </button>
+            <button class="my-4 rounded text-white px-4 py-2 bg-green-500" @click="saveNameAndDescription">
+              Zapisz
+            </button>
+          </div>
           <div v-if="editImage">
             <form @submit.prevent="saveImage" class="mt-4 text-center border rounded">
               <div class="text-2xl mb-4">
@@ -103,6 +139,17 @@ const deleteCategory = async () => {
               </div>
             </form>
           </div>
+        </div>
+        <div v-else>
+            <div class="youtube-info" v-if="youtube">
+                <div class="item" v-for="(field, index) in youtube">
+                    <a :href="field.link" target="_blank" class="icon" v-if="field.link">
+                        <img src="/youtube-icon.svg">
+                        <div v-if="field.description" class="info" v-html="field.description.replace(/(?:\r\n|\r|\n)/g, '<br>')"></div>
+                    </a>
+                  
+                </div>
+            </div>
         </div>
       </div>
     </div>
@@ -118,9 +165,21 @@ const deleteCategory = async () => {
     object-fit: cover;
   }
 }
-
+.youtubeLinks hr{
+  margin: 15px 0;
+}
+.youtubeLinks input,
+.youtubeLinks textarea{
+  border-bottom: 1px solid #EEEEEE;
+  width: 100%;
+  padding: 10px 0;
+}
+.youtubeLinks textarea{
+  height: 80px;
+}
 img {
   max-width: 300px;
   max-height: 300px;
 }
+  
 </style>
