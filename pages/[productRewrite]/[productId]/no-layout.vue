@@ -159,7 +159,7 @@ const selectedMediaId = useSelectedMediaId();
 
 const handleSubmit = async (e: Event) => {
   e.preventDefault();
-  loading?.value = true;
+  loading.value = true;
 
   try {
     const res = await shopApi.post("/api/chat/getUrl", {
