@@ -2,6 +2,7 @@
 import { Modal } from "flowbite";
 import swal from 'sweetalert2';
 import EditProductSection from "~/components/product/EditProductSection.vue";
+import EditProductYoutubeLinks from "~/components/product/EditProductYoutubeLinks.vue";
 import emitter from "~/helpers/emitter";
 
 interface Props {
@@ -225,6 +226,8 @@ const decreaseFastAddToCartValue = () => {
             <div v-if="!isStaff" v-html="item?.description?.replaceAll('\n', '<br />')"></div>
             <textarea class="block h-[200px]" v-else @input="saveDescription" v-model="item.description">{{ item.description }}</textarea>
           </span>
+
+          <EditProductYoutubeLinks :item="item" :isStaff="isStaff" />
 
           <span class="text-lg" v-if="item.variation_group !== 'styropiany'">
             Ilość asortymentu wchodząca do jednej paczki: {{ item.assortment_quantity }}
