@@ -111,12 +111,9 @@ onMounted(async () => {
     isMainStyrofoamLobby.value = true;
   }
 
-  try {
-    const { data } = await shopApi.get('/api/staff/isStaff');
-    if (data && data.data) {
-      await handleStaffUser();
-    }
-  } catch (e) {
+  const data:any = await shopApi.get('/api/staff/isStaff');
+  if (data.data) {
+    await handleStaffUser();
   }
 });
 watch([itemsData], setupModals);
