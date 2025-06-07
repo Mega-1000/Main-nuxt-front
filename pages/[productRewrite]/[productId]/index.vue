@@ -129,13 +129,9 @@ onMounted(async () => {
     isMainStyrofoamLobby.value = true;
   }
 
-  try {
-    const { data } = await shopApi.get('/api/staff/isStaff');
-    if (data && data?.data) {
-      await handleStaffUser();
-    }
-  } catch (e) {
-    console.log('Staff error 1', e);
+  const data:any = await shopApi.get('/api/staff/isStaff');
+  if (data.data) {
+    await handleStaffUser();
   }
 });
 watch([itemsData], setupModals);
@@ -143,7 +139,7 @@ watch([itemsData], setupModals);
 const handleStaffUser = async () => {
   isStaff.value = true;
 
-  const categoryFirmName: string = currentProduct?.value?.currentProduct?.name;
+  const categoryFirmName: string = currentProduct.value?.currentProduct?.name;
   // const matched = categoryFirmName.match(/-+([a-zA-Z]+-?[a-zA-Z]+ ?[a-zA-Z]*)/);
   // let result = matched ? matched[1] : null;
 
